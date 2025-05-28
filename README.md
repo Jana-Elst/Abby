@@ -1,6 +1,5 @@
 # 🧐 What is this!?
-Integration 4 - school project
-A project for Abby
+Integration 4 - school project in collab with Abby (Kortrijk)
 
 ## 🧠 Moedige poging a.k.a our team
 ### UX
