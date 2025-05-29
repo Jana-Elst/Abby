@@ -16,23 +16,21 @@ server.listen(port, () => {
     console.log(`App listening on port ${port}`)
 })
 
-// ------------------------ webSocket Server functions ------------------------ //
-//dit aanpassen dat er een messag naar 1 kan gestuurd worden
-// This function broadcasts messages to all webSocket clients
-// const broadcast = (data) => {
-//     clients.forEach(client => {
-//         client.socket.send(JSON.stringify(data));
-//     });
-// };
-
 wss.on('connection', (socket, request) => {
     const ip = request.socket.remoteAddress;
     console.log("New Connection from", ip);
     clients.push({ socket, address: ip });
 
     socket.on(`message`, message => {
-        console.log(`Received message from ${ip}: ${message}`);
-        // broadcast({ from: ip, message: message.toString() });
+        const data = JSON.parse(message);
+        console.log(`Received message from ${ip}: ${data.value}`);
+
+        // forward the message to all other clients EXCEPT the sender
+        if (data.type === 'button') {
+            clients.forEach(client => {
+                client.socket.send(data.value);
+            });
+        }
     });
 
     socket.on(`close`, () => {

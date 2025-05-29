@@ -1,33 +1,19 @@
-#include "arduino_secrets.h"
-
 /*
-  WebSocket client for ArduinoHttpClient library
-  Connects to the WebSocket server, reads a sensor once
-  every five seconds, and sends a message with the reading.
-  Based on Sandeep Mistry's SimpleWebSocket example.
-  Uses the following libraries:
   http://librarymanager/All#ArduinoHttpClient.h
   http://librarymanager/All#WiFiNINA.h  for Nano 33 IoT, MKR1010
-  or
-  http://librarymanager/All#WiFi101.h  for MKR1000
-  
-  for more detail see the readme.md page. 
-  
-  created 11 Nov 2021
-  updated 26 Feb 2023
-  by Tom Igoe
 */
 
 #include <ArduinoHttpClient.h>
 #include <WiFiNINA.h>  // use this for MKR1010 and Nano 33 IoT
 #include "arduino_secrets.h"
+#include <ArduinoJson.h>
 
 // settings for a local test with websockets on your own server:
 // set up a WiFi client (not using SSL):
 WiFiClient wifi;
-char serverAddress[] = "192.168.129.2"; // fill in your computer's IP address
-int port = 3000;        // port that websockets is running on
-char endpoint[] = "/";  // you can also leave this blank for websocketd
+char serverAddress[] = "192.168.129.2";
+int port = 3000;
+char endpoint[] = "/";
 
 // initialize the webSocket client
 WebSocketClient client = WebSocketClient(wifi, serverAddress, port);
@@ -48,16 +34,14 @@ void setup() {
     WiFi.begin(SECRET_SSID, SECRET_PASS);
   }
 
-  // print the SSID of the network you're attached to:
+  //print board info 
   Serial.print("SSID: ");
   Serial.println(WiFi.SSID());
-
-  // print your board's IP address:
+  
   IPAddress ip = WiFi.localIP();
   Serial.print("IP Address: ");
   Serial.println(ip);
-  // If there's an API endpoint to connect to, add it here.
-  // leave blank if there's no endpoint:
+  
   client.begin(endpoint);
 }
 
@@ -73,24 +57,22 @@ void loop() {
 
   if (millis() - lastSend > interval) {
     // read sensor:
-    int sensor = analogRead(A0);
-    // format the message as JSON string:
-    String message = "{\"sensor\": READING}";
-    // replace READING with the reading:
-    message.replace("READING", String(sensor));
+    //int sensor = analogRead(A0);
+    String message = "{\"sensor\": \"HEY\"}";
     // send the message:
+    
     client.beginMessage(TYPE_TEXT);
     client.print(message);
     client.endMessage();
+    
     Serial.print("sending: ");
     Serial.println(message);
     // update the timestamp:
     lastSend = millis();
   }
-
+  
   // check if a message is available to be received
   int messageSize = client.parseMessage();
-  // if there's a string with length > 0:
   if (messageSize > 0) {
     Serial.print("Received a message:");
     Serial.println(client.readString());
