@@ -1,23 +1,49 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '../supabaseClient'
-import Auth from '../components/Auth'
-import Account from '../components/Reg'
+import { Auth } from '@supabase/auth-ui-react'
+import { ThemeSupa } from "@supabase/auth-ui-shared";
 
 const AccountPage = () => {
-    const [session, setSession] = useState(null)
+    const [session, setSession] = useState(null);
+
     useEffect(() => {
         supabase.auth.getSession().then(({ data: { session } }) => {
-            setSession(session)
-        })
-        supabase.auth.onAuthStateChange((_event, session) => {
-            setSession(session)
-        })
-    }, [])
-    return (
-        <div className="container" style={{ padding: '50px 0 100px 0' }}>
-            {!session ? <Auth /> : <Account key={session.user.id} session={session} />}
-        </div>
-    )
+            setSession(session);
+        });
+
+        const {
+            data: { subscription },
+        } = supabase.auth.onAuthStateChange((_event, session) => {
+            setSession(session);
+        });
+
+        return () => subscription.unsubscribe();
+    }, []);
+
+    async function signOut() {
+        const { error } = await supabase.auth.signOut();
+        console.log(error);
+    }
+
+    if (!session) {
+        return (
+            <>
+                <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} />
+            </>
+        );
+    } else {
+        return (
+            <>
+                <div>User Logged in!</div>
+                <button
+                    onClick={() => {signOut();}}
+                >
+                    sign out
+                </button>
+            </>
+        );
+    }
+
 };
 
 export default AccountPage;
