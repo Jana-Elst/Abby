@@ -1,53 +1,46 @@
-/*
-WebSocket server example
+//source: https://github.com/tigoe/websocket-examples/tree/main
 
-This server does not serve any HTML, or respond to
-HTTP requests, only websocket requests. 
+// ------------------------ webSocket Server setup ------------------------ //
+const express = require('express')
+const app = express()
+const http = require('http');
+const server = http.createServer(app);
+const { Server } = require('ws');
+const wss = new Server({ server });
+const port = 3000;
 
-created 11 Nov 2017
-modified 26 Feb 2023
-by Tom Igoe
-*/
-var WebSocketServer = require('ws').Server;   // webSocket library
+let clients = [];         // list of client connections
 
-// configure the webSocket server:
-const wssPort = 3000;             // port number for the webSocket server
-const wss = new WebSocketServer({ port: wssPort }); // the webSocket server
-var clients = new Array;         // list of client connections
+app.use(express.static('public'))
+server.listen(port, () => {
+    console.log(`App listening on port ${port}`)
+})
 
-
-// ------------------------ webSocket Server functions
-function handleConnection(client, request) {
-    console.log("New Connection");        // you have a new client
-    clients.push(client);    // add this client to the clients array
-
-    function endClient() {
-        // when a client closes its connection
-        // get the client's position in the array
-        // and delete it from the array:
-        var position = clients.indexOf(client);
-        clients.splice(position, 1);
-        console.log("connection closed");
-    }
-
-    // if a client sends a message, print it out:
-    function clientResponse(data) {
-        console.log(request.connection.remoteAddress + ': ' + data);
-        broadcast(request.connection.remoteAddress + ': ' + data);
-    }
-
-    // set up client event listeners:
-    client.on('message', clientResponse);
-    client.on('close', endClient);
-}
-
+// ------------------------ webSocket Server functions ------------------------ //
+//dit aanpassen dat er een messag naar 1 kan gestuurd worden
 // This function broadcasts messages to all webSocket clients
-function broadcast(data) {
-    // iterate over the array of clients & send data to each
-    for (c in clients) {
-        clients[c].send(JSON.stringify(data));
-    }
-}
+// const broadcast = (data) => {
+//     clients.forEach(client => {
+//         client.socket.send(JSON.stringify(data));
+//     });
+// };
 
-// listen for clients and handle them:
-wss.on('connection', handleConnection);
+wss.on('connection', (socket, request) => {
+    const ip = request.socket.remoteAddress;
+    console.log("New Connection from", ip);
+    clients.push({ socket, address: ip });
+
+    socket.on(`message`, message => {
+        console.log(`Received message from ${ip}: ${message}`);
+        // broadcast({ from: ip, message: message.toString() });
+    });
+
+    socket.on(`close`, () => {
+        //remove client from list
+        const index = clients.findIndex(c => c.socket === socket);
+        if (index !== -1) {
+            clients.splice(index, 1);
+            console.log(`Connection closed for ${ip}`);
+        }
+    });
+})
