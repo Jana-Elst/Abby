@@ -33,7 +33,7 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          cache-dependency-path: Code/client/package-lock.json
+          cache-dependency-path: Code/client
           node-version: 20
           cache: 'npm'
       - name: Install dependencies
