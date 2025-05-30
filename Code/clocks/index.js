@@ -58,9 +58,14 @@ wss.on('connection', (socket, request) => {
     });
 })
 
-const sendMessageToOneArduino = (id, message) => {
+const sendMessageToOneArduino = (id, clockNumber) => {
     if (arduinos.length >= id) {
         const arduino = arduinos[id - 1];
+        const message = JSON.stringify({
+            number: clockNumber,
+            name: 'naam activiteit'
+        })
+
         console.log("send message to", arduino.address);
         arduino.socket.send(message);
     }

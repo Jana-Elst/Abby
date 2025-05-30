@@ -1,15 +1,30 @@
+/*--- pin setup ---*/
 /*
-  http://librarymanager/All#ArduinoHttpClient.h
-  http://librarymanager/All#WiFiNINA.h  for Nano 33 IoT, MKR1010
+Red led: D2
+Green led: D3
+Yellow led: D4
 */
 
+#include <ArduinoJson.h>
 #include <ArduinoHttpClient.h>
 #include <WiFiNINA.h>  // use this for MKR1010 and Nano 33 IoT
 #include "arduino_secrets.h"
-#include <ArduinoJson.h>
 
-// settings for a local test with websockets on your own server:
-// set up a WiFi client (not using SSL):
+//global variables
+int receivedNumber = 0;
+int currentNumber = 0;
+String receivedTitle = "";
+
+bool led_red = false;
+bool led_green = false;
+bool led_yellow = false;
+
+//pins
+const int LED_RED = 2;
+const int LED_GREEN = 3;
+const int LED_YELLOW = 4;
+
+//local websocket setup
 WiFiClient wifi;
 char serverAddress[] = "192.168.129.2";
 int port = 3000;
@@ -43,10 +58,16 @@ void setup() {
   Serial.println(ip);
   
   client.begin(endpoint);
+  
+  sendTypeJson();
+
+  pinMode(LED_RED, OUTPUT);
+  pinMode(LED_GREEN, OUTPUT);
+  pinMode(LED_YELLOW, OUTPUT);
 }
 
 void loop() {
-  // if not connected to the socket server, try to connect:
+   // if not connected to the socket server, try to connect:
   if (!client.connected()) {
     client.begin();
     delay(1000);
@@ -56,17 +77,55 @@ void loop() {
   }
 
   if (millis() - lastSend > interval) {
-    sendTypeJson();
     // update the timestamp:
+    sendTypeJson();
     lastSend = millis();
   }
-  
-  // check if a message is available to be received
+
   int messageSize = client.parseMessage();
   if (messageSize > 0) {
-    Serial.print("Received a message:");
-    Serial.println(client.readString());
+    String message = client.readString();
+    readIncomingJson(message);
   }
+
+  //toggle leds
+    if (receivedNumber == 1) {
+      Serial.println("red on");
+      led_red = !led_red;
+      digitalWrite(LED_RED, led_red);
+      receivedNumber = 0;
+    }
+
+    if (receivedNumber == 3) {
+      led_green = !led_green;
+      digitalWrite(LED_GREEN, led_green);
+      receivedNumber = 0;
+    }
+
+    if (receivedNumber == 2) {
+      led_yellow = !led_yellow;
+      digitalWrite(LED_YELLOW, led_yellow);
+      receivedNumber = 0;
+    }
+}
+
+void readIncomingJson(String json) {
+    StaticJsonDocument<200> doc;
+    DeserializationError error = deserializeJson(doc, json);
+    if (error)
+    {
+      Serial.print(F("deserializeJson() failed: "));
+      Serial.println(error.f_str());
+      return;
+    }
+
+    receivedNumber = doc["number"];
+    receivedTitle = doc["name"].as<String>();
+
+    Serial.print("Received number: ");
+    Serial.println(receivedNumber);
+    Serial.print("Received title: ");
+    Serial.println(receivedTitle);    
 }
 
 void sendTypeJson() {
