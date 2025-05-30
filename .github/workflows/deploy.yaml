@@ -33,19 +33,20 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
+          cache-dependency-path: Code/client/package-lock.json
           node-version: 20
           cache: 'npm'
       - name: Install dependencies
-        run: cd Code/client npm ci
+        run: npm ci
       - name: Build
-        run: cd Code/client npm run build
+        run: npm run build
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload dist folder
-          path: './Code/client/dist'
+          path: './dist'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
