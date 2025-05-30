@@ -22,7 +22,7 @@ concurrency:
   
 defaults:
       run:
-        working-directory: ./Code/client
+        working-directory: ./client
 
 jobs:
   # Single deploy job since we're just deploying
