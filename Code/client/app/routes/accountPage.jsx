@@ -2,8 +2,19 @@ import { useState, useEffect } from 'react'
 import { supabase } from '../supabaseClient'
 import { Auth } from '../../node_modules/@supabase/auth-ui-react/dist'
 import { ThemeSupa } from "@supabase/auth-ui-shared";
+import AccountClocks from '../components/accountClocks';
+import { getUserClocks } from '../services/data';
 
-const AccountPage = () => {
+export async function clientLoader(){
+    const { data: { user } } = await supabase.auth.getUser()
+    const userId = user.id;
+    const userClocks = await getUserClocks(userId)
+    console.log(userClocks);
+    return {userClocks};
+}
+
+const AccountPage = ({loaderData}) => {
+    const {userClocks} = loaderData
     const [session, setSession] = useState(null);
 
     useEffect(() => {
@@ -35,6 +46,7 @@ const AccountPage = () => {
         return (
             <>
                 <div>User Logged in!</div>
+                <AccountClocks userClocks={userClocks} />
                 <button
                     onClick={() => { signOut(); }}
                 >
