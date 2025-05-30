@@ -1,12 +1,13 @@
 import { NavLink } from "react-router";
 
-const HomeRoute = () => {
-  return (
-    <nav>
-      <NavLink to="/campaign">Campaign</NavLink>
-      <NavLink to="/arduino">Arduino</NavLink>
-    </nav>
-  )
+const Home = () => {
+    return (
+        <>
+            <p>campaign</p>
+            <NavLink to="/account">account</NavLink>
+        </>
+
+    )
 };
 
-export default HomeRoute;
+export default Home;
