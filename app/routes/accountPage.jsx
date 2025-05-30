@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '../supabaseClient'
-import { Auth } from '../../node_modules/@supabase/auth-ui-react/dist'
+import { Auth } from '@supabase/auth-ui-react'
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import AccountClocks from '../components/accountClocks';
 import { getUserClocks } from '../services/data';
