@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '../supabaseClient'
-import { Auth } from '@supabase/auth-ui-react'
+import { Auth } from '../../node_modules/@supabase/auth-ui-react/dist'
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 
 const AccountPage = () => {
@@ -36,7 +36,7 @@ const AccountPage = () => {
             <>
                 <div>User Logged in!</div>
                 <button
-                    onClick={() => {signOut();}}
+                    onClick={() => { signOut(); }}
                 >
                     sign out
                 </button>
