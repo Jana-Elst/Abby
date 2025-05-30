@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# Arduino
+arduino_secrets.h
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
