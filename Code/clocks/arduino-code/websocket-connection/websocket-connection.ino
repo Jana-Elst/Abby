@@ -56,17 +56,7 @@ void loop() {
   }
 
   if (millis() - lastSend > interval) {
-    // read sensor:
-    //int sensor = analogRead(A0);
-    String message = "{\"sensor\": \"HEY\"}";
-    // send the message:
-    
-    client.beginMessage(TYPE_TEXT);
-    client.print(message);
-    client.endMessage();
-    
-    Serial.print("sending: ");
-    Serial.println(message);
+    sendTypeJson();
     // update the timestamp:
     lastSend = millis();
   }
@@ -77,4 +67,19 @@ void loop() {
     Serial.print("Received a message:");
     Serial.println(client.readString());
   }
+}
+
+void sendTypeJson() {
+  DynamicJsonDocument doc(256);
+  doc["type"] = "arduino";
+
+  String message;
+  serializeJson(doc, message);
+
+  client.beginMessage(TYPE_TEXT);
+  client.print(message);
+  client.endMessage();
+    
+  Serial.print("sending: ");
+  Serial.println(message);
 }

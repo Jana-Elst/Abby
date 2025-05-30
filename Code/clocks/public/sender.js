@@ -1,16 +1,18 @@
-const $button = document.querySelector('.button');
+const $buttons = document.querySelectorAll('.button');
 const socket = new WebSocket('ws://' + window.location.host);
 
-const handleClick = () => {
-    console.log('klik');
+const handleClick = (button) => {
+    console.log(button.dataset.id);
     socket.send(JSON.stringify({
         type: "button",
-        value: "LED_ON"
+        value: `${button.dataset.id}`
     }));
 }
 
 const init = () => {
-    $button.addEventListener('click', handleClick);
+    $buttons.forEach(button => {
+        button.addEventListener('click', () => handleClick(button));
+    });
 }
 
 init();

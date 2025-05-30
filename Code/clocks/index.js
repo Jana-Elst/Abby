@@ -9,7 +9,16 @@ const { Server } = require('ws');
 const wss = new Server({ server });
 const port = 3000;
 
-let clients = [];         // list of client connections
+// ------------------------ aray with all clients (= objects) ------------------------ //
+/*
+object structure example
+{
+socket:
+ip: 123.123.123
+}
+*/
+let clients = [];
+let arduinos = [];
 
 app.use(express.static('public'))
 server.listen(port, () => {
@@ -23,13 +32,19 @@ wss.on('connection', (socket, request) => {
 
     socket.on(`message`, message => {
         const data = JSON.parse(message);
-        console.log(`Received message from ${ip}: ${data.value}`);
+        console.log(`Received message from ${ip}: ${data.type}`);
 
-        // forward the message to all other clients EXCEPT the sender
+        //identify arduino clients
+        if (data.type === 'arduino') {
+            const arduino = clients.find(client => client.address === ip);
+            if (arduino && !arduinos.some(a => a.address === ip)) {
+                arduinos.push(arduino);
+            }
+        }
+
         if (data.type === 'button') {
-            clients.forEach(client => {
-                client.socket.send(data.value);
-            });
+            const message = data.value.split('.');
+            sendMessageToOneArduino(message[0], message[1])
         }
     });
 
@@ -42,3 +57,11 @@ wss.on('connection', (socket, request) => {
         }
     });
 })
+
+const sendMessageToOneArduino = (id, message) => {
+    if (arduinos.length >= id) {
+        const arduino = arduinos[id - 1];
+        console.log("send message to", arduino.address);
+        arduino.socket.send(message);
+    }
+}
