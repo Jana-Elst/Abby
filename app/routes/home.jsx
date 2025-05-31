@@ -1,6 +1,6 @@
 import { NavLink } from "react-router";
 
-const HomeCampaignRoute = () => {
+const Home = () => {
     return (
         <>
             <p>campaign</p>
@@ -10,4 +10,4 @@ const HomeCampaignRoute = () => {
     )
 };
 
-export default HomeCampaignRoute;
+export default Home;
