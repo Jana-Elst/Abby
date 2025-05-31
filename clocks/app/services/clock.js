@@ -1,0 +1,36 @@
+const totalClocks = 6;
+const clocksPerArduino = 3;
+const occupiedClocks = [];
+let freeClocks = []
+
+//make an array of all the free clocks
+const addFreeClocks = () => {
+    for (let i = 1; i <= totalClocks; i++) {
+        if (!occupiedClocks.includes(i)) {
+            freeClocks.push(i);
+        }
+    }
+    console.log(freeClocks);
+}
+
+//get a random clock from the free clocks
+export const clockNumber = () => {
+    addFreeClocks();
+    const clockId = Math.floor(Math.random() * freeClocks.length);
+    const clock = freeClocks[clockId];
+    return clock;
+}
+
+//create the code for the right arduino
+//Each arduino controls 3 clocks
+export const arduinoCode = (clockNumber) => {
+    console.log('clockNumber', clockNumber);
+    const arduinoId = Math.ceil(clockNumber / clocksPerArduino);
+    let clockId = clockNumber % 3;
+    if (clockId === 0) {
+        clockId = clocksPerArduino;
+    }
+
+    console.log('code', arduinoId, clockId);
+    return `${arduinoId}.${clockId}`;
+}

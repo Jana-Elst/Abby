@@ -7,6 +7,8 @@ import {
   ScrollRestoration,
 } from "react-router";
 
+import React, { useState } from 'react';
+import { clockNumber } from "./services/clock";
 
 export function Layout({ children }) {
   return (
@@ -42,10 +44,14 @@ const sendWhenOpen = (text) => {
   }
 }
 
+const clock = clockNumber();
+
+
 export default function App() {
   ws = new WebSocket('ws://localhost:3000/');
   sendWhenOpen('connected!');
-  return <Outlet context={ws} />;
+  console.log('jouw toegewezen klok is:', clock);
+  return <Outlet context={{ ws, clock }} />;
 }
 
 export function ErrorBoundary({ error }) {
