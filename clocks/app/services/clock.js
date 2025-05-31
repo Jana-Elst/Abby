@@ -34,3 +34,15 @@ export const arduinoCode = (clockNumber) => {
     console.log('code', arduinoId, clockId);
     return `${arduinoId}.${clockId}`;
 }
+
+//send JSON to server
+export const sendToServer = (ws, clock, value) => {
+    const codeArduino = arduinoCode(clock);
+
+    ws.send(JSON.stringify({
+        device: "arduino",
+        target: codeArduino,
+        value: value
+    }));
+    console.log('send', value);
+}
