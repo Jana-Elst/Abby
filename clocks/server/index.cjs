@@ -66,7 +66,7 @@ const sendMessageToOneArduino = (id, clockNumber, values) => {
         const arduino = arduinos[id - 1];
         const message = JSON.stringify({
             number: clockNumber,
-            hello: values
+            message: values
         })
 
         console.log(values);
