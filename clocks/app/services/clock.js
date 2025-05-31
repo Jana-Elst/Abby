@@ -1,4 +1,4 @@
-const totalClocks = 6;
+const totalClocks = 3;
 const clocksPerArduino = 3;
 const occupiedClocks = [];
 let freeClocks = []
@@ -40,6 +40,7 @@ export const sendToServer = (ws, clock, value) => {
     const codeArduino = arduinoCode(clock);
 
     ws.send(JSON.stringify({
+        type: 'messageToArduino',
         device: "arduino",
         target: codeArduino,
         value: value

@@ -20,6 +20,7 @@ ip: 123.123.123
 let clients = [];
 let arduinos = [];
 
+// ------------------------ server setup ------------------------ //
 app.use(express.static('public'))
 server.listen(port, () => {
     console.log(`App listening on port ${port}`)
@@ -32,9 +33,10 @@ wss.on('connection', (socket, request) => {
 
     socket.on(`message`, message => {
         const data = JSON.parse(message);
-        console.log(`Received message from ${ip}: ${data.type} ${data.value}`);
+        console.log(`Received message from ${ip}: ${data.device} ${data.value}`);
 
-        //identify arduino clients
+        // --- sending & receiving messages --- //
+        //identify arduino clients and push them in a an other array
         if (data.type === 'arduino') {
             const arduino = clients.find(client => client.address === ip);
             if (arduino && !arduinos.some(a => a.address === ip)) {
@@ -42,9 +44,9 @@ wss.on('connection', (socket, request) => {
             }
         }
 
-        if (data.type === 'button') {
-            const message = data.value.split('.');
-            sendMessageToOneArduino(message[0], message[1])
+        if (data.type === 'messageToArduino') {
+            const message = data.target.split('.');
+            sendMessageToOneArduino(message[0], message[1], data.value);
         }
     });
 
@@ -58,15 +60,17 @@ wss.on('connection', (socket, request) => {
     });
 })
 
-const sendMessageToOneArduino = (id, clockNumber) => {
+// ------------------------ extra functions ------------------------ //
+const sendMessageToOneArduino = (id, clockNumber, values) => {
     if (arduinos.length >= id) {
         const arduino = arduinos[id - 1];
         const message = JSON.stringify({
             number: clockNumber,
-            name: 'naam activiteit'
+            hello: values
         })
 
-        console.log("send message to", arduino.address);
+        console.log(values);
+        console.log("send message to", arduino.address, message);
         arduino.socket.send(message);
     }
 }
