@@ -2,7 +2,6 @@ import Hamburger from "./hamburger";
 import { useState } from 'react';
 import { NavLink } from "react-router";
 
-
 export default function Nav() {
     const [hamburgerOpen, setHamburgerOpen] = useState(true);
 

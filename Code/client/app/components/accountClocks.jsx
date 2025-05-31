@@ -1,5 +1,6 @@
 import ClockItem from "./clockItem";
-const AccountClocks = ({userClocks = []}) => {
+
+const AccountClocks = ({userClocks}) => {
     return (
         <div>
             {userClocks.length ? (
