@@ -32,7 +32,7 @@ wss.on('connection', (socket, request) => {
 
     socket.on(`message`, message => {
         const data = JSON.parse(message);
-        console.log(`Received message from ${ip}: ${data.type}`);
+        console.log(`Received message from ${ip}: ${data.type} ${data.value}`);
 
         //identify arduino clients
         if (data.type === 'arduino') {
@@ -70,5 +70,3 @@ const sendMessageToOneArduino = (id, clockNumber) => {
         arduino.socket.send(message);
     }
 }
-
-//

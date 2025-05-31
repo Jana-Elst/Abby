@@ -1,0 +1,34 @@
+{
+  "name": "routagram",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "react-router build",
+    "dev": "react-router dev",
+    "start": "node ./server/index.cjs",
+    "typecheck": "react-router typegen && tsc"
+  },
+  "dependencies": {
+    "@react-router/node": "*",
+    "@react-router/serve": "*",
+    "isbot": "^5.1.23",
+    "lucide-react": "^0.479.0",
+    "open-props": "^1.7.13",
+    "react": "^19.0.0",
+    "react-aria-components": "^1.7.0",
+    "react-dom": "^19.0.0",
+    "react-router": "*",
+    "ws": "^8.18.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.17.0",
+    "@react-router/dev": "*",
+    "eslint": "^9.17.0",
+    "eslint-plugin-react": "^7.37.2",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "eslint-plugin-react-refresh": "^0.4.16",
+    "globals": "^15.14.0",
+    "react-router-devtools": "^1.1.6",
+    "vite": "^6.2.1"
+  }
+}
