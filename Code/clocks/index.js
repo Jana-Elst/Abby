@@ -70,3 +70,5 @@ const sendMessageToOneArduino = (id, clockNumber) => {
         arduino.socket.send(message);
     }
 }
+
+//
