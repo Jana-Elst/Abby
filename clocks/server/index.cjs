@@ -9,6 +9,15 @@ const { Server } = require('ws');
 const wss = new Server({ server });
 const port = 3000;
 
+//supabase import
+const { createClient } = require('@supabase/supabase-js');
+require('dotenv').config();
+
+const supabase = createClient(
+    process.env.VITE_API_BASE_URL,
+    process.env.VITE_API_KEY
+)
+
 // ------------------------ aray with all clients (= objects) ------------------------ //
 /*
 object structure example
@@ -74,3 +83,20 @@ const sendMessageToOneArduino = (id, clockNumber, values) => {
         arduino.socket.send(message);
     }
 }
+
+// ------------------------ get info from server ------------------------ //
+//getData (1 time)
+const getDataFromServer = async() => {
+    try {
+        let query = supabase.from('clocks').select('id, name, description, startTime, clockWallPos').not('clockWallPos', 'is', null);
+        let { data, error } = await query;
+        console.log(data);
+
+        return data
+    } catch (error) {
+        console.error("Error fetching user clocks:", error);
+        throw error;
+    }
+}
+
+getDataFromServer();
