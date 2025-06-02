@@ -1,7 +1,12 @@
+import { Link } from "react-router";
+
+
 const CreateClocks = () => {
+   
     return (
         <>
-            <p>campaign</p>
+            <p>create a clock</p>
+            <Link to={"/maak-activiteit"}>create a new clock</Link>
         </>
 
     )

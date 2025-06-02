@@ -1,4 +1,4 @@
-import { supabase } from '../supabaseClient'
+import { supabase } from '../supabaseClient';
 import { getUserClocks } from '../services/data';
 import AccountClocks from '../components/accountClocks';
 import { NavLink } from 'react-router';
