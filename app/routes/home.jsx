@@ -4,7 +4,7 @@ const Home = () => {
     return (
         <>
             <p>campaign</p>
-            <NavLink to="/account">account</NavLink>
+            <NavLink to={`${import.meta.env.BASE_URL}account`}>account</NavLink>
         </>
 
     )
