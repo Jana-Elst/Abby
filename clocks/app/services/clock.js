@@ -1,7 +1,7 @@
 const totalClocks = 3;
 const clocksPerArduino = 3;
 const occupiedClocks = [];
-let freeClocks = []
+let freeClocks = [];
 
 //make an array of all the free clocks
 const addFreeClocks = () => {

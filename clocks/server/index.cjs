@@ -35,6 +35,20 @@ server.listen(port, () => {
     console.log(`App listening on port ${port}`)
 })
 
+// ------------------------ server setup ------------------------ //
+const channelA = supabase
+    .channel('schema-db-changes')
+    .on(
+        'postgres_changes',
+        {
+            event: '*',
+            schema: 'public',
+        },
+        (payload) => console.log(payload)
+    )
+    .subscribe()
+
+// ------------------------ if server is connected / receive and send messages ------------------------ //
 wss.on('connection', (socket, request) => {
     const ip = request.socket.remoteAddress;
     console.log("New Connection from", ip);
@@ -86,7 +100,7 @@ const sendMessageToOneArduino = (id, clockNumber, values) => {
 
 // ------------------------ get info from server ------------------------ //
 //getData (1 time)
-const getDataFromServer = async() => {
+const getDataFromServer = async () => {
     try {
         let query = supabase.from('clocks').select('id, name, description, startTime, clockWallPos').not('clockWallPos', 'is', null);
         let { data, error } = await query;
@@ -99,4 +113,4 @@ const getDataFromServer = async() => {
     }
 }
 
-getDataFromServer();
+// getDataFromServer();
