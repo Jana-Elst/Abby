@@ -10,7 +10,7 @@ export default [
     layout("layouts/header.jsx", [
       index("routes/home.jsx"),
       route("/mijn-activiteiten", "routes/myClocks.jsx"),
-      route("/log-in", "routes/AccountPage.jsx"),
+      route("/log-in", "routes/accountPage.jsx"),
       route("/alle-activiteiten", "routes/allClocks.jsx"),
       route("/activiteit-maken", "routes/createClocks.jsx"),
       route("/activiteit/:activiteitId", "routes/detailClock.jsx"),
