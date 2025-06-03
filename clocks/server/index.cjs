@@ -43,6 +43,7 @@ const channelA = supabase
         {
             event: '*',
             schema: 'public',
+            table: 'clocks',
         },
         (payload) => console.log(payload)
     )
