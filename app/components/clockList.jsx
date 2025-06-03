@@ -1,20 +1,19 @@
 import ClockItem from "./clockItem";
-
-const AccountClocks = ({userClocks}) => {
+const ClockList= ({clocks = []}) => {
     return (
         <div>
-            {userClocks.length ? (
+            {clocks.length ? (
                 <ul>
-                    {userClocks.map((clock) => (
+                    {clocks.map((clock) => (
                         <ClockItem key={clock.id} clock={clock}/>
                     ))}
                 </ul>
             ): (
-                <p> no clocks saved yet </p>
+                <p> no clocks yet </p>
             )}
 
         </div>
     )
 };
 
-export default AccountClocks;
+export default ClockList;

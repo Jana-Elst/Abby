@@ -1,13 +1,25 @@
-import { NavLink } from "react-router";
 
-const Home = () => {
+import ClockList from "../components/clockList";
+import { getMuseumClocks } from "../services/data";
+
+export async function clientLoader(){
+    const museumClocks = await getMuseumClocks();
+    console.log(museumClocks);
+    
+    return {museumClocks};
+}
+
+
+const HomeCampaignRoute = ({ loaderData }) => {
+    const { museumClocks } = loaderData
+
     return (
         <>
             <p>campaign</p>
-            <NavLink to={`${import.meta.env.BASE_URL}account`}>account</NavLink>
+            <ClockList clocks={museumClocks}/>
         </>
 
     )
 };
 
-export default Home;
+export default HomeCampaignRoute;
