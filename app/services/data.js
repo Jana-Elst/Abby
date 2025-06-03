@@ -40,3 +40,4 @@ export async function addClock(userId, activity, description) {
         throw error;
     }
 }
+

@@ -3,6 +3,7 @@ const ClockItem = ({clock}) => {
        <li>
         <p>{clock.name}</p>
         <p>{clock.startTime}</p>
+
        </li>
     )
 };
