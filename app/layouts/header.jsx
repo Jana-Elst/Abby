@@ -1,5 +1,5 @@
 import {Outlet} from "react-router";
-import Nav from "../components/nav";
+import Nav from "../components/header/nav";
 
 const Header = () => {
     return (
