@@ -2,20 +2,11 @@ import { useState, useEffect } from 'react'
 import { supabase } from '../supabaseClient'
 import { Auth } from '@supabase/auth-ui-react'
 import { ThemeSupa } from "@supabase/auth-ui-shared";
-import AccountClocks from '../components/accountClocks';
-import { getUserClocks } from '../services/data';
+import { NavLink } from 'react-router';
 
-export async function clientLoader(){
-    const { data: { user } } = await supabase.auth.getUser()
-    const userId = user.id;
-    const userClocks = await getUserClocks(userId)
-    console.log(userClocks);
-    return {userClocks};
-}
-
-const AccountPage = ({loaderData}) => {
-    const {userClocks} = loaderData
+const AccountPage = () => {
     const [session, setSession] = useState(null);
+
 
     useEffect(() => {
         supabase.auth.getSession().then(({ data: { session } }) => {
@@ -45,17 +36,18 @@ const AccountPage = ({loaderData}) => {
     } else {
         return (
             <>
-                <div>User Logged in!</div>
-                <AccountClocks userClocks={userClocks} />
+                <div>you are logged in</div>
+                <div></div>
+
                 <button
                     onClick={() => { signOut(); }}
                 >
                     sign out
                 </button>
+                <NavLink to={'/mijn-activiteiten'}>continue to see your stuff</NavLink>
             </>
         );
     }
-
 };
 
 export default AccountPage;
