@@ -21,7 +21,7 @@ const MyClocks = ({ loaderData }) => {
         return (
             <>
                 <AccountClocks userClocks={userClocks} />
-                <NavLink to={"/log-in"}>account</NavLink>
+                <NavLink to={`${import.meta.env.BASE_URL}log-in`}>account</NavLink>
             </>
 
         )
@@ -29,7 +29,7 @@ const MyClocks = ({ loaderData }) => {
         return (
             <>
                 <p>log in to see your clocks</p>
-                <NavLink to={"/log-in"}>log in now</NavLink>
+                <NavLink to={`${import.meta.env.BASE_URL}log-in`}>log in now</NavLink>
             </>
         )
     }

@@ -17,10 +17,10 @@ export default function Nav() {
                 </div>
                 {!hamburgerOpen &&
                     <ul>
-                        <NavLink onClick={toggleHamburger} to={'/'}>Home</NavLink>
-                        <NavLink onClick={toggleHamburger} to={'/alle-activiteiten'}>Alle activiteiten</NavLink>
-                        <NavLink onClick={toggleHamburger} to={'/activiteit-maken'}>Maak een activiteit</NavLink>
-                        <NavLink onClick={toggleHamburger} to={'/mijn-activiteiten'}>Mijn Activiteiten</NavLink>
+                        <NavLink onClick={toggleHamburger} to={`${import.meta.env.BASE_URL}`}>Home</NavLink>
+                        <NavLink onClick={toggleHamburger} to={`${import.meta.env.BASE_URL}alle-activiteiten`}>Alle activiteiten</NavLink>
+                        <NavLink onClick={toggleHamburger} to={`${import.meta.env.BASE_URL}activiteit-maken`}>Maak een activiteit</NavLink>
+                        <NavLink onClick={toggleHamburger} to={`${import.meta.env.BASE_URL}mijn-activiteiten`}>Mijn Activiteiten</NavLink>
                     </ul>
                 }
 

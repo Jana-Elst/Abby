@@ -6,7 +6,7 @@ const CreateClocks = () => {
     return (
         <>
             <p>create a clock</p>
-            <Link to={"/maak-activiteit"}>create a new clock</Link>
+            <Link to={`${import.meta.env.BASE_URL}maak-activiteit`}>create a new clock</Link>
         </>
 
     )

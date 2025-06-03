@@ -44,7 +44,7 @@ const AccountPage = () => {
                 >
                     sign out
                 </button>
-                <NavLink to={'/mijn-activiteiten'}>continue to see your stuff</NavLink>
+                <NavLink to={`${import.meta.env.BASE_URL}mijn-activiteiten`}>continue to see your stuff</NavLink>
             </>
         );
     }

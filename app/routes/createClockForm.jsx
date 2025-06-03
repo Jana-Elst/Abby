@@ -10,7 +10,7 @@ export async function clientAction({request}) {
     const description = formData.get("description");
 
     await addClock(userId, activity, description);
-    return redirect(`/mijn-activiteiten`);
+    return redirect(`${import.meta.env.BASE_URL}mijn-activiteiten`);
 }
 
 export async function clientLoader() {
@@ -23,7 +23,7 @@ const CreateClockForm = ({ loaderData }) => {
     if (user) {
         return (
             <>
-                <Link to={"/activiteit-maken"}>back</Link>
+                <Link to={`${import.meta.env.BASE_URL}activiteit-maken`}>back</Link>
                 <p>create a clock</p>
                 <AddClock type={"now"} user={user.id} />
             </>
@@ -32,9 +32,9 @@ const CreateClockForm = ({ loaderData }) => {
     } else {
         return (
             <>
-                <Link to={"/activiteit-maken"}>back</Link>
+                <Link to={`${import.meta.env.BASE_URL}activiteit-maken`}>back</Link>
                 <p>log in to see create clocks</p>
-                <Link to={"/log-in"}>log in now</Link>
+                <Link to={`${import.meta.env.BASE_URL}/log-in`}>log in now</Link>
             </>
         )
     }
