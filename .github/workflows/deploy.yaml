@@ -37,12 +37,6 @@ jobs:
           cache: 'npm'
       - name: Install dependencies
         run: npm ci
-      - name: 'Create env file'
-        run: |
-          touch .env
-          echo VITE_API_BASE_URL=https://hxvpmtdewjpuwmkfxcns.supabase.co >> .env
-          echo VITE_API_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh4dnBtdGRld2pwdXdta2Z4Y25zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDg0MjQ5NzUsImV4cCI6MjA2NDAwMDk3NX0.BWHBiKkn1lh8sSg4jt3RxzcEFkL0AMAXK_egw5eG7Nc >> .env
-          cat .env
       - name: Build
         run: npm run build
       - name: Setup Pages
