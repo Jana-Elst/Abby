@@ -1,16 +1,22 @@
 const Checkbox = ({ content, name, setState, state }) => {
     const onChange = (e) => {
         const value = e.target.value;
+        const selection = state.selection
 
-        if (state.includes(value)) {
-            const newState = state.filter(item => item !== value);
-            setState(newState);
-        } else {
-            setState([
+        if (selection.includes(value)) {
+            const newState = selection.filter(item => item !== value);
+            setState({
                 ...state,
-                value
-            ]
-            )
+                selection: newState
+            });
+        } else {
+            setState({
+                ...state,
+                selection: [
+                    ...selection,
+                    value
+                ]
+            });
         }
     }
 
@@ -21,7 +27,7 @@ const Checkbox = ({ content, name, setState, state }) => {
             {
                 content.map(item => (
                     <div className='checkbox__item'>
-                        <input type="checkbox" id={content} name={name} value={item} onChange={onChange} />
+                        <input type="checkbox" id={content} name={name} value={item} onChange={onChange} checked={state.selection.includes(item)}/>
                         <label htmlFor={item}>{item}</label>
                     </div>
                 )

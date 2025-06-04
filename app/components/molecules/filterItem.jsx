@@ -25,6 +25,7 @@ const FilterItem = ({ title, itemState, setItemState, children }) => {
     return (
         <li>
             <button onClick={handleClick}>{title}</button>
+            <p>{itemState.selection.length}</p>
             <div className={itemState.accordion}>
                 {children}
             </div>
