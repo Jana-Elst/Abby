@@ -18,6 +18,13 @@ const Abbymoments = ({ loaderData }) => {
 
     //set the states
     const [state, setState] = useState("alle abbymomenten");
+    const [filter, setFilter] = useState(
+        {
+            location: [],
+            date: [],
+            join: true,
+        }
+    )
     console.log(state);
 
     return (
@@ -29,7 +36,7 @@ const Abbymoments = ({ loaderData }) => {
                 state={state}
             />
 
-            <Filter />
+            <Filter setfilter={setFilter} filter={filter} />
             <ClockList clocks={museumClocks} />
         </>
 

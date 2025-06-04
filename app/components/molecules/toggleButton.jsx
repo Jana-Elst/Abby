@@ -1,4 +1,4 @@
-import './toggleButton.css'
+//import './toggleButton.css'
 
 const ToggleButton = ({ content1, content2, state, setState }) => {
     const onChange = (e) => {

@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "react-router build",
-    "dev": "react-router dev",
+    "dev": "react-router dev --host",
     "dev:test": "react-router dev --port 5174",
     "test:ui": "playwright test --ui",
     "test:chrome": "playwright test --project=chromium",
