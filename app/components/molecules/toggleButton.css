@@ -1,0 +1,18 @@
+.toggleButton {
+    display: grid;
+    border: 1px solid var(--black);
+    grid-template-columns: 1fr 1fr;
+}
+
+.toggleButton__item {
+    text-align: center;
+}
+
+.toggleButton__item.active {
+    color: var(--white);
+    background-color: var(--black);
+}
+
+input {
+    display: none;
+}

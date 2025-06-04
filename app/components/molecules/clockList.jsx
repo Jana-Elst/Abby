@@ -5,7 +5,7 @@ const ClockList = ({ clocks = [] }) => {
             {clocks.length ? (
                 <ul>
                     {clocks.map((clock) => (
-                        <ClockItem key={clock.id} clock={clock} />
+                        <ClockItem key={clock.id} clock={clock} id={clock.id} />
                     ))}
                 </ul>
             ) : (

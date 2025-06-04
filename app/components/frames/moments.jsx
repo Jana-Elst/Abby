@@ -8,7 +8,7 @@ const Moments = ({ museumClocks }) => {
             <Title title={'Nu in Abby'} />
             <ClockList clocks={museumClocks} />
             <Button
-                link={''}
+                link={'abbymomenten'}
                 content={'Ontdek alle abbymomenten'}
             />
         </div>

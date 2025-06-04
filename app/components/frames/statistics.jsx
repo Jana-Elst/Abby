@@ -1,3 +1,4 @@
+import Button from "../molecules/button";
 import Title from "../molecules/title";
 
 const Statistics = () => {
@@ -7,6 +8,10 @@ const Statistics = () => {
                 title={"Zo vult de community Abby"}>
             </Title>
             <p>Deze week lalalal.</p>
+            <Button
+                link={'abbymomenten'}
+                content={'Begin jouw Abbymoment'}
+            />
         </div>
     )
 };

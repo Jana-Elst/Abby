@@ -16,12 +16,19 @@ export default function Nav() {
                     <Hamburger isOpen={hamburgerOpen} />
                 </div>
                 {!hamburgerOpen &&
-                    <ul>
-                        <NavLink onClick={toggleHamburger} to={`${import.meta.env.BASE_URL}`}>Home</NavLink>
-                        <NavLink onClick={toggleHamburger} to={`${import.meta.env.BASE_URL}alle-activiteiten`}>Alle activiteiten</NavLink>
-                        <NavLink onClick={toggleHamburger} to={`${import.meta.env.BASE_URL}activiteit-maken`}>Maak een activiteit</NavLink>
-                        <NavLink onClick={toggleHamburger} to={`${import.meta.env.BASE_URL}mijn-activiteiten`}>Mijn Activiteiten</NavLink>
-                    </ul>
+                    <div>
+                        <ul>
+                            <NavLink onClick={toggleHamburger} to={`${import.meta.env.BASE_URL}`}>Startpagina</NavLink>
+                            <NavLink onClick={toggleHamburger} to={`${import.meta.env.BASE_URL}abbymomenten`}>Alle Abbymomenten</NavLink>
+                            <NavLink onClick={toggleHamburger} to={`${import.meta.env.BASE_URL}maak-een-abbymoment`}>Plan een Abbymoment</NavLink>
+                            <NavLink onClick={toggleHamburger} to={`${import.meta.env.BASE_URL}log-in`}>Log in</NavLink>
+                        </ul>
+                        <ul>
+                            <li>NL</li>
+                            <li>FR</li>
+                            <li>ENG</li>
+                        </ul>
+                    </div>
                 }
 
             </div>

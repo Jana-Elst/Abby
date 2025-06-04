@@ -10,11 +10,10 @@ export default [
     layout("layouts/header.jsx", [
       layout("layouts/footer.jsx", [
         index("routes/home.jsx"),
-        route("/mijn-activiteiten", "routes/myClocks.jsx"),
         route("/log-in", "routes/accountPage.jsx"),
-        route("/alle-activiteiten", "routes/allClocks.jsx"),
-        route("/activiteit-maken", "routes/createClocks.jsx"),
-        route("/activiteit/:activiteitId", "routes/detailClock.jsx"),
+        route("/abbymomenten", "routes/abbymoments.jsx"),
+        route("/maak-een-abbymoment", "routes/createAbbymoment.jsx"),
+        route("/abbymomenten/:abbymomentId", "routes/detailAbbymoments.jsx"),
       ])
     ]),
     route("/maak-activiteit", "routes/createClockForm.jsx"),
