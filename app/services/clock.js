@@ -4,7 +4,6 @@ export const getAngle = (time) => {
     hours = hours % 12;
 
     const totalDegrees = (hours * 30) + (minutes * 0.5) + (seconds * (0.5 / 60));
-    console.log(totalDegrees);
     const angle = (Math.PI / 180) * totalDegrees;
 
     return (angle);

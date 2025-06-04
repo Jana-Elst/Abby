@@ -1,12 +1,10 @@
 //https://medium.com/@pdx.lucasm/canvas-with-react-js-32e133c05258
 
 import React, { useRef, useEffect } from 'react'
-import { getAngle } from '../services/clock'
+import { getAngle } from '../../services/clock.js'
 
 const Clock = ({ props, startTime, stopTime = null, active = false, size }) => {
     const canvasClock = useRef(null)
-    stopTime = '16:30:00'
-    
     let stop;
     //calculate time
     if (stopTime) {

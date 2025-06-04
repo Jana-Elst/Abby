@@ -1,4 +1,6 @@
 import { Link } from "react-router";
+import './button.css'
+
 
 //TYPES OF BUTTONS NEEDED
 /*
@@ -7,11 +9,13 @@ import { Link } from "react-router";
 - external vs internal link
 */
 
-const Button = ({ link, content }) => {
+const Button = ({ link, content, icon = null }) => {
     return (
-        <Link to={`${import.meta.env.BASE_URL}${link}`}>
-            {content}
-        </Link >
+        <>
+            <Link className={`button ${icon ? icon : ""}`} to={`${import.meta.env.BASE_URL}${link}`}>
+                {content}
+            </Link>
+        </>
     )
 };
 

@@ -11,6 +11,7 @@ const Hero = () => {
             <Button
                 link={'#Abby'}
                 content={'Sla over'}
+                icon={'skip'}
             />
             {/* clock COMP */}
             <Button

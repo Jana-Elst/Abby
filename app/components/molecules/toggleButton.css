@@ -8,7 +8,7 @@
     text-align: center;
 }
 
-.toggleButton__item.active {
+.toggleButton__item input:checked~label {
     color: var(--white);
     background-color: var(--black);
 }
