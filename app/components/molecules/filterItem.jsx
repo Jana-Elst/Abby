@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 const FilterItem = ({ title, itemState, setItemState, children }) => {
 
     const handleClick = () => {
