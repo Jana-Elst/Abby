@@ -1,12 +1,14 @@
-import { useState, useEffect } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import { supabase } from '../supabaseClient'
 import { Auth } from '@supabase/auth-ui-react'
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { NavLink } from 'react-router';
+import { UserContext } from '../root';
 
 const AccountPage = () => {
+    const {userId, setUserId} = useContext(UserContext);
+    console.log(userId);
     const [session, setSession] = useState(null);
-
 
     useEffect(() => {
         supabase.auth.getSession().then(({ data: { session } }) => {

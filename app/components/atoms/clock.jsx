@@ -3,7 +3,7 @@
 import React, { useRef, useEffect } from 'react'
 import { getAngle } from '../../services/clock.js'
 
-const Clock = ({ props, startTime, stopTime = null, active = false, size }) => {
+const Clock = ({ props, startTime = null, stopTime = null, active = false, size }) => {
     const canvasClock = useRef(null)
     let stop;
     //calculate time

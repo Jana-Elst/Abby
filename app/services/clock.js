@@ -1,6 +1,8 @@
 //calculate the angle of the pointer of the clock
 //12 hours clock
-export const getAngle = (time) => {
+export const getAngle = (dateTime) => {
+    console.log(dateTime);
+    const [date, time] = dateTime.split("T")
     let [hours, minutes, seconds] = time.split(':').map(Number);
 
     hours = hours % 12;
