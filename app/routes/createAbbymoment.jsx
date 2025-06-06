@@ -10,7 +10,10 @@ import VisabilityClock from "../components/form/visability-clock";
 import { useState } from "react";
 
 const CreateClocks = () => {
-    const [formState, setFormState] = useState("info");
+    const [formState, setFormState] = useState("info"
+        
+    );
+    const [flowForm, setFlowForm] = useState("info");
 
     return (
         <>
