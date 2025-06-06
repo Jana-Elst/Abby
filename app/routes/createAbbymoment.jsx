@@ -29,13 +29,36 @@ const CreateClocks = () => {
                     ? <Description formState={formState} setFormState={setFormState} />
                     : ""
             }
-            {/*
-            <Location />
-            <Participants />
-            <QrCode />
-            <Time />
-            <VisabilityClock />
-            <Confirmation /> */}
+            {
+                formState === 'location'
+                    ? <Location formState={formState} setFormState={setFormState} />
+                    : ""
+            }
+            {
+                formState === 'participants'
+                    ? <Participants formState={formState} setFormState={setFormState} />
+                    : ""
+            }
+            {
+                formState === 'qrCode'
+                    ? <QrCode formState={formState} setFormState={setFormState} />
+                    : ""
+            }
+            {
+                formState === 'time'
+                    ? <Time formState={formState} setFormState={setFormState} />
+                    : ""
+            }
+            {
+                formState === 'visabilityClock'
+                    ? <VisabilityClock formState={formState} setFormState={setFormState} />
+                    : ""
+            }
+            {
+                formState === 'confirmation'
+                    ? <Confirmation formState={formState} setFormState={setFormState} />
+                    : ""
+            }
 
             <p>create a clock</p>
             <Link to={`${import.meta.env.BASE_URL}maak-activiteit`}>create a new clock</Link>
