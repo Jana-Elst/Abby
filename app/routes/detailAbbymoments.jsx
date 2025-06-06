@@ -1,17 +1,15 @@
-import { useMatch } from "react-router-dom";
-
+import { useContext } from 'react'
 import Title from "../components/molecules/title";
 import Button from "../components/molecules/button"
+import { UserContext } from '../root';
 
 import { getTime } from "../services/clock";
 
 //get clock
 import { getClock } from "../services/data";
-export async function clientLoader() {
-    //get clock id --> last element from querystring
-    let url = window.location.href;
-    url = url.split('/');
-    const id = url[url.length - 1];
+export async function clientLoader({params}) {
+    const id = params.abbymomentId;
+    console.log(id);
 
     //get data clock
     let clock = await getClock(id);
@@ -22,6 +20,7 @@ export async function clientLoader() {
 
 
 const DetailClock = ({ loaderData }) => {
+    const userId = "";
     const { clock } = loaderData;
 
     return (
@@ -51,14 +50,13 @@ const DetailClock = ({ loaderData }) => {
                 }
             </p>
             <p>deelnemers</p>
-            <button>
-                {
-                    clock.private
-                        ? "Je kan niet meedoen aan dit Abbymoment"
-                        : "Doe mee met dit Abbymoment"
-
-                }
-            </button>
+            {
+                clock.private
+                    ? (<button>Je kan niet meedoen aan dit Abbymoment</button>)
+                    : !clock.private && userId
+                        ? (<button>Doe mee met dit Abbymoment</button>)
+                        : <Button link={"log-in"} content={"Login om mee te doen"}/>
+            }
         </>
     )
 };

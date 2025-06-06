@@ -40,7 +40,7 @@ export function Layout({ children }) {
         <Scripts />
       </body>
     </html>
-  );
+  )
 }
 
 export const UserContext = createContext(null);
@@ -50,7 +50,7 @@ export default function App({ loaderData }) {
   const [userId, setUserId] = useState(user);
   return (
     <UserContext.Provider value={{ userId, setUserId }}>
-      <Outlet />;
+      <Outlet />
     </UserContext.Provider>
   )
 }
