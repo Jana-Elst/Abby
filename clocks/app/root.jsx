@@ -7,6 +7,8 @@ import {
   ScrollRestoration,
 } from "react-router";
 
+import React, { useState } from 'react';
+import { clockNumber, sendToServer } from "./services/clock";
 
 export function Layout({ children }) {
   return (
@@ -26,26 +28,23 @@ export function Layout({ children }) {
   );
 }
 
-let ws;
-let buffer = [];
-const sendWhenOpen = (text) => {
-  if (ws.readyState == 1) {
-    console.log(text)
-    // ws.send(text);
-  } else {
-    buffer.push(text);
-    ws.onopen = () => {
-      buffer.forEach((x) => {
-        // ws.send(x);
-      });
-    };
-  }
-}
+const clock = clockNumber();
+const socket = new WebSocket('ws://localhost:3000/');
+
+socket.addEventListener("open", event => {
+  console.log("Connection established");
+  sendToServer(
+    socket,
+    clock,
+    {
+      status: 'start'
+    }
+  );
+});
 
 export default function App() {
-  ws = new WebSocket('ws://localhost:3000/');
-  sendWhenOpen('connected!');
-  return <Outlet context={ws} />;
+  console.log('jouw toegewezen klok is:', clock);
+  return <Outlet context={{ socket, clock }} />;
 }
 
 export function ErrorBoundary({ error }) {

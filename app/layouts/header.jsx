@@ -1,11 +1,12 @@
-import {Outlet} from "react-router";
-import Nav from "../components/nav";
+import { Link, Outlet } from "react-router";
+import Nav from "../components/header/nav";
+import Button from "../components/molecules/button";
 
 const Header = () => {
     return (
         <>
-            <div style={{display:"flex"}}>
-                <p>Abby</p>
+            <div style={{ display: "flex" }}>
+                <Button link={''}>Abby</Button>
                 <Nav />
             </div>
             <Outlet />
@@ -14,4 +15,4 @@ const Header = () => {
     )
 };
 
-export default Header;
+export default Header

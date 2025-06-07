@@ -1,4 +1,4 @@
-const AllClocks = () => {
+const WallSucces = () => {
     return (
         <>
             <p>campaign</p>
@@ -7,4 +7,4 @@ const AllClocks = () => {
     )
 };
 
-export default AllClocks;
+export default WallSucces;

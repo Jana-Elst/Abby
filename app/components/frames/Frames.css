@@ -1,0 +1,27 @@
+.hero {
+    background-color: var(--yellow);
+}
+
+.intro {
+    background-color: var(--blue);
+}
+
+.moments {
+    background-color: var(--orange);
+}
+
+.solutions {
+    background-color: var(--purple);
+}
+
+.statistics {
+    background-color: var(--green);
+}
+
+.andYou {
+    background-color: var(--purple);
+}
+
+.toDoInAbby {
+    background-color: var(--yellow);
+}

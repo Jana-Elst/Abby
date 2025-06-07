@@ -8,15 +8,16 @@ const base = viteConfig.base ?? '/';
 export default [
   ...prefix(base, [
     layout("layouts/header.jsx", [
-      index("routes/home.jsx"),
-      route("/mijn-activiteiten", "routes/myClocks.jsx"),
-      route("/log-in", "routes/accountPage.jsx"),
-      route("/alle-activiteiten", "routes/allClocks.jsx"),
-      route("/activiteit-maken", "routes/createClocks.jsx"),
-      route("/activiteit/:activiteitId", "routes/detailClock.jsx"),
+      layout("layouts/footer.jsx", [
+        index("routes/home.jsx"),
+        route("/log-in", "routes/accountPage.jsx"),
+        route("/abbymomenten", "routes/abbymoments.jsx"),
+        route("/maak-een-abbymoment", "routes/createAbbymoment.jsx"),
+        route("/abbymomenten/:abbymomentId", "routes/detailAbbymoments.jsx"),
+      ])
     ]),
-    route("/maak-activiteit", "routes/createClockForm.jsx"),
-    route("/muur-vol-klokjes", "routes/wallStart.jsx"),
-    route("/jouw-klokje", "routes/wallSucces.jsx"),
+    // route("/maak-activiteit", "routes/createClockForm.jsx"),
+    // route("/muur-vol-klokjes", "routes/wallStart.jsx"),
+    // route("/jouw-klokje", "routes/wallSucces.jsx"),
   ])
 ];
