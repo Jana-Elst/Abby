@@ -8,11 +8,10 @@ const Statistics = () => {
                 title={"Zo vult de community Abby"}>
             </Title>
             <p>Deze week lalalal.</p>
-            <Button
-                link={'abbymomenten'}
-                content={'Begin jouw Abbymoment'}
-            />
-        </div>
+            <Button link={'abbymomenten'}>
+                Begin jouw Abbymoment
+            </Button>
+        </div >
     )
 };
 

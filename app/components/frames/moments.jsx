@@ -7,11 +7,10 @@ const Moments = ({ museumClocks }) => {
         <div className="moments">
             <Title title={'Nu in Abby'} />
             <ClockList clocks={museumClocks} />
-            <Button
-                link={'abbymomenten'}
-                content={'Ontdek alle abbymomenten'}
-            />
-        </div>
+            <Button link={'abbymomenten'}>
+                Ontdek alle abbymomenten
+            </Button>
+        </div >
     )
 };
 

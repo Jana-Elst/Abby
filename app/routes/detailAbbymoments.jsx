@@ -55,7 +55,7 @@ const DetailClock = ({ loaderData }) => {
                     ? (<button>Je kan niet meedoen aan dit Abbymoment</button>)
                     : !clock.private && userId
                         ? (<button>Doe mee met dit Abbymoment</button>)
-                        : <Button link={"log-in"} content={"Login om mee te doen"}/>
+                        : <Button link={'log-in'}>Log-in</Button>
             }
         </>
     )

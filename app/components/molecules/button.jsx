@@ -9,11 +9,11 @@ import './button.css'
 - external vs internal link
 */
 
-const Button = ({ link, content, icon = null }) => {
+const Button = ({ link, children, icon = null }) => {
     return (
         <>
             <Link className={`button ${icon ? icon : ""}`} to={`${import.meta.env.BASE_URL}${link}`}>
-                {content}
+                {children}
             </Link>
         </>
     )

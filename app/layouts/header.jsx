@@ -6,10 +6,7 @@ const Header = () => {
     return (
         <>
             <div style={{ display: "flex" }}>
-                <Button
-                    link={''}
-                    content={'Abby'}
-                />
+                <Button link={''}>Abby</Button>
                 <Nav />
             </div>
             <Outlet />

@@ -8,16 +8,13 @@ const Hero = () => {
                 title={"Rush jij ook door het leven?"}>
             </Title>
             <p>Tijd om het wat rustiger aan te doen.</p>
-            <Button
-                link={'#Abby'}
-                content={'Sla over'}
-                icon={'skip'}
-            />
+            <Button link={'#Abby'} icon={'skip'}>
+                Sla over
+            </Button>
             {/* clock COMP */}
-            <Button
-                link={'#Intro'}
-                content={'Waarom vertragen?'}
-            />
+            <Button link={'#Intro'}>
+                Waarom vertragen?
+            </Button>
         </div >
     )
 };

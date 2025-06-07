@@ -44,14 +44,23 @@ export function Layout({ children }) {
 }
 
 export const UserContext = createContext(null);
+export const FormFlowContext = createContext(null);
+
 
 export default function App({ loaderData }) {
+  //userId
   const user = loaderData;
   const [userId, setUserId] = useState(user);
+
+  //formFlow
+  const [flowForm, setFlowForm] = useState("now"); //schedule & now
+
   return (
-    <UserContext.Provider value={{ userId, setUserId }}>
-      <Outlet />
-    </UserContext.Provider>
+    <FormFlowContext.Provider value={{ flowForm, setFlowForm }}>
+      <UserContext.Provider value={{ userId, setUserId }}>
+        <Outlet />
+      </UserContext.Provider>
+    </FormFlowContext.Provider>
   )
 }
 

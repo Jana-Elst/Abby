@@ -44,7 +44,7 @@ const AccountPage = () => {
                 <div>you are logged in</div>
                 <div>{session.user.email}</div>
                 <button onClick={() => { signOut(); }}>sign out</button>
-                <NavLink to={`${import.meta.env.BASE_URL}mijn-activiteiten`}>continue to see your stuff</NavLink>
+                <NavLink to={`${import.meta.env.BASE_URL}maak-een-abbymoment`}>continue to see your stuff</NavLink>
             </>
         );
     }

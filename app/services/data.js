@@ -39,6 +39,7 @@ export async function getClock(id) {
             .select('*')
             .eq('id', id);
         let { data, error } = await query;
+        console.log(data);
         return data
     } catch (error) {
         console.error("Error fetching museum clocks:", error);

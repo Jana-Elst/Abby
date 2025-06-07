@@ -8,10 +8,9 @@ const AndYou = () => {
                 title={"En jij? Hoe ga jij je dag vullen?"}
             />
             {/* image and text */}
-            <Button
-                link={'/'}
-                content={'Begin jouw Abbymoment'}
-            />
+            <Button link={'/'}>
+                Begin jouw Abbymoment
+            </Button>
         </div >
     )
 };
