@@ -53,7 +53,7 @@ export default function App({ loaderData }) {
   const [userId, setUserId] = useState(user);
 
   //formFlow
-  const [flowForm, setFlowForm] = useState("schedule"); //schedule & now
+  const [flowForm, setFlowForm] = useState("plan"); //schedule & now
 
   return (
     <FormFlowContext.Provider value={{ flowForm, setFlowForm }}>

@@ -1,13 +1,15 @@
 import Title from "../molecules/title";
 import { locations } from "../../services/museumData";
+import ButtonBack from './buttonBack';
 
-const Location = ({ setFormState }) => {
+const Location = ({ setFormState, formState, flowForm }) => {
     const handleClickNext = () => {
-        setFormState('participants');
+        setFormState(formState + 1);
     }
 
     return (
         <>
+            <ButtonBack setFormState={setFormState} formState={formState} flowForm={flowForm}>Terug</ButtonBack>
             <Title>Wat is de locatie van jouw moment?</Title>
             {
                 locations().map(location =>

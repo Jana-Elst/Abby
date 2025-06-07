@@ -1,12 +1,14 @@
 import Button from "../molecules/button";
 import Title from "../molecules/title";
+import ButtonBack from './buttonBack';
 
-const Confirmation = ({ flowState }) => {
+const Confirmation = ({ formState, setFormState, flowForm }) => {
     return (
         <>
+            <ButtonBack setFormState={setFormState} formState={formState} flowForm={flowForm}>Terug</ButtonBack>
             {
-                flowState === 'now'
-                    ? <Title title={"Je moment is gestart!"}/>
+                formState === 'now'
+                    ? <Title title={"Je moment is gestart!"} />
                     : <Title title={"Je moment is gepland!"} />
             }
             <p>NAAM</p>

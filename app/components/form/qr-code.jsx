@@ -1,5 +1,7 @@
 //https://articles.readytowork.jp/implementing-a-qr-code-scanner-in-react-4c8f4e3c6f2e
 import { useEffect, useRef, useState } from "react";
+import ButtonBack from './buttonBack';
+
 
 // Styles
 import "./qr-code.css";
@@ -8,10 +10,9 @@ import "./qr-code.css";
 import QrScanner from "qr-scanner";
 // import QrFrame from "../assets/qr-frame.svg";
 
-const QrCode = ({setFlowForm, setFormState}) => {
+const QrCode = ({flowForm, setFormState, formState}) => {
     const handleClickNext = () => {
-        setFlowForm("now");
-        setFormState("visabilityClock");
+        setFormState(formState + 1);
     }
 
     // QR States
@@ -81,6 +82,7 @@ const QrCode = ({setFlowForm, setFormState}) => {
 
     return (
         <>
+            <ButtonBack setFormState={setFormState} formState={formState} flowForm={flowForm}>Terug</ButtonBack>
             <div className="qr-reader">
                 {/* QR */}
                 <video ref={videoEl}></video>

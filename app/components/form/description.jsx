@@ -1,16 +1,15 @@
 import Title from "../molecules/title";
+import ButtonBack from './buttonBack';
+
 
 const Description = ({ userId, formState, setFormState, formData, setFormData, flowForm }) => {
     const handleClickNext = () => {
-        if (flowForm === 'now') {
-            setFormState('location');
-        } else {
-            setFormState('time');
-        }
+        setFormState(formState + 1);
     }
 
     return (
         <>
+            <ButtonBack setFormState={setFormState} formState={formState} flowForm={flowForm}>Terug</ButtonBack>
             <Title title={'Maak je Abbymoment'} />
             <div>
                 <input

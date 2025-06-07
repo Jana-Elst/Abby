@@ -11,10 +11,10 @@ import "react-day-picker/style.css";
 //components
 import Title from "../molecules/title";
 import ToggleButton from "../molecules/toggleButton"
-import ButtonBack from "../atoms/buttonBack";
+import ButtonBack from './buttonBack';
 import QrCode from "./qr-code";
 
-const Time = ({setFormState}) => {
+const Time = ({ setFormState, formState, setFlowForm, flowForm }) => {
     const [timeState, setTimeState] = useState("Later");
 
     const today = new Date();
@@ -23,15 +23,17 @@ const Time = ({setFormState}) => {
 
     const handleClickNext = () => {
         if (timeState === 'Later') {
-            setFormState('location');
+            setFlowForm("plan");
+            setFormState(formState + 1);
         } else {
-            setFormState('qrCode');
+            setFlowForm("planNow");
+            setFormState(formState + 1);
         }
     }
 
     return (
         <>
-            <ButtonBack />
+            <ButtonBack setFormState={setFormState} formState={formState} flowForm={flowForm}>Terug</ButtonBack>
             <Title title={"Wanneer is je Abbymoment?"} />
             <ToggleButton content1={"Nu"} content2={"Later"} state={timeState} setState={setTimeState} />
             {

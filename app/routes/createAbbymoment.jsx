@@ -35,7 +35,7 @@ import { FormFlowContext } from '../root';
 const CreateAbbymoment = () => {
     const { userId, setUserId } = useContext(UserContext);
     const { flowForm, setFlowForm } = useContext(FormFlowContext);
-    const [formState, setFormState] = useState("info");
+    const [formState, setFormState] = useState(0);
 
     const [formData, setFormData] = useState({
         name: '',
@@ -49,34 +49,44 @@ const CreateAbbymoment = () => {
         creator: userId
     });
 
+    //different flows
+    const flows = {
+        plan: ['info', 'description', 'time', 'location', 'participants', 'confirmation'],
+        planNow: ['info', 'description', 'time','qrCode', 'visabilityClock', 'location', 'participants', 'confirmation'],
+        now: ['visabilityClock', 'description', 'location', 'participants', 'confirmation']
+    }
+
     const conditionalComponent = () => {
-        switch (formState) {
+        console.log(flows[flowForm][formState]);
+        const flowKey = flowForm ? flows[flowForm][formState] : null;
+
+        switch (flowKey) {
             case 'info':
-                return <Info setFormState={setFormState} flowForm={flowForm} formData={formData} setFormData={setFormData} userId={userId} />
+                return <Info setFormState={setFormState} formState={formState} userId={userId} />
 
             case 'visabilityClock':
-                return <VisabilityClock setFormState={setFormState} flowForm={flowForm} formData={formData} setFormData={setFormData} />
+                return <VisabilityClock setFormState={setFormState} formState={formState} flowForm={flowForm} formData={formData} setFormData={setFormData} />
 
             case 'description':
-                return <Description setFormState={setFormState} flowForm={flowForm} formData={formData} setFormData={setFormData} />
+                return <Description setFormState={setFormState} formState={formState} formData={formData} setFormData={setFormData} />
 
             case 'location':
-                return <Location setFormState={setFormState} flowForm={flowForm} formData={formData} setFormData={setFormData} />
+                return <Location setFormState={setFormState} formState={formState} flowForm={flowForm} formData={formData} setFormData={setFormData} />
 
 
             case 'participants':
-                return <Participants setFormState={setFormState} flowForm={flowForm} formData={formData} setFormData={setFormData} />
+                return <Participants setFormState={setFormState} formState={formState} flowForm={flowForm} formData={formData} setFormData={setFormData} />
 
 
             case 'qrCode':
-                return <QrCode setFormState={setFormState} flowForm={flowForm} setFlowForm={setFlowForm} formData={formData} setFormData={setFormData} />
+                return <QrCode setFormState={setFormState} formState={formState} flowForm={flowForm} setFlowForm={setFlowForm} formData={formData} setFormData={setFormData} />
 
 
             case 'time':
-                return <Time setFormState={setFormState} flowForm={flowForm} formData={formData} setFormData={setFormData} />
+                return <Time setFormState={setFormState} formState={formState} setFlowForm={setFlowForm} formData={formData} setFormData={setFormData} />
 
             case 'confirmation':
-                return <Confirmation setFormState={setFormState} flowForm={flowForm} formData={formData} setFormData={setFormData} />
+                return <Confirmation setFormState={setFormState} formState={formState} flowForm={flowForm} formData={formData} setFormData={setFormData} />
         }
     }
 

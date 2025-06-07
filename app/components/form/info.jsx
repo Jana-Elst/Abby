@@ -13,11 +13,7 @@ const Info = ({ formState, setFormState, flowForm }) => {
     const { userId } = useContext(UserContext);
 
     const handleClickNext = () => {
-        if (flowForm === 'now') {
-            setFormState('visabilityClock');
-        } else {
-            setFormState('description');
-        }
+        setFormState(formState + 1);
     }
 
     return (
