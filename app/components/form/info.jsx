@@ -25,8 +25,8 @@ const Info = ({ formState, setFormState, flowForm }) => {
 
             {
                 userId
-                    ? <Button link={'log-in'} onClick={handleClickNext}>Log-in</Button>
-                    : <button onClick={handleClickNext}>Maak een Abbymoment</button>
+                    ? <button onClick={handleClickNext}>Maak een Abbymoment</button>
+                    : <Button link={'log-in'} onClick={handleClickNext}>Log-in</Button>
             }
         </>
 

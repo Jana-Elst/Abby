@@ -53,7 +53,7 @@ const CreateAbbymoment = () => {
     const flows = {
         plan: ['info', 'description', 'time', 'location', 'participants', 'confirmation'],
         planNow: ['info', 'description', 'time','qrCode', 'visabilityClock', 'location', 'participants', 'confirmation'],
-        now: ['visabilityClock', 'description', 'location', 'participants', 'confirmation']
+        now: ['visabilityClock', 'description', 'location', 'participants', 'confirmation'] //moet er helemaal in het begin geen kezue optie kies geplande klok of maak klok?
     }
 
     const conditionalComponent = () => {
