@@ -12,6 +12,7 @@ import "react-day-picker/style.css";
 import Title from "../molecules/title";
 import ToggleButton from "../molecules/toggleButton"
 import ButtonBack from "../atoms/buttonBack";
+import QrCode from "./qr-code";
 
 const Time = ({setFormState}) => {
     const [timeState, setTimeState] = useState("Later");
@@ -21,7 +22,11 @@ const Time = ({setFormState}) => {
     const [month, setMonth] = useState(nextMonth);
 
     const handleClickNext = () => {
-        setFormState('location');
+        if (timeState === 'Later') {
+            setFormState('location');
+        } else {
+            setFormState('qrCode');
+        }
     }
 
     return (

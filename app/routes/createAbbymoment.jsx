@@ -69,7 +69,7 @@ const CreateAbbymoment = () => {
 
 
             case 'qrCode':
-                return <QrCode setFormState={setFormState} flowForm={flowForm} formData={formData} setFormData={setFormData} />
+                return <QrCode setFormState={setFormState} flowForm={flowForm} setFlowForm={setFlowForm} formData={formData} setFormData={setFormData} />
 
 
             case 'time':
