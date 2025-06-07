@@ -112,7 +112,7 @@ const QrCode = ({flowForm, setFormState, formState}) => {
                 )}
             </div>
 
-            <button onClick={handleClickNext}>VOLGENDE STAP DEZE ZOU ER NIET MOGEN STAAN... QR-SCAN MOET DIRECT NR VOLGENDE PAGINA LEIDEN!</button>
+            <ButtonNext setFormState={setFormState} formState={formState} flowForm={flowForm}>VOLGENDE STAPPPPPPPP</ButtonNext>
         </>
     );
 };

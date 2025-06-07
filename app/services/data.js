@@ -48,9 +48,15 @@ export async function getClock(id) {
 }
 
 
-export async function addClock(userId, activity, description) {
+export async function addClock(userId, name, description, scheduledStartTime, prive, location) {
     try {
-        let query = supabase.from('clocks').insert({ name: activity, description: description }).select().single();
+        let query = supabase.from('clocks')
+        .insert({
+            name: name,
+            description: description,
+            scheduledStartTime: scheduledStartTime,
+            private: prive
+        }).select().single();
         let { data, error } = await query;
         let joinQuery = supabase.from('clockprofile').insert({ profile_id: userId, clock_id: data.id });
         await joinQuery;

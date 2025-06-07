@@ -1,7 +1,7 @@
 //https://blog.logrocket.com/build-multi-step-form-usestate-hook/
 
 //react imports
-import { Link, Form } from "react-router";
+import { Form, redirect } from "react-router";
 import { useState, useContext } from "react";
 
 //components
@@ -22,15 +22,23 @@ import { UserContext } from '../root';
 import { FormFlowContext } from '../root';
 
 //add abbymoment
-// export async function clientAction({ request }) {
-//     const formData = await request.formData();
-//     const activity = formData.get("title");
-//     const userId = formData.get("userId");
-//     const description = formData.get("description");
+export async function clientAction({ request }) {
+    const formData = await request.formData();
 
-//     await addClock(userId, activity, description);
-//     return redirect(`${import.meta.env.BASE_URL}`);
-// }
+    //different data
+    const name = formData.get("name");
+    const userId = formData.get("userId");
+    const description = formData.get("description");
+    const scheduledStartTime = formData.get("time");
+    const prive = formData.get("participants");
+    const location = formData.get("location");
+
+    console.log(formData.get("name"));
+    console.log(userId, name, description, scheduledStartTime, prive, location);
+
+    await addClock(userId, name, description);
+    return redirect(`${import.meta.env.BASE_URL}maak-een-abbymoment`);
+}
 
 const CreateAbbymoment = () => {
     const { userId, setUserId } = useContext(UserContext);
@@ -43,21 +51,25 @@ const CreateAbbymoment = () => {
         stopTime: null,
         clockWallPos: null,
         description: '',
-        private: false,
+        private: null,
         scheduledStartTime: null,
         scheduledStopTime: null,
-        creator: userId
+        creator: userId,
+        location: '',
     });
+
+    const handleSubmit = () => {
+        setFormState(formState + 1);
+    }
 
     //different flows
     const flows = {
         plan: ['info', 'description', 'time', 'location', 'participants', 'confirmation'],
-        planNow: ['info', 'description', 'time','qrCode', 'visabilityClock', 'location', 'participants', 'confirmation'],
+        planNow: ['info', 'description', 'time', 'qrCode', 'visabilityClock', 'location', 'participants', 'confirmation'],
         now: ['visabilityClock', 'description', 'location', 'participants', 'confirmation'] //moet er helemaal in het begin geen kezue optie kies geplande klok of maak klok?
     }
 
     const conditionalComponent = () => {
-        console.log(flows[flowForm][formState]);
         const flowKey = flowForm ? flows[flowForm][formState] : null;
 
         switch (flowKey) {
@@ -65,17 +77,17 @@ const CreateAbbymoment = () => {
                 return <Info setFormState={setFormState} formState={formState} userId={userId} />
 
             case 'visabilityClock':
-                return <VisabilityClock setFormState={setFormState} formState={formState} flowForm={flowForm} formData={formData} setFormData={setFormData} />
+                return <VisabilityClock flowKey={flowKey} setFormState={setFormState} formState={formState} flowForm={flowForm} formData={formData} setFormData={setFormData} />
 
             case 'description':
-                return <Description setFormState={setFormState} formState={formState} formData={formData} setFormData={setFormData} />
+                return <Description flowKey={flowKey} setFormState={setFormState} formState={formState} formData={formData} setFormData={setFormData} />
 
             case 'location':
-                return <Location setFormState={setFormState} formState={formState} flowForm={flowForm} formData={formData} setFormData={setFormData} />
+                return <Location flowKey={flowKey}  setFormState={setFormState} formState={formState} flowForm={flowForm} formData={formData} setFormData={setFormData} />
 
 
             case 'participants':
-                return <Participants setFormState={setFormState} formState={formState} flowForm={flowForm} formData={formData} setFormData={setFormData} />
+                return <Participants flowKey={flowKey} setFormState={setFormState} formState={formState} flowForm={flowForm} formData={formData} setFormData={setFormData} />
 
 
             case 'qrCode':
@@ -83,7 +95,7 @@ const CreateAbbymoment = () => {
 
 
             case 'time':
-                return <Time setFormState={setFormState} formState={formState} setFlowForm={setFlowForm} formData={formData} setFormData={setFormData} />
+                return <Time flowKey={flowKey} setFormState={setFormState} formState={formState} setFlowForm={setFlowForm} formData={formData} setFormData={setFormData} />
 
             case 'confirmation':
                 return <Confirmation setFormState={setFormState} formState={formState} flowForm={flowForm} formData={formData} setFormData={setFormData} />
@@ -92,11 +104,27 @@ const CreateAbbymoment = () => {
 
     return (
         <>
-            {/* <Form key={userId} id="abbymomentForm" method="post"> */}
+            <Form key={userId} id="abbymomentForm" method="post" onSubmit={handleSubmit}>
+                {/* 
+                using controlled components -->  values stays 'undefined'
+                so add extra hidden input fields to get all the data in the form
+                */}
+                {/* <input
+                    style={{ display: 'none' }}
+                    name="userId"
+                    defaultValue={userId}
+                    type="text"
+                /> */}
+
+                <input type="hidden" name="userId" value={userId} />
+                <input type="hidden" name="name" value={formData.name} />
+                <input type="hidden" name="description" value={formData.description} />
+                {/* <input type="hidden" name="clockWallPos" value={clockWallPos} /> */}
+                <input type="hidden" name="participants" value={formData.private} />
+                <input type="hidden" name="time" value={formData.scheduledStartTime} />
+                
                 {conditionalComponent()}
-                {/* <p>create a clock</p>
-            <Link to={`${import.meta.env.BASE_URL}maak-activiteit`}>create a new clock</Link> */}
-            {/* </Form> */}
+            </Form>
         </>
 
     )

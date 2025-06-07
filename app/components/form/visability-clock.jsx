@@ -9,10 +9,6 @@ import Button from '../molecules/button';
 const VisabilityClock = ({ setFormState, formState, flowForm }) => {
     const [visability, setVisability] = useState("Op de klokjes muur");
 
-    const handleClickNext = () => {
-        setFormState(formState + 1);
-    }
-
     return (
         <>
             <ButtonBack setFormState={setFormState} formState={formState} flowForm={flowForm}>Terug</ButtonBack>
@@ -37,8 +33,9 @@ const VisabilityClock = ({ setFormState, formState, flowForm }) => {
 
             {
                 flowForm === 'now'
-                    ? <button onClick={handleClickNext}>Zet een klokje</button>
-                    : <button onClick={handleClickNext}>Volgende stap</button>
+                    ? <ButtonNext setFormState={setFormState} formState={formState} flowForm={flowForm}>Maak een Abbymoment</ButtonNext>
+                    : <ButtonNext setFormState={setFormState} formState={formState} flowForm={flowForm}>Volgende stap</ButtonNext>
+
             }
         </>
     )

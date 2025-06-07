@@ -1,12 +1,9 @@
 import Title from "../molecules/title";
 import ButtonBack from './buttonBack';
+import ButtonNext from "./buttonNext";
 
 
-const Description = ({ userId, formState, setFormState, formData, setFormData, flowForm }) => {
-    const handleClickNext = () => {
-        setFormState(formState + 1);
-    }
-
+const Description = ({ userId, formState, setFormState, formData, setFormData, flowForm, flowKey }) => {
     return (
         <>
             <ButtonBack setFormState={setFormState} formState={formState} flowForm={flowForm}>Terug</ButtonBack>
@@ -56,7 +53,7 @@ const Description = ({ userId, formState, setFormState, formData, setFormData, f
                     }}
                 />
             </div>
-            <button onClick={handleClickNext}>Volgende stap</button>
+            <ButtonNext setFormState={setFormState} formState={formState} flowForm={flowForm} flowKey={flowKey} formData={formData}>Volgende stap</ButtonNext>
         </>
 
     )
