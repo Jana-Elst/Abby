@@ -10,31 +10,15 @@ import "react-day-picker/style.css";
 
 // components
 import Title from "../molecules/title";
-import ToggleButton from "../molecules/toggleButton";
 import ButtonBack from './buttonBack';
 import ButtonNext from "./buttonNext";
 
 const Time = ({ setFormState, formState, setFlowForm, flowForm, formData, flowKey, setFormData }) => {
-    const [timeState, setTimeState] = useState("Later");
-
     //calender stuff
     const today = new Date();
     const nextMonth = addMonths(today, 1);
     const [month, setMonth] = useState(nextMonth);
-    const [selectedDate, setSelectedDate] = useState(undefined);
-
-    const handleClickNext = () => {
-        if (timeState === 'Later') {
-            setFlowForm("plan");
-        } else {
-            setFlowForm("planNow");
-            setFormData({
-                ...formData,
-                scheduledStartTime: new Date().toISOString(), // now in ISO
-            });
-        }
-        setFormState(formState + 1);
-    };
+    const [selectedDate, setSelectedDate] = useState(new Date());
 
     const handleDayPickerSelect = (date) => {
         if (date) {
@@ -51,10 +35,45 @@ const Time = ({ setFormState, formState, setFlowForm, flowForm, formData, flowKe
         <>
             <ButtonBack setFormState={setFormState} formState={formState} flowForm={flowForm}>Terug</ButtonBack>
             <Title title={"Wanneer is je Abbymoment?"} />
-            <ToggleButton content1={"Nu"} content2={"Later"} state={timeState} setState={setTimeState} />
+
+            <div>
+                <div>
+                    <input type="radio"
+                        id="planNow"
+                        name="time"
+                        value="planNow"
+                        checked={flowForm === 'planNow'}
+                        onChange={(e) => {
+                            setFormData({
+                                ...formData,
+                                scheduledStartTime: new Date().toISOString()
+                            });
+                            setFlowForm('planNow');
+                        }}
+                    />
+                    <label htmlFor="planNow">Nu</label>
+                </div>
+
+                <div>
+                    <input type="radio"
+                        id="plan"
+                        name="time"
+                        value="plan"
+                        checked={flowForm === 'plan'}
+                        onChange={(e) => {
+                            setFormData({
+                                ...formData,
+                                scheduledStartTime: selectedDate.toISOString()
+                            });
+                            setFlowForm('plan')
+                        }}
+                    />
+                    <label htmlFor="plan">Later</label>
+                </div> 
+            </div>
 
             {
-                timeState === 'Later'
+                flowForm === 'plan'
                     ? <>
                         <DayPicker
                             navLayout="around"
@@ -71,12 +90,13 @@ const Time = ({ setFormState, formState, setFlowForm, flowForm, formData, flowKe
                             }}
                             required
                         />
-                        <button onClick={() => setMonth(today)}>Vandaag</button>
+                        <button type='button' onClick={() => setMonth(today)}>Vandaag</button>
                     </>
                     : ""
             }
 
             <ButtonNext
+                buttonType='button'
                 setFormState={setFormState}
                 formState={formState}
                 flowForm={flowForm}

@@ -32,11 +32,12 @@ export async function clientAction({ request }) {
     const scheduledStartTime = formData.get("time");
     const prive = formData.get("participants");
     const location = formData.get("location");
+    const flowForm = formData.get("flowForm"); // Add this hidden input
 
-    console.log(formData.get("name"));
+    console.log(formData.get("location"));
     console.log(userId, name, description, scheduledStartTime, prive, location);
 
-    await addClock(userId, name, description);
+    await addClock(userId, name, description, scheduledStartTime, prive, location, flowForm);
     return redirect(`${import.meta.env.BASE_URL}maak-een-abbymoment`);
 }
 
@@ -46,14 +47,15 @@ const CreateAbbymoment = () => {
     const [formState, setFormState] = useState(0);
 
     const [formData, setFormData] = useState({
+        clockId: '',
         name: '',
-        startTime: null,
-        stopTime: null,
-        clockWallPos: null,
+        startTime: undefined,
+        stopTime: undefined,
+        clockWallPos: 'online',
         description: '',
-        private: null,
-        scheduledStartTime: null,
-        scheduledStopTime: null,
+        private: '',
+        scheduledStartTime: new Date().toISOString(),
+        scheduledStopTime: undefined,
         creator: userId,
         location: '',
     });
@@ -95,7 +97,7 @@ const CreateAbbymoment = () => {
 
 
             case 'time':
-                return <Time flowKey={flowKey} setFormState={setFormState} formState={formState} setFlowForm={setFlowForm} formData={formData} setFormData={setFormData} />
+                return <Time flowKey={flowKey} setFormState={setFormState} formState={formState} setFlowForm={setFlowForm} formData={formData} setFormData={setFormData} flowForm={flowForm} />
 
             case 'confirmation':
                 return <Confirmation setFormState={setFormState} formState={formState} flowForm={flowForm} formData={formData} setFormData={setFormData} />
@@ -105,24 +107,15 @@ const CreateAbbymoment = () => {
     return (
         <>
             <Form key={userId} id="abbymomentForm" method="post" onSubmit={handleSubmit}>
-                {/* 
-                using controlled components -->  values stays 'undefined'
-                so add extra hidden input fields to get all the data in the form
-                */}
-                {/* <input
-                    style={{ display: 'none' }}
-                    name="userId"
-                    defaultValue={userId}
-                    type="text"
-                /> */}
-
                 <input type="hidden" name="userId" value={userId} />
                 <input type="hidden" name="name" value={formData.name} />
                 <input type="hidden" name="description" value={formData.description} />
                 {/* <input type="hidden" name="clockWallPos" value={clockWallPos} /> */}
                 <input type="hidden" name="participants" value={formData.private} />
                 <input type="hidden" name="time" value={formData.scheduledStartTime} />
-                
+                <input type="hidden" name="location" value={formData.location} />
+                <input type="hidden" name="flowForm" value={flowForm} />
+
                 {conditionalComponent()}
             </Form>
         </>

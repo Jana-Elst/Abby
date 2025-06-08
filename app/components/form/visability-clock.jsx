@@ -1,12 +1,13 @@
 import { useState } from 'react';
 
 import Title from "../molecules/title";
-import ToggleButton from "../molecules/toggleButton"
 import InfoButton from '../../components/molecules/infobutton';
 import ButtonBack from './buttonBack';
-import Button from '../molecules/button';
+import ButtonNext from './buttonNext';
 
-const VisabilityClock = ({ setFormState, formState, flowForm }) => {
+import { createNewClock, removeWallPos } from "../../services/data";
+
+const VisabilityClock = ({ setFormState, formState, setFlowForm, flowForm, formData, flowKey, setFormData }) => {
     const [visability, setVisability] = useState("Op de klokjes muur");
 
     return (
@@ -24,7 +25,51 @@ const VisabilityClock = ({ setFormState, formState, flowForm }) => {
                     <li>Fysiek kan je alleen nu starten, als je fysiek aanwezig bent.</li>
                 </ul>
             </InfoButton>
-            <ToggleButton content1={"Op de klokjes muur"} content2={"Online op de website"} state={visability} setState={setVisability} />
+
+            <div>
+                <div>
+                    <input type="radio"
+                        id="wall"
+                        name="visability"
+                        value="wall"
+                        checked={formData.clockWallPos === "wall"}
+                        onChange={(e) => {
+                            let clockId;
+                            if (formData.clockWallPos === 'online') {
+                                console.log(formData.creator);
+                                clockId = createNewClock(formData.creator).id;
+                                console.log(clockId);
+                                setFormData({
+                                    ...formData,
+                                    clockId: clockId
+                                })
+                            };
+                            setFormData({
+                                ...formData,
+                                clockWallPos: "wall"
+                            });
+                        }}
+                    />
+                    <label htmlFor="wall">Op de klokjes muur.</label>
+                </div>
+
+                <div>
+                    <input type="radio"
+                        id="online"
+                        name="visability"
+                        value="online"
+                        checked={formData.clockWallPos === 'online'}
+                        onChange={(e) => {
+                            setFormData({
+                                ...formData,
+                                clockWallPos: "online"
+                            })
+                        }}
+                    />
+                    <label htmlFor="online">Online op de website</label>
+                </div>
+            </div>
+
             {
                 visability === 'Op de klokjes muur'
                     ? <p>Je klokje begint meteen te lopen en verschijnt op de klokjesmuur in Abby.</p>
@@ -33,8 +78,22 @@ const VisabilityClock = ({ setFormState, formState, flowForm }) => {
 
             {
                 flowForm === 'now'
-                    ? <ButtonNext setFormState={setFormState} formState={formState} flowForm={flowForm}>Maak een Abbymoment</ButtonNext>
-                    : <ButtonNext setFormState={setFormState} formState={formState} flowForm={flowForm}>Volgende stap</ButtonNext>
+                    ? <ButtonNext
+                        buttonType='button'
+                        setFormState={setFormState}
+                        formState={formState}
+                        flowForm={flowForm}
+                        flowKey={flowKey}
+                        formData={formData}
+                    > Maak een Abbymoment </ButtonNext>
+                    : <ButtonNext
+                        buttonType='button'
+                        setFormState={setFormState}
+                        formState={formState}
+                        flowForm={flowForm}
+                        flowKey={flowKey}
+                        formData={formData}
+                    > Volgende stap </ButtonNext>
 
             }
         </>

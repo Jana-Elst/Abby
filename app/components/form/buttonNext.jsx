@@ -5,9 +5,7 @@ const ButtonNext = ({ children, setFormState, formState, flowForm, formData, flo
     }
 
     const formValidation = () => {
-        if (flowKey === 'visabilityClock') {
-
-        } else if (flowKey === 'description') {
+        if (flowKey === 'description') {
             if (formData.name === '') {
                 return alert('Please enter your name');
             } else {
@@ -34,6 +32,8 @@ const ButtonNext = ({ children, setFormState, formState, flowForm, formData, flo
             } else {
                 handleNext();
             }
+        } else {
+            handleNext();
         }
     }
 

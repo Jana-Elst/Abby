@@ -13,7 +13,7 @@ const Location = ({ setFormState, formState, flowForm, flowKey, formData, setFor
             <Title>Wat is de locatie van jouw moment?</Title>
             {
                 locationsRadio.map(location =>
-                    <div>
+                    <div key={location}>
                         <input type="radio"
                             id={location}
                             name="location"

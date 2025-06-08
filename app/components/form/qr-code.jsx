@@ -1,6 +1,7 @@
 //https://articles.readytowork.jp/implementing-a-qr-code-scanner-in-react-4c8f4e3c6f2e
 import { useEffect, useRef, useState } from "react";
 import ButtonBack from './buttonBack';
+import ButtonNext from './buttonNext';
 
 
 // Styles
@@ -10,7 +11,7 @@ import "./qr-code.css";
 import QrScanner from "qr-scanner";
 // import QrFrame from "../assets/qr-frame.svg";
 
-const QrCode = ({flowForm, setFormState, formState}) => {
+const QrCode = ({ flowForm, setFormState, formState, flowKey, formData }) => {
     const handleClickNext = () => {
         setFormState(formState + 1);
     }
@@ -112,7 +113,14 @@ const QrCode = ({flowForm, setFormState, formState}) => {
                 )}
             </div>
 
-            <ButtonNext setFormState={setFormState} formState={formState} flowForm={flowForm}>VOLGENDE STAPPPPPPPP</ButtonNext>
+            <ButtonNext
+                buttonType='button'
+                setFormState={setFormState}
+                formState={formState}
+                flowForm={flowForm}
+                flowKey={flowKey}
+                formData={formData}
+            > Volgende stap </ButtonNext>
         </>
     );
 };
