@@ -7,8 +7,6 @@ const Calender = ({ setState, state, id }) => {
         });
     }
 
-    console.log(state);
-
     return (
         <input
             type="date"

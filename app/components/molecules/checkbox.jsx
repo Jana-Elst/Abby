@@ -20,8 +20,6 @@ const Checkbox = ({ content, name, setState, state }) => {
         }
     }
 
-    console.log(state);
-
     return (
         <div className='checkbox'>
             {

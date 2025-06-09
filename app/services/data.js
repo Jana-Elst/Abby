@@ -1,3 +1,4 @@
+import Participants from "../components/form/participants";
 import { supabase } from "../supabaseClient";
 import { totalClocks, clocksPerArduino } from "./museumData";
 
@@ -28,6 +29,37 @@ export const getMuseumClocks = async () => {
     return data
 }
 
+//get all clocks
+export const getAllClocks = async () => {
+    const data = await getOrUpdateClocks(
+        supabase
+            .from('clocks')
+            .select('*')
+    );
+    return data
+}
+
+//get all profiles and clockIds
+export const getClockProfile = async () => {
+    const data = await getOrUpdateClocks(
+        supabase
+            .from('clockprofile')
+            .select('*')
+    );
+    return data
+}
+
+//get all clockID's from one user
+export const getClocksUser = async (userId) => {
+    const data = await getOrUpdateClocks(
+        supabase
+            .from('clockprofile')
+            .select('*')
+            .eq('profile_id', userId)
+    );
+    return data
+}
+
 //get just one clock by ID
 export const getClock = async (id) => {
     const data = await getOrUpdateClocks(
@@ -41,7 +73,6 @@ export const getClock = async (id) => {
 
 //update clock from physical to digital
 export const updatePhysicalToDigital = async (id) => {
-    console.log(id);
     const data = await getOrUpdateClocks(
         supabase
             .from('clocks')
@@ -89,7 +120,6 @@ const addRow = async (query, userId) => {
 //add a new planned clock
 //!change the name!
 export const addScheduledClock = async (userId, name, description, scheduledStartTime, prive, location) => {
-    console.log(userId);
     const data = await addRow(
         supabase
             .from('clocks')
@@ -126,8 +156,41 @@ export const addPhysicalClock = async (userId) => {
         userId
     );
 
-    console.log(data.id);
     return data.id
+}
+
+//join activity
+export const joinClock = async (userId, clockId) => {
+    try {
+        const { data, error } = await supabase
+            .from('clockprofile')
+            .insert({
+                profile_id: userId,
+                clock_id: clockId
+            })
+            .select()
+            .single();
+
+        if (error) {
+            console.error("Error inserting clock:", error);
+            throw error;
+        }
+
+        return data;
+    } catch (error) {
+        console.error("Error in joinClock:", error);
+        throw error;
+    }
+}
+
+export const leaveClock = async (userId, clockId) => {
+    const data = await getOrUpdateClocks(
+        supabase
+            .from('clockprofile')
+            .delete()
+            .eq('profile_id', userId)
+            .eq('clock_id', clockId)
+    );
 }
 
 /*
@@ -150,7 +213,6 @@ const addFreeClocks = async () => {
     let occupiedClocks = [];
 
     const clocks = await getMuseumClocks();
-    console.log(clocks);
 
     clocks.forEach(clock => {
         if (
@@ -166,7 +228,6 @@ const addFreeClocks = async () => {
             freeClocks.push(i);
         }
     }
-    console.log(freeClocks);
     return freeClocks;
 }
 
@@ -176,6 +237,22 @@ const getRandomClockNumber = async () => {
 
     const clockId = Math.floor(Math.random() * freeClocks.length);
     const clock = freeClocks[clockId];
-    console.log(clock);
     return clock;
+}
+
+/*
+Some other functions to get the right buttons & clocks
+*/
+//------------------- get a random clock -------------------//
+export const clockLinkedWithUser = (clock, participants, userId) => {
+    const clockId = clock.id;
+
+    if (participants) {
+        const participant = participants.find(p => p.profile_id === userId && p.clock_id === clockId);
+        if (participant) {
+            return true;
+        }
+    } else {
+        return false;
+    }
 }

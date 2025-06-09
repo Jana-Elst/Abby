@@ -1,11 +1,11 @@
-import ClockItem from "./clockCard";
-const ClockList = ({ clocks = [] }) => {
+import ClockCard from "./clockCard";
+const ClockList = ({ clocks = [], clockProfile }) => {
     return (
         <div>
             {clocks.length ? (
                 <ul>
                     {clocks.map((clock) => (
-                        <ClockItem key={clock.id} clock={clock} id={clock.id} />
+                        <ClockCard key={clock.id} clock={clock} clockProfile={clockProfile} />
                     ))}
                 </ul>
             ) : (

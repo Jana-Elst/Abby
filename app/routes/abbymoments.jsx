@@ -7,17 +7,16 @@ import Title from "../components/molecules/title"
 import InfoButton from '../components/molecules/infobutton';
 
 //load the museum clocks
-import { getMuseumClocks } from "../services/data";
-import infoButton from '../components/molecules/infobutton';
-export async function clientLoader() {
-    const museumClocks = await getMuseumClocks();
-    console.log(museumClocks);
+import { getAllClocks, getClockProfile } from "../services/data";
 
-    return { museumClocks };
+export async function clientLoader() {
+    const clocks = await getAllClocks();
+    const clockProfile = await getClockProfile();
+    return { clocks, clockProfile };
 }
 
 const Abbymoments = ({ loaderData }) => {
-    const { museumClocks } = loaderData;
+    const { clocks, clockProfile } = loaderData;
 
     //set the states
     const [state, setState] = useState("Alle Abbymomenten");
@@ -25,14 +24,13 @@ const Abbymoments = ({ loaderData }) => {
         {
             location: [],
             date: [],
-            join: true,
+            join: true
         }
     )
-    console.log(state);
 
     return (
         <>
-            <Title title={state} />
+            <Title>{state}</Title>
             <InfoButton>
                 <p>Hier zie je alle lopende en geplande klokjes in Abby. Zo krijg je overzicht van wat er nu gebeurt en wat eraan komt.</p>
                 <p>Wie een klokje aanmaakt, kiest of anderen kunnen meedoen. Als dat mag, zie je bij dat Abbymoment een “Deelnemen” knop. Zo kun jij eenvoudig aansluiten.</p>
@@ -47,7 +45,7 @@ const Abbymoments = ({ loaderData }) => {
             />
 
             <Filter setfilter={setFilter} filter={filter} />
-            <ClockList clocks={museumClocks} />
+            <ClockList clocks={clocks} clockProfile={clockProfile} filter={filter} state={state} />
         </>
 
     )
