@@ -5,8 +5,8 @@ import ButtonNext from "./buttonNext";
 const Participants = ({ setFormState, formState, flowForm, flowKey, formData, setFormData }) => {
     return (
         <>
-            <ButtonBack setFormState={setFormState} formState={formState} flowForm={flowForm}>Terug</ButtonBack>
-            <Title title={"Wil je je moment delen met anderen?"} />
+            <ButtonBack formData={formData} setFormData={setFormData}>Terug</ButtonBack>
+            <Title>Wil je je moment delen met anderen?</Title>
             <div>
                 <div>
                     <input type="radio"
@@ -37,27 +37,21 @@ const Participants = ({ setFormState, formState, flowForm, flowKey, formData, se
                             })
                         }}
                     />
-                    <label htmlFor="true">Nee, Ik heb liever een Abbymoment voor mij alleen.</label>
+                    <label htmlFor="true">Nee, Ik heb liever een Abbymoment alleen.</label>
                 </div>
             </div>
 
             {
-                flowForm === "now"
+                formData.flow === "now" || formData.flow === 'planNow'
                     ? <ButtonNext
                         buttonType='submit'
-                        setFormState={setFormState}
-                        formState={formState}
-                        flowForm={flowForm}
-                        flowKey={flowKey}
                         formData={formData}
+                        setFormData={setFormData}
                     > Start je Abbymoment </ButtonNext>
                     : <ButtonNext
                         buttonType='submit'
-                        setFormState={setFormState}
-                        formState={formState}
-                        flowForm={flowForm}
-                        flowKey={flowKey}
                         formData={formData}
+                        setFormData={setFormData}
                     > Plan je Abbymoment </ButtonNext>
             }
         </>

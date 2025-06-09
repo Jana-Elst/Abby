@@ -15,7 +15,7 @@ import Time from "../components/form/time";
 import VisabilityClock from "../components/form/visability-clock";
 
 //services
-import { addClock } from "../services/data";
+import { addScheduledClock } from "../services/data";
 
 //root variables
 import { UserContext } from '../root';
@@ -32,37 +32,31 @@ export async function clientAction({ request }) {
     const scheduledStartTime = formData.get("time");
     const prive = formData.get("participants");
     const location = formData.get("location");
-    const flowForm = formData.get("flowForm"); // Add this hidden input
+    const flowForm = formData.get("flowForm");
 
-    console.log(formData.get("location"));
-    console.log(userId, name, description, scheduledStartTime, prive, location);
-
-    await addClock(userId, name, description, scheduledStartTime, prive, location, flowForm);
+    await addScheduledClock(userId, name, description, scheduledStartTime, prive, location);
     return redirect(`${import.meta.env.BASE_URL}maak-een-abbymoment`);
 }
 
 const CreateAbbymoment = () => {
     const { userId, setUserId } = useContext(UserContext);
     const { flowForm, setFlowForm } = useContext(FormFlowContext);
-    const [formState, setFormState] = useState(0);
 
     const [formData, setFormData] = useState({
         clockId: '',
         name: '',
         startTime: undefined,
         stopTime: undefined,
-        clockWallPos: 'online',
+        clockWallPos: '',
         description: '',
         private: '',
-        scheduledStartTime: new Date().toISOString(),
+        scheduledStartTime: '',
         scheduledStopTime: undefined,
         creator: userId,
         location: '',
+        state: 0,
+        flow: flowForm
     });
-
-    const handleSubmit = () => {
-        setFormState(formState + 1);
-    }
 
     //different flows
     const flows = {
@@ -71,36 +65,43 @@ const CreateAbbymoment = () => {
         now: ['visabilityClock', 'description', 'location', 'participants', 'confirmation'] //moet er helemaal in het begin geen kezue optie kies geplande klok of maak klok?
     }
 
-    const conditionalComponent = () => {
-        const flowKey = flowForm ? flows[flowForm][formState] : null;
+    const handleSubmit = () => {
+        setFormData({
+            ...formData,
+            state: formData.state + 1
+        });
+    }
 
-        switch (flowKey) {
+    const conditionalComponent = () => {
+        const currentComponent = flows[flowForm][formData.state];
+
+        switch (currentComponent) {
             case 'info':
-                return <Info setFormState={setFormState} formState={formState} userId={userId} />
+                return <Info formData={formData} setFormData={setFormData} />
 
             case 'visabilityClock':
-                return <VisabilityClock flowKey={flowKey} setFormState={setFormState} formState={formState} flowForm={flowForm} formData={formData} setFormData={setFormData} />
+                return <VisabilityClock formData={formData} setFormData={setFormData} />
 
             case 'description':
-                return <Description flowKey={flowKey} setFormState={setFormState} formState={formState} formData={formData} setFormData={setFormData} />
+                return <Description formData={formData} setFormData={setFormData} />
 
             case 'location':
-                return <Location flowKey={flowKey}  setFormState={setFormState} formState={formState} flowForm={flowForm} formData={formData} setFormData={setFormData} />
+                return <Location formData={formData} setFormData={setFormData} />
 
 
             case 'participants':
-                return <Participants flowKey={flowKey} setFormState={setFormState} formState={formState} flowForm={flowForm} formData={formData} setFormData={setFormData} />
+                return <Participants formData={formData} setFormData={setFormData} />
 
 
             case 'qrCode':
-                return <QrCode setFormState={setFormState} formState={formState} flowForm={flowForm} setFlowForm={setFlowForm} formData={formData} setFormData={setFormData} />
+                return <QrCode flowForm={flowForm} setFlowForm={setFlowForm} formData={formData} setFormData={setFormData} />
 
 
             case 'time':
-                return <Time flowKey={flowKey} setFormState={setFormState} formState={formState} setFlowForm={setFlowForm} formData={formData} setFormData={setFormData} flowForm={flowForm} />
+                return <Time flowForm={flowForm} setFlowForm={setFlowForm} formData={formData} setFormData={setFormData} />
 
             case 'confirmation':
-                return <Confirmation setFormState={setFormState} formState={formState} flowForm={flowForm} formData={formData} setFormData={setFormData} />
+                return <Confirmation flowForm={flowForm} formData={formData} setFormData={setFormData} />
         }
     }
 

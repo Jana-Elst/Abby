@@ -5,15 +5,51 @@ import InfoButton from '../../components/molecules/infobutton';
 import ButtonBack from './buttonBack';
 import ButtonNext from './buttonNext';
 
-import { createNewClock, removeWallPos } from "../../services/data";
+import { addPhysicalClock, updateDigitalToPhysical, updatePhysicalToDigital } from "../../services/data";
 
-const VisabilityClock = ({ setFormState, formState, setFlowForm, flowForm, formData, flowKey, setFormData }) => {
-    const [visability, setVisability] = useState("Op de klokjes muur");
+const VisabilityClock = ({ setFormData, formData }) => {
+    const handleChange = async (e) => {
+        const value = e.target.value;
+        let clockId = formData.clockId;
+
+        if (value === 'wall') {
+            console.log('wall');
+            if (clockId) {
+                clockId = await updateDigitalToPhysical(formData.clockId);
+                setFormData({
+                    ...formData,
+                    clockId: clockId,
+                    clockWallPos: "wall"
+                });
+            } else {
+                clockId = await addPhysicalClock(formData.creator);
+                setFormData({
+                    ...formData,
+                    clockId: clockId,
+                    clockWallPos: "wall"
+                });
+            }
+        } else {
+            console.log('online');
+            if (clockId) {
+                console.log('ClockId', clockId);
+                await updatePhysicalToDigital(formData.clockId);
+            }
+
+            setFormData({
+                ...formData,
+                clockWallPos: 'online'
+            });
+        }
+
+        console.log('ClockId', clockId);
+    }
 
     return (
         <>
-            <ButtonBack setFormState={setFormState} formState={formState} flowForm={flowForm}>Terug</ButtonBack>
-            <Title title={"Wil je je moment delen met anderen?"} />
+            <ButtonBack formData={formData} setFormData={setFormData}>Terug</ButtonBack>
+            <Title>Wil je je moment delen met anderen?</Title>
+
             <InfoButton>
                 <p><bold>Digitaal</bold></p>
                 <p>Je kan zelf instellen wanneer je klokje start, ideaal als je thuis of onderweg bent. Je klokje verschijnt op de website, maar niet op de muur in het museum.</p>
@@ -33,24 +69,9 @@ const VisabilityClock = ({ setFormState, formState, setFlowForm, flowForm, formD
                         name="visability"
                         value="wall"
                         checked={formData.clockWallPos === "wall"}
-                        onChange={(e) => {
-                            let clockId;
-                            if (formData.clockWallPos === 'online') {
-                                console.log(formData.creator);
-                                clockId = createNewClock(formData.creator).id;
-                                console.log(clockId);
-                                setFormData({
-                                    ...formData,
-                                    clockId: clockId
-                                })
-                            };
-                            setFormData({
-                                ...formData,
-                                clockWallPos: "wall"
-                            });
-                        }}
+                        onChange={handleChange}
                     />
-                    <label htmlFor="wall">Op de klokjes muur.</label>
+                    <label htmlFor="wall">Op de klokjes muur</label>
                 </div>
 
                 <div>
@@ -59,42 +80,22 @@ const VisabilityClock = ({ setFormState, formState, setFlowForm, flowForm, formD
                         name="visability"
                         value="online"
                         checked={formData.clockWallPos === 'online'}
-                        onChange={(e) => {
-                            setFormData({
-                                ...formData,
-                                clockWallPos: "online"
-                            })
-                        }}
+                        onChange={handleChange}
                     />
                     <label htmlFor="online">Online op de website</label>
                 </div>
             </div>
 
             {
-                visability === 'Op de klokjes muur'
+                formData.clockWallPos === 'wall'
                     ? <p>Je klokje begint meteen te lopen en verschijnt op de klokjesmuur in Abby.</p>
                     : ""
             }
 
             {
-                flowForm === 'now'
-                    ? <ButtonNext
-                        buttonType='button'
-                        setFormState={setFormState}
-                        formState={formState}
-                        flowForm={flowForm}
-                        flowKey={flowKey}
-                        formData={formData}
-                    > Maak een Abbymoment </ButtonNext>
-                    : <ButtonNext
-                        buttonType='button'
-                        setFormState={setFormState}
-                        formState={formState}
-                        flowForm={flowForm}
-                        flowKey={flowKey}
-                        formData={formData}
-                    > Volgende stap </ButtonNext>
-
+                formData.flow === 'now'
+                    ? <ButtonNext formData={formData} setFormData={setFormData}> Maak je Abbymoment </ButtonNext>
+                    : <ButtonNext formData={formData} setFormData={setFormData}> Volgende stap </ButtonNext>
             }
         </>
     )

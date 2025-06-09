@@ -4,12 +4,12 @@ import ButtonBack from './buttonBack';
 import ButtonNext from "./buttonNext";
 
 
-const Location = ({ setFormState, formState, flowForm, flowKey, formData, setFormData }) => {
+const Location = ({ formData, setFormData }) => {
     const locationsRadio = [...locations, 'Ik weet het nog niet'];
 
     return (
         <>
-            <ButtonBack setFormState={setFormState} formState={formState} flowForm={flowForm}>Terug</ButtonBack>
+            <ButtonBack formData={formData} setFormData={setFormData}>Terug</ButtonBack>
             <Title>Wat is de locatie van jouw moment?</Title>
             {
                 locationsRadio.map(location =>
@@ -30,13 +30,7 @@ const Location = ({ setFormState, formState, flowForm, flowKey, formData, setFor
                     </div>
                 )
             }
-            <ButtonNext
-                setFormState={setFormState}
-                formState={formState}
-                flowForm={flowForm}
-                flowKey={flowKey}
-                formData={formData}
-            > Volgende stap </ButtonNext>
+            <ButtonNext formData={formData} setFormData={setFormData}> Volgende stap </ButtonNext>
         </>
 
     )

@@ -11,11 +11,7 @@ import "./qr-code.css";
 import QrScanner from "qr-scanner";
 // import QrFrame from "../assets/qr-frame.svg";
 
-const QrCode = ({ flowForm, setFormState, formState, flowKey, formData }) => {
-    const handleClickNext = () => {
-        setFormState(formState + 1);
-    }
-
+const QrCode = ({ formData, setFormData }) => {
     // QR States
     const scanner = useRef();
     const videoEl = useRef(null);
@@ -83,7 +79,7 @@ const QrCode = ({ flowForm, setFormState, formState, flowKey, formData }) => {
 
     return (
         <>
-            <ButtonBack setFormState={setFormState} formState={formState} flowForm={flowForm}>Terug</ButtonBack>
+            <ButtonBack formData={formData} setFormData={setFormData}>Terug</ButtonBack>
             <div className="qr-reader">
                 {/* QR */}
                 <video ref={videoEl}></video>
@@ -113,14 +109,8 @@ const QrCode = ({ flowForm, setFormState, formState, flowKey, formData }) => {
                 )}
             </div>
 
-            <ButtonNext
-                buttonType='button'
-                setFormState={setFormState}
-                formState={formState}
-                flowForm={flowForm}
-                flowKey={flowKey}
-                formData={formData}
-            > Volgende stap </ButtonNext>
+            <ButtonNext formData={formData} setFormData={setFormData}> Volgende stap DIT MOET AANGEPAST WORDEN!!!</ButtonNext>
+
         </>
     );
 };
