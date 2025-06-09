@@ -93,9 +93,7 @@ const VisabilityClock = ({ setFormData, formData }) => {
             }
 
             {
-                formData.flow === 'now'
-                    ? <ButtonNext formData={formData} setFormData={setFormData}> Maak je Abbymoment </ButtonNext>
-                    : <ButtonNext formData={formData} setFormData={setFormData}> Volgende stap </ButtonNext>
+                <ButtonNext formData={formData} setFormData={setFormData}> Volgende stap </ButtonNext>
             }
         </>
     )

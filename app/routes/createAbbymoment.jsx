@@ -13,6 +13,8 @@ import Participants from "../components/form/participants";
 import QrCode from "../components/form/qr-code";
 import Time from "../components/form/time";
 import VisabilityClock from "../components/form/visability-clock";
+import ScheduledClocks from "../components/form/scheduledClocks";
+
 
 //services
 import { addScheduledClock } from "../services/data";
@@ -62,7 +64,8 @@ const CreateAbbymoment = () => {
     const flows = {
         plan: ['info', 'description', 'time', 'location', 'participants', 'confirmation'],
         planNow: ['info', 'description', 'time', 'qrCode', 'visabilityClock', 'location', 'participants', 'confirmation'],
-        now: ['visabilityClock', 'description', 'location', 'participants', 'confirmation'] //moet er helemaal in het begin geen kezue optie kies geplande klok of maak klok?
+        now: ['info', 'visabilityClock', 'description', 'location', 'participants', 'confirmation'],
+        startScheduled: ['info', 'visabilityClock', 'scheduledClocks', 'confirmation']
     }
 
     const handleSubmit = () => {
@@ -70,14 +73,16 @@ const CreateAbbymoment = () => {
             ...formData,
             state: formData.state + 1
         });
+        setFlowForm('plan');
     }
 
     const conditionalComponent = () => {
         const currentComponent = flows[flowForm][formData.state];
+        console.log('currentComp', currentComponent);
 
         switch (currentComponent) {
             case 'info':
-                return <Info formData={formData} setFormData={setFormData} />
+                return <Info formData={formData} setFormData={setFormData} setFlowForm={setFlowForm}/>
 
             case 'visabilityClock':
                 return <VisabilityClock formData={formData} setFormData={setFormData} />
@@ -102,6 +107,9 @@ const CreateAbbymoment = () => {
 
             case 'confirmation':
                 return <Confirmation flowForm={flowForm} formData={formData} setFormData={setFormData} />
+
+            case 'scheduledClocks':
+                return <ScheduledClocks flowForm={flowForm} formData={formData} setFormData={setFormData} />
         }
     }
 
