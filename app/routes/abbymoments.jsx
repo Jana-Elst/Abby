@@ -39,7 +39,7 @@ const Abbymoments = ({ loaderData }) => {
 
             <ToggleButton
                 content1={'Alle Abbymomenten'}
-                content2={'Jouw Abbymomenten'}
+                content2={'Mijn Abbymomenten'}
                 setState={setState}
                 state={state}
             />
