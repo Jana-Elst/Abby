@@ -28,8 +28,7 @@ struct Clock
 Clock clocks[] = {
     {1, 2, "available", "", 0, false},
     {2, 3, "available", "", 0, false},
-    {3, 4, "available", "", 0, false}
-    };
+    {3, 4, "available", "", 0, false}};
 
 // Get the number of clocks
 const int numClocks = sizeof(clocks) / sizeof(clocks[0]);
@@ -37,8 +36,8 @@ const int numClocks = sizeof(clocks) / sizeof(clocks[0]);
 /*---Connection with socket ---*/
 // local websocket setup
 WiFiClient wifi;
-char serverAddress[] = "192.168.129.2"; /* <-- change this of the network changes */
-int port = 3000;                        /* server port */
+char serverAddress[] = "172.30.35.28"; /* <-- change this of the network changes */
+int port = 3000;                       /* server port */
 char endpoint[] = "/";
 
 // initialize the webSocket client
@@ -102,7 +101,7 @@ void loop()
     readIncomingJson(message);
   }
 
-  //blink leds
+  // blink leds
   showStatus();
 }
 
@@ -120,16 +119,29 @@ void readIncomingJson(String json)
     return;
   }
 
-  const int numberClock = doc["number"];
-  const char *status = doc["message"]["status"]; // Use const char*
+  const int numberClock = doc["clockNumber"];
+  const String startTime = doc["startTime"].as<String>();
+  const String name = doc["name"].as<String>();
+  const String stopTime = doc["stopTime"].as<String>();
 
-  clocks[numberClock - 1].status = status;
-
-  // read name if status = start
-  if (status == "start")
+  if (numberClock)
   {
-    clocks[numberClock - 1].name = doc["message"]["name"].as<String>();
-    Serial.println(doc["message"]["name"].as<String>());
+    Serial.print("setup ");
+    Serial.println(numberClock);
+    clocks[numberClock - 1].status = "setup";
+  }
+  if (startTime != "null")
+  {
+    Serial.print("start ");
+    Serial.println(name);
+    clocks[numberClock - 1].name = name;
+    clocks[numberClock - 1].status = "start";
+  }
+  if (stopTime != "null")
+  {
+    Serial.print("stop ");
+    Serial.println(name);
+    clocks[numberClock - 1].status = "stop";
   }
 }
 

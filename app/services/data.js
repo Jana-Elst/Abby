@@ -208,7 +208,6 @@ export const addPhysicalClock = async (userId) => {
                 clockWallPos: clockNumber,
                 creator: userId,
                 scheduledStartTime: time,
-                startTime: time
             }).select()
             .single(),
         userId
