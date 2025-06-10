@@ -24,7 +24,8 @@ const Abbymoments = ({ loaderData }) => {
         {
             location: [],
             date: [],
-            join: true
+            join: true,
+            abby: undefined
         }
     )
 

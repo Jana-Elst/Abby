@@ -4,9 +4,10 @@ import { getTime } from "../../services/clock";
 import ButtonClockCard from "./buttonClockCard";
 
 const ClockCard = ({ clock, clockProfile }) => {
-    let participants
+    let participants = []
 
     const totalParticipants = () => {
+        console.log(clockProfile);
         participants = clockProfile.filter(cp => cp.clock_id === clock.id);
         return participants;
     }

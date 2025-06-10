@@ -17,11 +17,12 @@ import ScheduledClocks from "../components/form/scheduledClocks";
 
 
 //services
-import { addScheduledClock } from "../services/data";
+import { addScheduledClock, startOnlineClock, startWallClock } from "../services/data";
 
 //root variables
 import { UserContext } from '../root';
 import { FormFlowContext } from '../root';
+import { id } from "react-day-picker/locale";
 
 //add abbymoment
 export async function clientAction({ request }) {
@@ -35,8 +36,19 @@ export async function clientAction({ request }) {
     const prive = formData.get("participants");
     const location = formData.get("location");
     const flowForm = formData.get("flowForm");
+    const clockId = formData.get("clockId");
 
-    await addScheduledClock(userId, name, description, scheduledStartTime, prive, location);
+    if (flowForm === 'plan') {
+        await addScheduledClock(userId, name, description, scheduledStartTime, prive, location);
+    } else if (flowForm === 'planNow' || flowForm === 'now') {
+        //if clock is in on the wall, the row of the clock needs an update
+        if (clockId) {
+            await startWallClock(clockId, name, description, prive, location)
+        } else {
+            //if the clock is now, but online, a new row in the database should be made
+            await startOnlineClock(userId, name, description, prive, location);
+        }
+    }
     return redirect(`${import.meta.env.BASE_URL}maak-een-abbymoment`);
 }
 
@@ -73,7 +85,7 @@ const CreateAbbymoment = () => {
             ...formData,
             state: formData.state + 1
         });
-        setFlowForm('plan');
+        // setFlowForm('plan');
     }
 
     const conditionalComponent = () => {
@@ -82,7 +94,7 @@ const CreateAbbymoment = () => {
 
         switch (currentComponent) {
             case 'info':
-                return <Info formData={formData} setFormData={setFormData} setFlowForm={setFlowForm}/>
+                return <Info formData={formData} setFormData={setFormData} setFlowForm={setFlowForm} />
 
             case 'visabilityClock':
                 return <VisabilityClock formData={formData} setFormData={setFormData} />
@@ -124,6 +136,7 @@ const CreateAbbymoment = () => {
                 <input type="hidden" name="time" value={formData.scheduledStartTime} />
                 <input type="hidden" name="location" value={formData.location} />
                 <input type="hidden" name="flowForm" value={flowForm} />
+                <input type="hidden" name="clockId" value={formData.clockId} />
 
                 {conditionalComponent()}
             </Form>

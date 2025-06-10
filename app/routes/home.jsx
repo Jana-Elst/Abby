@@ -1,7 +1,6 @@
 //import different frames
 import Hero from "../components/frames/hero";
 import Intro from "../components/frames/intro";
-import Solutions from "../components/frames/solutions";
 import ToDoInAbby from "../components/frames/toDoInAbby";
 import Statistics from "../components/frames/statistics";
 import AndYou from "../components/frames/andYou";
@@ -11,18 +10,20 @@ import Moments from "../components/frames/moments";
 import '../components/frames/Frames.css';
 
 //load the museum clocks
-import { getMuseumClocks } from "../services/data";
+import { getMuseumClocks, getClockProfile } from "../services/data";
 
 export async function clientLoader() {
     const museumClocks = await getMuseumClocks();
+    const clockProfile = await getClockProfile();
+
     console.log(museumClocks);
 
-    return { museumClocks };
+    return { museumClocks, clockProfile };
 }
 
 
 const Home = ({ loaderData }) => {
-    const { museumClocks } = loaderData;
+    const { museumClocks, clockProfile } = loaderData;
 
     return (
         <>
@@ -30,11 +31,10 @@ const Home = ({ loaderData }) => {
             {/* <ClockList clocks={museumClocks}/> */}
             <Hero />
             <Intro />
-            <Solutions />
             <ToDoInAbby />
             <Statistics />
             <AndYou />
-            <Moments museumClocks={museumClocks} />
+            <Moments museumClocks={museumClocks} clockProfile={clockProfile} />
         </>
 
     )

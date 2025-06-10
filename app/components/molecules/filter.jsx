@@ -1,99 +1,123 @@
 import './filter.css'
 
 import { useState } from 'react';
-import FilterItem from "../molecules/filterItem";
-import Checkbox from './checkbox';
-import Calender from './calender';
+import { Form } from 'react-router';
+
+//components
+import FilterItem from './filterItem'
+import FilterSmall from './filterSmall';
+
+//components
+import Button from './button';
+import TimeInput from '../form/timeInput'
+
+//functions
+import { locations } from '../../services/museumData'
 
 const Filter = () => {
-    const [filterState, setFilterState] = useState('close');
-
-    const [locationState, setLocationState] = useState(
+    const [filterState, setFilterState] = useState(
         {
-            accordion: 'close',
-            selection: []
-        }
-    );
+            general: 'close',
+            location: 'close',
+            datum: 'close',
 
-    const [dateState, setDateState] = useState(
-        {
-            accordion: 'close',
-            selection: []
-        }
-    );
-
-    const [joinState, setJoinState] = useState(
-        {
-            accordion: 'close',
-            selection: []
+            locationSelection: [],
+            datumSelection: [],
+            abbySelection: false,
+            joinSelection: false
         }
     );
 
     const handleClick = () => {
         console.log(filterState);
-        if (filterState === 'close') {
-            setFilterState('open');
-        } else {
-            setFilterState('close');
-            setLocationState({
-                ...locationState,
-                accordion: 'close'
-            }
-            );
-            setJoinState({
-                ...joinState,
-                accordion: 'close'
+        if (filterState.general === 'close') {
+            setFilterState({
+                ...filterState,
+                general: 'open'
             });
-
-            console.log(joinState);
+        } else {
+            setFilterState({
+                ...filterState,
+                general: 'close',
+                datum: 'close',
+                location: 'close'
+            });
         }
     }
 
-    const handleClickRemove = () => {
-        setLocationState({
-            ...locationState,
-            selection: []
-        });
-        setDateState({
-            ...dateState,
-            selection: []
-        });
-        setJoinState({
-            ...joinState,
-            selection: []
-        });
+    const handleRemoveAll = () => {
+        setFilterState({
+            ...filterState,
+            locationSelection: [],
+            datumSelection: [],
+            abbySelection: false,
+            joinSelection: false
+        })
+    }
 
+    const onChange = (e, name) => {
+        const value = e.target.value;
+        const selectionName = `${name}Selection`
+        let newSelection = [...filterState[selectionName]]
+
+        if (e.target.checked) {
+            newSelection.push(value);
+        } else {
+            newSelection = newSelection.filter(item => item !== value);
+        }
+
+        setFilterState({
+            ...filterState,
+            [selectionName]: newSelection
+        });
     }
 
     return (
-        //button filter --> make it a component
         <>
-            <button onClick={handleClick}>Filter</button>
-            <div className={filterState}>
-                <ul>
-                    <FilterItem title={'Locatie'} itemState={locationState} setItemState={setLocationState}>
-                        <Checkbox
-                            name='filterLocation'
-                            content={['Het atelier', 'De living', 'Het salon', 'Abbycafé', 'De abdijtuin', 'tentoonstellingsruimte A', 'tentoonstellingsruimte B']}
-                            state={locationState}
-                            setState={setLocationState}
-                        />
+            <Form id="filter">
+                <Button type={filterState.general === 'close' ? 'submit' : 'button'} click={handleClick} icon={filterState.general === 'close' ? '' : ''}>Filter</Button>
+
+                {/* show or remove delete all filters button */}
+                {
+                    filterState.general === 'close' || !filterState.locationSelection.length > 0 && !filterState.datumSelection.length > 0 && !filterState.abbySelection && !filterState.joinSelection
+                        ? ""
+                        : <Button click={handleRemoveAll}>Verwijder alle filters</Button>
+
+                }
+
+                {/* show selected filters */}
+                {
+                    filterState.general === 'close'
+                        ? <FilterSmall filterState={filterState} setFilterState={setFilterState} />
+                        : ""
+                }
+
+                <ul className={filterState.general}>
+                    <FilterItem title={'location'} filterState={filterState} setFilterState={setFilterState}>
+                        {
+                            locations.map(location => (
+                                <div className=''>
+                                    <input
+                                        type="checkbox"
+                                        id={location}
+                                        name='location'
+                                        value={location}
+                                        onChange={(e) => onChange(e, 'location')}
+                                        checked={filterState.locationSelection.includes(location)} />
+                                    <label htmlFor={location}>{location}</label>
+                                </div>
+                            ))
+                        }
                     </FilterItem>
-                    <FilterItem title={'Datum'} filterState={filterState} itemState={dateState} setItemState={setDateState}>
-                        <Calender setState={setDateState} state={dateState} id={'filterDate'} />
+                    <FilterItem title={'datum'} filterState={filterState} setFilterState={setFilterState}>
+                        <TimeInput formData={filterState} setFormData={setFilterState} />
                     </FilterItem>
-                    <FilterItem title={'Deelnemen mogelijk'} filterState={filterState} itemState={joinState} setItemState={setJoinState}>
-                        <Checkbox
-                            name='filterJoin'
-                            content={['niet mogelijk', 'wel mogelijk']}
-                            state={joinState}
-                            setState={setJoinState}
-                        />
+                    <FilterItem checkbox={true} title={'Toon enkel momenten waar anderen aan kunnen deelnemen'} filterState={filterState} setFilterState={setFilterState} name={'joinSelection'}>
+                    </FilterItem>
+                    <FilterItem checkbox={true} title={'Toon enkel momenten die gemaakt zijn door Abby'} filterState={filterState} setFilterState={setFilterState} name={'abbySelection'}>
                     </FilterItem>
                 </ul>
-                <button onClick={handleClickRemove}>Wis alle filters</button>
-                <button onClick={handleClick}>Bewaar filters</button>
-            </div>
+            </Form>
         </>
     )
 };

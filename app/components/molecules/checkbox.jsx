@@ -28,8 +28,7 @@ const Checkbox = ({ content, name, setState, state }) => {
                         <input type="checkbox" id={content} name={name} value={item} onChange={onChange} checked={state.selection.includes(item)}/>
                         <label htmlFor={item}>{item}</label>
                     </div>
-                )
-                )
+                ))
             }
         </div>
     )

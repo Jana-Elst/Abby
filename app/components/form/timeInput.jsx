@@ -71,10 +71,10 @@ const TimeInput = ({ formData, setFormData }) => {
                 //extra settings
                 navLayout="around"
                 captionLayout="dropdown"
-                disabled={{
-                    before: new Date(),
-                    dayOfWeek: [1],
-                }}
+                disabled={[
+                    {before: new Date()},
+                    {dayOfWeek: [1]}
+                ]}
                 weekStartsOn={1}
 
             // footer={`Selected date: ${selected ? selected.toLocaleString() : "none"

@@ -23,7 +23,7 @@ export const getMuseumClocks = async () => {
     const data = await getOrUpdateClocks(
         supabase
             .from('clocks')
-            .select('id, name, description, startTime, clockWallPos')
+            .select('*')
             .not('clockWallPos', 'is', null)
     );
     return data
@@ -101,6 +101,43 @@ export const updateDigitalToPhysical = async (id) => {
     return data
 }
 
+//update clock & start it
+export const startWallClock = async (id, name, description, prive, location) => {
+    const time = getTimeNow();
+
+    const data = await getOrUpdateClocks(
+        supabase
+            .from('clocks')
+            .update({
+                name: name,
+                description: description,
+                startTime: time,
+                scheduledStartTime: time,
+                private: prive,
+                location: location
+            })
+            .eq('id', id)
+    );
+    return data
+}
+
+//stop clock
+export const stopClock = async (id) => {
+    const time = getTimeNow();
+    console.log(id, time);
+
+    const data = await getOrUpdateClocks(
+        supabase
+            .from('clocks')
+            .update({
+                stopTime: time,
+                // scheduledStopTime: time,
+            })
+            .eq('id', id)
+    );
+    return data
+}
+
 //------------------- Add a row -------------------//
 const addRow = async (query, userId) => {
     try {
@@ -118,7 +155,6 @@ const addRow = async (query, userId) => {
 }
 
 //add a new planned clock
-//!change the name!
 export const addScheduledClock = async (userId, name, description, scheduledStartTime, prive, location) => {
     const data = await addRow(
         supabase
@@ -127,6 +163,28 @@ export const addScheduledClock = async (userId, name, description, scheduledStar
                 name: name,
                 description: description,
                 scheduledStartTime: new Date(scheduledStartTime).toISOString(),
+                private: prive,
+                location: location,
+                creator: userId
+            }).select()
+            .single(),
+        userId
+    )
+
+    return data
+}
+
+export const startOnlineClock = async (userId, name, description, prive, location) => {
+    const time = getTimeNow();
+
+    const data = await addRow(
+        supabase
+            .from('clocks')
+            .insert({
+                name: name,
+                description: description,
+                scheduledStartTime: time,
+                startTime: time,
                 private: prive,
                 location: location,
                 creator: userId
