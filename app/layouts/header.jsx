@@ -1,11 +1,14 @@
-import {Outlet} from "react-router";
-import Nav from "../components/nav";
+import { Link, Outlet } from "react-router";
+import Nav from "../components/header/nav";
+import Button from "../components/molecules/button";
 
 const Header = () => {
     return (
         <>
-            <div style={{display:"flex"}}>
-                <p>Abby</p>
+            <div style={{ display: "flex" }}>
+                <Link to={`${import.meta.env.BASE_URL}`}>
+                    Abby
+                </Link>
                 <Nav />
             </div>
             <Outlet />
@@ -14,4 +17,4 @@ const Header = () => {
     )
 };
 
-export default Header;
+export default Header

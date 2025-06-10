@@ -7,8 +7,23 @@ import {
   ScrollRestoration,
 } from "react-router";
 
+import { createContext, useState } from "react";
+
 import "@fontsource-variable/roboto";
 import "./style/app.css";
+
+//get userID
+import { supabase } from './supabaseClient';
+
+export async function clientLoader() {
+  const { data: { user } } = await supabase.auth.getUser();
+  let id = "";
+  if (user) {
+    id = user.id
+  }
+  return id;
+}
+
 
 export function Layout({ children }) {
   return (
@@ -25,11 +40,28 @@ export function Layout({ children }) {
         <Scripts />
       </body>
     </html>
-  );
+  )
 }
 
-export default function App() {
-  return <Outlet />;
+export const UserContext = createContext(null);
+export const FormFlowContext = createContext(null);
+
+
+export default function App({ loaderData }) {
+  //userId
+  const user = loaderData;
+  const [userId, setUserId] = useState(user);
+
+  //formFlow
+  const [flowForm, setFlowForm] = useState("plan"); //schedule & now
+
+  return (
+    <FormFlowContext.Provider value={{ flowForm, setFlowForm }}>
+      <UserContext.Provider value={{ userId, setUserId }}>
+        <Outlet />
+      </UserContext.Provider>
+    </FormFlowContext.Provider>
+  )
 }
 
 export function ErrorBoundary({ error }) {

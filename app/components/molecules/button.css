@@ -1,0 +1,8 @@
+.button {
+    background-color: var(--white);
+    text-decoration: none;
+}
+
+.button.skip::before {
+    content: url('../../src/assets/skip.svg');
+}

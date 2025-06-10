@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "react-router build",
-    "dev": "react-router dev",
+    "dev": "react-router dev --host",
     "dev:test": "react-router dev --port 5174",
     "test:ui": "playwright test --ui",
     "test:chrome": "playwright test --project=chromium",
@@ -20,9 +20,12 @@
     "@supabase/auth-ui-shared": "^0.1.8",
     "@supabase/supabase-js": "^2.49.8",
     "isbot": "^5.1.27",
+    "qr-scanner": "^1.4.2",
     "react": "^19.1.0",
+    "react-day-picker": "^9.7.0",
     "react-dom": "^19.1.0",
-    "react-router": "^7.6.0"
+    "react-router": "^7.6.0",
+    "react-router-dom": "^7.6.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.26.0",
