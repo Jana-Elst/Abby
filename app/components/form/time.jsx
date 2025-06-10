@@ -1,67 +1,62 @@
-//react
+// react
 import { useState } from "react";
 
-//extarnal components //calender stuff
-//https://daypicker.dev/start
-//https://daypicker.dev/guides/input-fields
-import { addMonths } from "date-fns";
-import { DayPicker } from "react-day-picker";
-import "react-day-picker/style.css";
-
-//components
+// components
 import Title from "../molecules/title";
-import ToggleButton from "../molecules/toggleButton"
 import ButtonBack from './buttonBack';
-import QrCode from "./qr-code";
+import ButtonNext from "./buttonNext";
+import TimeInput from "./timeInput";
 
-const Time = ({ setFormState, formState, setFlowForm, flowForm }) => {
-    const [timeState, setTimeState] = useState("Later");
-
-    const today = new Date();
-    const nextMonth = addMonths(today, 1);
-    const [month, setMonth] = useState(nextMonth);
-
-    const handleClickNext = () => {
-        if (timeState === 'Later') {
-            setFlowForm("plan");
-            setFormState(formState + 1);
-        } else {
-            setFlowForm("planNow");
-            setFormState(formState + 1);
-        }
+const Time = ({ setFlowForm, formData, setFormData }) => {
+    const handleChangeFlow = (name) => {
+        setFormData({
+            ...formData,
+            flow: name
+        });
+        setFlowForm(name);
     }
 
     return (
         <>
-            <ButtonBack setFormState={setFormState} formState={formState} flowForm={flowForm}>Terug</ButtonBack>
-            <Title title={"Wanneer is je Abbymoment?"} />
-            <ToggleButton content1={"Nu"} content2={"Later"} state={timeState} setState={setTimeState} />
+            <ButtonBack formData={formData} setFormData={setFormData}>Terug</ButtonBack>
+            <Title>Wanneer is je Abbymoment?</Title>
+
+            {/* toggle now later */}
+            <div>
+                <div>
+                    <input type="radio"
+                        id="planNow"
+                        name="time"
+                        value="planNow"
+                        checked={formData.flow === 'planNow'}
+                        onChange={(e) => { handleChangeFlow('planNow') }}
+                    />
+                    <label htmlFor="planNow">Nu</label>
+                </div>
+
+                <div>
+                    <input type="radio"
+                        id="plan"
+                        name="time"
+                        value="plan"
+                        checked={formData.flow === 'plan'}
+                        onChange={(e) => { handleChangeFlow('plan') }}
+
+                    />
+                    <label htmlFor="plan">Later</label>
+                </div>
+            </div>
+
+            {/* show calender  & hour picker if later */}
             {
-                timeState === 'Later'
-                    ? <>
-                        <DayPicker
-                            navLayout="around"
-                            captionLayout="dropdown"
-                            month={month}
-                            onMonthChange={setMonth}
-                            firstWeekContainsDate={0}
-                            mode="single"
-                            required
-                            animate
-                            weekStartsOn={1}
-                            disabled={{
-                                before: new Date(),
-                                dayOfWeek: [1]
-                            }}
-                        />
-                        <button onClick={() => setMonth(today)}>Go to Today</button>
-                    </>
+                formData.flow === 'plan'
+                    ? <TimeInput formData={formData} setFormData={setFormData} />
                     : ""
             }
-            <button onClick={handleClickNext}>volgende stap</button>
-        </>
 
-    )
+            <ButtonNext formData={formData} setFormData={setFormData}> Volgende stap </ButtonNext>
+        </>
+    );
 };
 
 export default Time;

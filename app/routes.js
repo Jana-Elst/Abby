@@ -16,6 +16,7 @@ export default [
         route("/abbymomenten/:abbymomentId", "routes/detailAbbymoments.jsx"),
       ])
     ]),
+    route("/qrCode", "routes/qrCode.jsx")
     // route("/maak-activiteit", "routes/createClockForm.jsx"),
     // route("/muur-vol-klokjes", "routes/wallStart.jsx"),
     // route("/jouw-klokje", "routes/wallSucces.jsx"),

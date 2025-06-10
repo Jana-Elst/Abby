@@ -2,12 +2,11 @@ import { useContext, useState, useEffect } from 'react'
 import { supabase } from '../supabaseClient'
 import { Auth } from '@supabase/auth-ui-react'
 import { ThemeSupa } from "@supabase/auth-ui-shared";
-import { NavLink } from 'react-router';
+import { NavLink, Link, useNavigate } from 'react-router';
 import { UserContext } from '../root';
 
 const AccountPage = () => {
     const { userId, setUserId } = useContext(UserContext);
-    console.log(userId);
     const [session, setSession] = useState(null);
 
     useEffect(() => {
@@ -31,13 +30,14 @@ const AccountPage = () => {
 
     if (!session) {
         setUserId(null);
+        console.log(userId);
         return (
             <>
                 <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} />
             </>
         );
     } else {
-        setUserId(session.userId);
+        setUserId(session.user.id);
         console.log(session);
         return (
             <>
