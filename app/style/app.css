@@ -1,8 +1,8 @@
 /* Base styles */
 :root {
   /* colors */
-  --white: #FFFFFF;
-  --black: #000000;
+  --white: #fbfbfb;
+  --black: #090909;
   --blue: #5F90FF;
   --yellow: #FFBF50;
   --red: #691E12;
@@ -27,17 +27,23 @@
 
 @font-face {
   font-family: "GT Walsheim Regular";
-  /*Can be any text*/
   src: local("GT-Walsheim-Regular"),
     url("../src/fonts/GT-Walsheim-Regular.woff2") format("woff2");
+    font-weight: 100;
 }
 
 @font-face {
-  font-family: "GT-Walsheim-Bold";
-  /*Can be any text*/
+  font-family: "GT Walsheim Regular";
   src: local("GT-Walsheim-Bold"),
     url("../src/fonts/GT-Walsheim-Bold.woff2") format("woff2");
-    font-weight: bold;
+    font-weight: 700;
+}
+
+@font-face {
+  font-family: "GT Walsheim Regular";
+  src: local("GT-Walsheim-Medium"),
+    url("../src/fonts/GT-Walsheim-Medium.woff2") format("woff2");
+  font-weight: 500;
 }
 
 * {
@@ -48,16 +54,9 @@
 
 body {
   font-family: 'GT Walsheim Regular', 'arial', sans-serif;
-  line-height: 1.6;
-  color: #333;
-}
-
-/* App Container */
-.app {
-  display: flex;
-  height: 100vh;
-  background-color: #f5f5f5;
-  flex: 1;
+  font-weight: 100;
+  line-height: 1.3125rem;
+  color: var(--black);
 }
 
 /* title styles */
@@ -70,5 +69,10 @@ body {
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
     border: 0;
+ }
+
+ h2{
+  font-size: var(--font-h2);
+  font-weight: 500;
  }
 
