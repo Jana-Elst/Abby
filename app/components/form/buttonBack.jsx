@@ -1,17 +1,25 @@
-const ButtonBack = ({ children, setFormState, formState, flowForm }) => {
+const ButtonBack = ({ children, setFormData, formData }) => {
     const handleBack = () => {
-        setFormState(formState - 1);
+        setFormData(
+            {
+                ...formData,
+                state: formData.state - 1
+            }
+        );
 
-        console.log(flowForm);
-        console.log(formState)
-        if (flowForm === 'planNow' && formState === 4) {
+        if (formData.flow === 'planNow' && formData.state === 4) {
             console.log('hey');
-            setFormState(formState - 2);
+            setFormData(
+                {
+                    ...formData,
+                    state: formData.state - 2
+                }
+            );
         }
     }
 
     return (
-        <button onClick={handleBack}>
+        <button type='button' onClick={handleBack}>
             {children}
         </button>
     )

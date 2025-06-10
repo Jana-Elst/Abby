@@ -4,7 +4,7 @@ const ButtonBack = () => {
     let navigate = useNavigate();
 
     return (
-        <button onClick={() => navigate(-1)}>Terug</button> 
+        <button type='button' onClick={() => navigate(-1)}>Terug</button> 
     )
 };
 

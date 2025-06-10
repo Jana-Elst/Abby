@@ -6,7 +6,9 @@ const Header = () => {
     return (
         <>
             <div style={{ display: "flex" }}>
-                <Button link={''}>Abby</Button>
+                <Link to={`${import.meta.env.BASE_URL}`}>
+                    Abby
+                </Link>
                 <Nav />
             </div>
             <Outlet />

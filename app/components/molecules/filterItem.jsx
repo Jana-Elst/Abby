@@ -1,34 +1,63 @@
-const FilterItem = ({ title, itemState, setItemState, children }) => {
+const FilterItem = ({ title, filterState, setFilterState, children, checkbox = null, name = null }) => {
+    const selectionName = `${title}Selection`
 
     const handleClick = () => {
-        if (itemState.accordion === 'close') {
-            setItemState(
+        if (filterState[title] === 'close') {
+            setFilterState(
                 {
-                    ...itemState,
-                    accordion: 'open'
+                    ...filterState,
+                    [title]: 'open'
                 }
             );
         } else {
-            setItemState(
+            setFilterState(
                 {
-                    ...itemState,
-                    accordion: 'close'
+                    ...filterState,
+                    [title]: 'close'
                 }
             );
         }
-
-        console.log(itemState);
     }
 
-    return (
-        <li>
-            <button onClick={handleClick}>{title}</button>
-            <p>{itemState.selection.length}</p>
-            <div className={itemState.accordion}>
-                {children}
-            </div>
-        </li>
-    )
+    const handleToggle = (e, newSelection) => {
+        setFilterState({
+            ...filterState,
+            [newSelection]: e.target.checked
+        });
+    }
+
+    if (!checkbox) {
+        return (
+            <li>
+                <div>
+                    <p>{title}</p>
+                    {
+                        filterState[selectionName]
+                            ? <p>{filterState[selectionName].length}</p>
+                            : ""
+                    }
+                    <button type='button' onClick={handleClick}>dropdown arrow</button>
+                </div>
+                <div className={filterState[title]}>
+                    {children}
+                </div>
+            </li>
+        )
+    } else {
+        return (
+            <li>
+                <div>
+                    <p>{title}</p>
+                    <input
+                        type="checkbox"
+                        id={title}
+                        name={title}
+                        onChange={e => handleToggle(e, name)}
+                        checked={filterState[name]} />
+                </div>
+            </li>
+        )
+    }
 };
 
 export default FilterItem;
