@@ -8,7 +8,7 @@
     width: 2rem;
     height: 2rem;    
     display: flex;
-    margin-left: .5rem;
+    margin-left: var(--space-xxs);
 }
 
 .header__hamburger__icon{
@@ -20,10 +20,10 @@
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
-    padding: 0.75rem 1.25rem;
+    padding: var(--space-xs) var(--space-m);
     align-items: center;
     border-bottom: var(--border);
-    padding-top: 1.25rem;
+    padding-top: var(--space-m);
 }
 
 .navigation__links__li{
@@ -69,7 +69,7 @@
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-between;
-    padding: 1rem;
+    padding: var(--space-s);
 }
 
 .links__li__svg{
@@ -99,7 +99,7 @@
 
 .navigation__ln_li{
      border-right: var(--border);    
-     padding: var(--side-margin);
+     padding: var(--space-s);
 }
 
 .navigation__ln_li:last-of-type{
