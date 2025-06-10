@@ -1,44 +1,19 @@
-/*DEZE FILTE MAG WEG*/
-
 //react
 import { useContext } from "react";
 
 //global variables
-import { UserContext } from '../../root';
+import { FormFlowContext, UserContext } from '../root';
 
 //components
-import Title from '../molecules/title'
-import Button from '../molecules/button'
-import ButtonNext from "./buttonNext";
+import Title from '../components/molecules/title'
+import Button from '../components/molecules/button'
 
-const Info = ({ formData, setFormData, setFlowForm }) => {
+const Info = () => {
     const { userId } = useContext(UserContext);
+    const { formFlow } = useContext(FormFlowContext);
 
-    const handleClickNext = () => {
-        setFormData({
-            ...formData,
-            state: formData.state + 1
-        });
-    }
 
-    const handleChange = (e) => {
-        console.log(e.target.value);
-        if (e.target.value === 'scheduled') {
-            setFormData({
-                ...formData,
-                flow: 'startScheduled',
-                state: formData.state + 1
-            });
-            setFlowForm('startScheduled');
-        } else {
-            setFormData({
-                ...formData,
-                state: formData.state + 1
-            });
-        }
-    }
-
-    if (formData.flow === 'now') {
+    if (formFlow === 'now') {
         return (
             <>
                 <Title> Wat wil jij vandaag doen ?</Title >
@@ -83,8 +58,8 @@ const Info = ({ formData, setFormData, setFlowForm }) => {
 
                 {
                     userId
-                        ? <ButtonNext setFormData={setFormData} formData={formData}>Maak een Abbymoment</ButtonNext>
-                        : <Button link={'log-in'} onClick={handleClickNext}>Log-in</Button>
+                        ? <Button link={'maak-een-abbymoment/formulier'}>Maak een Abbymoment</Button>
+                        : <Button link={'log-in'}>Log-in</Button>
                 }
             </>
         )
