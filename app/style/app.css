@@ -1,3 +1,6 @@
+/* reset css */
+@import url(./reset.css);
+
 /* Base styles */
 :root {
   /* colors */
@@ -22,7 +25,10 @@
   --side-margin: 1rem;
 
   /* border sizes */
-  --border: 1.5px solid var(--black);
+  --border: 1.7px solid var(--black);
+
+  overscroll-behavior: none;
+  
 }
 
 @font-face {
@@ -52,15 +58,33 @@
   box-sizing: border-box;
 }
 
+html {
+  box-sizing: border-box;
+}
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+img {
+  width: 100%;
+    height: auto;
+}
+
+a {
+  color: var(--black);
+}
+
 body {
   font-family: 'GT Walsheim Regular', 'arial', sans-serif;
   font-weight: 100;
   line-height: 1.3125rem;
   color: var(--black);
+  font-size: var(--font-body);
 }
 
 /* title styles */
  h1{
+  color: var(--black);
   position: absolute;
     width: 1px;
     height: 1px;
@@ -72,7 +96,10 @@ body {
  }
 
  h2{
-  font-size: var(--font-h2);
+  line-height: 3.25rem;
+  color: var(--black);
+  font-size: var(--font-h1);
   font-weight: 500;
+  max-width: 16.75rem;
  }
 

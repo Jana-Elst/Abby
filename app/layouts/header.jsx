@@ -24,8 +24,10 @@ const Header = () => {
 
                 <Hamburger isOpen={hamburgerOpen} toggleHamburger={toggleHamburger} />
             </div>
-            <Nav hamburgerOpen={hamburgerOpen} toggleHamburger={toggleHamburger} />
-            <Outlet />
+            {!hamburgerOpen ?
+            <Nav hamburgerOpen={hamburgerOpen} toggleHamburger={toggleHamburger} /> 
+            :
+            <Outlet /> }
         </>
 
     )

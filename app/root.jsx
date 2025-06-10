@@ -12,7 +12,6 @@ import { createContext, useState } from "react";
 import "./src/fonts/GT-Walsheim-Regular.woff2";
 import "./src/fonts/GT-Walsheim-Bold.woff2";
 import "./src/fonts/GT-Walsheim-Medium.woff2";
-import "./style/reset.css"
 import "./style/app.css";
 
 //get userID
