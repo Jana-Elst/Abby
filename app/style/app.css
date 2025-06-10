@@ -26,6 +26,7 @@
   --space-xs: 0.75rem;
   --space-s: 1rem;
   --space-m: 1.25rem;
+  --space-xl: 2.75rem;
 
   /* border sizes */
   --border: 1.7px solid var(--black);
