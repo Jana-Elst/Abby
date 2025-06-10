@@ -1,34 +1,19 @@
 import Hamburger from "./hamburger";
-import { useState, useContext } from 'react';
 import { NavLink } from "react-router";
 
-//root variables
-import { FormFlowContext } from '../../root';
-
-export default function Nav() {
-    const [hamburgerOpen, setHamburgerOpen] = useState(true);
-    // const { flowForm, setFlowForm } = useContext(FormFlowContext);
-
-    const toggleHamburger = () => {
-        setHamburgerOpen(!hamburgerOpen)
-    }
-
-    const changeFormFlowState = () => {
-        // setFlowForm('schedule');
-    }
-
+export default function Nav({hamburgerOpen, toggleHamburger}) {
     return (
         <div>
             <div className="navigation">
-                <div className="hamburger" onClick={toggleHamburger}>
+                {/* <div className="hamburger" onClick={toggleHamburger}>
                     <Hamburger isOpen={hamburgerOpen} />
-                </div>
+                </div> */}
                 {!hamburgerOpen &&
                     <div>
                         <ul>
                             <NavLink onClick={toggleHamburger} to={`${import.meta.env.BASE_URL}`}>Startpagina</NavLink>
                             <NavLink onClick={toggleHamburger} to={`${import.meta.env.BASE_URL}abbymomenten`}>Alle Abbymomenten</NavLink>
-                            <NavLink onClick={() => { toggleHamburger(); changeFormFlowState(); }} to={`${import.meta.env.BASE_URL}maak-een-abbymoment`}>Plan een Abbymoment</NavLink>
+                            <NavLink onClick={() => { toggleHamburger() }} to={`${import.meta.env.BASE_URL}maak-een-abbymoment`}>Plan een Abbymoment</NavLink>
                             <NavLink onClick={toggleHamburger} to={`${import.meta.env.BASE_URL}log-in`}>Log in</NavLink>
                         </ul>
                         <ul>

@@ -1,0 +1,28 @@
+.header__logo{
+    max-width: 4rem;
+    min-width: 2rem;
+    height:2rem;
+}
+
+.header__hamburger__svg{
+    width: 2rem;
+    height: 2rem;    
+    display: flex;
+    margin-left: .5rem;
+}
+
+.header__hamburger__icon{
+    width: 2rem;
+    height: 2rem;
+        
+}
+
+.header__container{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    padding: 0.75rem 1.25rem;
+    align-items: center;
+    margin-top: 1rem;
+    border-bottom: var(--border);
+}

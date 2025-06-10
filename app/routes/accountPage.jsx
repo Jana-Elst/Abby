@@ -30,7 +30,6 @@ const AccountPage = () => {
 
     if (!session) {
         setUserId(null);
-        console.log(userId);
         return (
             <>
                 <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} />
@@ -38,7 +37,6 @@ const AccountPage = () => {
         );
     } else {
         setUserId(session.user.id);
-        console.log(session);
         return (
             <>
                 <div>you are logged in</div>

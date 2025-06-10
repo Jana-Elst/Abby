@@ -9,7 +9,9 @@ import {
 
 import { createContext, useState } from "react";
 
-import "@fontsource-variable/roboto";
+import "./src/fonts/GT-Walsheim-Regular.woff2";
+import "./src/fonts/GT-Walsheim-Bold.woff2";
+import "./style/reset.css"
 import "./style/app.css";
 
 //get userID
@@ -43,8 +45,8 @@ export function Layout({ children }) {
   )
 }
 
-export const UserContext = createContext(null);
-export const FormFlowContext = createContext(null);
+export const UserContext = createContext();
+export const FormFlowContext = createContext();
 
 
 export default function App({ loaderData }) {
