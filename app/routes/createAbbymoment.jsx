@@ -24,9 +24,6 @@ import { UserContext } from '../context/UserContext';
 import { FormFlowContext } from '../context/FormFlowContext';
 import { id } from "react-day-picker/locale";
 
-//styling
-import "./createAbbymoment.css"
-
 //add abbymoment
 export async function clientAction({ request }) {
     const formData = await request.formData();

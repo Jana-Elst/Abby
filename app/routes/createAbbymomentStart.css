@@ -12,9 +12,15 @@
 }
 
 .info__p:first-of-type{
-    margin-top: var(--space-xl);
+    margin-top: var(--space-xxs);
 }
 
 .info__note{
     text-align: center;
+}
+
+.info__btn{
+    background-color: var(--yellow);
+    padding: var(--space-s) var(--space-xl);
+    border: var(--border-thin)
 }

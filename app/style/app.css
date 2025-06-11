@@ -26,10 +26,11 @@
   --space-xs: 0.75rem;
   --space-s: 1rem;
   --space-m: 1.25rem;
-  --space-xl: 2.75rem;
+  --space-xl: 2.25rem;
 
   /* border sizes */
   --border: 1.7px solid var(--black);
+  --border-thin: 1.2px solid var(--black);
 
   overscroll-behavior: none;
   
@@ -39,7 +40,7 @@
   font-family: "GT Walsheim Regular";
   src: local("GT-Walsheim-Regular"),
     url("../src/fonts/GT-Walsheim-Regular.woff2") format("woff2");
-    font-weight: 100;
+    font-weight: 400;
 }
 
 @font-face {
@@ -80,7 +81,7 @@ a {
 
 body {
   font-family: 'GT Walsheim Regular', 'arial', sans-serif;
-  font-weight: 100;
+  font-weight: 400;
   line-height: 130%;
   color: var(--black);
   font-size: var(--font-body);
@@ -105,5 +106,6 @@ body {
   font-size: var(--font-h1);
   font-weight: 500;
   max-width: 17rem;
+  margin-bottom: var(--space-xl);
  }
 

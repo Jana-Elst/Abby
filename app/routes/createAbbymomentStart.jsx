@@ -6,12 +6,24 @@ import { UserContext } from '../context/UserContext';
 import { FormFlowContext } from '../context/FormFlowContext';
 
 //components
-import Title from '../components/molecules/title'
-import Button from '../components/molecules/button'
+import Title from '../components/molecules/title';
+import Button from '../components/molecules/button';
+
+//styling
+import "./createAbbymomentStart.css";
 
 const Info = () => {
     const { userId } = useContext(UserContext);
-    const { formFlow } = useContext(FormFlowContext);
+    const { formFlow, setFlowForm } = useContext(FormFlowContext);
+    console.log(userId);
+    
+
+    const handleChange = (e) => {
+        console.log(e.target.value);
+        if (e.target.value === 'scheduled') {
+            setFlowForm('startScheduled');
+        }
+    }
 
 
     if (formFlow === 'now') {
@@ -38,12 +50,12 @@ const Info = () => {
                                     value="make"
                                     onChange={(e) => handleChange(e)}
                                 />
-                                <label htmlFor="online">Maak een Abbymoment</label>
+                                <label htmlFor="online">Maak een nieuw Abbymoment</label>
                             </div>
                         </div>
 
                         : <div>
-                            <p>Om een Abbymoment the starten moet je ingelogd zijn.</p>
+                            <p className="info__note">Om een Abbymoment the starten moet je ingelogd zijn.</p>
                             <Button link={'log-in'}>Log-in</Button>
                         </div>
                 }
@@ -52,17 +64,23 @@ const Info = () => {
 
     } else {
         return (
-            <>
-                <Title>Jouw dag, jouw manier bij Abby</Title>
-                <p>Kies jouw moment en vertel wat je doet, van workshop tot koffie, of gewoon even ontspannen. Het kan allemaal. Plan zelf, doe mee aan een Abbymoment, of geniet op jouw eigen tempo.</p>
-                <p>Om een Abby moment te starten moet je ingelogd zijn.</p>
+            <div className="info__container">
+                <Title className="info__title">Jouw dag, jouw manier bij Abby</Title>
+                <p className="info__p">Kies jouw moment en vertel wat je doet, van workshop tot koffie, of gewoon even ontspannen. Het kan allemaal.</p>
+                <p className="info__p">Plan zelf, doe mee aan een Abbymoment, of geniet op jouw eigen tempo.</p>
+               
 
                 {
                     userId
-                        ? <Button link={'maak-een-abbymoment/formulier'}>Maak een Abbymoment</Button>
-                        : <Button link={'log-in'}>Log-in</Button>
+                        ? (<Button extraClass="info__btn"  link={'maak-een-abbymoment/formulier'}>Start</Button>)
+                        : (
+                        <>
+                        <p className="info__note">Om een Abby moment te starten moet je ingelogd zijn.</p>
+                        <Button extraClass="info__btn" link={'log-in'}>Log-in</Button>
+                        </>
+                        )
                 }
-            </>
+            </div>
         )
     }
 };
