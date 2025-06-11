@@ -3,13 +3,11 @@
 //react
 import { useContext } from "react";
 
-//global variables
-import { UserContext } from '../../root';
-
 //components
 import Title from '../molecules/title'
 import Button from '../molecules/button'
 import ButtonNext from "./buttonNext";
+import { UserContext } from "../../context/UserContext";
 
 const Info = ({ formData, setFormData, setFlowForm }) => {
     const { userId } = useContext(UserContext);

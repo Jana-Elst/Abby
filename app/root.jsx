@@ -14,14 +14,12 @@ import "./style/app.css";
 
 //get userID
 import { supabase } from './supabaseClient';
+import { FormFlowContext } from "./context/FormFlowContext";
+import { UserContext } from "./context/UserContext";
 
 export async function clientLoader() {
   const { data: { user } } = await supabase.auth.getUser();
-  let id = "";
-  if (user) {
-    id = user.id
-  }
-  return id;
+  return { user };
 }
 
 
@@ -43,14 +41,11 @@ export function Layout({ children }) {
   )
 }
 
-export const UserContext = createContext(null);
-export const FormFlowContext = createContext(null);
-
 
 export default function App({ loaderData }) {
   //userId
-  const user = loaderData;
-  const [userId, setUserId] = useState(user);
+  const { user } = loaderData;
+  const [userId, setUserId] = useState(user ? user.id : "");
 
   //formFlow
   const [flowForm, setFlowForm] = useState("plan"); //schedule & now
@@ -64,35 +59,35 @@ export default function App({ loaderData }) {
   )
 }
 
-export function ErrorBoundary({ error }) {
-  let message = "Oops!";
-  let details = "An unexpected error occurred.";
-  let stack;
+// export function ErrorBoundary({ error }) {
+//   let message = "Oops!";
+//   let details = "An unexpected error occurred.";
+//   let stack;
 
-  if (isRouteErrorResponse(error)) {
-    message = error.status === 404 ? "404" : "Error";
-    details =
-      error.status === 404
-        ? "The requested page could not be found."
-        : error.statusText || details;
-  } else if (import.meta.env.DEV && error && error instanceof Error) {
-    details = error.message;
-    stack = error.stack;
-  }
+//   if (isRouteErrorResponse(error)) {
+//     message = error.status === 404 ? "404" : "Error";
+//     details =
+//       error.status === 404
+//         ? "The requested page could not be found."
+//         : error.statusText || details;
+//   } else if (import.meta.env.DEV && error && error instanceof Error) {
+//     details = error.message;
+//     stack = error.stack;
+//   }
 
-  return (
-    <main className="">
-      <h1>{message}</h1>
-      <p>{details}</p>
-      {stack && (
-        <pre className="">
-          <code>{stack}</code>
-        </pre>
-      )}
-    </main>
-  );
-}
+//   return (
+//     <main className="">
+//       <h1>{message}</h1>
+//       <p>{details}</p>
+//       {stack && (
+//         <pre className="">
+//           <code>{stack}</code>
+//         </pre>
+//       )}
+//     </main>
+//   );
+// }
 
-export function HydrateFallback() {
-  return <p>Loading...</p>;
-}
+// export function HydrateFallback() {
+//   return <p>Loading...</p>;
+// }

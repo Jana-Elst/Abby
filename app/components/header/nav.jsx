@@ -3,7 +3,7 @@ import { useState, useContext } from 'react';
 import { NavLink } from "react-router";
 
 //root variables
-import { FormFlowContext } from '../../root';
+import { FormFlowContext } from '../../context/FormFlowContext';
 
 export default function Nav() {
     const [hamburgerOpen, setHamburgerOpen] = useState(true);

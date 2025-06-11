@@ -20,8 +20,8 @@ import ScheduledClocks from "../components/form/scheduledClocks";
 import { addScheduledClock, startOnlineClock, startWallClock } from "../services/data";
 
 //root variables
-import { UserContext } from '../root';
-import { FormFlowContext } from '../root';
+import { UserContext } from '../context/UserContext';
+import { FormFlowContext } from '../context/FormFlowContext';
 import { id } from "react-day-picker/locale";
 
 //add abbymoment
