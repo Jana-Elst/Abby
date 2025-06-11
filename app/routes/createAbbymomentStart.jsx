@@ -2,7 +2,8 @@
 import { useContext } from "react";
 
 //global variables
-import { FormFlowContext, UserContext } from '../root';
+import { UserContext } from '../context/UserContext';
+import { FormFlowContext } from '../context/FormFlowContext';
 
 //components
 import Title from '../components/molecules/title';

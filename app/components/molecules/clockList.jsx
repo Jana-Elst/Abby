@@ -2,7 +2,7 @@
 import { useContext } from "react";
 
 //root variables
-import { UserContext } from '../../root';
+import { UserContext } from '../../context/UserContext';
 
 //components
 import ClockCard from "./clockCard";
