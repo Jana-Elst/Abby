@@ -6,7 +6,7 @@ import { supabase } from '../supabaseClient'
 import { Auth } from '@supabase/auth-ui-react'
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { NavLink, Link, useNavigate } from 'react-router';
-import { UserContext } from '../root';
+import { UserContext } from '../context/UserContext';
 
 const AccountPage = () => {
     const { userId, setUserId } = useContext(UserContext);

@@ -6,7 +6,7 @@ import Clock from "../atoms/clock";
 import { clockLinkedWithUser, joinClock, leaveClock, stopClock } from "../../services/data";
 
 //root variables
-import { UserContext } from '../../root';
+import { UserContext } from '../../context/UserContext';
 
 const ButtonClockCard = ({ clock, clockProfile, participants }) => {
     const { userId, setUserId } = useContext(UserContext);

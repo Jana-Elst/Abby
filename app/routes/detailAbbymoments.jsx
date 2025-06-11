@@ -1,13 +1,13 @@
 import { useContext } from 'react'
 import Title from "../components/molecules/title";
 import Button from "../components/molecules/button"
-import { UserContext } from '../root';
+import { UserContext } from '../context/UserContext';
 
 import { getTime } from "../services/clock";
 
 //get clock
 import { getClock } from "../services/data";
-export async function clientLoader({params}) {
+export async function clientLoader({ params }) {
     const id = params.abbymomentId;
     console.log(id);
 

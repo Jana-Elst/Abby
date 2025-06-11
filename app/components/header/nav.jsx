@@ -4,6 +4,9 @@ import iconAlle from "../../src/assets/icon-smiley.svg";
 import iconMaak from "../../src/assets/icon-building.svg";
 import iconAccount from "../../src/assets/icon-person.svg";
 
+//root variables
+import { FormFlowContext } from '../../context/FormFlowContext';
+
 import pictureHome from "../../src/assets/nav-blue.jpg";
 import pictureMaak from "../../src/assets/nav-yellow.jpg";
 import pictureAlle from "../../src/assets/nav-orange.jpg";
