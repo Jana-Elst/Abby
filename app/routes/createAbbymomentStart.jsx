@@ -1,44 +1,19 @@
-/*DEZE FILTE MAG WEG*/
-
 //react
 import { useContext } from "react";
 
 //global variables
-import { UserContext } from '../../root';
+import { FormFlowContext, UserContext } from '../root';
 
 //components
-import Title from '../molecules/title'
-import Button from '../molecules/button'
-import ButtonNext from "./buttonNext";
+import Title from '../components/molecules/title'
+import Button from '../components/molecules/button'
 
-const Info = ({ formData, setFormData, setFlowForm }) => {
+const Info = () => {
     const { userId } = useContext(UserContext);
+    const { formFlow } = useContext(FormFlowContext);
 
-    const handleClickNext = () => {
-        setFormData({
-            ...formData,
-            state: formData.state + 1
-        });
-    }
 
-    const handleChange = (e) => {
-        console.log(e.target.value);
-        if (e.target.value === 'scheduled') {
-            setFormData({
-                ...formData,
-                flow: 'startScheduled',
-                state: formData.state + 1
-            });
-            setFlowForm('startScheduled');
-        } else {
-            setFormData({
-                ...formData,
-                state: formData.state + 1
-            });
-        }
-    }
-
-    if (formData.flow === 'now') {
+    if (formFlow === 'now') {
         return (
             <>
                 <Title> Wat wil jij vandaag doen ?</Title >
@@ -76,18 +51,17 @@ const Info = ({ formData, setFormData, setFlowForm }) => {
 
     } else {
         return (
-            <div className="info__container">
-                <Title className="info__title" >Jouw dag, jouw manier bij Abby</Title>
-                <p className="info__p">Kies jouw moment en vertel wat je doet, van workshop tot koffie, of gewoon even ontspannen. Het kan allemaal.</p>
-                <p className="info__p"> Plan zelf, doe mee aan een Abbymoment, of geniet op jouw eigen tempo.</p>
-                <p className="info__note">Om een Abby moment te starten moet je ingelogd zijn.</p>
+            <>
+                <Title>Jouw dag, jouw manier bij Abby</Title>
+                <p>Kies jouw moment en vertel wat je doet, van workshop tot koffie, of gewoon even ontspannen. Het kan allemaal. Plan zelf, doe mee aan een Abbymoment, of geniet op jouw eigen tempo.</p>
+                <p>Om een Abby moment te starten moet je ingelogd zijn.</p>
 
                 {
                     userId
-                        ? <ButtonNext setFormData={setFormData} formData={formData}>Maak een Abbymoment</ButtonNext>
-                        : <Button link={'log-in'} onClick={handleClickNext}>Log-in</Button>
+                        ? <Button link={'maak-een-abbymoment/formulier'}>Maak een Abbymoment</Button>
+                        : <Button link={'log-in'}>Log-in</Button>
                 }
-            </div>
+            </>
         )
     }
 };

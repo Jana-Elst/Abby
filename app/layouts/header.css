@@ -1,0 +1,112 @@
+.header__logo{
+    max-width: 4rem;
+    min-width: 2rem;
+    height:2rem;
+}
+
+.header__hamburger__svg{
+    width: 2rem;
+    height: 2rem;    
+    display: flex;
+    margin-left: var(--space-xxs);
+}
+
+.header__hamburger__icon{
+    width: 2rem;
+    height: 2rem;
+}
+
+.header__container{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    padding: var(--space-xs) var(--space-m);
+    align-items: center;
+    border-bottom: var(--border);
+    padding-top: var(--space-m);
+}
+
+.navigation__links__li{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between; 
+    gap: 0;
+    border-bottom: var(--border);
+}
+
+.navigation__blue{
+    background: linear-gradient(to right, rgb(0, 0, 0, 0) 65%, var(--blue) 35%);
+}
+
+.navigation__orange {
+    background: linear-gradient(to right, rgb(0, 0, 0, 0) 65%, var(--orange) 35%);
+}
+
+.navigation__yellow {
+    background: linear-gradient(to right, rgb(0, 0, 0, 0) 65%, var(--yellow) 35%);
+}
+
+.navigation__green {
+    background: linear-gradient(to right, rgb(0, 0, 0, 0) 65%, var(--green) 35%);
+}
+
+.navigation__blue.active {
+   background-color: var(--blue);
+}
+
+.navigation__orange.active {
+    background-color: var(--orange);
+}
+
+.navigation__yellow.active {
+    background-color: var(--yellow);
+}
+.navigation__green.active {
+    background-color: var(--green);
+}
+
+.links__li__container{
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+    padding: var(--space-s);
+}
+
+.links__li__svg{
+  max-width: 2rem;
+}
+
+.links__li__p {
+    align-self: end;
+    font-size: var(--font-h2);
+}
+
+.links__li__img {
+   max-width: 30%;
+}
+
+.navigation__links__li.active{
+    font-weight: 500;
+    text-decoration: underline;
+}
+
+.navigation__ln{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+
+    min-height: 6rem;
+}
+
+.navigation__ln_li{
+     border-right: var(--border);    
+     padding: var(--space-s);
+}
+
+.navigation__ln_li:last-of-type{
+    border-right: none;
+}
+
+.navigation__ln .active {
+    font-weight: 700;
+    text-decoration: underline;
+}

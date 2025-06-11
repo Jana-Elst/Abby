@@ -1,0 +1,20 @@
+.info__container{
+    padding: var(--space-s) ;
+}
+
+.info__p{
+    font-size: var(--font-h2);
+        line-height: 122%
+}
+
+.info__p + .info__p{
+    margin-top: var(--space-xs);
+}
+
+.info__p:first-of-type{
+    margin-top: var(--space-xl);
+}
+
+.info__note{
+    text-align: center;
+}

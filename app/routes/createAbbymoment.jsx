@@ -1,7 +1,7 @@
 //https://blog.logrocket.com/build-multi-step-form-usestate-hook/
 
 //react imports
-import { Form, redirect } from "react-router";
+import { Form, redirect, Navigate } from "react-router";
 import { useState, useContext } from "react";
 
 //components
@@ -22,7 +22,9 @@ import { addScheduledClock, startOnlineClock, startWallClock } from "../services
 //root variables
 import { UserContext } from '../root';
 import { FormFlowContext } from '../root';
-import { id } from "react-day-picker/locale";
+
+//styling
+import "./createAbbymoment.css"
 
 //add abbymoment
 export async function clientAction({ request }) {
@@ -74,9 +76,9 @@ const CreateAbbymoment = () => {
 
     //different flows
     const flows = {
-        plan: ['info', 'description', 'time', 'location', 'participants', 'confirmation'],
-        planNow: ['info', 'description', 'time', 'qrCode', 'visabilityClock', 'location', 'participants', 'confirmation'],
-        now: ['info', 'visabilityClock', 'description', 'location', 'participants', 'confirmation'],
+        plan: ['description', 'time', 'location', 'participants', 'confirmation'],
+        planNow: ['description', 'time', 'qrCode', 'visabilityClock', 'location', 'participants', 'confirmation'],
+        now: ['visabilityClock', 'description', 'location', 'participants', 'confirmation'],
         startScheduled: ['info', 'visabilityClock', 'scheduledClocks', 'confirmation']
     }
 
@@ -93,9 +95,6 @@ const CreateAbbymoment = () => {
         console.log('currentComp', currentComponent);
 
         switch (currentComponent) {
-            case 'info':
-                return <Info formData={formData} setFormData={setFormData} setFlowForm={setFlowForm} />
-
             case 'visabilityClock':
                 return <VisabilityClock formData={formData} setFormData={setFormData} />
 
@@ -125,24 +124,28 @@ const CreateAbbymoment = () => {
         }
     }
 
-    return (
-        <>
-            <Form key={userId} id="abbymomentForm" method="post" onSubmit={handleSubmit}>
-                <input type="hidden" name="userId" value={userId} />
-                <input type="hidden" name="name" value={formData.name} />
-                <input type="hidden" name="description" value={formData.description} />
-                {/* <input type="hidden" name="clockWallPos" value={clockWallPos} /> */}
-                <input type="hidden" name="participants" value={formData.private} />
-                <input type="hidden" name="time" value={formData.scheduledStartTime} />
-                <input type="hidden" name="location" value={formData.location} />
-                <input type="hidden" name="flowForm" value={flowForm} />
-                <input type="hidden" name="clockId" value={formData.clockId} />
+    if (userId) {
+        return (
+            <>
+                <Form key={userId} id="abbymomentForm" method="post" onSubmit={handleSubmit}>
+                    <input type="hidden" name="userId" value={userId} />
+                    <input type="hidden" name="name" value={formData.name} />
+                    <input type="hidden" name="description" value={formData.description} />
+                    {/* <input type="hidden" name="clockWallPos" value={clockWallPos} /> */}
+                    <input type="hidden" name="participants" value={formData.private} />
+                    <input type="hidden" name="time" value={formData.scheduledStartTime} />
+                    <input type="hidden" name="location" value={formData.location} />
+                    <input type="hidden" name="flowForm" value={flowForm} />
+                    <input type="hidden" name="clockId" value={formData.clockId} />
 
-                {conditionalComponent()}
-            </Form>
-        </>
+                    {conditionalComponent()}
+                </Form>
+            </>
 
-    )
+        )
+    } else {
+        return <Navigate to={`${import.meta.env.BASE_URL}maak-een-abbymoment`} />
+    }
 };
 
 export default CreateAbbymoment;

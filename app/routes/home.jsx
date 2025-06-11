@@ -5,6 +5,7 @@ import ToDoInAbby from "../components/frames/toDoInAbby";
 import Statistics from "../components/frames/statistics";
 import AndYou from "../components/frames/andYou";
 import Moments from "../components/frames/moments";
+import "./home.css"
 
 //style
 import '../components/frames/Frames.css';
@@ -26,7 +27,7 @@ const Home = ({ loaderData }) => {
     const { museumClocks, clockProfile } = loaderData;
 
     return (
-        <>
+        <div className="home__container">
             {/* all the clocks in the database */}
             {/* <ClockList clocks={museumClocks}/> */}
             <Hero />
@@ -35,7 +36,7 @@ const Home = ({ loaderData }) => {
             <Statistics />
             <AndYou />
             <Moments museumClocks={museumClocks} clockProfile={clockProfile} />
-        </>
+        </div>
 
     )
 };
