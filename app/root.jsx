@@ -7,7 +7,7 @@ import {
   ScrollRestoration,
 } from "react-router";
 
-import { createContext, useState } from "react";
+import { useState } from "react";
 
 import "./src/fonts/GT-Walsheim-Regular.woff2";
 import "./src/fonts/GT-Walsheim-Bold.woff2";
@@ -60,35 +60,35 @@ export default function App({ loaderData }) {
   )
 }
 
-// export function ErrorBoundary({ error }) {
-//   let message = "Oops!";
-//   let details = "An unexpected error occurred.";
-//   let stack;
+export function ErrorBoundary({ error }) {
+  let message = "Oops!";
+  let details = "An unexpected error occurred.";
+  let stack;
 
-//   if (isRouteErrorResponse(error)) {
-//     message = error.status === 404 ? "404" : "Error";
-//     details =
-//       error.status === 404
-//         ? "The requested page could not be found."
-//         : error.statusText || details;
-//   } else if (import.meta.env.DEV && error && error instanceof Error) {
-//     details = error.message;
-//     stack = error.stack;
-//   }
+  if (isRouteErrorResponse(error)) {
+    message = error.status === 404 ? "404" : "Error";
+    details =
+      error.status === 404
+        ? "The requested page could not be found."
+        : error.statusText || details;
+  } else if (import.meta.env.DEV && error && error instanceof Error) {
+    details = error.message;
+    stack = error.stack;
+  }
 
-//   return (
-//     <main className="">
-//       <h1>{message}</h1>
-//       <p>{details}</p>
-//       {stack && (
-//         <pre className="">
-//           <code>{stack}</code>
-//         </pre>
-//       )}
-//     </main>
-//   );
-// }
+  return (
+    <main className="">
+      <h1>{message}</h1>
+      <p>{details}</p>
+      {stack && (
+        <pre className="">
+          <code>{stack}</code>
+        </pre>
+      )}
+    </main>
+  );
+}
 
-// export function HydrateFallback() {
-//   return <p>Loading...</p>;
-// }
+export function HydrateFallback() {
+  return <p>Loading...</p>;
+}

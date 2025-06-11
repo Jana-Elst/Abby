@@ -16,7 +16,7 @@ const Info = () => {
     const { userId } = useContext(UserContext);
     const { formFlow, setFlowForm } = useContext(FormFlowContext);
     console.log(userId);
-    
+
 
     const handleChange = (e) => {
         console.log(e.target.value);
@@ -55,7 +55,7 @@ const Info = () => {
                         </div>
 
                         : <div>
-                            <p className="info__note">Om een Abbymoment the starten moet je ingelogd zijn.</p>
+                            <p className="info__note yellow__bg">Om een Abbymoment the starten moet je ingelogd zijn.</p>
                             <Button link={'log-in'}>Log-in</Button>
                         </div>
                 }
@@ -68,16 +68,16 @@ const Info = () => {
                 <Title className="info__title">Jouw dag, jouw manier bij Abby</Title>
                 <p className="info__p">Kies jouw moment en vertel wat je doet, van workshop tot koffie, of gewoon even ontspannen. Het kan allemaal.</p>
                 <p className="info__p">Plan zelf, doe mee aan een Abbymoment, of geniet op jouw eigen tempo.</p>
-               
+
 
                 {
                     userId
-                        ? (<Button extraClass="info__btn"  link={'maak-een-abbymoment/formulier'}>Start</Button>)
+                        ? (<Button extraClass="info__btn yellow__bg" link={'maak-een-abbymoment/formulier'}>Start</Button>)
                         : (
-                        <>
-                        <p className="info__note">Om een Abby moment te starten moet je ingelogd zijn.</p>
-                        <Button extraClass="info__btn" link={'log-in'}>Log-in</Button>
-                        </>
+                            <>
+                                <p className="info__note">Om een Abby moment te starten moet je ingelogd zijn.</p>
+                                <Button extraClass="info__btn yellow__bg" link={'log-in'}>Log-in</Button>
+                            </>
                         )
                 }
             </div>

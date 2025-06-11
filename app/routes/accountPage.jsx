@@ -5,11 +5,11 @@ import { useContext, useState, useEffect } from 'react'
 import { supabase } from '../supabaseClient'
 import { Auth } from '@supabase/auth-ui-react'
 import { ThemeSupa } from "@supabase/auth-ui-shared";
-import { NavLink, Link, useNavigate } from 'react-router';
+import { NavLink } from 'react-router';
 import { UserContext } from '../context/UserContext';
 
 const AccountPage = () => {
-    const { userId, setUserId } = useContext(UserContext);
+    const { setUserId } = useContext(UserContext);
     const [session, setSession] = useState(null);
 
     useEffect(() => {
@@ -32,7 +32,6 @@ const AccountPage = () => {
     }
 
     if (!session) {
-        setUserId(null);
         return (
             <>
                 <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} />

@@ -109,3 +109,43 @@ body {
   margin-bottom: var(--space-xl);
  }
 
+ /* colour classes */
+ .yellow__bg{
+  background-color: var(--yellow);
+ }
+
+ .blue__bg {
+   background-color: var(--blue);
+ }
+
+ .green__bg {
+   background-color: var(--green);
+ }
+
+ .orange__bg {
+   background-color: var(--orange);
+ }
+
+ .purple__bg {
+   background-color: var(--purple);
+ }
+
+ .yellow__fg {
+   background-color: var(--yellow);
+ }
+
+ .blue__fg {
+   background-color: var(--blue);
+ }
+
+ .orange__fg {
+   background-color: var(--orange);
+ }
+
+ .green__fg {
+   background-color: var(--green);
+ }
+
+ .purple__fg {
+   background-color: var(--purple);
+ }
