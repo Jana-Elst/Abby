@@ -1,4 +1,4 @@
-const Title = ({title, children}) => {
+const Title = ({children}) => {
     return (
         <h2>{children}</h2>
     )

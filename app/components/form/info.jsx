@@ -74,17 +74,18 @@ const Info = ({ formData, setFormData, setFlowForm }) => {
 
     } else {
         return (
-            <>
-                <Title>Jouw dag, jouw manier bij Abby</Title>
-                <p>Kies jouw moment en vertel wat je doet, van workshop tot koffie, of gewoon even ontspannen. Het kan allemaal. Plan zelf, doe mee aan een Abbymoment, of geniet op jouw eigen tempo.</p>
-                <p>Om een Abby moment te starten moet je ingelogd zijn.</p>
+            <div className="info__container">
+                <Title className="info__title" >Jouw dag, jouw manier bij Abby</Title>
+                <p className="info__p">Kies jouw moment en vertel wat je doet, van workshop tot koffie, of gewoon even ontspannen. Het kan allemaal.</p>
+                <p className="info__p"> Plan zelf, doe mee aan een Abbymoment, of geniet op jouw eigen tempo.</p>
+                <p className="info__note">Om een Abby moment te starten moet je ingelogd zijn.</p>
 
                 {
                     userId
                         ? <ButtonNext setFormData={setFormData} formData={formData}>Maak een Abbymoment</ButtonNext>
                         : <Button link={'log-in'} onClick={handleClickNext}>Log-in</Button>
                 }
-            </>
+            </div>
         )
     }
 };

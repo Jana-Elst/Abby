@@ -9,7 +9,9 @@ import {
 
 import { createContext, useState } from "react";
 
-import "@fontsource-variable/roboto";
+import "./src/fonts/GT-Walsheim-Regular.woff2";
+import "./src/fonts/GT-Walsheim-Bold.woff2";
+import "./src/fonts/GT-Walsheim-Medium.woff2";
 import "./style/app.css";
 
 //get userID
@@ -40,7 +42,6 @@ export function Layout({ children }) {
     </html>
   )
 }
-
 
 export default function App({ loaderData }) {
   //userId
