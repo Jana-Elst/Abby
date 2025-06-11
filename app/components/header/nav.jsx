@@ -1,47 +1,60 @@
-import Hamburger from "./hamburger";
-import { useState, useContext } from 'react';
 import { NavLink } from "react-router";
+import iconHome from "../../src/assets/icon-cross.svg";
+import iconAlle from "../../src/assets/icon-smiley.svg";
+import iconMaak from "../../src/assets/icon-building.svg";
+import iconAccount from "../../src/assets/icon-person.svg";
 
 //root variables
-import { FormFlowContext } from '../../root';
+import { FormFlowContext } from '../../context/FormFlowContext';
 
-export default function Nav() {
-    const [hamburgerOpen, setHamburgerOpen] = useState(true);
-    // const { flowForm, setFlowForm } = useContext(FormFlowContext);
+import pictureHome from "../../src/assets/nav-blue.jpg";
+import pictureMaak from "../../src/assets/nav-yellow.jpg";
+import pictureAlle from "../../src/assets/nav-orange.jpg";
+import pictureAccount from "../../src/assets/nav-green.jpg";
 
-    const toggleHamburger = () => {
-        setHamburgerOpen(!hamburgerOpen)
-    }
-
-    const changeFormFlowState = () => {
-        // setFlowForm('schedule');
-    }
-
+export default function Nav({ hamburgerOpen, toggleHamburger }) {
     return (
-        <div>
-            <div className="navigation">
-                <div className="hamburger" onClick={toggleHamburger}>
-                    <Hamburger isOpen={hamburgerOpen} />
+        <>
+            {!hamburgerOpen &&
+                <div className="navigation__container">
+                    <ul className="navigation__links">
+                        <NavLink className={"navigation__links__li navigation__blue"}  to={`${import.meta.env.BASE_URL}`} end >
+                            <div className="links__li__container">
+                                <img className="links__li__svg" src={iconHome} alt="startpagina icoontje" />
+                                <p className="links__li__p" >Startpagina</p>
+                            </div>
+                            <img className="links__li__img" src={pictureHome} alt="De Living van Abby" />
+                        </NavLink>
+                        <NavLink className={"navigation__links__li navigation__orange"}  to={`${import.meta.env.BASE_URL}abbymomenten`}>
+                            <div className="links__li__container">
+                                <img className="links__li__svg" src={iconAlle} alt="momenten icoontje" />
+                                <p className="links__li__p" >Alle momenten</p>
+                            </div>
+                            <img className="links__li__img" src={pictureAlle} alt="Een rode kerk" />
+                            </NavLink>
+                        <NavLink className={"navigation__links__li navigation__yellow"}  to={`${import.meta.env.BASE_URL}maak-een-abbymoment`}>
+                            <div className="links__li__container">
+                                <img className="links__li__svg" src={iconMaak} alt="creatie icoontje" />
+                                <p className="links__li__p" >Plan een moment</p>
+                            </div>
+                            <img className="links__li__img" src={pictureMaak} alt="De Living van Abby" />
+                        </NavLink>
+                        <NavLink className={"navigation__links__li navigation__green"} to={`${import.meta.env.BASE_URL}log-in`}>
+                            <div className="links__li__container">
+                                <img className="links__li__svg" src={iconAccount} alt="account icoontje" />
+                                <p className="links__li__p" >Log in</p>
+                            </div>
+                            <img className="links__li__img" src={pictureAccount} alt="De Living van Abby" />
+                        </NavLink>
+                    </ul>
+                    <ul className="navigation__ln">
+                        <li className="navigation__ln_li active">NL</li>
+                        <li className="navigation__ln_li">FR</li>
+                        <li className="navigation__ln_li">ENG</li>
+                    </ul>
                 </div>
-                {!hamburgerOpen &&
-                    <div>
-                        <ul>
-                            <NavLink onClick={toggleHamburger} to={`${import.meta.env.BASE_URL}`}>Startpagina</NavLink>
-                            <NavLink onClick={toggleHamburger} to={`${import.meta.env.BASE_URL}abbymomenten`}>Alle Abbymomenten</NavLink>
-                            <NavLink onClick={() => { toggleHamburger(); changeFormFlowState(); }} to={`${import.meta.env.BASE_URL}maak-een-abbymoment`}>Plan een Abbymoment</NavLink>
-                            <NavLink onClick={toggleHamburger} to={`${import.meta.env.BASE_URL}log-in`}>Log in</NavLink>
-                        </ul>
-                        <ul>
-                            <li>NL</li>
-                            <li>FR</li>
-                            <li>ENG</li>
-                        </ul>
-                    </div>
-                }
-
-            </div>
-
-        </div>
+            }
+        </>
     )
 
 }

@@ -1,10 +1,11 @@
 {
+  "homepage": "https://jana-elst.github.io/Abby",
   "name": "basic-notes",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "build": "react-router build",
+    "build": "react-router build && cp ./build/client/index.html ./build/client/404.html",
     "dev": "react-router dev --host",
     "dev:test": "react-router dev --port 5174",
     "test:ui": "playwright test --ui",

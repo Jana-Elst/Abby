@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Navigate } from "react-router";
 
-import { FormFlowContext } from '../root';
+import { FormFlowContext } from '../context/FormFlowContext';
 
 const QrCode = () => {
     const { flowForm, setFlowForm } = useContext(FormFlowContext);
@@ -9,9 +9,9 @@ const QrCode = () => {
     if (flowForm === 'plan') {
         setFlowForm('now');
     }
-    
+
     return <Navigate to={`${import.meta.env.BASE_URL}maak-een-abbymoment`} />
-    
+
 };
 
 export default QrCode;
