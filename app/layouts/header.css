@@ -31,7 +31,7 @@
     flex-flow: row nowrap;
     justify-content: space-between; 
     gap: 0;
-    border-bottom: var(--border);
+    border-bottom: var(--border-thin);
 }
 
 .navigation__blue{
@@ -98,7 +98,8 @@
 }
 
 .navigation__ln_li{
-     border-right: var(--border);    
+     border-right: var(--border-thin);  
+     border-bottom: var(--border-thin);  
      padding: var(--space-s);
 }
 

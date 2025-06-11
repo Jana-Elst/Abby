@@ -9,11 +9,11 @@ import './button.css'
 - external vs internal link
 */
 
-const Button = ({ link, children, icon = null, click = null, type = 'button' }) => {
+const Button = ({ link, children, icon = null, click = null, type = 'button', extraClass }) => {
 
     if (link) {
         return (
-            <Link className={`button ${icon ? icon : ""}`} to={`${import.meta.env.BASE_URL}${link}`}>
+            <Link className={`button ${icon ? icon : ""} ${extraClass? extraClass : ""}`} to={`${import.meta.env.BASE_URL}${link}`}>
                 {children}
             </Link>
         )
