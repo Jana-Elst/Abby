@@ -67,19 +67,20 @@ const Info = () => {
             <div className="info__container">
                 <Title className="info__title">Jouw dag, jouw manier bij Abby</Title>
                 <p className="info__p">Kies jouw moment en vertel wat je doet, van workshop tot koffie, of gewoon even ontspannen. Het kan allemaal.</p>
-                <p className="info__p">Plan zelf, doe mee aan een Abbymoment, of geniet op jouw eigen tempo.</p>
+                <p className="info__p">Begin direct een moment in Abby of plan er eentje voor later. Rust uit op jezelf of samen met anderen.</p>
 
-
-                {
-                    userId
-                        ? (<Button extraClass="info__btn yellow__bg btn__text" link={'maak-een-abbymoment/formulier'}>Start</Button>)
-                        : (
-                            <>
-                                <p className="info__note">Om een Abby moment te starten moet je ingelogd zijn.</p>
-                                <Button extraClass="info__btn yellow__bg btn__text" link={'log-in'}>Log in</Button>
-                            </>
-                        )
-                }
+                <div className="info__btn__container">
+                    {
+                        userId
+                            ? (<Button extraClass="info__btn yellow__bg btn__text" link={'maak-een-abbymoment/formulier'}>Start</Button>)
+                            : (
+                                <>
+                                    <p className="info__note">Om een Abby moment te starten moet je ingelogd zijn.</p>
+                                    <Button extraClass="info__btn yellow__bg btn__text" link={'log-in'}>Log in</Button>
+                                </>
+                            )
+                    }
+                </div>
             </div>
         )
     }
