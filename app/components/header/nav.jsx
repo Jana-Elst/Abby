@@ -18,21 +18,28 @@ export default function Nav({ hamburgerOpen, toggleHamburger }) {
             {!hamburgerOpen &&
                 <div className="navigation__container">
                     <ul className="navigation__links">
-                        <NavLink onClick={()=> ( setTimeout(toggleHamburger, 500))} className={"navigation__links__li navigation__blue"}  to={`${import.meta.env.BASE_URL}`} end >
+                        <NavLink onClick={() => (setTimeout(toggleHamburger, 500))} className={"navigation__links__li navigation__blue"} to={`${import.meta.env.BASE_URL}`} end >
                             <div className="links__li__container">
                                 <img className="links__li__svg" src={iconHome} alt="startpagina icoontje" />
                                 <p className="links__li__p" >Startpagina</p>
                             </div>
                             <img className="links__li__img" src={pictureHome} alt="De Living van Abby" />
                         </NavLink>
-                        <NavLink onClick={() => (setTimeout(toggleHamburger, 500))} className={"navigation__links__li navigation__orange"}  to={`${import.meta.env.BASE_URL}abbymomenten`}>
+                        <NavLink onClick={() => (setTimeout(toggleHamburger, 500))} className={"navigation__links__li navigation__orange"} to={`${import.meta.env.BASE_URL}abbymomenten`}>
                             <div className="links__li__container">
                                 <img className="links__li__svg" src={iconAlle} alt="momenten icoontje" />
                                 <p className="links__li__p" >Alle momenten</p>
                             </div>
                             <img className="links__li__img" src={pictureAlle} alt="Een rode kerk" />
-                            </NavLink>
-                        <NavLink onClick={() => (setTimeout(toggleHamburger, 500))} className={"navigation__links__li navigation__yellow"}  to={`${import.meta.env.BASE_URL}maak-een-abbymoment`}>
+                        </NavLink>
+                        <NavLink onClick={() => (setTimeout(toggleHamburger, 500))} className={"navigation__links__li navigation__orange"} to={`${import.meta.env.BASE_URL}abbymomenten`}>
+                            <div className="links__li__container">
+                                <img className="links__li__svg" src={iconAlle} alt="momenten icoontje" />
+                                <p className="links__li__p" >Alle momenten</p>
+                            </div>
+                            <img className="links__li__img" src={pictureAlle} alt="Een rode kerk" />
+                        </NavLink>
+                        <NavLink onClick={() => (setTimeout(toggleHamburger, 500))} className={"navigation__links__li navigation__yellow"} to={`${import.meta.env.BASE_URL}maak-een-abbymoment`}>
                             <div className="links__li__container">
                                 <img className="links__li__svg" src={iconMaak} alt="creatie icoontje" />
                                 <p className="links__li__p" >Plan een moment</p>
