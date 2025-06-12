@@ -7,7 +7,6 @@ const ClockCard = ({ clock, clockProfile }) => {
     let participants = []
 
     const totalParticipants = () => {
-        console.log(clockProfile);
         participants = clockProfile.filter(cp => cp.clock_id === clock.id);
         return participants;
     }
