@@ -1,11 +1,26 @@
+.hero {
+    margin: 0 var(--space-s);
+    display: flex;
+    flex-direction: column;
+}
+
+.hero__title {
+    margin-top: var(--space-s);
+}
+
 .hero__header {
     text-align: right;
     padding-bottom: var(--space-xxs);
     border-bottom: var(--border-thin);
 }
-.hero__img{
+
+.hero__img {
     padding-top: var(--space-s);
 }
-.hero__btn{
+
+.hero__btn {
     margin-top: var(--space-3xl);
+    padding: var(--space-s);
+    width: 100%;
+    border-top: var(--border-thin);
 }
