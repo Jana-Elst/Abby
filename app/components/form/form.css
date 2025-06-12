@@ -1,0 +1,54 @@
+.container--form{
+    padding-top: var(--space-xl);
+}
+
+.progress{
+    display: flex;
+    gap: var(--space-xxs);
+}
+
+.progress__circle{
+        border-radius: 50%;
+        width: 1rem;
+        height: 1rem;
+}
+
+.progress__circle--active--now{
+    border: 3px var(--green) solid;
+}
+
+.progress__circle--active--planned {
+    border: 3px var(--purple) solid;
+}
+
+.progress__circle--future {
+    background-color: rgba(0, 0, 0, 0.30);
+}
+
+.progress__circle--past--now {
+    background-color: var(--green);
+}
+
+.progress__circle--past--planned{
+    background-color: var(--purple);
+}
+
+.progress__container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form__question{
+    display: flex;
+    flex-flow: column nowrap;
+    gap: var(--space-s);
+    margin-bottom: var(--space-3xl);
+}
+
+input{
+    padding: 1rem;
+    background-color: var(--white);
+    border-radius: 0;
+    border: .5px var(--black) solid;
+}

@@ -185,3 +185,9 @@ body {
  .purple__fg {
    color: var(--purple);
  }
+
+ /* for the container of the content */
+
+ .container{
+  padding: var(--space-s);
+ }

@@ -1,0 +1,17 @@
+.btn__back {
+    background-color: var(--white);
+    border: none;
+    border-radius: 0;
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+    margin-bottom: var(--space-s);
+}
+
+.btn__icon {
+    max-width: 1.5rem;
+}
+
+.btn__icon--back {
+    scale: -1;
+}
