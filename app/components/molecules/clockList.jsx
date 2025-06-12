@@ -6,9 +6,10 @@ import { UserContext } from '../../context/UserContext';
 
 //components
 import ClockCard from "./clockCard";
+import MomentsEmpty from "./momentsEmpty";
 
 const ClockList = ({ clocks = [], clockProfile, state }) => {
-    const { userId, setUserId } = useContext(UserContext);
+    const { userId } = useContext(UserContext);
 
     //My clocks
     if (state === 'Mijn Abbymomenten') {
@@ -23,7 +24,7 @@ const ClockList = ({ clocks = [], clockProfile, state }) => {
                     clocks.length ? (
                         <ul>
                             {myClocks.map((clock) => (
-                                <ClockCard key={clock.id} clock={clock} clockProfile={clockProfile} />
+                                <ClockCard key={clock.id} clock={clock} clockProfile={clockProfile} state={state}/>
                             ))}
                         </ul>
                     ) : (
@@ -39,11 +40,11 @@ const ClockList = ({ clocks = [], clockProfile, state }) => {
             {clocks.length ? (
                 <ul>
                     {clocks.map((clock) => (
-                        <ClockCard key={clock.id} clock={clock} clockProfile={clockProfile} />
+                        <ClockCard key={clock.id} clock={clock} clockProfile={clockProfile} state={state}/>
                     ))}
                 </ul>
             ) : (
-                <p> Er zijn nog geen Abbymomenten </p>
+                <MomentsEmpty state={state} />
             )}
 
         </div>

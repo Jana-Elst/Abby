@@ -1,63 +1,34 @@
-import { Link } from "react-router";
-import { useContext, useState } from "react";
+const ButtonClockCard = ({ userId, clock, participants, state }) => {
+    const toggleState = state.toggle;
 
-//components
-import Clock from "../atoms/clock";
-import { clockLinkedWithUser, joinClock, leaveClock, stopClock } from "../../services/data";
-
-//root variables
-import { UserContext } from '../../context/UserContext';
-
-const ButtonClockCard = ({ clock, clockProfile, participants }) => {
-    const { userId, setUserId } = useContext(UserContext);
-
-    //change button without refresshing page
-    const initialState = clockLinkedWithUser(clock, participants, userId);
-    const [stateButton, setStateButton] = useState(initialState);
-
-    //eventhandlers
-    const handleClockJoin = async () => {
-        setStateButton('leave');
-        await joinClock(userId, clock.id);
+    //-- set correct bg color
+    let backgroundColor;
+    let backgroundImage;
+    if (toggleState === 'Nu' || toggleState === '') {
+        backgroundColor = ''; //@henri set classname for blueBg
+        backgroundImage = '';
+    } else if (toggleState === 'Gepland') {
+        backgroundColor = ''; //@henri set classname for orangeBg
+        backgroundImage = '';
+    } else if (toggleState === 'Afgelopen') {
+        backgroundColor = ''; //@henri set classname for yellowBg
+        backgroundImage = '';
     }
 
-    const handleClockRemove = async () => {
-        setStateButton('join');
-        await leaveClock(userId, clock.id);
+    //--- different buttons
+    //creator
+    if (userId === clock.creator) {
+        return <p>Jouw Abbymoment --></p>
     }
 
-    const handleStop = async () => {
-        setStateButton('');
-        await stopClock(clock.id);
+    //made by Abby
+    if (clock.abbyMoment) {
+        return <p className={(participants.includes(userId)) ? backgroundImage : ''}>made by Abby --></p>
     }
 
-    const handleStart = () => {
-        setStateButton('stop');
-    }
-
-    //if clock is made my user
-    if (clock.creator === userId) {
-        if (clock.stopTime) {
-            return <button>Herhaal Abbymoment</button>
-        }
-
-        if (clock.startTime && !clock.stopTime) {
-            return <button onClick={handleStop}>Stop Abbymoment</button>;
-        }
-
-        return <button onClick={handleStart}>Start je Abbymoment</button>;
-    } else {
-        if (clock.private) {
-            return <Link to={`${import.meta.env.BASE_URL}abbymomenten/${clock.id}`}>Bekijk Abbymoment</Link>
-        }
-
-        if (stateButton === 'leave') {
-            return <button onClick={handleClockRemove}>Verlaat</button>
-        }
-
-        if (!stateButton === 'join') {
-            return <button onClick={handleClockJoin}>Doe mee</button>
-        }
+    //normal or participant
+    else {
+        return <p className={(participants.includes(userId)) ? backgroundColor : ''}>--></p>
     }
 };
 

@@ -1,24 +1,29 @@
 //import './toggleButton.css'
 
-const ToggleButton = ({ content1, content2, state, setState }) => {
+//@henri zorg hier dat de active state een BGkleur krijgt, ik zal zorgen dat die kluer anders is voor Afgelopen gepland en nu
+const ToggleButton = ({ contents, state, setState }) => {
     const onChange = (e) => {
         const value = e.target.value
         console.log(value)
-        setState(value);
+        setState({
+            ...state,
+            toggle: value
+        });
     }
 
     return (
         <div className={`toggleButton__item`}>
-            <div className='toggleButton__item'>
-                <input type="radio" id={content1} name="toggleButton" value={content1} onChange={onChange} checked={state === content1} />
-                <label htmlFor={content1}>{content1}</label>
-            </div>
-
-            <div className={`toggleButton__item`}>
-                <input type="radio" id={content2} name="toggleButton" value={content2} onChange={onChange} checked={state === content2} />
-                <label htmlFor={content2}>{content2}</label>
-            </div>
-        </div >
+            {
+                contents.values.map(value => {
+                    return (
+                        <div className='toggleButton__item'>
+                            <input type="radio" id={value} name={contents.name} value={value} onChange={onChange} checked={state.toggle === value} />
+                            <label htmlFor={value}>{value}</label>
+                        </div>
+                    )
+                })
+            }
+        </div>
     )
 };
 
