@@ -1,6 +1,11 @@
-.home__container{
-    margin: var(--space-s);
+.hero__header {
+    text-align: right;
+    padding-bottom: var(--space-xxs);
+    border-bottom: var(--border-thin);
 }
-.hero {
-
+.hero__img{
+    padding-top: var(--space-s);
+}
+.hero__btn{
+    margin-top: var(--space-3xl);
 }
