@@ -17,11 +17,17 @@
 
 .info__note{
     text-align: center;
+    margin: var(--space-m);
 }
 
 .info__btn{
     text-align: center;
     padding: var(--space-s) var(--space-xl);
     border: var(--border-thin);
-    margin: var(--space-m);
+}
+
+.info__btn__container{
+    margin-top: var(--space-xxl) ;
+    display: grid;
+    justify-items: center;
 }

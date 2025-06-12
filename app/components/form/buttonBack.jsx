@@ -1,4 +1,6 @@
 import { Link } from "react-router";
+import "./buttonBack.css";
+import arrow from "../../src/assets/arrow-right.svg";
 
 const ButtonBack = ({ children, setFormData, formData, link = null }) => {
     const handleBack = () => {
@@ -22,14 +24,15 @@ const ButtonBack = ({ children, setFormData, formData, link = null }) => {
     if (!link) {
         //button
         return (
-            <button type='button' onClick={handleBack}>
+            <button className="btn__back" type='button' onClick={handleBack}>
                 {children}
             </button>
         )
     } else {
         //navlink
         return (
-            <Link to={`${import.meta.env.BASE_URL}${link}`}>
+            <Link className="btn__back" to={`${import.meta.env.BASE_URL}${link}`}>
+                <img className='btn__icon btn__icon--back' src={arrow} alt="een pijl" />
                 {children}
             </Link>
         )
