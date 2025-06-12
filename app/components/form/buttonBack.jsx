@@ -1,4 +1,6 @@
-const ButtonBack = ({ children, setFormData, formData }) => {
+import { Link } from "react-router";
+
+const ButtonBack = ({ children, setFormData, formData, link = null }) => {
     const handleBack = () => {
         setFormData(
             {
@@ -7,8 +9,7 @@ const ButtonBack = ({ children, setFormData, formData }) => {
             }
         );
 
-        if (formData.flow === 'planNow' && formData.state === 4) {
-            console.log('hey');
+        if (formData.flow === 'planNow' && formData.state === 3) {
             setFormData(
                 {
                     ...formData,
@@ -18,11 +19,21 @@ const ButtonBack = ({ children, setFormData, formData }) => {
         }
     }
 
-    return (
-        <button type='button' onClick={handleBack}>
-            {children}
-        </button>
-    )
+    if (!link) {
+        //button
+        return (
+            <button type='button' onClick={handleBack}>
+                {children}
+            </button>
+        )
+    } else {
+        //navlink
+        return (
+            <Link to={`${import.meta.env.BASE_URL}${link}`}>
+                {children}
+            </Link>
+        )
+    }
 };
 
 export default ButtonBack;
