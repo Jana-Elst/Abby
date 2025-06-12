@@ -13,7 +13,7 @@ const Button = ({ link, children, icon = null, click = null, type = 'button', ex
 
     if (link) {
         return (
-            <Link className={`button ${icon ? icon : ""} ${extraClass? extraClass : ""}`} to={`${import.meta.env.BASE_URL}${link}`}>
+            <Link className={`${extraClass? extraClass : ""} button ${icon ? icon : ""} `} to={`${import.meta.env.BASE_URL}${link}`}>
                 {children}
             </Link>
         )

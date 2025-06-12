@@ -1,0 +1,106 @@
+/* before log in */
+.account__btn{
+    color: var(--black);
+    font-family: 'GT Walsheim Regular', 'arial', sans-serif;
+    border: none;
+    border-bottom: var(--border-thin);
+    /* border-top: var(--border-thin); */
+    border-radius: 0;
+    font-size: var(--font-btn);
+}
+
+.account__btn:hover:not(:disabled) {
+    background-color: var(--yellow);
+    color: var(--black);
+    font-family: 'GT Walsheim Regular', 'arial', sans-serif;
+    border: none;
+    border-bottom: var(--border-thin);
+    /* border-top: var(--border-thin); */
+    border-radius: 0;
+}
+
+.account__input{
+    border-radius: 0;
+    margin: 0 var(--space-s);
+    width: 90%;
+    font-size: var(--body);
+}
+
+.account__label{
+    color: var(--black);
+    font-family: "GT Walsheim", Arial;
+        font-size: 1rem;
+        font-style: normal;
+        font-weight: 800;
+        line-height: 1.5625rem;
+        margin: 0 var(--space-s);
+}
+
+.account__container{
+    border: var(--border);
+}
+
+.account__title{
+    padding: var(--space-s);
+    font-size: 1.25rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 1.5625rem;
+}
+
+.remove{
+    display: none;
+}
+
+.account__wrapper{
+    margin: var(--space-s);
+}
+
+.account__h3{
+    margin-bottom: 1.5rem;
+}
+
+.message{
+    border-radius: 0;
+    border: none;
+}
+
+/* after log in */
+
+.succes__login{
+    padding: var(--space-s);
+}
+
+.signout__btn{
+ color: var(--black);
+ display: flex;
+ justify-content: space-between;
+    padding: var(--space-s) var(--space-xl);
+    background-color: var(--white);
+    border: var(--border-thin);
+    font-size: 1rem;
+        font-style: normal;
+        font-weight: 400;
+}
+
+.loguit__container{
+    display: grid;
+        justify-items: center;
+        gap: var(--space-m);
+        margin: var(--space-xl);
+}
+
+.loguit__email{
+    text-align: center;
+}
+
+.succes__btn__container{
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 1.5rem;
+    margin-top: var(--space-3xl);
+}
+
+.btn__icon{
+    max-width: 1.5rem;
+}

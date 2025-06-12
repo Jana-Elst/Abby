@@ -1,9 +1,12 @@
 //import different frames
 import Hero from "../components/frames/hero";
 import Intro from "../components/frames/intro";
-import ToDoInAbby from "../components/frames/toDoInAbby";
-import Statistics from "../components/frames/statistics";
+// import ToDoInAbby from "../components/frames/toDoInAbby";
+import Abbymoment from "../components/frames/abbymoment";
+import Living from "../components/frames/living";
+import Join from "../components/frames/join";
 import AndYou from "../components/frames/andYou";
+import Statistics from "../components/frames/statistics";
 import Moments from "../components/frames/moments";
 import "./home.css"
 
@@ -32,9 +35,12 @@ const Home = ({ loaderData }) => {
             {/* <ClockList clocks={museumClocks}/> */}
             <Hero />
             <Intro />
-            <ToDoInAbby />
-            <Statistics />
+            <Abbymoment />
+            <Living />
+            <Join />
+            {/* <ToDoInAbby /> */}
             <AndYou />
+            <Statistics />
             <Moments museumClocks={museumClocks} clockProfile={clockProfile} />
         </div>
 
