@@ -33,7 +33,6 @@
   --border-thin: 1.2px solid var(--black);
 
   overscroll-behavior: none;
-  
 }
 
 @font-face {
@@ -131,21 +130,21 @@ body {
  }
 
  .yellow__fg {
-   background-color: var(--yellow);
+   color: var(--yellow);
  }
 
  .blue__fg {
-   background-color: var(--blue);
+   color: var(--blue);
  }
 
  .orange__fg {
-   background-color: var(--orange);
+   color: var(--orange);
  }
 
  .green__fg {
-   background-color: var(--green);
+   color: var(--green);
  }
 
  .purple__fg {
-   background-color: var(--purple);
+   color: var(--purple);
  }
