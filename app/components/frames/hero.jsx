@@ -15,7 +15,7 @@ const Hero = () => {
                 Sla over
             </Button> */}
                 {/* clock COMP */}
-                <img className="hero__img" src={homeHero} alt="De Living van Abby" />
+                <img className="hero__img" src={homeHero} alt="De klokjes muur in Abby" />
             </div >
             <Button link={'#Intro'} extraClass="btn__text hero__btn blue__bg">
                 Waarom vertragen?

@@ -129,7 +129,6 @@ h2 {
   color: var(--black);
   font-size: var(--font-h2);
   font-weight: 400;
-  max-width: 17rem;
   line-height: 2.125rem;
 }
 
