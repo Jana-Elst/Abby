@@ -88,7 +88,7 @@ const CreateAbbymoment = () => {
         plan: ['description', 'time', 'location', 'participants', 'confirmation'],
         planNow: ['description', 'time', 'qrCode', 'visabilityClock', 'location', 'participants', 'confirmation'],
         now: ['visabilityClock', 'description', 'location', 'participants', 'confirmation'],
-        startScheduled: ['info', 'visabilityClock', 'scheduledClocks', 'confirmation']
+        startScheduled: ['visabilityClock', 'scheduledClocks', 'confirmation']
     }
 
     const conditionalComponent = () => {

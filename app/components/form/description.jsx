@@ -7,7 +7,13 @@ const Description = ({ formData, setFormData }) => {
     return (
         <>
             {/* different actions for return buttons in different flows */}
-            {/* <ButtonBack formData={formData} setFormData={setFormData}>Terug</ButtonBack> */}
+            {
+                formData.flow === 'now' && 'planNow'
+                    // flow now & planNow
+                    ? <ButtonBack formData={formData} setFormData={setFormData}>Terug</ButtonBack>
+                    // flow now
+                    : <ButtonBack formData={formData} setFormData={setFormData} link={"maak-een-abbymoment"}>Terug</ButtonBack>
+            }
             {/*  */}
 
             <Title>Maak je Abbymoment</Title>
