@@ -7,7 +7,6 @@ import { useState, useContext } from "react";
 //components
 import Confirmation from "../components/form/confirmation";
 import Description from "../components/form/description";
-import Info from "../components/form/info";
 import Location from "../components/form/location";
 import Participants from "../components/form/participants";
 import QrCode from "../components/form/qr-code";
@@ -22,7 +21,6 @@ import { addScheduledClock, startOnlineClock, startWallClock } from "../services
 //root variables
 import { UserContext } from '../context/UserContext';
 import { FormFlowContext } from '../context/FormFlowContext';
-import { id } from "react-day-picker/locale";
 
 //add abbymoment
 /* mag deze dan weg? */
@@ -61,7 +59,7 @@ const handleSubmit = async (formData, setFormData) => {
 }
 
 const CreateAbbymoment = () => {
-    const { userId, setUserId } = useContext(UserContext);
+    const { userId } = useContext(UserContext);
     const { flowForm, setFlowForm } = useContext(FormFlowContext);
 
     const [formData, setFormData] = useState({
@@ -125,7 +123,7 @@ const CreateAbbymoment = () => {
     if (userId) {
         return (
             <>
-                <Form key={userId} id="abbymomentForm" method="post" onSubmit={e => handleSubmit(formData, setFormData)}>
+                <Form key={userId} id="abbymomentForm" method="post" onSubmit={() => handleSubmit(formData, setFormData)}>
                     <input type="hidden" name="userId" value={userId} />
                     <input type="hidden" name="name" value={formData.name} />
                     <input type="hidden" name="description" value={formData.description} />
