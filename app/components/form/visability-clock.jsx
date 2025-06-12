@@ -47,7 +47,14 @@ const VisabilityClock = ({ setFormData, formData }) => {
 
     return (
         <>
-            <ButtonBack formData={formData} setFormData={setFormData}>Terug</ButtonBack>
+            {
+                formData.flow === 'planNow'
+                    // flow planNow
+                    ? <ButtonBack formData={formData} setFormData={setFormData}>Terug</ButtonBack>
+                    // flow now
+                    : <ButtonBack formData={formData} setFormData={setFormData} link={"qrCode"}>Terug</ButtonBack>
+            }
+
             <Title>Wil je je moment delen met anderen?</Title>
 
             <InfoButton>

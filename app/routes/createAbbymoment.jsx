@@ -24,10 +24,8 @@ import { UserContext } from '../context/UserContext';
 import { FormFlowContext } from '../context/FormFlowContext';
 import { id } from "react-day-picker/locale";
 
-//styling
-import "./createAbbymoment.css"
-
 //add abbymoment
+/* mag deze dan weg? */
 export async function clientAction({ request }) {
     const formData = await request.formData();
 
@@ -52,7 +50,14 @@ export async function clientAction({ request }) {
             await startOnlineClock(userId, name, description, prive, location);
         }
     }
-    return redirect(`${import.meta.env.BASE_URL}maak-een-abbymoment`);
+    return redirect(`${import.meta.env.BASE_URL}maak-een-abbymoment/formulier`);
+}
+
+const handleSubmit = async (formData, setFormData) => {
+    setFormData({
+        ...formData,
+        state: formData.state + 1
+    });
 }
 
 const CreateAbbymoment = () => {
@@ -80,15 +85,7 @@ const CreateAbbymoment = () => {
         plan: ['description', 'time', 'location', 'participants', 'confirmation'],
         planNow: ['description', 'time', 'qrCode', 'visabilityClock', 'location', 'participants', 'confirmation'],
         now: ['visabilityClock', 'description', 'location', 'participants', 'confirmation'],
-        startScheduled: ['info', 'visabilityClock', 'scheduledClocks', 'confirmation']
-    }
-
-    const handleSubmit = () => {
-        setFormData({
-            ...formData,
-            state: formData.state + 1
-        });
-        // setFlowForm('plan');
+        startScheduled: ['visabilityClock', 'scheduledClocks', 'confirmation']
     }
 
     const conditionalComponent = () => {
@@ -128,7 +125,7 @@ const CreateAbbymoment = () => {
     if (userId) {
         return (
             <>
-                <Form key={userId} id="abbymomentForm" method="post" onSubmit={handleSubmit}>
+                <Form key={userId} id="abbymomentForm" method="post" onSubmit={e => handleSubmit(formData, setFormData)}>
                     <input type="hidden" name="userId" value={userId} />
                     <input type="hidden" name="name" value={formData.name} />
                     <input type="hidden" name="description" value={formData.description} />
