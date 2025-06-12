@@ -87,9 +87,20 @@
     display: grid;
         justify-items: center;
         gap: var(--space-m);
-        margin: var(--space-3xl);
+        margin: var(--space-xl);
 }
 
 .loguit__email{
     text-align: center;
+}
+
+.succes__btn__container{
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 1.5rem;
+    margin-top: var(--space-3xl);
+}
+
+.btn__icon{
+    max-width: 1.5rem;
 }

@@ -8,7 +8,8 @@ import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { NavLink } from 'react-router';
 import { UserContext } from '../context/UserContext';
 import Title from "../components/molecules/title";
-import Arrow from "../src/assets/arrow-right.svg";
+import Button from "../components/molecules/button";
+import arrow from "../src/assets/arrow-right.svg";
 
 import "./accountPage.css"
 
@@ -75,9 +76,13 @@ const AccountPage = () => {
         setUserId(session.user.id);
         return (
             <div className='succes__login'>
+                <Button extraClass={"btn__back h4"} link={"/"}><img className='btn__icon btn__icon--back' src={arrow} alt="een pijl" /> Homepage</Button>
                 <Title>Je bent ingelogd!</Title>
                 <p className='h3'>Start nu je eigen Abbymoment of neem deel aan iemand anders zijn activiteit. </p>
-
+                <div className='succes__btn__container'>
+                    <Button extraClass={"blue__bg btn__arrow btn__text"} link={"abbymomenten"}>Maak een Abbymoment <img className='btn__icon' src={arrow} alt="een pijl"/></Button>
+                    <Button extraClass={"orange__bg btn__arrow btn__text"} link={"maak-een-abbymoment"}>Zie alle Abbymomenten <img className='btn__icon' src={arrow} alt="een pijl" /></Button>
+                </div>
                 <div className='loguit__container'>
                     <button className='signout__btn' onClick={() => { signOut(); }}> Log uit </button>
                     <p className='loguit__email'> Je bent ingelogd als {session.user.email}</p>

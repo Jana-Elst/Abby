@@ -6,3 +6,24 @@
     content: url('../../src/assets/skip.svg');
 }
 
+.btn__arrow{
+    display: flex;
+    justify-content: space-between;
+    padding:var(--space-s);
+    border: var(--border-thin);
+}
+
+.btn__icon {
+    max-width: 1.5rem;
+}
+
+.btn__icon--back{
+    scale: -1;
+}
+
+.btn__back{
+    display: flex;
+    gap: 0.4rem;
+    align-items:center;
+    margin-bottom: var(--space-s);
+}
