@@ -38,7 +38,6 @@ const ClockCard = ({ clock, clockProfile }) => {
                     {/* <Clock size={60} startTime={clock.startTime} active={true}/> */}
                 </Link>
             </li>
-            <ButtonClockCard clock={clock} participants={participants}/>
         </>
     )
 };

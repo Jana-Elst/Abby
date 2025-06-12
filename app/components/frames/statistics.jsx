@@ -18,6 +18,7 @@ const Statistics = () => {
                         <p className="statistic__data">134</p>
                         <p className="statistic__value h3">uur</p>
                         <img className="statistic__img" src={dataCircle} alt="data van aantal uur" />
+                        <div className="statistic__background blue__bg"></div>
                     </div>
                     <p className="statistics__description h3">134 uur besteedden mensen deze week aan Abbymomenten.</p>
                     <img className="statistics__img" src={status} alt="status" />
@@ -27,6 +28,7 @@ const Statistics = () => {
                         <p className="statistic__data">62</p>
                         <p className="statistic__value h3">mensen</p>
                         <img className="statistic__img" src={dataLines} alt="data van aantal uur" />
+                        <div className="statistic__background yellow__bg"></div>
                     </div>
                     <p className="statistics__description h3">62 mensen startten deze week al een Abbymoment.</p>
                     <img className="statistics__img" src={status} alt="status" />
@@ -36,6 +38,7 @@ const Statistics = () => {
                         <p className="statistic__data">99</p>
                         <p className="statistic__value h3">momenten</p>
                         <img className="statistic__img" src={dataDots} alt="data van aantal uur" />
+                        <div className="statistic__background orange__bg"></div>
                     </div>
                     <p className="statistics__description h3">99 Abbymomenten kwamen deze week tot leven.</p>
                     <img className="statistics__img" src={status} alt="status" />
