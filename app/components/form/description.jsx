@@ -6,7 +6,10 @@ import ButtonNext from "./buttonNext";
 const Description = ({ formData, setFormData }) => {
     return (
         <>
-            <ButtonBack formData={formData} setFormData={setFormData}>Terug</ButtonBack>
+            {/* different actions for return buttons in different flows */}
+            {/* <ButtonBack formData={formData} setFormData={setFormData}>Terug</ButtonBack> */}
+            {/*  */}
+
             <Title>Maak je Abbymoment</Title>
             <div>
                 <div>
