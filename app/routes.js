@@ -12,6 +12,7 @@ export default [
         index("routes/home.jsx"),
         route("/log-in", "routes/accountPage.jsx"),
         route("/abbymomenten", "routes/abbymoments.jsx"),
+        route("/jouw-abbymomenten", "routes/yourAbbymoments.jsx"),
         route("/maak-een-abbymoment", "routes/createAbbymomentStart.jsx"),
         route("/abbymomenten/:abbymomentId", "routes/detailAbbymoments.jsx"),
       ])

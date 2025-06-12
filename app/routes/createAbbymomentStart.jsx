@@ -55,7 +55,7 @@ const Info = () => {
                         </div>
 
                         : <div>
-                            <p className="info__note yellow__bg">Om een Abbymoment the starten moet je ingelogd zijn.</p>
+                            <p className="info__note yellow__bg btn__text">Om een Abbymoment the starten moet je ingelogd zijn.</p>
                             <Button link={'log-in'}>Log-in</Button>
                         </div>
                 }
@@ -72,11 +72,11 @@ const Info = () => {
 
                 {
                     userId
-                        ? (<Button extraClass="info__btn yellow__bg" link={'maak-een-abbymoment/formulier'}>Start</Button>)
+                        ? (<Button extraClass="info__btn yellow__bg btn__text" link={'maak-een-abbymoment/formulier'}>Start</Button>)
                         : (
                             <>
                                 <p className="info__note">Om een Abby moment te starten moet je ingelogd zijn.</p>
-                                <Button extraClass="info__btn yellow__bg" link={'log-in'}>Log-in</Button>
+                                <Button extraClass="info__btn yellow__bg btn__text" link={'log-in'}>Log in</Button>
                             </>
                         )
                 }

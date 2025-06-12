@@ -20,6 +20,8 @@
 }
 
 .info__btn{
+    text-align: center;
     padding: var(--space-s) var(--space-xl);
-    border: var(--border-thin)
+    border: var(--border-thin);
+    margin: var(--space-m);
 }

@@ -42,6 +42,10 @@
     background: linear-gradient(to right, rgb(0, 0, 0, 0) 65%, var(--orange) 35%);
 }
 
+.navigation__purple {
+    background: linear-gradient(to right, rgb(0, 0, 0, 0) 65%, var(--purple) 35%);
+}
+
 .navigation__yellow {
     background: linear-gradient(to right, rgb(0, 0, 0, 0) 65%, var(--yellow) 35%);
 }
@@ -61,6 +65,11 @@
 .navigation__yellow.active {
     background-color: var(--yellow);
 }
+
+.navigation__purple.active {
+    background-color: var(--purple);
+}
+
 .navigation__green.active {
     background-color: var(--green);
 }
