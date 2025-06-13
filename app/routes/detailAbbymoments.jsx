@@ -14,20 +14,19 @@ import { getClock, getClockProfile, getParticipants } from "../services/data";
 
 export async function clientLoader({ params }) {
     const id = params.abbymomentId;
+
     //get data clock
     const clock = await getClock(id);
     const clockProfile = await getClockProfile();
-    return { clock, clockProfile };
+    const participants = getParticipants(clock, clockProfile);
+    console.log(clockProfile);
+    return { clock, clockProfile, participants };
 }
 
 
 const DetailClock = ({ loaderData }) => {
     const { userId } = useContext(UserContext);
-    const { clock, clockProfile } = loaderData;
-
-    const participants = clockProfile.filter(cp => cp.clock_id === clock.id).map(cp => cp.profile_id);
-    console.log(clockProfile);
-    
+    const { clock, clockProfile, participants } = loaderData;    
 
     return (
         <>
@@ -48,6 +47,7 @@ const DetailClock = ({ loaderData }) => {
             <Title>{clock[0].name}</Title>
 
             {
+                // show date and time of scheduled
                 clock[0].startTime
                     ? ""
                     : <>
@@ -57,12 +57,13 @@ const DetailClock = ({ loaderData }) => {
             }
 
             {
+                // show description if description
                 clock[0].description
                     ? <p>{clock[0].description}</p>
                     : ""
             }
 
-            { //show participant (only of you can participate)
+            { //show total participants
                 clock[0].private
                     ? ""
                     : <p className={participants.includes(userId) ? "//voeg hier de juiste kleur toe" : ""}>{participants.length}</p>

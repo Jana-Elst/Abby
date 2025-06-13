@@ -253,7 +253,9 @@ export const leaveClock = async (userId, clockId) => {
 
 //------------------- filters -------------------//
 export const getParticipants = (clock, clockProfile) => {
-    const participants = clockProfile.filter(cp => cp.clock_id === clock.id).map(cp => cp.profile_id);
+    console.log(clock);
+    console.log(clockProfile);
+    const participants = clockProfile.filter(cp => cp.clock_id === clock[0].id).map(cp => cp.profile_id);
     return participants;
 }
 
