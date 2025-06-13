@@ -25,8 +25,8 @@ const Description = ({ formData, setFormData }) => {
             </div>
             <Title>Maak je Abbymoment</Title>
             <div>
-                <div className="form__question">
-                    <label htmlFor="name">Titel</label>
+                <div className="form__question h4">
+                    <label htmlFor="name">Titel <span>*</span></label>
                     <input
                         type="text"
                         name="name"
@@ -42,16 +42,16 @@ const Description = ({ formData, setFormData }) => {
                         }}
                         required />
                 </div>
-                <div className="form__question">
+                <div className="form__question h4">
                     <label htmlFor="description">Beschrijving</label>
-                    <input
+                    <textarea
                         type="text"
                         name="description"
                         id="description"
                         maxLength="300"
                         placeholder='max. 300 karakters'
-                        rows={30}
-                        cols={20}
+                        rows={10}
+                        cols={5}
                         value={formData.description}
                         onChange={(e) => {
                             setFormData({
@@ -62,7 +62,7 @@ const Description = ({ formData, setFormData }) => {
                     />
                 </div>
             </div>
-            <ButtonNext formData={formData} setFormData={setFormData}>Volgende stap</ButtonNext>
+            <ButtonNext extraClass="next__btn btn__text green__bg" formData={formData} setFormData={setFormData}>Volgende stap</ButtonNext>
         </div>
 
     )
