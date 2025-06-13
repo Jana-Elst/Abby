@@ -42,6 +42,10 @@
     padding: var(--space-s);
 }
 
+.card__name{
+    max-width: 12.5rem;
+}
+
 .btn__card {
     display: grid;
     align-items: center;
@@ -74,4 +78,24 @@
 
 .bg-img__green {
     background-image: url(../../src/assets/bg-abbymoment-green.jpg);
+}
+
+.card__active{
+    padding: var(--space-s);
+    display: grid;
+    grid-template-columns: .5fr 2fr .5fr;
+}
+
+.card__middle--active{
+    grid-column: 2 / span 1;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    gap: var(--space-xl);
+
+}
+
+.btn__card__arrow--active{
+    grid-column: 3 / span 1;
+    justify-self: end;
 }
