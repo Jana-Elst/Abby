@@ -251,6 +251,12 @@ export const leaveClock = async (userId, clockId) => {
     );
 }
 
+//------------------- filters -------------------//
+export const getParticipants = (clock, clockProfile) => {
+    const participants = clockProfile.filter(cp => cp.clock_id === clock.id);
+    return participants;
+}
+
 /*
 Some functions to get a random free clock
 */
@@ -258,6 +264,12 @@ Some functions to get a random free clock
 //get time in correct time zone
 export const getTimeNow = () => {
     return new Date(Date.now()).toLocaleString("en-US", { timeZone: "Europe/Amsterdam" })
+}
+
+export const getDateNow = () => {
+    let date = new Date();
+    date = date.toISOString().split('T')[0];
+    return date;
 }
 
 const timeDifference = (time) => {
