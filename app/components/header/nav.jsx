@@ -23,7 +23,7 @@ export default function Nav({ hamburgerOpen, toggleHamburger }) {
                         <NavLink onClick={() => (setTimeout(toggleHamburger, 500))} className={"navigation__links__li navigation__blue"} to={`${import.meta.env.BASE_URL}`} end >
                             <div className="links__li__container">
                                 <img className="links__li__svg" src={iconHome} alt="startpagina icoontje" />
-                                <p className="links__li__p" >Startpagina</p>
+                                <p className="links__li__p" >Homepage</p>
                             </div>
                             <img className="links__li__img" src={pictureHome} alt="De Living van Abby" />
                         </NavLink>

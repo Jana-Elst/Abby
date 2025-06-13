@@ -1,0 +1,26 @@
+.container__moments{
+    background-color: var(--grey);
+    border-top: var(--border-thin);
+    border-bottom: var(--border-thin);
+    padding: var(--space-xl) var(--space-s);
+    margin-bottom: var(--space-xxl);
+}
+
+.container__moments:has(+ .center--flex) {
+    margin-bottom: 0;
+}
+
+.moments__subtitle{
+    text-align: right;
+    margin: var(--space-s);
+}
+
+.moments_more{
+    text-align: center;
+    margin: var(--space-s);
+    margin-bottom: var(--space-xl);
+}
+
+.your__container {
+    margin-top: var(--space-xxl);
+}

@@ -1,6 +1,6 @@
 import Participants from "../components/form/participants";
 import { supabase } from "../supabaseClient";
-import { totalClocks, clocksPerArduino } from "./museumData";
+import { totalClocks} from "./museumData";
 
 /*
 Handful of helper functions to be called from route loaders and actions
@@ -242,13 +242,19 @@ export const joinClock = async (userId, clockId) => {
 }
 
 export const leaveClock = async (userId, clockId) => {
-    const data = await getOrUpdateClocks(
+    await getOrUpdateClocks(
         supabase
             .from('clockprofile')
             .delete()
             .eq('profile_id', userId)
             .eq('clock_id', clockId)
     );
+}
+
+//------------------- filters -------------------//
+export const getParticipants = (clock, clockProfile) => {
+    const participants = clockProfile.filter(cp => cp.clock_id === clock.id).map(cp => cp.profile_id);
+    return participants;
 }
 
 /*
@@ -258,6 +264,12 @@ Some functions to get a random free clock
 //get time in correct time zone
 export const getTimeNow = () => {
     return new Date(Date.now()).toLocaleString("en-US", { timeZone: "Europe/Amsterdam" })
+}
+
+export const getDateNow = () => {
+    let date = new Date();
+    date = date.toISOString().split('T')[0];
+    return date;
 }
 
 const timeDifference = (time) => {

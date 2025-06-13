@@ -38,7 +38,7 @@ export async function getClock(id) {
             .from('clocks')
             .select('*')
             .eq('id', id);
-            
+
         let { data, error } = await query;
         console.log(data);
         return data
@@ -71,6 +71,12 @@ export async function addClock(userId, name, description, scheduledStartTime, pr
         console.error("Error inserting clock:", error);
         throw error;
     }
+}
+
+/*------- filter the clocks -------*/
+export const getParticipants = (clock, clockProfile) => {
+    const participants = clockProfile.filter(cp => cp.clock_id === clock.id);
+    return participants;
 }
 
 /*------- get a free clock -------*/
