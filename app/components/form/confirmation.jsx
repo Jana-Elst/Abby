@@ -1,22 +1,18 @@
 import Button from "../molecules/button";
 import Title from "../molecules/title";
-import ButtonBack from './buttonBack';
+import arrow from "../../src/assets/arrow-right.svg";
 
 const Confirmation = ({ formState, setFormState, flowForm }) => {
     return (
-        <>
-            <ButtonBack setFormState={setFormState} formState={formState} flowForm={flowForm}>Terug</ButtonBack>
+        <div className="confirm">
             {
                 formState === 'now'
                     ? <Title title={"Je moment is gestart!"} />
                     : <Title title={"Je moment is gepland!"} />
             }
-            <p>NAAM</p>
-            <p>CLOCK</p>
-            <p>Tijd</p>
-            <Button link={'abbymomenten'}>Ga naar jouw Abbymomenten</Button>
-            <p>Pas aan</p>
-        </>
+            <p className="confirm__title">Je moment is succesvol aangemaakt</p>
+            <Button extraClass="btn__text confirm__btn purple__bg btn__arrow" link={'abbymomenten'}>Ga naar je moment<img className='btn__icon' src={arrow} alt="een pijl" /></Button>
+        </div>
 
     )
 };
