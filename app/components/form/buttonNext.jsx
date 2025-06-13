@@ -1,4 +1,6 @@
-const ButtonNext = ({ children, setFormData, formData, buttonType = 'button' }) => {
+import arrow from "../../src/assets/arrow-right.svg";
+
+const ButtonNext = ({ children, setFormData, formData, buttonType = 'button', extraClass }) => {
     const handleClickNext = () => {
         console.log(formData);
 
@@ -43,11 +45,11 @@ const ButtonNext = ({ children, setFormData, formData, buttonType = 'button' }) 
 
     return (
         buttonType === 'button'
-            ? <button type='button' onClick={handleClickNext}>
-                {children}
+            ? <button type='button' onClick={handleClickNext} className={extraClass}>
+                {children} <img className='btn__icon' src={arrow} alt="een pijl" />
             </button>
-            : <button type='submit'>
-                {children}
+            : <button type='submit' className={extraClass}>
+                {children} <img className='btn__icon' src={arrow} alt="een pijl" />
             </button>
     )
 };

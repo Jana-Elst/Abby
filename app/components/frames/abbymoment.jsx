@@ -5,6 +5,8 @@ import momentSlow from "../../src/assets/moment-slow.jpg";
 import momentStart from "../../src/assets/moment-start.jpg";
 import momentJoin from "../../src/assets/moment-join.jpg";
 
+import arrow from "../../src/assets/arrow-right.svg";
+
 const Abbymoment = () => {
     return (
         <div className="moment" id='Abbymoment'>
@@ -30,8 +32,8 @@ const Abbymoment = () => {
                     <img className="explain__img" src={momentJoin} alt="Gele schilderij" />
                 </section>
             </article>
-            <Button link={'#Intro'} extraClass="btn__text moment__btn orange__bg">
-                Bekijk alle Abbymomenten
+            <Button link={'#Intro'} extraClass="btn__text moment__btn orange__bg btn__arrow">
+                Bekijk alle Abbymomenten <img className='btn__icon' src={arrow} alt="een pijl"/>
             </Button>
         </div>
     )

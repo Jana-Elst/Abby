@@ -7,6 +7,9 @@ import ToggleButton from "../components/molecules/toggleButton";
 import Title from "../components/molecules/title"
 import InfoButton from '../components/molecules/infobutton';
 import Button from '../components/molecules/button';
+import './abbymoments.css'
+
+import arrow from "../src/assets/arrow-right.svg";
 
 //Functions
 import { getAllClocks, getClockProfile } from "../services/data";
@@ -22,69 +25,83 @@ const YourAbbyMoments = ({ loaderData }) => {
 
     //set the states
     const [state, setState] = useState({
-        toggle: "Gepland",
+        toggle: "Nu",
         page: "yourMoments"
     });
 
     const contents = {
         name: 'toggleYourMoments',
-        values: ["Nu", "Gepland", "Afgelopen"]
+        values: ["Afgelopen", "Nu", "Gepland"]
     }
 
     return (
         <>
-            <Title>Jouw Abbymomenten</Title>
-            <InfoButton>
-                <p>Hier zie je alle lopende en geplande klokjes in Abby. Zo krijg je overzicht van wat er nu gebeurt en wat eraan komt.</p>
-                <p>Wie een klokje aanmaakt, kiest of anderen kunnen meedoen. Als dat mag, zie je bij dat Abbymoment een “Deelnemen” knop. Zo kun jij eenvoudig aansluiten.</p>
-                <p>Gebruik deze pagina om inspiratie op te doen en samen waardevolle momenten te beleven.</p>
-            </InfoButton>
-
-            <ToggleButton
-                contents={contents}
-                setState={setState}
-                state={state}
-            />
-
+            <div className='container'>
+                <Title><span className='purple__fg'>Jouw</span> Abby- momenten</Title>
+                <ToggleButton
+                    contents={contents}
+                    setState={setState}
+                    state={state}
+                    colourClass={"toggleButton__item--purple"}
+                />
+            </div>
             {/*show different things depading on state*/}
-            {
-                state.toggle === 'Nu'
-                    ? <>
-                        {/* Lopend moment */}
-                        {/* if functie toevoegen, als moment bezig is => dan tonen */}
-                        <h3>Jouw moment is nu bezig</h3>
-                        <p>hier komt clockCard = lopend</p>
-                        <Button>Stop dit moment</Button>
-
-                        {/* If functie als je deelneemt aan een lopend moment */}
-                        <h3>Je neemt deel aan een lopend moment</h3>
-                        <ClockList clocks={clocks} state={state} clockProfile={clockProfile} />
-
-                    </>
-                    : state.toggle === 'Gepland'
+            <div className='your__container'>
+                {
+                    state.toggle === 'Nu'
                         ? <>
-                            {/* State === gepland */}
-                            {/* Als je eigen geplande momenten hebt */}
-                            <h3>Jouw geplande momenten</h3>
-                            <ClockList clocks={clocks} state={state} clockProfile={clockProfile} />
+                            {/* Lopend moment */}
+                            {/* if functie toevoegen, als moment bezig is => dan tonen */}
+                            <h3 className='moments__subtitle h4'>Jouw moment is nu bezig</h3>
+                            <div className='container container__moments'>
+                                <p>hier komt clockCard = lopend</p>
+                            </div>
 
-                            {/* Als je deelneemt aan geplande moment */}
-                            <h3>Geplande momenten waar je aan deelneemt</h3>
-                            <ClockList clocks={clocks} state={state} clockProfile={clockProfile} />
+                            {/* If functie als je deelneemt aan een lopend moment */}
+                            <h3 className='moments__subtitle h4'>Je neemt deel aan een lopend moment</h3>
+                            <div className='container container__moments'>
+                                <p>hier komt clockCard = lopend als deelnemer</p>
+                            </div>
 
                         </>
-                        : <>
-                            {/* State === afgelopen */}
-                            {/* Als je eigen afgelopen momenten hebt */}
-                            <h3>Jouw afgelopen momenten</h3>
-                            <ClockList clocks={clocks} state={state} clockProfile={clockProfile} />
+                        : state.toggle === 'Gepland'
+                            ? <>
+                                {/* State === gepland */}
+                                {/* Als je eigen geplande momenten hebt */}
+                                <h3 className='moments__subtitle h4'>Jouw geplande momenten</h3>
+                                <div className='container container__moments'>
+                                    <ClockList clocks={clocks} state={state} clockProfile={clockProfile} />
+                                </div>
+                                {/* Als je deelneemt aan geplande moment */}
+                                <h3 className='moments__subtitle h4'>Momenten waar je aan deelneemt</h3>
+                                <div className='container container__moments'>
+                                    <ClockList clocks={clocks} state={state} clockProfile={clockProfile} />
+                                </div>
+                                
+                                <div className='container'>
+                                    <Button extraClass="btn__text moment__btn yellow__bg btn__arrow" link={"maak-een-abbymoment"} >Creëer een niew moment <img className='btn__icon' src={arrow} alt="een pijl" /></Button>
+                                </div>
+                            </>
+                            : <>
+                                {/* State === afgelopen */}
+                                {/* Als je eigen afgelopen momenten hebt */}
+                                <h3 className='moments__subtitle h4'>Jouw afgelopen momenten</h3>
+                                <div className='container container__moments'>
+                                    <ClockList clocks={clocks} state={state} clockProfile={clockProfile} />
+                                </div>
 
-                            {/* Als je deelnam aan afgelopen evenementen */}
-                            <h3>Afgelopen momenten waar je bij was</h3>
-                            <ClockList clocks={clocks} state={state} clockProfile={clockProfile} />
-                        </>
-            }
+                                {/* Als je deelnam aan afgelopen evenementen */}
+                                <h3 className='moments__subtitle h4'>Afgelopen momenten waar je bij was</h3>
+                                <div className='container container__moments'>
+                                    <ClockList clocks={clocks} state={state} clockProfile={clockProfile} />
+                                </div>
 
+                                <div className='container'>
+                                    <Button extraClass="btn__text moment__btn yellow__bg btn__arrow" link={"maak-een-abbymoment"} >Creëer een niew moment <img className='btn__icon' src={arrow} alt="een pijl"/></Button>
+                                </div>
+                            </>
+                }
+            </div>
         </>
 
     )
