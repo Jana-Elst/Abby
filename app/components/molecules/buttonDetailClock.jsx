@@ -138,9 +138,9 @@ const ButtonDetailClock = ({ clock, clockProfile, participants }) => {
         else {
             //if user is joined
             if (participants.includes(userId)) {
-                return <button>Doe mee</button>
-            } else {
                 return <button>Verlaat</button>
+            } else {
+                return <button>Doe mee</button>
             }
         }
     }
