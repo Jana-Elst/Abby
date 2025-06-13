@@ -6,6 +6,8 @@ import dataDots from "../../src/assets/data-dots.svg";
 import dataLines from "../../src/assets/data-lines.svg";
 import status from "../../src/assets/status.svg";
 
+import arrow from "../../src/assets/arrow-right.svg";
+
 const Statistics = () => {
     return (
         <div className="statistics">
@@ -44,8 +46,8 @@ const Statistics = () => {
                     <img className="statistics__img" src={status} alt="status" />
                 </section>
             </article>
-            <Button link={'abbymomenten'} extraClass="btn__text statistics__btn yellow__bg">
-                Begin jouw Abbymoment
+            <Button link={'abbymomenten'} extraClass="btn__text statistics__btn yellow__bg btn__arrow">
+                Begin jouw Abbymoment <img className='btn__icon' src={arrow} alt="een pijl"/>
             </Button>
         </div >
     )
