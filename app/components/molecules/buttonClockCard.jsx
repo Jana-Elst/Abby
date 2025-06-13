@@ -1,34 +1,23 @@
-const ButtonClockCard = ({ userId, clock, participants, state }) => {
-    const toggleState = state.toggle;
+import arrow from "../../src/assets/arrow-right.svg";
 
-    //-- set correct bg color
-    let backgroundColor;
-    let backgroundImage;
-    if (toggleState === 'Nu' || toggleState === '') {
-        backgroundColor = ''; //@henri set classname for blueBg
-        backgroundImage = '';
-    } else if (toggleState === 'Gepland') {
-        backgroundColor = ''; //@henri set classname for orangeBg
-        backgroundImage = '';
-    } else if (toggleState === 'Afgelopen') {
-        backgroundColor = ''; //@henri set classname for yellowBg
-        backgroundImage = '';
-    }
-
+const ButtonClockCard = ({ userId, clock, participants }) => {
     //--- different buttons
     //creator
     if (userId === clock.creator) {
-        return <p>Jouw Abbymoment --></p>
+        return <p className="purple__bg"> Jouw Abbymoment  <img className='btn__icon' src={arrow} alt="een pijl"/> </p>
     }
 
     //made by Abby
     if (clock.abbyMoment) {
-        return <p className={(participants.includes(userId)) ? backgroundImage : ''}>made by Abby --></p>
+        return <p className={(participants.includes(userId)) ? 'bg-img__green' : 'bg-img__none'}>made by Abby  <img className='btn__icon' src={arrow} alt="een pijl"/> </p>
     }
 
-    //normal or participant
+    //normal
     else {
-        return <p className={(participants.includes(userId)) ? backgroundColor : ''}>--></p>
+        console.log(userId);
+        console.log(participants);
+        
+        return <p className={(participants.includes(userId)) ? 'green__bg' : ''}> <img className='btn__icon' src={arrow} alt="een pijl"/></p>
     }
 };
 

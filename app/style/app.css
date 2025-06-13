@@ -13,6 +13,7 @@
   --orange: #FF5F00;
   --purple: #BB7CD2;
   --error: #ff0000;
+  --grey: #EAEBEF;
 
 
   /* Font sizes */
@@ -199,4 +200,9 @@ h2 {
 
  .container{
   padding: var(--space-s);
+ }
+
+ .center--flex {
+  display: flex;
+  justify-content: center;
  }
