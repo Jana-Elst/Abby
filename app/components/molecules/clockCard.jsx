@@ -24,12 +24,13 @@ const ClockCard = ({ clock, clockProfile }) => {
             <li className="card">
                 <Link to={`${import.meta.env.BASE_URL}abbymomenten/${clock.id}`}>
                     <div className="card__top">
-                        { //show 'maker' or 'participant'
+                        { //show 'maker'
                             userId === clock.creator
                             && <p className="card__type purple__bg">Maker</p>
                         }
                         {
-                            participants.includes(userId)
+                            //show participant
+                            userId ==! clock.creator && participants.includes(userId)
                             && <p className="card__type green__bg">Deelnemer</p>
                         }
                         <div className="card__info">
