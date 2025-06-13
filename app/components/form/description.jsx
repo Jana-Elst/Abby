@@ -6,7 +6,7 @@ import "./form.css";
 
 const Description = ({ formData, setFormData }) => {
     return (
-        <div className="container container--form">
+        <div className="container--form">
             <div className="progress__container">
                 {/* different actions for return buttons in different flows */}
                 {
@@ -18,13 +18,14 @@ const Description = ({ formData, setFormData }) => {
                 }
                 {/*  */}
                 <div className="progress">
-                    <div className="progress__circle progress__circle--active--now"></div>
+                    <div className="progress__circle progress__circle--active--planned"></div>
+                    <div className="progress__circle progress__circle--future"></div>
                     <div className="progress__circle progress__circle--future"></div>
                     <div className="progress__circle progress__circle--future"></div>
                 </div>
             </div>
-            <Title>Maak je Abbymoment</Title>
-            <div>
+            <Title extraClass="form__title">Maak je Abbymoment</Title>
+            <div className="form__questions">
                 <div className="form__question h4">
                     <label htmlFor="name">Titel <span>*</span></label>
                     <input
@@ -62,7 +63,7 @@ const Description = ({ formData, setFormData }) => {
                     />
                 </div>
             </div>
-            <ButtonNext extraClass="next__btn btn__text green__bg" formData={formData} setFormData={setFormData}>Volgende stap</ButtonNext>
+            <ButtonNext extraClass="next__btn btn__text purple__bg" formData={formData} setFormData={setFormData}>Volgende stap</ButtonNext>
         </div>
 
     )

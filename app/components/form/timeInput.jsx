@@ -13,7 +13,7 @@ import { DayPicker } from "react-day-picker";
 //functions
 import { getTimeNow } from "../../services/data";
 
-const TimeInput = ({ formData, setFormData }) => {
+const TimeInput = ({ formData, setFormData, extraClass }) => {
     const time = getTimeNow();
 
     console.log(time);
@@ -59,10 +59,7 @@ const TimeInput = ({ formData, setFormData }) => {
     };
 
     return (
-        <div>
-            <label>
-                <input type="time" value={timeValue} onChange={handleTimeChange} />
-            </label>
+        <div className={extraClass}>
             <DayPicker
                 mode="single"
                 selected={selected}
@@ -80,6 +77,9 @@ const TimeInput = ({ formData, setFormData }) => {
             // footer={`Selected date: ${selected ? selected.toLocaleString() : "none"
             //     }`}
             />
+            <label>
+                <input type="time" value={timeValue} onChange={handleTimeChange} />
+            </label>
         </div>
     );
 }

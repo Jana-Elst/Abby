@@ -7,6 +7,9 @@ import { Form } from 'react-router';
 import FilterItem from './filterItem'
 import FilterSmall from './filterSmall';
 
+import filterX from "../../src/assets/filter-x.svg";
+import filterIcon from "../../src/assets/filter-filter.svg";
+
 //components
 import Button from './button';
 import TimeInput from '../form/timeInput'
@@ -75,25 +78,31 @@ const Filter = () => {
     return (
         <>
             <Form id="filter">
-                <Button type={filterState.general === 'close' ? 'submit' : 'button'} click={handleClick} icon={filterState.general === 'close' ? '' : ''}>Filter</Button>
+                <div className="filter__btns">
+                    <Button extraClass="filter__state  orange__bg" type={filterState.general === 'close' ? 'submit' : 'button'} click={handleClick}>
+                        <p className="btn__text">{filterState.general === 'close' ? 'filter' : 'close'}</p>
+                        <img className='btn__icon' src={filterState.general === 'close' ? filterIcon : filterX} alt="icon" />
+                    </Button>
 
-                {/* show or remove delete all filters button */}
-                {
-                    filterState.general === 'close' || !filterState.locationSelection.length > 0 && !filterState.datumSelection.length > 0 && !filterState.abbySelection && !filterState.joinSelection
-                        ? ""
-                        : <Button click={handleRemoveAll}>Verwijder alle filters</Button>
+                    {/* show or remove delete all filters button */}
+                    {
+                        filterState.general !== 'close'
+                            ? <Button extraClass="filter__btn" click={handleRemoveAll}>Verwijder alle filters</Button>
+                            : ""
 
-                }
+                    }
 
-                {/* show selected filters */}
-                {
-                    filterState.general === 'close'
-                        ? <FilterSmall filterState={filterState} setFilterState={setFilterState} />
-                        : ""
-                }
+                    {/* show selected filters */}
+                    {
+                        filterState.general === 'close'
+                            ? <FilterSmall extraClass="filter__btn" filterState={filterState} setFilterState={setFilterState} />
+                            : ""
+                    }
+                </div>
+
 
                 <ul className={filterState.general}>
-                    <FilterItem title={'location'} filterState={filterState} setFilterState={setFilterState}>
+                    {/* <FilterItem title={'location'} filterState={filterState} setFilterState={setFilterState}>
                         {
                             locations.map(location => (
                                 <div className=''>
@@ -108,13 +117,16 @@ const Filter = () => {
                                 </div>
                             ))
                         }
-                    </FilterItem>
-                    <FilterItem title={'datum'} filterState={filterState} setFilterState={setFilterState}>
-                        <TimeInput formData={filterState} setFormData={setFilterState} />
-                    </FilterItem>
-                    <FilterItem checkbox={true} title={'Toon enkel momenten waar anderen aan kunnen deelnemen'} filterState={filterState} setFilterState={setFilterState} name={'joinSelection'}>
-                    </FilterItem>
-                    <FilterItem checkbox={true} title={'Toon enkel momenten die gemaakt zijn door Abby'} filterState={filterState} setFilterState={setFilterState} name={'abbySelection'}>
+                    </FilterItem> */}
+                    <div className="filters__time">
+                        <p className="filters__title h4">Datum</p>
+                        <TimeInput extraClass="filters__date" formData={filterState} setFormData={setFilterState} />
+                        <p className="filters__btn orange__bg">Vandaag</p>
+                        {/* hier moet een foreach waar all de datum staat die is geselecteerd */}
+                        {/* <FilterItem checkbox={true} title={'Toon enkel momenten waar anderen aan kunnen deelnemen'} filterState={filterState} setFilterState={setFilterState} name={'joinSelection'}>
+                    </FilterItem> */}
+                    </div>
+                    <FilterItem extraClass="fitlers__checkbox h4" checkbox={true} title={'Gemaakt door Abby'} filterState={filterState} setFilterState={setFilterState} name={'abbySelection'}>
                     </FilterItem>
                 </ul>
             </Form>

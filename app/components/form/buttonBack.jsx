@@ -25,6 +25,7 @@ const ButtonBack = ({ children, setFormData, formData, link = null }) => {
         //button
         return (
             <button className="btn__back" type='button' onClick={handleBack}>
+                <img className='btn__icon btn__icon--back' src={arrow} alt="een pijl" />
                 {children}
             </button>
         )

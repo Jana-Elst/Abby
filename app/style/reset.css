@@ -84,7 +84,17 @@ button {
     -moz-appearance: none;
 }
 
-
+input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    box-shadow: none;
+    outline: none;
+}
 
 *{
     -webkit-tap-highlight-color: transparent ;
