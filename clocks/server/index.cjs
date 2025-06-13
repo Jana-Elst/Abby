@@ -124,6 +124,8 @@ const sendMessageToArduino = (payload) => {
         name: payload.new.name
     })
 
+    console.log(arduinos);
+    console.log(arduino);
     console.log("send message to", arduino.address, message);
     arduino.socket.send(message);
 }
