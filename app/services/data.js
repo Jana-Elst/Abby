@@ -1,6 +1,6 @@
 import Participants from "../components/form/participants";
 import { supabase } from "../supabaseClient";
-import { totalClocks} from "./museumData";
+import { totalClocks } from "./museumData";
 
 /*
 Handful of helper functions to be called from route loaders and actions
@@ -19,7 +19,7 @@ const getOrUpdateClocks = async (query) => {
 }
 
 //get all clocks in the museum
-export const getMuseumClocks = async () => {
+export const allActiveClocks = async () => {
     const data = await getOrUpdateClocks(
         supabase
             .from('clocks')
@@ -253,10 +253,20 @@ export const leaveClock = async (userId, clockId) => {
 
 //------------------- filters -------------------//
 export const getParticipants = (clock, clockProfile) => {
-    console.log(clock);
-    console.log(clockProfile);
     const participants = clockProfile.filter(cp => cp.clock_id === clock[0].id).map(cp => cp.profile_id);
     return participants;
+}
+
+export const getActiveClocks = (clocks) => {
+    const filterClocks = clocks.filter(c => c.startTime && !c.stopTime);
+    return filterClocks;
+}
+
+export const getScheduledClocks = (clocks) => {
+   //nog voorbij nooit gestarte momenten wegfilteren.
+
+    const filterClocks = clocks.filter(c => !c.startTime);
+    return filterClocks;
 }
 
 /*

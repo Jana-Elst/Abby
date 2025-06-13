@@ -7,7 +7,7 @@ import Title from "../components/molecules/title"
 import InfoButton from '../components/molecules/infobutton';
 
 //load the museum clocks
-import { getAllClocks, getClockProfile } from "../services/data";
+import { getAllClocks, getClockProfile, getActiveClocks, getScheduledClocks } from "../services/data";
 import Button from '../components/molecules/button';
 
 import './abbymoments.css'
@@ -15,11 +15,13 @@ import './abbymoments.css'
 export async function clientLoader() {
     const clocks = await getAllClocks();
     const clockProfile = await getClockProfile();
-    return { clocks, clockProfile };
+    const activeClocks = getActiveClocks(clocks);
+    const scheduledClocks = getScheduledClocks(clocks)
+    return { clockProfile, activeClocks, scheduledClocks };
 }
 
 const Abbymoments = ({ loaderData }) => {
-    const { clocks, clockProfile } = loaderData;
+    const { clockProfile, activeClocks, scheduledClocks } = loaderData;
 
     //set the states
     const [state, setState] = useState({
@@ -73,7 +75,7 @@ const Abbymoments = ({ loaderData }) => {
                         {/* Titel ook nog in if functie steken */}
                         <h3 className='moments__subtitle h4'>Andere momenten die nu bezig zijn</h3>
                         <div className='container container__moments'>
-                            <ClockList clocks={clocks} state={state} clockProfile={clockProfile} />
+                            <ClockList clocks={activeClocks} state={state} clockProfile={clockProfile} />
                         </div>
                         {/* Toon enkel als er klokken zijn */}
                         <div className='center--flex'>
@@ -83,7 +85,7 @@ const Abbymoments = ({ loaderData }) => {
                     : <>
                         {/* State === gepland */}
                         <div className='container container__moments'>
-                            <ClockList clocks={clocks} state={state} clockProfile={clockProfile} />
+                            <ClockList clocks={scheduledClocks} state={state} clockProfile={clockProfile} />
                         </div>
 
                         {/* Toon enkel als er klokken zijn */}
