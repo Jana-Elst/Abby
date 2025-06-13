@@ -11,15 +11,11 @@ import ButtonClockCard from "./buttonClockCard";
 
 //functions
 import { getTime } from "../../services/clock";
+import { getParticipants } from "../../services/data"
 
 const ClockCard = ({ clock, clockProfile, state }) => {
     const { userId } = useContext(UserContext);
-    let participants = []
-
-    const totalParticipants = () => {
-        participants = clockProfile.filter(cp => cp.clock_id === clock.id);
-        return participants;
-    }
+    const participants = getParticipants(clock, clockProfile);
 
     return (
         <>
@@ -39,7 +35,7 @@ const ClockCard = ({ clock, clockProfile, state }) => {
                     { //show participant (only of you can participate)
                         clock.private
                             ? ""
-                            : <p>{totalParticipants().length}</p>
+                            : <p>{participants.length}</p>
                     }
 
                     { //show start time (only if clock is scheduled)

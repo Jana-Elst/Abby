@@ -1,13 +1,15 @@
+//imports reaact
 import { useState } from 'react';
 
+//Components
 import ClockList from "../components/molecules/clockList";
 import ToggleButton from "../components/molecules/toggleButton";
 import Title from "../components/molecules/title"
 import InfoButton from '../components/molecules/infobutton';
-
-//load the museum clocks
-import { getAllClocks, getClockProfile } from "../services/data";
 import Button from '../components/molecules/button';
+
+//Functions
+import { getAllClocks, getClockProfile } from "../services/data";
 
 export async function clientLoader() {
     const clocks = await getAllClocks();
