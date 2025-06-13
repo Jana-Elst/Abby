@@ -31,17 +31,14 @@ const Home = ({ loaderData }) => {
 
     return (
         <div className="home__container">
-            {/* all the clocks in the database */}
-            {/* <ClockList clocks={museumClocks}/> */}
             <Hero />
             <Intro />
             <Abbymoment />
             <Living />
             <Join />
-            {/* <ToDoInAbby /> */}
             <AndYou />
             <Statistics />
-            <Moments museumClocks={museumClocks} clockProfile={clockProfile} />
+            {/* <Moments museumClocks={museumClocks} clockProfile={clockProfile} /> */}
         </div>
 
     )

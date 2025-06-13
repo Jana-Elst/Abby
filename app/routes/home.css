@@ -110,9 +110,7 @@
 }
 
 .moment__btn {
-    padding: var(--space-s);
-    margin: var(--space-xxl) auto 0 auto;
-    border: var(--border-thin);
+    margin: var(--space-xxl) var(--space-s);
 }
 
 .living {
@@ -306,7 +304,5 @@
 }
 
 .statistics__btn {
-    padding: var(--space-s);
-    margin: var(--space-xxl) auto 0 auto;
-    border: var(--border-thin);
+margin: var(--space-xxl) var(--space-s);
 }
