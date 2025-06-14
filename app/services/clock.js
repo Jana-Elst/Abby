@@ -6,10 +6,14 @@ export const getAngle = (dateTime) => {
 
     hours = hours % 12;
 
-    const totalDegrees = (hours * 30) + (minutes * 0.5) + (seconds * (0.5 / 60));
-    const angle = (Math.PI / 180) * totalDegrees;
+    // Minute hand: 6° per minute + 0.1° per second
+    const totalDegreesMinutes = (minutes * 6) + (seconds * 0.1);
+    const angleMinutes = (Math.PI / 180) * totalDegreesMinutes;
 
-    return (angle);
+    // Hour hand: 30° per hour + 0.5° per minute
+    const totalDegreesHours = (hours * 30) + (minutes * 0.5);
+    const angleHours = (Math.PI / 180) * totalDegreesHours;
+    return ({angleMinutes, angleHours});
 }
 
 //rewrite the time
@@ -27,5 +31,5 @@ export const getTime = (dateTime) => {
 export const getDate = (date) => {
     const monthNames = ["januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus", "september", "oktober", "november", "december"];
     const [year, month, day] = date.split("-");
-    return (`${day} ${monthNames[month-1]}`)
+    return (`${day} ${monthNames[month - 1]}`)
 }

@@ -23,9 +23,12 @@ export async function clientLoader() {
 const Abbymoments = ({ loaderData }) => {
     const { clockProfile, activeClocks, scheduledClocks } = loaderData;
 
+    //check of one of the clockIds of the user is in ActiveClocks
+    const activeClockUser = '' 
+
     //set the states
     const [state, setState] = useState({
-        toggle: "Nu bezig",
+        toggle: "Gepland",
         page: "allMoments"
     });
 

@@ -269,6 +269,12 @@ export const getScheduledClocks = (clocks) => {
     return filterClocks;
 }
 
+
+
+export const getActiveClockUser = (clocks, userId, clockProfile) => {
+    const UserClocksProfile = clockProfile.filter(cp => cp.profile_id === userId);
+}
+
 /*
 Some functions to get a random free clock
 */
