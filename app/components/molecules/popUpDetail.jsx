@@ -1,0 +1,78 @@
+import { useContext, useState } from "react";
+
+//components
+import Button from "./button";
+
+//root variables
+import { UserContext } from '../../context/UserContext';
+
+
+//functions
+import { leaveClock } from "../../services/data";
+
+const PopUpDetail = ({ clock, isParticipant, setUiState, uiState }) => {
+    const { userId } = useContext(UserContext);
+
+    const handleClickClose = () => {
+        setUiState({
+            ...uiState,
+            popUpOpen: false
+        });
+    }
+
+    const handleClockLeave = async () => {
+        const newParticipants = uiState.participants.filter(id => id !== userId);
+        console.log(newParticipants);
+
+        await leaveClock(userId, clock[0].id);
+
+        setUiState({
+            ...uiState,
+            buttonState: 'join',
+            popUpOpen: false,
+            participants: newParticipants
+        });
+    }
+
+    //if clock is made my user
+    //nu: pas aan & start
+    if (clock[0].startTime) {
+        return (
+            <>
+                <p>Wil je jouw abbymoment stoppen?</p>
+                <p>Als je jouw Abbymoment stopt zal dit bij de voorbije momenten opgeslagen worden.</p>
+                <div>
+                    <Button>Annuleer</Button>
+                    <Button>Stop Abbymoment</Button>
+                </div>
+            </>
+        )
+    }
+
+    //Scheduled & now
+    //if user is joined
+    if (isParticipant) {
+        return (
+            <>
+                <p>VERLAAT</p>
+                <p>tekst tekst tekst</p>
+                <div>
+                    <Button onClick={handleClickClose}>Annuleer</Button>
+                    <Button onClick={handleClockLeave}>Verlaat</Button>
+                </div>
+            </>
+        )
+    } else {
+        return (
+            <>
+                <p>Joepie</p>
+                <p>Je neemt deel aan dit Abbymoment.</p>
+                <div>
+                    <Button onClick={handleClickClose}>Sluit</Button>
+                </div>
+            </>
+        )
+    }
+}
+
+export default PopUpDetail;

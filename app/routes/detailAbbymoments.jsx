@@ -1,16 +1,19 @@
 //react
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import Title from "../components/molecules/title";
-import Button from "../components/molecules/button"
 import ButtonBack from "../components/atoms/buttonBack"
 import ButtonDetailClock from "../components/molecules/buttonDetailClock"
+import Button from '../components/molecules/button';
 
 //root variables
 import { UserContext } from '../context/UserContext';
 
 //functions
 import { getTime } from "../services/clock";
-import { getClock, getClockProfile, getParticipants } from "../services/data";
+import { getClock, getClockProfile, getParticipants, clockLinkedWithUser } from "../services/data";
+import Clock from '../components/atoms/clock';
+import PopUp from '../components/molecules/popUp';
+import PopUpDetail from '../components/molecules/popUpDetail';
 
 export async function clientLoader({ params }) {
     const id = params.abbymomentId;
@@ -18,7 +21,7 @@ export async function clientLoader({ params }) {
     //get data clock
     const clock = await getClock(id);
     const clockProfile = await getClockProfile();
-    const participants = getParticipants(clock, clockProfile);
+    const participants = getParticipants(clock, clockProfile) || [];
     console.log(clockProfile);
     return { clock, clockProfile, participants };
 }
@@ -26,69 +29,93 @@ export async function clientLoader({ params }) {
 
 const DetailClock = ({ loaderData }) => {
     const { userId } = useContext(UserContext);
-    const { clock, clockProfile, participants } = loaderData;    
+    const { clock, clockProfile, participants } = loaderData;
+
+    const [uiState, setUiState] = useState({
+        popUpOpen: false,
+        buttonState: participants.length > 0 ?
+            participants.includes(userId) ? 'leave ' : 'join' : 'join',
+        participants: participants
+    });
+
+    const isCreator = userId === clock[0].creator;
+    console.log(participants);
+    const isParticipant = uiState.participants.length > 0 ? uiState.participants.includes(userId) : false
 
     return (
         <>
-            {/* @henri als je een kleur toevoegd aan deze terugbalk roep mij even */}
-            <div className={""}>
+            <div>
                 <ButtonBack>Terug</ButtonBack>
+                {/* show 'maker' or 'participant' */}
+                {isCreator && <p>Maker</p>}
+                {!isCreator && isParticipant && <p>Deelnemer</p>}
 
-                { //show 'maker' or 'participant'
-                    userId === clock[0].creator
-                        ? <p>Maker</p>
-                        : participants.includes(userId)
-                            ? <p>Deelnemer</p>
-                            : ""
+                <Title>{clock[0].name}</Title>
 
-                }
-            </div>
-
-            <Title>{clock[0].name}</Title>
-
-            {
-                // show date and time of scheduled
-                clock[0].startTime
-                    ? ""
-                    : <>
+                {
+                    // show date and time of scheduled
+                    !clock[0].startTime
+                    && <>
                         <p>{getTime(clock[0].scheduledStartTime).date}</p>
                         <p>{getTime(clock[0].scheduledStartTime).time}</p>
                     </>
-            }
+                }
+
+                {
+                    // show description if description
+                    clock[0].description
+                    && <p>{clock[0].description}</p>
+                }
+
+                { //show total participants
+                    !clock[0].private
+                    && <p className={isParticipant ? "//voeg hier de juiste kleur toe" : ""}>{participants.length}</p>
+                }
+
+                <Button>Deel</Button>
+
+                {
+                    clock[0].location !== 'Ik weet het nog niet'
+                    && <p>{clock[0].location}</p>
+                }
+
+                <Clock
+                    className={"card__clock"}
+                    canvasSize={"120"}
+                    clock={clock[0]}
+                    clockColors={{ color: "black", bgColor: "white" }}
+                />
+
+                <p>IMG</p>
+
+                <ButtonDetailClock
+                    clock={clock}
+                    clockProfile={clockProfile}
+                    userId={userId}
+                    isParticipant={isParticipant}
+                    setUiState={setUiState}
+                    uiState={uiState}
+                />
+            </div>
+
 
             {
-                // show description if description
-                clock[0].description
-                    ? <p>{clock[0].description}</p>
-                    : ""
+                //POP-UP
+                uiState.popUpOpen && (
+                    <PopUp
+                        setUiState={setUiState}
+                        uiState={uiState}
+                        className={`${uiState.popUpOpen ? 'open' : 'close'}`}>
+
+                        <PopUpDetail
+                            clock={clock}
+                            setUiState={setUiState}
+                            uiState={uiState}
+                            isParticipant={isParticipant}
+                        />
+                    </PopUp>
+                )
             }
-
-            { //show total participants
-                clock[0].private
-                    ? ""
-                    : <p className={participants.includes(userId) ? "//voeg hier de juiste kleur toe" : ""}>{participants.length}</p>
-            }
-
-            <button>Deel</button>
-
-            {
-                clock[0].location === 'Ik weet het nog niet'
-                    ? ""
-                    : <p>{clock[0].location}</p>
-            }
-
-            <p>KLOK</p>
-            <p>IMG</p>
-
-            <ButtonDetailClock clock={clock} clockProfile={clockProfile} userId={userId} participants={participants} />
-
-            {/* {
-                clock.private
-                    ? (<button>Je kan niet meedoen aan dit Abbymoment</button>)
-                    : !clock[0].private && userId
-                        ? (<button>Doe mee met dit Abbymoment</button>)
-                        : <Button link={'log-in'}>Log-in</Button>
-            } */}
         </>
     )
 };

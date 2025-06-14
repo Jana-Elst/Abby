@@ -420,6 +420,7 @@ export const addPhysicalClock = async (userId) => {
 
 //join activity
 export const joinClock = async (userId, clockId) => {
+    console.log(userId, clockId)
     try {
         const { data, error } = await supabase
             .from('clockprofile')
