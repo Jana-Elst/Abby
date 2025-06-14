@@ -1,4 +1,3 @@
-import Participants from "../components/form/participants";
 import { supabase } from "../supabaseClient";
 import { totalClocks } from "./museumData";
 
@@ -8,6 +7,7 @@ and insert or delete things from the database
 */
 
 //------------------- Get or update things from the database -------------------//
+//------------ Main function ------------//
 const getOrUpdateClocks = async (query) => {
     try {
         let { data, error } = await query;
@@ -18,27 +18,165 @@ const getOrUpdateClocks = async (query) => {
     }
 }
 
-//get all clocks in the museum
-export const allActiveClocks = async () => {
-    const data = await getOrUpdateClocks(
-        supabase
-            .from('clocks')
-            .select('*')
-            .not('clockWallPos', 'is', null)
-    );
-    return data
-}
-
+//------------ GET ------------//
+//--- CLOCKS ---//
 //get all clocks
 export const getAllClocks = async () => {
     const data = await getOrUpdateClocks(
         supabase
             .from('clocks')
             .select('*')
+            .order('scheduledStartTime', { ascending: false })
     );
     return data
 }
 
+//get just one clock by ID
+export const getClock = async (id) => {
+    const data = await getOrUpdateClocks(
+        supabase
+            .from('clocks')
+            .select('*')
+            .eq('id', id)
+    );
+    return data
+}
+
+//--- active clocks
+//get all clocks in the museum
+export const getMuseumClocks = async () => {
+    const data = await getOrUpdateClocks(
+        supabase
+            .from('clocks')
+            .select('*')
+            .neq('clockWallPos', null)
+            .order('startTime', { ascending: false })
+    );
+    return data
+}
+
+export const getOtherActiveClocks = async (userId) => {
+    const data = await getOrUpdateClocks(
+        supabase
+            .from('clocks')
+            .select(`*, clockProfile!inner (profile_id)`)
+            .neq('clockProfile.profile_id', userId)
+            .neq('startTime', null)
+            .eq('stopTime', null)
+            .order('startTime', { ascending: false }));
+    return data
+}
+
+export const getActiveClocksUser = async (userId) => {
+    const data = await getOrUpdateClocks(
+        supabase
+            .from('clocks')
+            .select(`*, clockProfile!inner (profile_id)`)
+            .eq('clockProfile.profile_id', userId)
+            .neq('startTime', null)
+            .eq('stopTime', null)
+            .order('startTime', { ascending: false }));
+    return data
+}
+
+//--- scheduled clocks
+//all scheduled clocks
+export const getScheduledClocks = async () => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const todayISO = today.toISOString();
+
+    const data = await getOrUpdateClocks(
+        supabase
+            .from('clocks')
+            .select('*')
+            .eq('startTime', null)
+            .gte('scheduledStartTime', todayISO)
+            .order('scheduledStartTime', { ascending: false })
+    );
+    return data
+}
+
+//scheduled clocks user --> user = creator
+export const getScheduledCreator = async (userId) => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const todayISO = today.toISOString();
+
+    const data = await getOrUpdateClocks(
+        supabase
+            .from('clocks')
+            .select('*')
+            .eq('creator', userId)
+            .eq('startTime', null)
+            .gte('scheduledStartTime', todayISO)
+            .order('scheduledStartTime', { ascending: false })
+    );
+    return data
+}
+
+//scheduled clocks user --> user =! creator
+export const getScheduledParticipant = async (userId) => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const todayISO = today.toISOString();
+
+    const data = await getOrUpdateClocks(
+        supabase
+            .from('clocks')
+            .select(`*, clockProfile!inner (profile_id)`)
+            .eq('clockProfile.profile_id', userId)
+            .neq('creator', userId)
+            .eq('startTime', null)
+            .gte('scheduledStartTime', todayISO)
+            .order('scheduledStartTime', { ascending: false })
+    );
+    return data
+}
+
+//--- past clocks
+//past clocks user --> user = creator
+export const getPastCreator = async (userId) => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const todayISO = today.toISOString();
+
+    const data = await getOrUpdateClocks(
+        supabase
+            .from('clocks')
+            .select('*')
+            .eq('creator', userId)
+            .or(`
+                stopTime.not.is.null,
+                scheduledStartTime.lt.${todayISO}
+                `)
+            .order('scheduledStartTime', { ascending: false })
+    );
+    return data
+}
+
+//past clocks user --> user =! creator
+export const getPastParticipant = async (userId) => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const todayISO = today.toISOString();
+
+    const data = await getOrUpdateClocks(
+        supabase
+            .from('clocks')
+            .select(`*, clockProfile!inner (profile_id)`)
+            .eq('clockProfile.profile_id', userId)
+            .or(`
+                stopTime.not.is.null,
+                scheduledStartTime.lt.${todayISO}
+                `)
+            .order('scheduledStartTime', { ascending: false })
+    );
+    return data
+}
+
+
+//--- CLOCKPROFILE ---//
 //get all profiles and clockIds
 export const getClockProfile = async () => {
     const data = await getOrUpdateClocks(
@@ -60,17 +198,8 @@ export const getClocksUser = async (userId) => {
     return data
 }
 
-//get just one clock by ID
-export const getClock = async (id) => {
-    const data = await getOrUpdateClocks(
-        supabase
-            .from('clocks')
-            .select('*')
-            .eq('id', id)
-    );
-    return data
-}
-
+//------------ UPDATE ------------//
+//--- CLOCKS ---//
 //update clock from physical to digital
 export const updatePhysicalToDigital = async (id) => {
     const data = await getOrUpdateClocks(
@@ -138,10 +267,11 @@ export const stopClock = async (id) => {
     return data
 }
 
-//------------------- Add a row -------------------//
+//------------------- Insert new row -------------------//
+//--- CLOCKPROFILE ---//
 const addRow = async (query, userId) => {
     try {
-        let { data, error } = await query;
+        let { data } = await query;
         let joinQuery = supabase
             .from('clockprofile')
             .insert({ profile_id: userId, clock_id: data.id });
@@ -154,6 +284,7 @@ const addRow = async (query, userId) => {
     }
 }
 
+//--- CLOCKS ---//
 //add a new planned clock
 export const addScheduledClock = async (userId, name, description, scheduledStartTime, prive, location) => {
     const data = await addRow(
@@ -174,6 +305,7 @@ export const addScheduledClock = async (userId, name, description, scheduledStar
     return data
 }
 
+//add clock for now online
 export const startOnlineClock = async (userId, name, description, prive, location) => {
     const time = getTimeNow();
 
@@ -241,6 +373,7 @@ export const joinClock = async (userId, clockId) => {
     }
 }
 
+//------------------- DELETE ROW -------------------//
 export const leaveClock = async (userId, clockId) => {
     await getOrUpdateClocks(
         supabase
@@ -251,28 +384,10 @@ export const leaveClock = async (userId, clockId) => {
     );
 }
 
-//------------------- filters -------------------//
+//------------------- FILTERS JS -------------------//
 export const getParticipants = (clock, clockProfile) => {
     const participants = clockProfile.filter(cp => cp.clock_id === clock[0].id).map(cp => cp.profile_id);
     return participants;
-}
-
-export const getActiveClocks = (clocks) => {
-    const filterClocks = clocks.filter(c => c.startTime && !c.stopTime);
-    return filterClocks;
-}
-
-export const getScheduledClocks = (clocks) => {
-   //nog voorbij nooit gestarte momenten wegfilteren.
-
-    const filterClocks = clocks.filter(c => !c.startTime);
-    return filterClocks;
-}
-
-
-
-export const getActiveClockUser = (clocks, userId, clockProfile) => {
-    const UserClocksProfile = clockProfile.filter(cp => cp.profile_id === userId);
 }
 
 /*

@@ -1,4 +1,3 @@
-import Participants from "../components/form/participants";
 import { supabase } from "../supabaseClient";
 import { totalClocks } from "./museumData";
 
