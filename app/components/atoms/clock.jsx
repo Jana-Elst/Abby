@@ -2,9 +2,10 @@
 
 import React, { useRef, useEffect } from 'react'
 import { getAngle, getISOLocalString, timeDiff } from '../../services/clock.js'
+import { colors } from "../../services/museumData";
 
-const Clock = ({ props, clock, className, canvasSize, colors }) => {
-    console.log(clock);
+const Clock = ({ props, clock, className, canvasSize, clockColors }) => {
+    const { color: colorName, bgColor: bgColorName } = clockColors;
 
     const canvasRef = useRef(null)
     let draw;
@@ -46,7 +47,7 @@ const Clock = ({ props, clock, className, canvasSize, colors }) => {
         ctx.rotate(-Math.PI / 2);
         ctx.beginPath();
         ctx.arc(0, 0, size, 0, angle, clockwise);
-        ctx.fillStyle = colors.bgColor;
+        ctx.fillStyle = colors[bgColorName];
         ctx.fill();
         ctx.restore();
     }
@@ -61,7 +62,7 @@ const Clock = ({ props, clock, className, canvasSize, colors }) => {
         ctx.lineTo(0, -size);
         ctx.lineTo(0, 0);
         ctx.closePath();
-        ctx.fillStyle = colors.color;
+        ctx.fillStyle = colors[colorName];
         ctx.fill();
         ctx.restore();
     }
@@ -72,7 +73,7 @@ const Clock = ({ props, clock, className, canvasSize, colors }) => {
         //-- background circle clock
         ctx.beginPath();
         ctx.arc(ctx.canvas.width - size, size, size, 0, 2 * Math.PI);
-        ctx.fillStyle = colors.bgColor;
+        ctx.fillStyle = colors[bgColorName];
         ctx.fill();
 
         //scheduled
@@ -103,7 +104,7 @@ const Clock = ({ props, clock, className, canvasSize, colors }) => {
             if (angleHours > 2 * Math.PI / 12) {
                 ctx.beginPath();
                 ctx.arc(ctx.canvas.width - size, size, size, 0, 2 * Math.PI);
-                ctx.fillStyle = colors.color;
+                ctx.fillStyle = colors[colorName];
                 ctx.fill();
             }
         } else {
@@ -118,7 +119,7 @@ const Clock = ({ props, clock, className, canvasSize, colors }) => {
             //small circle in the middel to connect the lines
             ctx.beginPath();
             ctx.arc(ctx.canvas.width - size, size, strokeWidth / 4, 0, 2 * Math.PI);
-            ctx.fillStyle = colors.color;
+            ctx.fillStyle = colors[colorName];
             ctx.fill();
 
             //stroke circle
