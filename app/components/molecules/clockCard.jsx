@@ -15,6 +15,7 @@ import { getTime } from "../../services/clock";
 //images
 import arrow from "../../src/assets/arrow-right.svg";
 
+//style
 import './clockCard.css';
 
 const ClockCard = ({ clock, clockProfile }) => {

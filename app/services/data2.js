@@ -6,6 +6,14 @@ Handful of helper functions to be called from route loaders and actions
 and insert or delete things from the database
 */
 
+//------------------- Get userId -------------------//
+export const getUserId = async () => {
+    const { data: { user }, error } = await supabase.auth.getUser();
+    if (error) throw error;
+    return user?.id;
+};
+
+
 //------------------- Get or update things from the database -------------------//
 const getOrUpdateClocks = async (query) => {
     try {
@@ -49,7 +57,9 @@ export const getClockProfile = async () => {
 }
 
 //get all clockID's from one user
-export const getClocksUser = async (userId) => {
+export const getClocksUser = async () => {
+    const userId = await getUserId();
+
     const data = await getOrUpdateClocks(
         supabase
             .from('clockprofile')
@@ -138,7 +148,9 @@ export const stopClock = async (id) => {
 }
 
 //------------------- Add a row -------------------//
-const addRow = async (query, userId) => {
+const addRow = async (query) => {
+    const userId = await getUserId();
+
     try {
         let { data, error } = await query;
         let joinQuery = supabase
@@ -154,7 +166,9 @@ const addRow = async (query, userId) => {
 }
 
 //add a new planned clock
-export const addScheduledClock = async (userId, name, description, scheduledStartTime, prive, location) => {
+export const addScheduledClock = async (name, description, scheduledStartTime, prive, location) => {
+    const userId = await getUserId();
+
     const data = await addRow(
         supabase
             .from('clocks')
@@ -173,7 +187,9 @@ export const addScheduledClock = async (userId, name, description, scheduledStar
     return data
 }
 
-export const startOnlineClock = async (userId, name, description, prive, location) => {
+export const startOnlineClock = async (name, description, prive, location) => {
+    const userId = await getUserId();
+
     const time = getTimeNow();
 
     const data = await addRow(
@@ -196,7 +212,9 @@ export const startOnlineClock = async (userId, name, description, prive, locatio
 }
 
 //add clock for now physical
-export const addPhysicalClock = async (userId) => {
+export const addPhysicalClock = async () => {
+    const userId = await getUserId();
+
     const time = getTimeNow();
     const clockNumber = await getRandomClockNumber();
 
@@ -217,7 +235,9 @@ export const addPhysicalClock = async (userId) => {
 }
 
 //join activity
-export const joinClock = async (userId, clockId) => {
+export const joinClock = async (clockId) => {
+    const userId = await getUserId();
+
     try {
         const { data, error } = await supabase
             .from('clockprofile')
@@ -240,7 +260,9 @@ export const joinClock = async (userId, clockId) => {
     }
 }
 
-export const leaveClock = async (userId, clockId) => {
+export const leaveClock = async (clockId) => {
+    const userId = await getUserId();
+
     await getOrUpdateClocks(
         supabase
             .from('clockprofile')
