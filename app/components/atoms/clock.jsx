@@ -3,7 +3,9 @@
 import React, { useRef, useEffect } from 'react'
 import { getAngle, getISOLocalString, timeDiff } from '../../services/clock.js'
 
-const Clock = ({ props, clock, className, canvasSize }) => {
+const Clock = ({ props, clock, className, canvasSize, colors }) => {
+    console.log(clock);
+
     const canvasRef = useRef(null)
     let draw;
 
@@ -44,12 +46,12 @@ const Clock = ({ props, clock, className, canvasSize }) => {
         ctx.rotate(-Math.PI / 2);
         ctx.beginPath();
         ctx.arc(0, 0, size, 0, angle, clockwise);
-        ctx.fillStyle = "white";
+        ctx.fillStyle = colors.bgColor;
         ctx.fill();
         ctx.restore();
     }
 
-    const activeClockTriangle = (ctx, angle, clockwise = false) => {
+    const activeClockTriangle = (ctx, angle) => {
         ctx.save();
         ctx.translate(size, size);
         ctx.beginPath();
@@ -59,7 +61,7 @@ const Clock = ({ props, clock, className, canvasSize }) => {
         ctx.lineTo(0, -size);
         ctx.lineTo(0, 0);
         ctx.closePath();
-        ctx.fillStyle = "black";
+        ctx.fillStyle = colors.color;
         ctx.fill();
         ctx.restore();
     }
@@ -70,26 +72,10 @@ const Clock = ({ props, clock, className, canvasSize }) => {
         //-- background circle clock
         ctx.beginPath();
         ctx.arc(ctx.canvas.width - size, size, size, 0, 2 * Math.PI);
-        ctx.fillStyle = "white";
+        ctx.fillStyle = colors.bgColor;
         ctx.fill();
 
         //scheduled
-        if (!clock.startTime) {
-            const { angleMinutes, angleHours } = getAngle(clock.scheduledStartTime);
-
-            //minute hand
-            handClock(ctx, angleHours, 0.65);;
-
-            //hour hand
-            handClock(ctx, angleMinutes, 0.8);
-
-            //small circle in the middel to connect the lines
-            ctx.beginPath();
-            ctx.arc(ctx.canvas.width - size, size, strokeWidth / 4, 0, 2 * Math.PI);
-            ctx.fillStyle = "black";
-            ctx.fill();
-        }
-
         if (clock.startTime) {
             let timeNow = getISOLocalString();
 
@@ -117,25 +103,34 @@ const Clock = ({ props, clock, className, canvasSize }) => {
             if (angleHours > 2 * Math.PI / 12) {
                 ctx.beginPath();
                 ctx.arc(ctx.canvas.width - size, size, size, 0, 2 * Math.PI);
-                ctx.fillStyle = "black";
+                ctx.fillStyle = colors.color;
                 ctx.fill();
             }
+        } else {
+            const { angleMinutes, angleHours } = getAngle(clock.scheduledStartTime);
+
+            //minute hand
+            handClock(ctx, angleHours, 0.65);;
+
+            //hour hand
+            handClock(ctx, angleMinutes, 0.8);
+
+            //small circle in the middel to connect the lines
+            ctx.beginPath();
+            ctx.arc(ctx.canvas.width - size, size, strokeWidth / 4, 0, 2 * Math.PI);
+            ctx.fillStyle = colors.color;
+            ctx.fill();
+
+            //stroke circle
+            ctx.beginPath();
+            ctx.arc(ctx.canvas.width - size, size, size, 0, 2 * Math.PI);
+            ctx.save();
+            ctx.clip();
+            ctx.lineWidth *= strokeWidth;
+            ctx.stroke();
+            ctx.restore();
         }
-
-        //stroke circle
-        ctx.beginPath();
-        ctx.arc(ctx.canvas.width - size, size, size, 0, 2 * Math.PI);
-        ctx.save();
-        ctx.clip();
-        ctx.lineWidth *= strokeWidth;
-        // ctx.fill();
-        ctx.stroke();
-        ctx.restore();
     }
-
-    //past
-
-    //now
 
     useEffect(() => {
 

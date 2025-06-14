@@ -11,6 +11,9 @@ import ButtonClockCard from "./buttonClockCard";
 
 //functions
 import { getTime } from "../../services/clock";
+import { colors } from "../../services/museumData";
+
+//images
 import arrow from "../../src/assets/arrow-right.svg";
 
 import './clockCard.css';
@@ -92,7 +95,7 @@ const ClockCard = ({ clock, clockProfile }) => {
                         <>
                             <div className="card__middle">
                                 <p className="card__name h4">{clock.name}</p>
-                                    <Clock className={"card__clock"} canvasSize={"120"} clock={clock} />
+                                <Clock className={"card__clock"} canvasSize={"120"} clock={clock} colors={{ color: colors.black, bgColor: colors.white }} />
                             </div>
                             <ButtonClockCard userId={userId} clock={clock} participants={participants} />
                         </>
