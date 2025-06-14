@@ -77,21 +77,20 @@ const Abbymoments = ({ loaderData }) => {
                                     ? (
                                         <>
                                             {/* check if their is a clock of the user active */}
-                                            {activeClocksUser
+                                            {activeClocksUser.length > 0
                                                 && <>
                                                     <h3 className='moments__subtitle h4'>Jouw moment nu bezig</h3>
                                                     <div className='container container__moments'>
                                                         <p>hier komt clockCard = lopend</p>
                                                     </div>
-
-                                                    <h3 className='moments__subtitle h4'>Andere momenten die nu bezig zijn</h3>
                                                 </>
                                             }
 
                                             {/* check if their are other active clocks */}
                                             {
-                                                activeClocksOthers
+                                                activeClocksOthers.length > 0
                                                 && <>
+                                                    <h3 className='moments__subtitle h4'>Andere momenten die nu bezig zijn</h3>
                                                     <div className='container container__moments'>
                                                         <ClockList clocks={activeClocksOthers} clockProfile={clockProfile} state={state} />
                                                     </div>

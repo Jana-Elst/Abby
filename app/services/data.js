@@ -206,12 +206,10 @@ export const getPastCreator = async () => {
                 .from('clocks')
                 .select('*')
                 .eq('creator', userId)
-                .or(
-                    'stopTime.not.is.null',
-                    `scheduledStartTime.lt.${todayISO}`
-                )
+                .or(`stopTime.not.is.null,scheduledStartTime.lt.${todayISO}`)
                 .order('scheduledStartTime', { ascending: false })
         );
+        console.log(data);
         return data
     }
     return null

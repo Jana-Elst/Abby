@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import { useNavigate } from "react-router"
 
 //components
 import Button from "./button";
@@ -8,10 +9,11 @@ import { UserContext } from '../../context/UserContext';
 
 
 //functions
-import { leaveClock } from "../../services/data";
+import { leaveClock, stopClock } from "../../services/data";
 
 const PopUpDetail = ({ clock, isParticipant, setUiState, uiState }) => {
     const { userId } = useContext(UserContext);
+    const navigate = useNavigate();
 
     const handleClickClose = () => {
         setUiState({
@@ -34,6 +36,17 @@ const PopUpDetail = ({ clock, isParticipant, setUiState, uiState }) => {
         });
     }
 
+    const handleStop = async() => {
+        await stopClock(clock[0].id);
+
+        setUiState({
+            ...uiState,
+            popUpOpen: false,
+        });
+
+        navigate(-1);
+    }
+
     //if clock is made my user
     //nu: pas aan & start
     if (clock[0].startTime) {
@@ -42,8 +55,8 @@ const PopUpDetail = ({ clock, isParticipant, setUiState, uiState }) => {
                 <p>Wil je jouw abbymoment stoppen?</p>
                 <p>Als je jouw Abbymoment stopt zal dit bij de voorbije momenten opgeslagen worden.</p>
                 <div>
-                    <Button>Annuleer</Button>
-                    <Button>Stop Abbymoment</Button>
+                    <Button onClick={handleClickClose}>Annuleer</Button>
+                    <Button onClick={handleStop}>Stop Abbymoment</Button>
                 </div>
             </>
         )

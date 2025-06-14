@@ -1,6 +1,3 @@
-// react
-import { useState } from "react";
-
 import "./form.css";
 
 // components
@@ -9,14 +6,23 @@ import ButtonBack from './buttonBack';
 import ButtonNext from "./buttonNext";
 import TimeInput from "./timeInput";
 
-const Time = ({ setFlowForm, formData, setFormData }) => {
-    const handleChangeFlow = (name) => {
+const Time = ({ setFlowForm, flows, formData, setFormData }) => {
+    const baseFlow = formData.state === 0 ? 'restartMoment' : 'plan';
+
+    const handleChangeFlow = (e) => {
+        console.log(e.target.value);
         setFormData({
             ...formData,
-            flow: name
+            flow: `${baseFlow}${e.target.value === 'now' ? 'Now' : ""}`
         });
-        setFlowForm(name);
+
+        setFlowForm(`${baseFlow}${e.target.value === 'now' ? 'Now' : ""}`);
     }
+
+    const timeOptions = [
+        { value: 'now', label: 'Nu' },
+        { value: 'later', label: 'Later' }
+    ]
 
     return (
         <>
@@ -34,38 +40,35 @@ const Time = ({ setFlowForm, formData, setFormData }) => {
 
                 {/* toggle now later */}
                 {
-                    formData.flow === 'plan'
-                        ? <TimeInput extraClass="time" formData={formData} setFormData={setFormData} />
-                        : ""
+                    formData.flow === baseFlow && <TimeInput extraClass="time" formData={formData} setFormData={setFormData} />
                 }
                 <div className="date">
-                    <label className="date__now" htmlFor="planNow">
-                        <input type="radio"
-                            id="planNow"
-                            name="time"
-                            value="planNow"
-                            checked={formData.flow === 'planNow'}
-                            onChange={(e) => { handleChangeFlow('planNow') }}
-                        />
-                        Nu
-                        {/* <label htmlFor="planNow">Nu</label> */}
-                    </label>
-
-                    <label className="date__later" htmlFor="plan">
-                        <input type="radio"
-                            id="plan"
-                            name="time"
-                            value="plan"
-                            checked={formData.flow === 'plan'}
-                            onChange={(e) => { handleChangeFlow('plan') }}
-
-                        />
-                        Later
-                        {/* <label htmlFor="plan">Later</label> */}
-                    </label>
+                    {timeOptions.map((option) => (
+                        <label
+                            key={option.value}
+                            className={`date__${option.value}`}
+                            htmlFor={option.value}
+                        >
+                            <input
+                                type="radio"
+                                id={option.value}
+                                name="time"
+                                value={option.value}
+                                checked={formData.flow === `${baseFlow}${option.value === 'now' ? 'Now' : ''}`}
+                                onChange={(e) => handleChangeFlow(e)}
+                            />
+                            {option.label}
+                        </label>
+                    ))}
                 </div>
-                {/* show calender  & hour picker if later */}
-                <ButtonNext extraClass="next__btn btn__text purple__bg" formData={formData} setFormData={setFormData}> Volgende stap </ButtonNext>
+
+                {/* check if form should be submit */}
+                {
+                    flows[formData.flow].length > 2 ?
+                        <ButtonNext extraClass="next__btn btn__text purple__bg" formData={formData} setFormData={setFormData}> Volgende stap </ButtonNext>
+                        : <ButtonNext buttonType="submit" extraClass="next__btn btn__text purple__bg" formData={formData} setFormData={setFormData}> Maak moment aan</ButtonNext>
+
+                }
             </div>
         </>
     );

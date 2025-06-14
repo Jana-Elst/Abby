@@ -1,10 +1,12 @@
 import { useContext } from "react";
+import { useNavigate } from "react-router"
 
 //components
 import Button from "./button";
 
 //root variables
 import { UserContext } from '../../context/UserContext';
+import { FormFlowContext } from '../../context/FormFlowContext';
 
 //functions
 import { getTime } from "../../services/clock";
@@ -13,6 +15,9 @@ import { joinClock, leaveClock, stopClock } from "../../services/data";
 
 const ButtonDetailClock = ({ clock, isParticipant, setUiState, uiState }) => {
     const { userId } = useContext(UserContext);
+    const { flowForm, setFlowForm } = useContext(FormFlowContext);
+    const navigate = useNavigate();
+
 
     let scheduledDate = clock[0].scheduledStartTime;
     scheduledDate = new Date(scheduledDate).toISOString("en-US", { timeZone: "Europe/Amsterdam" }).split('T')[0];
@@ -41,11 +46,17 @@ const ButtonDetailClock = ({ clock, isParticipant, setUiState, uiState }) => {
             ...uiState,
             popUpOpen: true
         });
-
-        await stopClock(clock.id);
     }
 
     const handleStart = () => {
+        setFlowForm('startScheduled');
+    }
+
+    const handleRestart = () => {
+        setFlowForm('restartMoment');
+        navigate(`${import.meta.env.BASE_URL}maak-een-abbymoment/formulier`, {
+            state: { clock: clock}
+        });
     }
 
     //--- toevoegen disabled als er aan klok lopende is + pop-up
@@ -65,7 +76,7 @@ const ButtonDetailClock = ({ clock, isParticipant, setUiState, uiState }) => {
             return (
                 <div>
                     <button>Pas aan</button>
-                    <button>Stop moment</button>
+                    <Button onClick={handleStop}>Stop moment</Button>
                 </div>
             )
         }
@@ -84,7 +95,7 @@ const ButtonDetailClock = ({ clock, isParticipant, setUiState, uiState }) => {
         if (scheduledDate < getDateNow()) {
             return (
                 <div>
-                    <button>Herhaal Abbymoment</button>
+                    <Button onClick={handleRestart}>Herhaal Abbymoment</Button>
                 </div>
             )
         }
