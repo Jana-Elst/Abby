@@ -73,7 +73,7 @@ const Abbymoments = ({ loaderData }) => {
                         <>
                             {/* Active moment */}
                             {
-                                activeClocksOthers.length > 0 && activeClocksUser.length > 0
+                                activeClocksOthers.length > 0 || activeClocksUser.length > 0
                                     ? (
                                         <>
                                             {/* check if their is a clock of the user active */}

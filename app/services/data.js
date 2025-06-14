@@ -201,14 +201,15 @@ export const getPastCreator = async () => {
                 .from('clocks')
                 .select('*')
                 .eq('creator', userId)
-                .or(`
-                stopTime.not.is.null,
-                scheduledStartTime.lt.${todayISO}
-                `)
+                .or(
+                    'stopTime.not.is.null',
+                    `scheduledStartTime.lt.${todayISO}`
+                )
                 .order('scheduledStartTime', { ascending: false })
         );
         return data
     }
+    return null
 }
 
 //past clocks user --> user =! creator
@@ -224,10 +225,10 @@ export const getPastParticipant = async () => {
                 .from('clocks')
                 .select(`*, clockprofile!inner (profile_id)`)
                 .eq('clockprofile.profile_id', userId)
-                .or(`
-                stopTime.not.is.null,
-                scheduledStartTime.lt.${todayISO}
-                `)
+                .or(
+                    'stopTime.not.is.null',
+                    `scheduledStartTime.lt.${todayISO}`
+                )
                 .order('scheduledStartTime', { ascending: false })
         );
         return data

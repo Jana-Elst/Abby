@@ -16,19 +16,13 @@ import MomentsEmpty from '../components/molecules/momentsEmpty';
 
 export async function clientLoader() {
     const userId = await getUserId();
-    const activeClocks = await getActiveClocksUser(userId);
-    // const scheduledClocksCreator = await getScheduledCreator(userId);
-    // const scheduledClocksParticipant = await getScheduledParticipant(userId);
-    // const pastClocksCreator = await getPastCreator(userId);
-    // const pastClocksParticipant = await getPastParticipant(userId)
-    // const clockProfile = await getClockProfile(userId);
+    const activeClocks = await getActiveClocksUser() || [] ;
+    const scheduledClocksCreator = await getScheduledCreator()|| [];
+    const scheduledClocksParticipant = await getScheduledParticipant()|| [];
+    const pastClocksCreator = await getPastCreator()|| [];
+    const pastClocksParticipant = await getPastParticipant()|| [];
+    const clockProfile = await getClockProfile()|| [];
 
-    // const activeClocks = []
-    const scheduledClocksCreator = []
-    const scheduledClocksParticipant = []
-    const pastClocksCreator = []
-    const pastClocksParticipant = []
-    const clockProfile = []
     return { activeClocks, scheduledClocksCreator, scheduledClocksParticipant, pastClocksCreator, pastClocksParticipant, clockProfile, userId };
 }
 
@@ -65,7 +59,7 @@ const YourAbbyMoments = ({ loaderData }) => {
                             {/* Active moment */}
                             {
                                 //check if there is a active moment
-                                activeClocks
+                                activeClocks.length > 0
                                     ? (
                                         <>
                                             {/* <h3 className='moments__subtitle h4'>{activeClocks[0].includes(userId) ? "Jouw moment is nu bezig" : "Je neemt deel aan een lopend moment"}</h3> */}
@@ -85,10 +79,10 @@ const YourAbbyMoments = ({ loaderData }) => {
                             ? <>
                                 {/* scheduled moments */}
                                 {/* check if their are scehduled clocks */}
-                                {scheduledClocksCreator && scheduledClocksParticipant
+                                {scheduledClocksCreator.length > 0 || scheduledClocksParticipant.length > 0
                                     ? (
                                         <>
-                                            {scheduledClocksCreator
+                                            {scheduledClocksCreator.length > 0
                                                 && <>
                                                     <h3 className='moments__subtitle h4'>Jouw geplande momenten</h3>
                                                     <div className='container container__moments'>
@@ -98,7 +92,7 @@ const YourAbbyMoments = ({ loaderData }) => {
 
                                             }
 
-                                            {scheduledClocksParticipant
+                                            {scheduledClocksParticipant.length > 0
                                                 && <>
                                                     <h3 className='moments__subtitle h4'>Momenten waar je aan deelneemt</h3>
                                                     <div className='container container__moments'>
@@ -121,7 +115,7 @@ const YourAbbyMoments = ({ loaderData }) => {
                             : <>
                                 {/* past moments */}
                                 {/* check if their are past clocks */}
-                                {pastClocksCreator && pastClocksParticipant
+                                {pastClocksCreator.length > 0 || pastClocksParticipant.length > 0
                                     ? (
                                         <>
                                             {pastClocksCreator
