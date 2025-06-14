@@ -280,6 +280,7 @@ Some functions to get a random free clock
 */
 //------------------- get a random clock -------------------//
 //get time in correct time zone
+//aanpassen???!!!!!!
 export const getTimeNow = () => {
     return new Date(Date.now()).toLocaleString("en-US", { timeZone: "Europe/Amsterdam" })
 }
@@ -290,7 +291,7 @@ export const getDateNow = () => {
     return date;
 }
 
-const timeDifference = (time) => {
+export const timeDifference = (time) => {
     const timeDiff = (getTimeNow() - time)
     return timeDiff;
 }

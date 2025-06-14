@@ -28,7 +28,7 @@ const Abbymoments = ({ loaderData }) => {
 
     //set the states
     const [state, setState] = useState({
-        toggle: "Gepland",
+        toggle: "Nu bezig",
         page: "allMoments"
     });
 

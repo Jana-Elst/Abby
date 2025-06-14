@@ -1,7 +1,7 @@
 //https://medium.com/@pdx.lucasm/canvas-with-react-js-32e133c05258
 
 import React, { useRef, useEffect } from 'react'
-import { getAngle } from '../../services/clock.js'
+import { getAngle, getISOLocalString, timeDiff } from '../../services/clock.js'
 
 const Clock = ({ props, clock, className, canvasSize }) => {
     const canvasRef = useRef(null)
@@ -38,7 +38,33 @@ const Clock = ({ props, clock, className, canvasSize }) => {
         ctx.restore();
     }
 
-    draw = (ctx, frameCount) => {
+    const activeClockArc = (ctx, angle, clockwise = false) => {
+        ctx.save();
+        ctx.translate(size, size);
+        ctx.rotate(-Math.PI / 2);
+        ctx.beginPath();
+        ctx.arc(0, 0, size, 0, angle, clockwise);
+        ctx.fillStyle = "white";
+        ctx.fill();
+        ctx.restore();
+    }
+
+    const activeClockTriangle = (ctx, angle, clockwise = false) => {
+        ctx.save();
+        ctx.translate(size, size);
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(0, -size);
+        ctx.rotate(angle);
+        ctx.lineTo(0, -size);
+        ctx.lineTo(0, 0);
+        ctx.closePath();
+        ctx.fillStyle = "black";
+        ctx.fill();
+        ctx.restore();
+    }
+
+    draw = (ctx) => {
         size = ctx.canvas.height / 2
 
         //-- background circle clock
@@ -46,14 +72,6 @@ const Clock = ({ props, clock, className, canvasSize }) => {
         ctx.arc(ctx.canvas.width - size, size, size, 0, 2 * Math.PI);
         ctx.fillStyle = "white";
         ctx.fill();
-
-        //stroke inside circle
-        ctx.save();
-        ctx.clip();
-        ctx.lineWidth *= strokeWidth;
-        ctx.fill();
-        ctx.stroke();
-        ctx.restore();
 
         //scheduled
         if (!clock.startTime) {
@@ -72,10 +90,47 @@ const Clock = ({ props, clock, className, canvasSize }) => {
             ctx.fill();
         }
 
-        if (clock.startTime && clock.EndTime) {
-            
+        if (clock.startTime) {
+            let timeNow = getISOLocalString();
+
+            //if clock has a stopTime replace it with the stopTime
+            if (clock.stopTime) {
+                timeNow = clock.stopTime;
+            }
+
+            const timeDifference = timeDiff(clock.startTime, timeNow);
+            const { angleMinutes, angleHours } = getAngle(timeDifference);
+
+            if (angleMinutes > Math.PI) {
+                const remainingTime = 2 * Math.PI - angleMinutes;
+                activeClockArc(ctx, remainingTime, true);
+            }
+
+            activeClockArc(ctx, angleMinutes, true);
+            activeClockTriangle(ctx, angleMinutes);
+
+            if (angleMinutes > Math.PI) {
+                const remainingTime = - 2 * Math.PI - angleMinutes;
+                activeClockTriangle(ctx, remainingTime);
+            }
+
+            if (angleHours > 2 * Math.PI / 12) {
+                ctx.beginPath();
+                ctx.arc(ctx.canvas.width - size, size, size, 0, 2 * Math.PI);
+                ctx.fillStyle = "black";
+                ctx.fill();
+            }
         }
 
+        //stroke circle
+        ctx.beginPath();
+        ctx.arc(ctx.canvas.width - size, size, size, 0, 2 * Math.PI);
+        ctx.save();
+        ctx.clip();
+        ctx.lineWidth *= strokeWidth;
+        // ctx.fill();
+        ctx.stroke();
+        ctx.restore();
     }
 
     //past
@@ -86,15 +141,13 @@ const Clock = ({ props, clock, className, canvasSize }) => {
 
         const canvas = canvasRef.current
         const context = canvas.getContext('2d')
-        let frameCount = 0
         let animationFrameId
 
         resizeCanvas(canvas)
 
         //Our draw came here
         const render = () => {
-            frameCount++
-            draw(context, frameCount)
+            draw(context)
             animationFrameId = window.requestAnimationFrame(render)
         }
         render()
