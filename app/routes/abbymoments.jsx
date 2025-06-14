@@ -123,7 +123,7 @@ const Abbymoments = ({ loaderData }) => {
 
                                             <div className='center--flex'>
                                                 <Button extraClass={"btn__text  moments_more"} >Ontdek nog meer geplande momenten</Button>
-                                            </div>s
+                                            </div>
                                         </>
                                     ) : (
                                         //show empty state if there are no scheduled clocks
