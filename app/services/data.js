@@ -129,11 +129,16 @@ export const getScheduledClocks = async () => {
     today.setHours(0, 0, 0, 0);
     const todayISO = today.toISOString();
 
+    const userId = await getUserId();
+
     const data = await getOrUpdateClocks(
         supabase
             .from('clocks')
             .select('*')
             .is('startTime', null)
+            .or(
+                'private.eq.false', 'and(private.eq.true,creator.eq.' + userId + ')'
+            )
             .gte('scheduledStartTime', todayISO)
             .order('scheduledStartTime', { ascending: false })
     );
