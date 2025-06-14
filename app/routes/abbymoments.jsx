@@ -20,10 +20,10 @@ import './abbymoments.css'
 import MomentsEmpty from '../components/molecules/momentsEmpty';
 
 export async function clientLoader() {
-    const activeClocksUser = await getActiveClocksUser();
-    const activeClocksOthers = await getOtherActiveClocks();
-    const scheduledClocks = await getScheduledClocks();
-    const clockProfile = await getClockProfile();
+    const activeClocksUser = await getActiveClocksUser() || [];
+    const activeClocksOthers = await getOtherActiveClocks() || [];
+    const scheduledClocks = await getScheduledClocks() || [];
+    const clockProfile = await getClockProfile() || [];
 
     return { clockProfile, activeClocksOthers, scheduledClocks, activeClocksUser };
 }
@@ -73,7 +73,7 @@ const Abbymoments = ({ loaderData }) => {
                         <>
                             {/* Active moment */}
                             {
-                                activeClocksOthers && activeClocksUser
+                                activeClocksOthers.length > 0 && activeClocksUser.length > 0
                                     ? (
                                         <>
                                             {/* check if their is a clock of the user active */}
@@ -114,7 +114,7 @@ const Abbymoments = ({ loaderData }) => {
                         <>
                             {
                                 //show scheduled clocks
-                                scheduledClocks
+                                scheduledClocks.length > 0
                                     ? (
                                         <>
                                             <div className='container container__moments'>

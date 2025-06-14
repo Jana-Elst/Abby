@@ -15,13 +15,20 @@ import { getActiveClocksUser, getClockProfile, getPastCreator, getPastParticipan
 import MomentsEmpty from '../components/molecules/momentsEmpty';
 
 export async function clientLoader() {
-    const activeClocks = await getActiveClocksUser();
-    const scheduledClocksCreator = await getScheduledCreator();
-    const scheduledClocksParticipant = await getScheduledParticipant();
-    const pastClocksCreator = await getPastCreator();
-    const pastClocksParticipant = await getPastParticipant()
-    const clockProfile = await getClockProfile();
     const userId = await getUserId();
+    const activeClocks = await getActiveClocksUser(userId);
+    // const scheduledClocksCreator = await getScheduledCreator(userId);
+    // const scheduledClocksParticipant = await getScheduledParticipant(userId);
+    // const pastClocksCreator = await getPastCreator(userId);
+    // const pastClocksParticipant = await getPastParticipant(userId)
+    // const clockProfile = await getClockProfile(userId);
+
+    // const activeClocks = []
+    const scheduledClocksCreator = []
+    const scheduledClocksParticipant = []
+    const pastClocksCreator = []
+    const pastClocksParticipant = []
+    const clockProfile = []
     return { activeClocks, scheduledClocksCreator, scheduledClocksParticipant, pastClocksCreator, pastClocksParticipant, clockProfile, userId };
 }
 
@@ -61,7 +68,7 @@ const YourAbbyMoments = ({ loaderData }) => {
                                 activeClocks
                                     ? (
                                         <>
-                                            <h3 className='moments__subtitle h4'>{activeClocks[0].includes(userId) ? "Jouw moment is nu bezig" : "Je neemt deel aan een lopend moment"}</h3>
+                                            {/* <h3 className='moments__subtitle h4'>{activeClocks[0].includes(userId) ? "Jouw moment is nu bezig" : "Je neemt deel aan een lopend moment"}</h3> */}
 
                                             <div className='container container__moments'>
                                                 <p>hier komt clockCard = lopend</p>
