@@ -31,9 +31,8 @@ export const getTime = (dateTime) => {
 }
 
 export const getDateNames = (date) => {
-    const monthNames = ["januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus", "september", "oktober", "november", "december"];
-    const [year, month, day] = date.split("-");
-    return (`${day} ${monthNames[month - 1]}`)
+    const monthNames = ["jan.", "feb.", "ma.", "apr.", "mei.", "jun.", "jul.", "aug.", "sep.", "okt.", "nov.", "dec."];
+    return (monthNames[date - 1])
 }
 
 export const getISOLocalString = () => {
@@ -56,10 +55,15 @@ export const getISOLocalString = () => {
 }
 
 export const getDate = (isoTime) => {
-    const [day, time] = isoTime.split("T");
+    const [date, time] = isoTime.split("T");
     const [hour, minutes, seconds] = time.split(":");
+    const [year, month, day] = date.split("-");
 
     return ({
+        date: date,
+        year:year,
+        month:month,
+        monthName: getDateNames(month),
         day: day,
         time: time,
         hour: hour,
