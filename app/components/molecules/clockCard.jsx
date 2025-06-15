@@ -11,6 +11,7 @@ import ButtonClockCard from "./buttonClockCard";
 
 //functions
 import { getTime } from "../../services/clock";
+import { isCreator, isParticipant, allParticipants } from '../../services/dataFilters';
 
 //images
 import arrow from "../../src/assets/arrow-right.svg";
@@ -20,22 +21,19 @@ import './clockCard.css';
 
 const ClockCard = ({ clock, clockProfile }) => {
     const { userId } = useContext(UserContext);
-    const participants = clockProfile.filter(cp => cp.clock_id === clock.id).map(cp => cp.profile_id);
+    
+    const participants = allParticipants(clockProfile, clock.id)
+    const creator = isCreator(clock.creator, userId);
+    const participant = isParticipant(clock.creator, participants, userId);
 
     return (
         <>
             <li className="card">
                 <Link to={`${import.meta.env.BASE_URL}abbymomenten/${clock.id}`}>
                     <div className="card__top">
-                        { //show 'maker'
-                            userId === clock.creator
-                            && <p className="card__type purple__bg">Maker</p>
-                        }
-                        {
-                            //show participant
-                            userId == !clock.creator && participants.includes(userId)
-                            && <p className="card__type green__bg">Deelnemer</p>
-                        }
+                        {creator && <p className="card__type purple__bg">Maker</p>}
+                        {!creator && participant && <p className="card__type green__bg">Deelnemer</p>}
+
                         <div className="card__info">
                             { //show start time (only if clock is scheduled)
                                 clock.startTime

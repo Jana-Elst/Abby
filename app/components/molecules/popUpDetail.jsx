@@ -18,7 +18,8 @@ const PopUpDetail = ({ clock, isParticipant, setUiState, uiState }) => {
     const handleClickClose = () => {
         setUiState({
             ...uiState,
-            popUpOpen: false
+            popUpOpen: false,
+            confirmation: false
         });
     }
 
@@ -36,7 +37,7 @@ const PopUpDetail = ({ clock, isParticipant, setUiState, uiState }) => {
         });
     }
 
-    const handleStop = async() => {
+    const handleStop = async () => {
         await stopClock(clock[0].id);
 
         setUiState({
@@ -44,12 +45,12 @@ const PopUpDetail = ({ clock, isParticipant, setUiState, uiState }) => {
             popUpOpen: false,
         });
 
-        navigate(-1);
+        navigate(`${import.meta.env.BASE_URL}jouw-abbymomenten`);
     }
 
     //if clock is made my user
     //nu: pas aan & start
-    if (clock[0].startTime) {
+    if (clock[0].startTime && clock[0].creator === userId) {
         return (
             <>
                 <p>Wil je jouw abbymoment stoppen?</p>
@@ -64,18 +65,21 @@ const PopUpDetail = ({ clock, isParticipant, setUiState, uiState }) => {
 
     //Scheduled & now
     //if user is joined
-    if (isParticipant) {
+    if (isParticipant && uiState.popUpOpen) {
+        console.log(uiState.buttonState);
         return (
             <>
-                <p>VERLAAT</p>
+                <p>Wil je dit Abbymoment verlaten?</p>
                 <p>tekst tekst tekst</p>
                 <div>
                     <Button onClick={handleClickClose}>Annuleer</Button>
-                    <Button onClick={handleClockLeave}>Verlaat</Button>
+                    <Button onClick={handleClockLeave}>Verlaat Abbymoment</Button>
                 </div>
             </>
         )
-    } else {
+    }
+
+    if (isParticipant && uiState.confirmation) {
         return (
             <>
                 <p>Joepie</p>

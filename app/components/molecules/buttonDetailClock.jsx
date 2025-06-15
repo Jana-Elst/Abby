@@ -15,21 +15,19 @@ import { joinClock, leaveClock, stopClock } from "../../services/data";
 
 const ButtonDetailClock = ({ clock, isParticipant, setUiState, uiState }) => {
     const { userId } = useContext(UserContext);
-    const { flowForm, setFlowForm } = useContext(FormFlowContext);
+    const { setFlowForm } = useContext(FormFlowContext);
     const navigate = useNavigate();
-
 
     let scheduledDate = clock[0].scheduledStartTime;
     scheduledDate = new Date(scheduledDate).toISOString("en-US", { timeZone: "Europe/Amsterdam" }).split('T')[0];
-
 
     // Event Handlers
     const handleClockJoin = async () => {
         await joinClock(userId, clock[0].id);
         setUiState({
             ...uiState,
-            popUpOpen: true,
-            participants: [...uiState.participants, userId]
+            confirmation: true,
+            participants: [...uiState.participants, userId],
         });
     }
 
@@ -38,18 +36,22 @@ const ButtonDetailClock = ({ clock, isParticipant, setUiState, uiState }) => {
             ...uiState,
             popUpOpen: true
         });
-        await leaveClock(userId, clock[0].id);
     }
 
     const handleStop = async () => {
         setUiState({
             ...uiState,
-            popUpOpen: true
+            popUpOpen: true,
+            confirmation: false,
         });
     }
 
     const handleStart = () => {
+        console.log('starttt')
         setFlowForm('startScheduled');
+        navigate(`${import.meta.env.BASE_URL}maak-een-abbymoment/formulier`, {
+            state: { clock: clock }
+        });
     }
 
     const handleRestart = () => {
@@ -86,7 +88,7 @@ const ButtonDetailClock = ({ clock, isParticipant, setUiState, uiState }) => {
             return (
                 <div>
                     <button>Pas aan</button>
-                    <button>Start</button>
+                    <Button onClick={handleStart}>Start</Button>
                 </div>
             )
         }
@@ -106,7 +108,7 @@ const ButtonDetailClock = ({ clock, isParticipant, setUiState, uiState }) => {
             return (
                 <div>
                     <button>Pas aan</button>
-                    <button>Start je moment vanaf {getTime(clock[0].scheduledStartTime).date}</button>
+                    <p>Start je moment vanaf {getTime(clock[0].scheduledStartTime).date}</p>
                 </div>
             )
         }
@@ -122,6 +124,7 @@ const ButtonDetailClock = ({ clock, isParticipant, setUiState, uiState }) => {
         //Scheduled & now
         else {
             //if user is joined
+            console.log('isPart', isParticipant);
             if (isParticipant) {
                 return <Button onClick={handleClockLeave}>Verlaat</Button>
             } else {
