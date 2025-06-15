@@ -9,13 +9,12 @@ const Description = ({ formData, setFormData }) => {
     const [correctInput, setCorrectInput] = useState(false);
     const [touched, setTouched] = useState(false);
 
-    const handleValidation = (value) => {
-        if (value < 1) {
-            if (value.length < 1) {
-                setCorrectInput(false);
-            } else {
-                setCorrectInput(true);
-            }
+    const handleValidation = (e) => {
+        console.log(e.target.value);
+        if (e.target.value < 1) {
+            setCorrectInput(false);
+        } else {
+            setCorrectInput(true);
         }
     }
 
@@ -46,7 +45,7 @@ const Description = ({ formData, setFormData }) => {
             <div className="form__questions">
                 <div className="form__question h4">
                     <label htmlFor="name">Titel <span>*</span></label>
-                    <p className={`${(touched && !correctInput) && 'display'} error`}>Vul een titel in</p>
+                    <p className={`${(!correctInput && touched) && 'display'} error`}>Vul een titel in</p>
                     <input
                         type="text"
                         name="name"
@@ -55,13 +54,14 @@ const Description = ({ formData, setFormData }) => {
                         placeholder='Titel'
                         value={formData.name}
                         onChange={(e) => {
-                            handleValidation(e.target.value);
+                            handleValidation(e);
                             setFormData({
                                 ...formData,
                                 name: e.target.value,
                             });
                         }}
                         onBlur={() => setTouched(true)}
+                        onFocus={() => setTouched(false)}
                         required />
                 </div>
                 <div className="form__question h4">
