@@ -1,0 +1,105 @@
+.top__bar {
+    display: flex;
+    flex-direction: row;
+    padding: var(--space-s);
+    justify-content: space-between;
+}
+
+.info {
+    display: flex;
+    flex-direction: row;
+    padding-left: var(--space-s);
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--space-m);
+}
+
+.info__container {
+    display: flex;
+    flex-direction: column;
+}
+
+.info__container {
+    width: 100%;
+}
+
+.info__container p:first-child {
+    border-top: var(--border-thin);
+}
+
+.container__date,
+.container__time,
+.container__count,
+.container__share {
+    height: 2.5rem;
+    padding: 0 var(--space-s) 0 var(--space-xs);
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+    border-bottom: var(--border-thin);
+}
+
+.container__date svg,
+.container__time svg,
+.container__count svg,
+.container__share img {
+    max-width: var(--space-m);
+}
+
+.description {
+    padding: var(--space-s) var(--space-xs) var(--space-s) var(--space-s);
+    max-width: 17rem;
+}
+
+.location {
+    margin-top: var(--space-xxl);
+    border-bottom: var(--border-thin);
+    padding: 0 var(--space-s) var(--space-xxs) 0;
+    text-align: right;
+}
+
+.collage {
+    display: grid;
+    padding: 0 var(--space-s);
+    align-items: center;
+    height: 13rem;
+}
+
+.collage__clock,
+.collage__location,
+.collage__made {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.collage__clock {
+    grid-row: span 2;
+    grid-column: 1;
+    width: 50%;
+}
+
+.collage__location {
+    grid-row: 1;
+    grid-column: 2;
+    height: 6.5rem;
+    width: 50%;
+}
+
+.collage__made {
+    grid-row: 2;
+    grid-column: 2;
+    height: 6.5rem;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+.made__logo {
+    width: 6.5625rem;
+    height: 2.25rem;
+}

@@ -20,13 +20,15 @@ const ClockList = ({ clocks = [], clockProfile, state }) => {
             .map(cp => cp.clock_id);
         const myClocks = clocks.filter(clock => myClockIds.includes(clock.id))
 
+        console.log(state)
+
         return (
             <div>
                 {
                     clocks.length ? (
                         <ul>
                             {myClocks.map((clock) => (
-                                <ClockCard key={clock.id} clock={clock} clockProfile={clockProfile} state={state}/>
+                                <ClockCard key={clock.id} clock={clock} clockProfile={clockProfile} state={state} />
                             ))}
                         </ul>
                     ) : (
