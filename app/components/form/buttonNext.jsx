@@ -1,6 +1,6 @@
 import arrow from "../../src/assets/arrow-right.svg";
 
-const ButtonNext = ({ children, setFormData, formData, buttonType = 'button', extraClass }) => {
+const ButtonNext = ({ children, setFormData, formData, buttonType = 'button', extraClass, disabled = false }) => {
     const handleClickNext = () => {
         console.log(formData);
 
@@ -45,10 +45,10 @@ const ButtonNext = ({ children, setFormData, formData, buttonType = 'button', ex
 
     return (
         buttonType === 'button'
-            ? <button type='button' onClick={handleClickNext} className={extraClass}>
+            ? <button type='button' onClick={handleClickNext} className={extraClass} disabled={disabled}>
                 {children} <img className='btn__icon' src={arrow} alt="een pijl" />
             </button>
-            : <button type='submit' className={extraClass}>
+            : <button type='submit' className={extraClass} disabled={disabled}>
                 {children} <img className='btn__icon' src={arrow} alt="een pijl" />
             </button>
     )

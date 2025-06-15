@@ -2,7 +2,11 @@ import Title from "../molecules/title";
 import ButtonBack from './buttonBack';
 import ButtonNext from "./buttonNext";
 
-const Participants = ({ setFormState, formState, flowForm, flowKey, formData, setFormData }) => {
+import { useState } from "react";
+
+const Participants = ({ formData, setFormData }) => {
+    const [touched, setTouched] = useState(formData.particpant);
+
     return (
         <>
             <div className="container--form">
@@ -29,6 +33,9 @@ const Participants = ({ setFormState, formState, flowForm, flowKey, formData, se
                                     private: e.target.value === "false" ? false : true
                                 })
                             }}
+                            onFocus={() => {
+                                setTouched(true);
+                            }}
                         />
                         Nee, Ik heb liever een Abbymoment alleen.
                         {/* <label htmlFor="true">Nee, Ik heb liever een Abbymoment alleen.</label> */}
@@ -45,6 +52,9 @@ const Participants = ({ setFormState, formState, flowForm, flowKey, formData, se
                                     private: e.target.value === "true" ? true : false
                                 })
                             }}
+                            onFocus={() => {
+                                setTouched(true);
+                            }}
                         />
                         ja, hoe meer zielen hoe meer vreugd.
                         {/* <label htmlFor="false">Ja, hoe meer zielen hoe meer vreugd.</label> */}
@@ -55,14 +65,16 @@ const Participants = ({ setFormState, formState, flowForm, flowKey, formData, se
             {
                 formData.flow === "now" || formData.flow === 'planNow'
                     ? <ButtonNext extraClass="next__btn btn__text purple__bg"
-                        buttonType='submit'
+                        buttonType='button'
                         formData={formData}
                         setFormData={setFormData}
+                        disabled={!touched}
                     > Start je moment </ButtonNext>
                     : <ButtonNext extraClass="next__btn btn__text purple__bg"
-                        buttonType='submit'
+                        buttonType='button'
                         formData={formData}
                         setFormData={setFormData}
+                        disabled={!touched}
                     > Maak moment aan </ButtonNext>
             }
         </>
