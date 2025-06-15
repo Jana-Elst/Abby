@@ -66,21 +66,31 @@ const Info = () => {
         return (
             <div className="info__container">
                 <Title className="info__title">Jouw dag, jouw manier bij Abby</Title>
-                <p className="info__p">Kies jouw moment en vertel wat je doet, van workshop tot koffie, of gewoon even ontspannen. Het kan allemaal.</p>
-                <p className="info__p">Begin direct een moment in Abby of plan er eentje voor later. Rust uit op jezelf of samen met anderen.</p>
 
-                <div className="info__btn__container">
-                    {
-                        userId
-                            ? (<Button extraClass="info__btn yellow__bg btn__text" link={'maak-een-abbymoment/formulier'}>Start</Button>)
-                            : (
-                                <>
+                {
+                    userId
+                        ? (
+                            <>
+
+                                <p className="info__p">Een Abbymoment is een moment voor iets waar jij behoefte aan hebt of zin in hebt, van een gezellige koffiepauze tot een ontspannende yogasessie in de tuin.</p>
+                                <p className="info__p">Maak een momentje voor jezelf of laat andere aansluiten bij jouw moment!</p>
+
+                                <div className="info__btn__container">
+                                    <Button extraClass="info__btn yellow__bg btn__text" link={'maak-een-abbymoment/formulier'}>Start</Button>
+                                </div>
+                            </>
+                        )
+                        : (
+                            <>
+                                <p className="info__p">Log in om jouw eigen Abbymoment te creëren of mee te doen aan een moment van iemand anders. Geniet zo van meer rust en verbinding in je dag.</p>
+                                <div className="info__btn__container">
                                     <p className="info__note">Om een Abby moment te starten moet je ingelogd zijn.</p>
                                     <Button extraClass="info__btn yellow__bg btn__text" link={'log-in'}>Log in</Button>
-                                </>
-                            )
-                    }
-                </div>
+                                </div>
+                            </>
+                        )
+                }
+
             </div>
         )
     }

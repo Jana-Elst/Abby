@@ -28,7 +28,7 @@ export default function Nav({ hamburgerOpen, toggleHamburger }) {
                         <NavLink onClick={() => (setTimeout(toggleHamburger, 500))} className={"navigation__links__li navigation__blue"} to={`${import.meta.env.BASE_URL}`} end >
                             <div className="links__li__container">
                                 <img className="links__li__svg" src={iconHome} alt="startpagina icoontje" />
-                                <p className="links__li__p" >Homepage</p>
+                                <p className="links__li__p" >Home</p>
                             </div>
                             <img className="links__li__img" src={pictureHome} alt="De Living van Abby" />
                         </NavLink>
@@ -49,7 +49,7 @@ export default function Nav({ hamburgerOpen, toggleHamburger }) {
                         <NavLink onClick={() => (setTimeout(toggleHamburger, 500))} className={"navigation__links__li navigation__yellow"} to={`${import.meta.env.BASE_URL}maak-een-abbymoment`}>
                             <div className="links__li__container">
                                 <img className="links__li__svg" src={iconMaak} alt="creatie icoontje" />
-                                <p className="links__li__p" >Plan een moment</p>
+                                <p className="links__li__p" >Creëer een moment</p>
                             </div>
                             <img className="links__li__img" src={pictureMaak} alt="De Living van Abby" />
                         </NavLink>
