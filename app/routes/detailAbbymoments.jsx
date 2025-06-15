@@ -50,35 +50,13 @@ const DetailAbbymoments = ({ loaderData }) => {
 
     return (
         <>
-            <div>
+            <div className='top__bar'>
                 <ButtonBack>Terug</ButtonBack>
-                {/* show 'maker' or 'participant' */}
-
                 {creator && <p className='purple__fg h4'>Maker</p>}
                 {!creator && participant && <p className='green__fg h4'>Deelnemer</p>}
-
-                <Title>{clock[0].name}</Title>
-
-                {
-                    // show date and time of scheduled
-                    !clock[0].startTime
-                    && <>
-                        <p>{getTime(clock[0].scheduledStartTime).date}</p>
-                        <p>{getTime(clock[0].scheduledStartTime).time}</p>
-                    </>
-                }
-                
-                { //show 'maker' or 'participant'
-                    userId === clock[0].creator
-                        ? <p className='purple__fg h4'>Maker</p>
-                        : participants.includes(userId)
-                            ? <p className='green__fg h4'>Deelnemer</p>
-                            : ""
-
-                }
             </div>
-            <div className='info'>
 
+            <div className='info'>
                 <Title extraClass="info__title">{clock[0].name}</Title>
 
                 <div className='info__container'>
@@ -119,13 +97,12 @@ const DetailAbbymoments = ({ loaderData }) => {
                     : <p className='location'>{clock[0].location}</p>
             }
             <div className='collage'>
-                <svg className='collage__clock' xmlns="http://www.w3.org/2000/svg" width="156" height="156" viewBox="0 0 91 91" fill="none">
-                    <circle cx="45.5" cy="45.5" r="43.5" stroke="black" strokeWidth="3" />
-                    <mask id="path-2-inside-1_1522_32842" fill="white">
-                        <path d="M45.5 0.5C57.4347 0.5 68.8807 5.24106 77.3198 13.6802L45.5 45.5V0.5Z" />
-                    </mask>
-                    <path d="M45.5 0.5C57.4347 0.5 68.8807 5.24106 77.3198 13.6802L45.5 45.5V0.5Z" fill="black" stroke="black" strokeWidth="2" mask="url(#path-2-inside-1_1522_32842)" />
-                </svg>
+                <Clock
+                    className={"card__clock"}
+                    canvasSize={"120"}
+                    clock={clock[0]}
+                    clockColors={{ color: "black", bgColor: "white" }}
+                />
                 <img className='collage__location' src={spaceAtelier} alt="deel icon" />
                 <div className='collage__made'>
                     <p className='made__by'>Made By</p>
@@ -135,15 +112,6 @@ const DetailAbbymoments = ({ loaderData }) => {
                 </div>
             </div >
             <div>
-                <Clock
-                    className={"card__clock"}
-                    canvasSize={"120"}
-                    clock={clock[0]}
-                    clockColors={{ color: "black", bgColor: "white" }}
-                />
-
-                <p>IMG</p>
-
                 <ButtonDetailClock
                     clock={clock}
                     clockProfile={clockProfile}
