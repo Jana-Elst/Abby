@@ -27,7 +27,7 @@ const Footer = () => {
                         </ul>
                     </div>
                     <a className="footer__website h4" href="https://www.kortrijk.be/abby" target="__blank">
-                        <h3 className="website__title">Bekijk de Abby website</h3>
+                        <h3 className="website__title">Algemene website</h3>
                         <img className="website__arrow" src={arrowRight} alt="data van aantal uur" />
                     </a>
                     <div className="footer__foodnote">

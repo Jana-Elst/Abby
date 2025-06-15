@@ -22,6 +22,7 @@
     margin-top: var(--space-3xl);
     padding: var(--space-s);
     width: 100%;
+    border: none;
     border-top: var(--border-thin);
 }
 
@@ -303,6 +304,14 @@
     padding: var(--space-m) var(--space-s);
 }
 
-.statistics__btn {
-margin: var(--space-xxl) var(--space-s);
+.statistics__btn{
+    margin-top: 2rem;
+}
+
+.statistics__btn___title{
+    margin-bottom: var(--space-m);
+}
+
+.statistics__btn__container{
+    margin: var(--space-3xl) 0;
 }

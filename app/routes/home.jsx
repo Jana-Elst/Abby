@@ -7,27 +7,24 @@ import Living from "../components/frames/living";
 import Join from "../components/frames/join";
 import AndYou from "../components/frames/andYou";
 import Statistics from "../components/frames/statistics";
-import Moments from "../components/frames/moments";
+// import Moments from "../components/frames/moments";
 import "./home.css"
 
 //style
 import '../components/frames/Frames.css';
 
 //load the museum clocks
-import { getMuseumClocks, getClockProfile } from "../services/data";
+import { getClockProfile } from "../services/data";
 
 export async function clientLoader() {
-    const museumClocks = await getMuseumClocks();
     const clockProfile = await getClockProfile();
 
-    console.log(museumClocks);
-
-    return { museumClocks, clockProfile };
+    return { clockProfile };
 }
 
 
 const Home = ({ loaderData }) => {
-    const { museumClocks, clockProfile } = loaderData;
+    const { clockProfile } = loaderData;
 
     return (
         <div className="home__container">

@@ -80,8 +80,8 @@ const AccountPage = () => {
                 <Title>Je bent ingelogd!</Title>
                 <p className='h3'>Start nu je eigen Abbymoment of neem deel aan iemand anders zijn activiteit. </p>
                 <div className='succes__btn__container'>
-                    <Button extraClass={"blue__bg btn__arrow btn__text"} link={"maak-een-abbymomen"}>Creëer een Abbymoment <img className='btn__icon' src={arrow} alt="een pijl"/></Button>
                     <Button extraClass={"orange__bg btn__arrow btn__text"} link={"abbymomenten"}>Zie alle Abbymomenten <img className='btn__icon' src={arrow} alt="een pijl" /></Button>
+                    <Button extraClass={"yellow__bg btn__arrow btn__text"} link={"maak-een-abbymomen"}>Creëer jouw Abbymoment <img className='btn__icon' src={arrow} alt="een pijl"/></Button>
                 </div>
                 <div className='loguit__container'>
                     <button className='signout__btn' onClick={() => { signOut(); }}> Log uit </button>

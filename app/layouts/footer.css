@@ -1,4 +1,5 @@
 footer {
+    margin-top: var(--space-xl);
     padding: var(--space-3xl) var(--space-s);
     border-top: var(--border-thin);
     display: flex;

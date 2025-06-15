@@ -11,8 +11,11 @@ import ButtonClockCard from "./buttonClockCard";
 
 //functions
 import { getTime } from "../../services/clock";
+
+//images
 import arrow from "../../src/assets/arrow-right.svg";
 
+//style
 import './clockCard.css';
 
 const ClockCard = ({ clock, clockProfile }) => {
@@ -24,12 +27,13 @@ const ClockCard = ({ clock, clockProfile }) => {
             <li className="card">
                 <Link to={`${import.meta.env.BASE_URL}abbymomenten/${clock.id}`}>
                     <div className="card__top">
-                        { //show 'maker' or 'participant'
+                        { //show 'maker'
                             userId === clock.creator
                             && <p className="card__type purple__bg">Maker</p>
                         }
                         {
-                            participants.includes(userId)
+                            //show participant
+                            userId == !clock.creator && participants.includes(userId)
                             && <p className="card__type green__bg">Deelnemer</p>
                         }
                         <div className="card__info">
@@ -69,9 +73,9 @@ const ClockCard = ({ clock, clockProfile }) => {
                             }
                         </div>
                     </div>
-                    {clock.startTime && !clock.stopTime && (participants.includes(userId) || userId === clock.creator)  ? (
+                    {clock.startTime && !clock.stopTime && (participants.includes(userId) || userId === clock.creator) ? (
                         <>
-                            <div className={`card__active ${userId === clock.creator ? `purple__bg` : `green__bg` }`}>
+                            <div className={`card__active ${userId === clock.creator ? `purple__bg` : `green__bg`}`}>
                                 <div className="card__middle--active">
                                     <p className="card__name h4 card__name--active">{clock.name}</p>
                                     <div className="card__clock card__clock--active">
@@ -91,17 +95,8 @@ const ClockCard = ({ clock, clockProfile }) => {
                         <>
                             <div className="card__middle">
                                 <p className="card__name h4">{clock.name}</p>
-                                <div className="card__clock">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="91" height="91" viewBox="0 0 91 91" fill="none">
-                                        <circle cx="45.5" cy="45.5" r="43.5" stroke="black" strokeWidth="3" />
-                                        <mask id="path-2-inside-1_1522_32842" fill="white">
-                                            <path d="M45.5 0.5C57.4347 0.5 68.8807 5.24106 77.3198 13.6802L45.5 45.5V0.5Z" />
-                                        </mask>
-                                        <path d="M45.5 0.5C57.4347 0.5 68.8807 5.24106 77.3198 13.6802L45.5 45.5V0.5Z" fill="black" stroke="black" strokeWidth="2" mask="url(#path-2-inside-1_1522_32842)" />
-                                    </svg>
-                                </div>
+                                <Clock className={"card__clock"} canvasSize={"120"} clock={clock} clockColors={{ color: "black", bgColor: "white" }} />
                             </div>
-                            {/* <Clock size={60} startTime={clock.startTime} active={true}/> */}
                             <ButtonClockCard userId={userId} clock={clock} participants={participants} />
                         </>
                     )}

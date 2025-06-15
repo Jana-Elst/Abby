@@ -1,0 +1,8 @@
+.close {
+    display: none;
+}
+
+.open {
+    display: block;
+    position: absolute;
+}
