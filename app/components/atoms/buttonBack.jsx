@@ -1,5 +1,5 @@
 
-import { useNavigate } from "react-router;
+import { useNavigate } from "react-router";
 import './buttonBack.css';
 import arrow from "../../src/assets/arrow-right.svg";
 

@@ -29,13 +29,15 @@ const ClockList = ({ clocks = [], clockProfile, state }) => {
                         <ul>
                             {myClocks.map((clock) => (
                                 <ClockCard key={clock.id} clock={clock} clockProfile={clockProfile} state={state} />
+                            ))}
                         </ul>
                     ) : (
                         <MomentsEmpty state={state} />
                     )
-            }
-        </div>
-    )
+                }
+            </div>
+        )
+    }
 }
 
 export default ClockList;
