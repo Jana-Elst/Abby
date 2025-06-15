@@ -15,38 +15,42 @@ import Clock from '../components/atoms/clock';
 import PopUp from '../components/molecules/popUp';
 import PopUpDetail from '../components/molecules/popUpDetail';
 
+import { isCreator, isParticipant, allParticipants } from '../services/dataFilters';
+
 export async function clientLoader({ params }) {
     const id = params.abbymomentId;
 
     //get data clock
     const clock = await getClock(id);
     const clockProfile = await getClockProfile();
-    const participants = getParticipants(clock, clockProfile) || [];
-    console.log(clockProfile);
-    return { clock, clockProfile, participants };
+    // const participants = getParticipants(clock, clockProfile) || [];
+    return { clock, clockProfile };
+}
 
-
-const DetailClock = ({ loaderData }) => {
+const DetailAbbymoments = ({ loaderData }) => {
     const { userId } = useContext(UserContext);
-    const { clock, clockProfile, participants } = loaderData;
+    const { clock, clockProfile } = loaderData;
+
+    const participants = allParticipants(clockProfile, clock[0].id)
+
     const [uiState, setUiState] = useState({
         popUpOpen: false,
         buttonState: participants.length > 0 ?
             participants.includes(userId) ? 'leave ' : 'join' : 'join',
-        participants: participants
+        participants: participants,
+        confirmation: false
     });
 
-    const isCreator = userId === clock[0].creator;
-    console.log(participants);
-    const isParticipant = uiState.participants.length > 0 ? uiState.participants.includes(userId) : false
+    const creator = isCreator(clock[0].creator, userId);
+    const participant = isParticipant(clock[0].creator, uiState.participants, userId);
 
     return (
         <>
             <div>
                 <ButtonBack>Terug</ButtonBack>
                 {/* show 'maker' or 'participant' */}
-                {isCreator && <p>Maker</p>}
-                {!isCreator && isParticipant && <p>Deelnemer</p>}
+                {creator && <p>Maker</p>}
+                {!creator && participant && <p>Deelnemer</p>}
 
                 <Title>{clock[0].name}</Title>
 
@@ -90,7 +94,7 @@ const DetailClock = ({ loaderData }) => {
                     clock={clock}
                     clockProfile={clockProfile}
                     userId={userId}
-                    isParticipant={isParticipant}
+                    isParticipant={participant}
                     setUiState={setUiState}
                     uiState={uiState}
                 />
@@ -98,17 +102,17 @@ const DetailClock = ({ loaderData }) => {
 
             {
                 //POP-UP
-                uiState.popUpOpen && (
+                (uiState.popUpOpen || uiState.confirmation) && (
                     <PopUp
                         setUiState={setUiState}
                         uiState={uiState}
-                        className={`${uiState.popUpOpen ? 'open' : 'close'}`}>
+                        className={`${(uiState.popUpOpen || uiState.confirmation) ? 'open' : 'close'}`}>
 
                         <PopUpDetail
                             clock={clock}
                             setUiState={setUiState}
                             uiState={uiState}
-                            isParticipant={isParticipant}
+                            isParticipant={participant}
                         />
                     </PopUp>
                 )
@@ -117,4 +121,4 @@ const DetailClock = ({ loaderData }) => {
     )
 };
 
-export default DetailClock;
+export default DetailAbbymoments;

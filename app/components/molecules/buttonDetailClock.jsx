@@ -15,21 +15,19 @@ import { joinClock, leaveClock, stopClock } from "../../services/data";
 
 const ButtonDetailClock = ({ clock, isParticipant, setUiState, uiState }) => {
     const { userId } = useContext(UserContext);
-    const { flowForm, setFlowForm } = useContext(FormFlowContext);
+    const { setFlowForm } = useContext(FormFlowContext);
     const navigate = useNavigate();
-
 
     let scheduledDate = clock[0].scheduledStartTime;
     scheduledDate = new Date(scheduledDate).toISOString("en-US", { timeZone: "Europe/Amsterdam" }).split('T')[0];
-
 
     // Event Handlers
     const handleClockJoin = async () => {
         await joinClock(userId, clock[0].id);
         setUiState({
             ...uiState,
-            popUpOpen: true,
-            participants: [...uiState.participants, userId]
+            confirmation: true,
+            participants: [...uiState.participants, userId],
         });
     }
 
@@ -38,13 +36,13 @@ const ButtonDetailClock = ({ clock, isParticipant, setUiState, uiState }) => {
             ...uiState,
             popUpOpen: true
         });
-        await leaveClock(userId, clock[0].id);
     }
 
     const handleStop = async () => {
         setUiState({
             ...uiState,
-            popUpOpen: true
+            popUpOpen: true,
+            confirmation: false,
         });
     }
 
@@ -122,6 +120,7 @@ const ButtonDetailClock = ({ clock, isParticipant, setUiState, uiState }) => {
         //Scheduled & now
         else {
             //if user is joined
+            console.log('isPart', isParticipant);
             if (isParticipant) {
                 return <Button onClick={handleClockLeave}>Verlaat</Button>
             } else {
