@@ -214,7 +214,7 @@ export const getPastCreator = async () => {
     return null
 }
 
-const todayIso = () => {
+export const todayIso = () => {
     const today = new Date();
     today.setUTCHours(0, 0, 0, 0);
     const todayISO = today.toISOString();

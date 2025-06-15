@@ -8,6 +8,8 @@ import ButtonNext from './buttonNext';
 import { addPhysicalClock, removePhysical } from "../../services/data";
 
 const VisabilityClock = ({ setFormData, formData }) => {
+    const [touched, setTouched] = useState(false);
+
     const handleChange = async (e) => {
         const value = e.target.value;
         let clockId = formData.clockId;
@@ -106,6 +108,10 @@ const VisabilityClock = ({ setFormData, formData }) => {
                             value="wall"
                             checked={formData.clockWallPos === "wall"}
                             onChange={handleChange}
+                            onFocus={() => {
+                                setTouched(true);
+                            }}
+                            required
                         />
                         Op de klokjes muur
                         {/* <label htmlFor="wall">Op de klokjes muur</label> */}
@@ -118,6 +124,10 @@ const VisabilityClock = ({ setFormData, formData }) => {
                             value="online"
                             checked={formData.clockWallPos === 'online'}
                             onChange={handleChange}
+                            onFocus={() => {
+                                setTouched(true);
+                            }}
+                            required
                         />
                         Online op de website
                         {/* <label htmlFor="online">Online op de website</label> */}
@@ -125,7 +135,12 @@ const VisabilityClock = ({ setFormData, formData }) => {
                 </div>
 
                 {
-                    <ButtonNext extraClass="next__btn btn__text purple__bg" formData={formData} setFormData={setFormData}> Volgende stap </ButtonNext>
+                    <ButtonNext
+                        extraClass="next__btn btn__text purple__bg"
+                        formData={formData}
+                        setFormData={setFormData}
+                        disabled={!touched}
+                    > Volgende stap </ButtonNext>
                 }
             </div>
         </>

@@ -11,14 +11,14 @@ import { setHours, setMinutes } from "date-fns";
 import { DayPicker } from "react-day-picker";
 
 //functions
-import { getTimeNow } from "../../services/data";
+import { getISOLocalString, getDate, nextDay, isMonday } from "../../services/clock";
 
 const TimeInput = ({ formData, setFormData, extraClass }) => {
-    const time = getTimeNow();
+    let time = getDate(formData.scheduledStartTime);
 
-    console.log(time);
-    const [selected, setSelected] = useState();
-    const [timeValue, setTimeValue] = useState("00:00");
+    const [selected, setSelected] = useState(time.day);
+    const [timeValue, setTimeValue] = useState(`${time.hour}:${time.minutes}`);
+    
 
     const handleTimeChange = (e) => {
         const time = e.target.value;
@@ -67,15 +67,11 @@ const TimeInput = ({ formData, setFormData, extraClass }) => {
 
                 //extra settings
                 navLayout="around"
-                captionLayout="dropdown"
                 disabled={[
                     {before: new Date()},
                     {dayOfWeek: [1]}
                 ]}
                 weekStartsOn={1}
-
-            // footer={`Selected date: ${selected ? selected.toLocaleString() : "none"
-            //     }`}
             />
             <label>
                 <input type="time" value={timeValue} onChange={handleTimeChange} />

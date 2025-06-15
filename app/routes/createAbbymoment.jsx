@@ -148,7 +148,6 @@ const CreateAbbymoment = () => {
             case 'participants':
                 return <Participants formData={formData} setFormData={setFormData} />
 
-
             case 'qrCode':
                 return <QrCode flowForm={flowForm} setFlowForm={setFlowForm} formData={formData} setFormData={setFormData} />
 

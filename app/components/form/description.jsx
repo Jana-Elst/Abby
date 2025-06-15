@@ -6,7 +6,7 @@ import "./form.css";
 
 
 const Description = ({ formData, setFormData }) => {
-    const [correctInput, setCorrectInput] = useState(false);
+    const [correctInput, setCorrectInput] = useState(formData.name ? true : false);
     const [touched, setTouched] = useState(false);
 
     const handleValidation = (e) => {
