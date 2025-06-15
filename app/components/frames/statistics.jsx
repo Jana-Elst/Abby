@@ -49,8 +49,8 @@ const Statistics = () => {
             <article className="container statistics__btn__container">
                 <p className="h3 statistics__btn___title">Vertraag jij ook mee?</p>
                 <p>Creëer een moment en laat de klok even voor jou tikken.</p>
-                <Button link={'abbymomenten'} extraClass="btn__text statistics__btn yellow__bg btn__arrow">
-                Begin jouw Abbymoment <img className='btn__icon' src={arrow} alt="een pijl"/>
+                <Button link={'maak-een-abbymoment'} extraClass="btn__text statistics__btn yellow__bg btn__arrow">
+                    Creëer jouw Abbymoment<img className='btn__icon' src={arrow} alt="een pijl"/>
             </Button>
             </article>
             

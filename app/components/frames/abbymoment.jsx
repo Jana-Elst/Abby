@@ -32,7 +32,7 @@ const Abbymoment = () => {
                     <img className="explain__img" src={momentJoin} alt="Gele schilderij" />
                 </section>
             </article>
-            <Button link={'#Intro'} extraClass="btn__text moment__btn orange__bg btn__arrow">
+            <Button link={'abbymomenten'} extraClass="btn__text moment__btn orange__bg btn__arrow">
                 Bekijk alle Abbymomenten <img className='btn__icon' src={arrow} alt="een pijl"/>
             </Button>
         </div>
