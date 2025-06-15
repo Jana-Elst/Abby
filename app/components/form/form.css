@@ -92,6 +92,18 @@ textarea::placeholder {
     justify-content: space-between;
 }
 
+.next__btn:disabled {
+    opacity: 50%;
+}
+
+.error {
+    display: none;
+}
+
+.display {
+    display: block;
+}
+
 /* title.jsx */
 
 .date {
