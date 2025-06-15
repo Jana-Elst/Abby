@@ -92,6 +92,18 @@ textarea::placeholder {
     justify-content: space-between;
 }
 
+.next__btn:disabled {
+    opacity: 50%;
+}
+
+.error {
+    display: none;
+}
+
+.display {
+    display: block;
+}
+
 /* title.jsx */
 
 .date {
@@ -118,7 +130,8 @@ textarea::placeholder {
     padding: 0 var(--space-s);
 }
 
-.date__now:has(input[type="radio"]:checked), .date__later:has(input[type="radio"]:checked) {
+.date__now:has(input[type="radio"]:checked),
+.date__later:has(input[type="radio"]:checked) {
     background-color: var(--yellow);
     font-size: 1.125rem;
     font-style: normal;
@@ -127,8 +140,23 @@ textarea::placeholder {
     text-decoration-line: underline;
     border-right: var(--border-thin);
 }
+
+.date__now:has(input[type="radio"]:disabled),
+.date__later:has(input[type="radio"]:disabled) {
+    opacity: 50%;
+}
+
 .date__later:has(input[type="radio"]:checked) {
     border: none;
+}
+
+.showIfChecked {
+    display: none;
+}
+
+.date__later:has(input[type="radio"]:checked) .showIfChecked,
+.date__now:has(input[type="radio"]:checked) .showIfChecked {
+    display: inline;
 }
 
 .time {
@@ -160,16 +188,22 @@ textarea::placeholder {
     text-decoration-line: underline;
 }
 
+.location__btn:has(input[type="radio"]:disabled) {
+    opacity: 50%;
+}
+
 /* participation.jsx */
 
-.share, .visuals {
+.share,
+.visuals {
     display: flex;
     border-top: var(--border-thin);
     text-align: left;
     margin-top: 8.5rem;
 }
 
-.share__btn, .visual__btn {
+.share__btn,
+.visual__btn {
     width: 100%;
     height: 6rem;
     text-align: center;
@@ -182,11 +216,13 @@ textarea::placeholder {
     padding-bottom: var(--space-s);
 }
 
-.share__btn:first-child, .visual__btn:first-child {
+.share__btn:first-child,
+.visual__btn:first-child {
     border-right: var(--border-thin);
 }
 
-.share__btn:first-child:has(input[type="radio"]:checked), .visual__btn:first-child:has(input[type="radio"]:checked) {
+.share__btn:first-child:has(input[type="radio"]:checked),
+.visual__btn:first-child:has(input[type="radio"]:checked) {
     background-color: var(--yellow);
     font-size: 1.125rem;
     font-style: normal;
@@ -196,7 +232,8 @@ textarea::placeholder {
     border-right: var(--border-thin);
 }
 
-.share__btn:last-child:has(input[type="radio"]:checked), .visual__btn:last-child:has(input[type="radio"]:checked) {
+.share__btn:last-child:has(input[type="radio"]:checked),
+.visual__btn:last-child:has(input[type="radio"]:checked) {
     background-color: var(--yellow);
     font-size: 1.125rem;
     font-style: normal;
@@ -206,8 +243,13 @@ textarea::placeholder {
     border-left: var(--border-thin);
 }
 
-.share__btn:last-child:has(input[type="radio"]:checked), .visual__btn:last-child:has(input[type="radio"]:checked) {
+.share__btn:last-child:has(input[type="radio"]:checked),
+.visual__btn:last-child:has(input[type="radio"]:checked) {
     border: none;
+}
+
+.visual__btn:has(input[type="radio"]:disabled) {
+    opacity: 50%;
 }
 
 /* confirmation.jsx */
@@ -232,6 +274,6 @@ textarea::placeholder {
 }
 
 /* visability-clock.jsx */
-.foodnote{
+.foodnote {
     margin: 0 var(--space-s);
 }
