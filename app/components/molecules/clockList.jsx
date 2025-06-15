@@ -10,23 +10,21 @@ import MomentsEmpty from "./momentsEmpty";
 
 import './clockList.css';
 
-const ClockList = ({ clocks = [], clockProfile, state}) => {
+const ClockList = ({ clocks = [], clockProfile, state }) => {
     return (
         <div>
             {
-                clocks
-                    ? (
-                        <ul className="clocks">
-                            {clocks.map((clock) => (
-                                <ClockCard key={clock.id} clock={clock} clockProfile={clockProfile} state={state}/>
-                            ))}
-                        </ul>
-                    ) : (
-                        <MomentsEmpty state={state} />
-                    )
+                clocks ? (
+                    <ul className="clocks">
+                        {clocks.map((clock) => (
+                            <ClockCard key={clock.id} clock={clock} clockProfile={clockProfile} state={state} />
+                        ))}
+                    </ul>
+                ) : (
+                    <MomentsEmpty state={state} />
+                )
             }
         </div>
     )
 }
-
-export default ClockList;
+ export default ClockList;
