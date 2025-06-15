@@ -27,6 +27,7 @@
 }
 
 .intro {
+    border-top: 2px solid var(--blue);
     display: flex;
     flex-direction: column;
 }
@@ -47,11 +48,11 @@
 
 .intro__scroll {
     margin: var(--space-3xl) 0;
+    /* height: 400vh; */
     padding: var(--space-4xl) var(--space-3xl);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
     text-align: right;
+    overflow: hidden;
+    /* padding-top: 40vh; */
 }
 
 .scroll__header {
@@ -59,6 +60,7 @@
     font-weight: 500;
     text-wrap: nowrap;
     line-height: 6.5rem;
+    will-change: transform;
 }
 
 .scroll__span {
@@ -67,6 +69,7 @@
     font-weight: 400;
     text-wrap: nowrap;
     line-height: 2.125rem;
+    will-change: transform;
 }
 
 .moment {
