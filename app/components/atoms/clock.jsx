@@ -41,18 +41,18 @@ const Clock = ({ props, clock, className, canvasSize, clockColors }) => {
         ctx.restore();
     }
 
-    const activeClockArc = (ctx, angle, clockwise = false) => {
+    const activeClockArc = (ctx, angle, clockwise = false, color) => {
         ctx.save();
         ctx.translate(size, size);
         ctx.rotate(-Math.PI / 2);
         ctx.beginPath();
         ctx.arc(0, 0, size, 0, angle, clockwise);
-        ctx.fillStyle = colors[bgColorName];
+        ctx.fillStyle = color;
         ctx.fill();
         ctx.restore();
     }
 
-    const activeClockTriangle = (ctx, angle) => {
+    const activeClockTriangle = (ctx, angle, color) => {
         ctx.save();
         ctx.translate(size, size);
         ctx.beginPath();
@@ -62,7 +62,7 @@ const Clock = ({ props, clock, className, canvasSize, clockColors }) => {
         ctx.lineTo(0, -size);
         ctx.lineTo(0, 0);
         ctx.closePath();
-        ctx.fillStyle = colors[colorName];
+        ctx.fillStyle = color;
         ctx.fill();
         ctx.restore();
     }
@@ -90,15 +90,16 @@ const Clock = ({ props, clock, className, canvasSize, clockColors }) => {
 
             if (angleMinutes > Math.PI) {
                 const remainingTime = 2 * Math.PI - angleMinutes;
-                activeClockArc(ctx, remainingTime, true);
+                activeClockArc(ctx, remainingTime, true, colors[bgColorName]);
             }
 
-            activeClockArc(ctx, angleMinutes, true);
-            activeClockTriangle(ctx, angleMinutes);
+            console.log(angleMinutes);
+            activeClockArc(ctx, angleMinutes, false, colors[colorName]);
+            activeClockTriangle(ctx, angleMinutes, colors[colorName]);
 
             if (angleMinutes > Math.PI) {
                 const remainingTime = - 2 * Math.PI - angleMinutes;
-                activeClockTriangle(ctx, remainingTime);
+                activeClockTriangle(ctx, remainingTime, colors[bgColorName]);
             }
 
             if (angleHours > 2 * Math.PI / 12) {
@@ -121,16 +122,17 @@ const Clock = ({ props, clock, className, canvasSize, clockColors }) => {
             ctx.arc(ctx.canvas.width - size, size, strokeWidth / 4, 0, 2 * Math.PI);
             ctx.fillStyle = colors[colorName];
             ctx.fill();
-
-            //stroke circle
-            ctx.beginPath();
-            ctx.arc(ctx.canvas.width - size, size, size, 0, 2 * Math.PI);
-            ctx.save();
-            ctx.clip();
-            ctx.lineWidth *= strokeWidth;
-            ctx.stroke();
-            ctx.restore();
         }
+
+        //stroke circle
+        ctx.beginPath();
+        ctx.arc(ctx.canvas.width - size, size, size, 0, 2 * Math.PI);
+        ctx.save();
+        ctx.clip();
+        ctx.strokeStyle = colors[colorName];
+        ctx.lineWidth *= strokeWidth;
+        ctx.stroke();
+        ctx.restore();
     }
 
     useEffect(() => {
