@@ -13,8 +13,8 @@ import spaceAtelier from "../src/assets/space-atelier.jpg";
 import { UserContext } from '../context/UserContext';
 
 //functions
-import { getTime } from "../services/clock";
-import { getClock, getClockProfile, getParticipants, clockLinkedWithUser } from "../services/data";
+import { getDate, getISOLocalString } from "../services/clock";
+import { getClock, getClockProfile} from "../services/data";
 import Clock from '../components/atoms/clock';
 import PopUp from '../components/molecules/popUp';
 import PopUpDetail from '../components/molecules/popUpDetail';
@@ -66,11 +66,11 @@ const DetailAbbymoments = ({ loaderData }) => {
                             : <>
                                 <p className='container__date'>                                                <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
                                     <path fillRule="evenodd" clipRule="evenodd" d="M7.09093 2.5H5.7273V3.86364H3.68184H3L3.00002 17.5H3.68184H17.3182H18V3.86364H17.3182H15.2728V2.5H13.9091V3.86364H7.09093V2.5ZM4.36366 7.95455V5.22727H16.6364V7.95455H4.36366ZM4.36366 9.31818V16.1364H16.6364V9.31818H4.36366Z" fill="black" />
-                                </svg>{getTime(clock[0].scheduledStartTime).date}</p>
+                                </svg>{getDate(clock[0].scheduledStartTime).day}</p>
                                 <p className='container__time'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                                     <circle cx="8" cy="8" r="6.75" stroke="black" strokeWidth="1.5" />
                                     <path d="M8 7.99986L8 1.57129" stroke="black" strokeWidth="1.5" />
-                                </svg>{getTime(clock[0].scheduledStartTime).time}</p>
+                                </svg>{`${getDate(clock[0].scheduledStartTime).hour}:${getDate(clock[0].scheduledStartTime).minutes}`}</p>
                             </>
                     }
 

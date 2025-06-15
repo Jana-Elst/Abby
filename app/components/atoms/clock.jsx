@@ -1,6 +1,6 @@
 //https://medium.com/@pdx.lucasm/canvas-with-react-js-32e133c05258
 
-import React, { useRef, useEffect } from 'react'
+import { useRef, useEffect } from 'react'
 import { getAngle, getISOLocalString, timeDiff } from '../../services/clock.js'
 import { colors } from "../../services/museumData";
 
