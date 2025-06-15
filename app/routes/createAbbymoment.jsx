@@ -13,6 +13,7 @@ import QrCode from "../components/form/qr-code";
 import Time from "../components/form/time";
 import VisabilityClock from "../components/form/visability-clock";
 import ScheduledClocks from "../components/form/scheduledClocks";
+import StartClock from "../components/form/startClock";
 
 
 //services
@@ -42,7 +43,7 @@ export async function clientAction({ request }) {
 
     if (flowForm === 'plan' || flowForm === 'restartMoment') {
         data = await addScheduledClock(userId, name, description, scheduledStartTime, prive, location);
-    } else if (flowForm === 'planNow' || flowForm === 'now' || flowForm === 'restartMomentNow') {
+    } else if (flowForm === 'planNow' || flowForm === 'now' || flowForm === 'restartMomentNow' || flowForm === 'startScheduled') {
         console.log('startNow');
         //if clock is in on the wall, the row of the clock needs an update
         if (clockId) {
@@ -74,8 +75,17 @@ const CreateAbbymoment = () => {
     const [formData, setFormData] = useState(() => {
         if (location.state) {
             const clock = location.state.clock[0]
+            console.log('doorgestuurde klok', clock);
+
+            let clockId = '';
+            if (flowForm === 'startScheduled') {
+                clockId = clock.id;
+            }
+
+            console.log(clockId);
+            console.log(flowForm);
             return {
-                clockId: '',
+                clockId: clockId,
                 name: clock.name,
                 startTime: undefined,
                 stopTime: undefined,
@@ -87,7 +97,7 @@ const CreateAbbymoment = () => {
                 creator: userId,
                 location: clock.location,
                 state: 0,
-                flow: 'restartMoment'
+                flow: flowForm
             }
         } else {
             return {
@@ -132,6 +142,8 @@ const CreateAbbymoment = () => {
             case 'location':
                 return <Location formData={formData} setFormData={setFormData} />
 
+            case 'startButton':
+                return <StartClock formData={formData} setFormData={setFormData} />
 
             case 'participants':
                 return <Participants formData={formData} setFormData={setFormData} />
@@ -164,7 +176,7 @@ const CreateAbbymoment = () => {
                     <input type="hidden" name="time" value={formData.scheduledStartTime} />
                     <input type="hidden" name="location" value={formData.location} />
                     <input type="hidden" name="flowForm" value={flowForm} />
-                    <input type="hidden" name="clockId" value={formData.clockId || ''}/>
+                    <input type="hidden" name="clockId" value={formData.clockId || ''} />
 
                     {conditionalComponent()}
                 </Form>

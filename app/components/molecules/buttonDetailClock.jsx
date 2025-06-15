@@ -47,7 +47,11 @@ const ButtonDetailClock = ({ clock, isParticipant, setUiState, uiState }) => {
     }
 
     const handleStart = () => {
+        console.log('starttt')
         setFlowForm('startScheduled');
+        navigate(`${import.meta.env.BASE_URL}maak-een-abbymoment/formulier`, {
+            state: { clock: clock }
+        });
     }
 
     const handleRestart = () => {
@@ -84,7 +88,7 @@ const ButtonDetailClock = ({ clock, isParticipant, setUiState, uiState }) => {
             return (
                 <div>
                     <button>Pas aan</button>
-                    <button>Start</button>
+                    <Button onClick={handleStart}>Start</Button>
                 </div>
             )
         }
@@ -104,7 +108,7 @@ const ButtonDetailClock = ({ clock, isParticipant, setUiState, uiState }) => {
             return (
                 <div>
                     <button>Pas aan</button>
-                    <button>Start je moment vanaf {getTime(clock[0].scheduledStartTime).date}</button>
+                    <p>Start je moment vanaf {getTime(clock[0].scheduledStartTime).date}</p>
                 </div>
             )
         }

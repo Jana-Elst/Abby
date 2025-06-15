@@ -45,7 +45,7 @@ const PopUpDetail = ({ clock, isParticipant, setUiState, uiState }) => {
             popUpOpen: false,
         });
 
-        navigate(-1);
+        navigate(`${import.meta.env.BASE_URL}jouw-abbymomenten`);
     }
 
     //if clock is made my user
