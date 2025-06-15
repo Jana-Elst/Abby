@@ -4,20 +4,28 @@ import Title from "../components/molecules/title";
 import ButtonBack from "../components/atoms/buttonBack"
 import ButtonDetailClock from "../components/molecules/buttonDetailClock"
 import Button from '../components/molecules/button';
+import Clock from '../components/atoms/clock';
+import PopUp from '../components/molecules/popUp';
+import PopUpDetail from '../components/molecules/popUpDetail';
 
 import './detailAbbymoments.css';
+
 import share from "../src/assets/share.svg";
-import spaceAtelier from "../src/assets/space-atelier.jpg";
+import spaceLiving from '../src/assets/space-living.jpg';
+import spaceTuin from '../src/assets/space-tuin.jpg';
+import spaceCafe from '../src/assets/space-cafe.jpg';
+import spaceAtelier from '../src/assets/space-atelier.jpg';
+import spaceSalon from '../src/assets/space-salon.jpg';
+import spaceA from '../src/assets/space-a.jpg';
+import spaceB from '../src/assets/space-b.jpg';
 
 //root variables
 import { UserContext } from '../context/UserContext';
 
 //functions
 import { getDate, getISOLocalString } from "../services/clock";
-import { getClock, getClockProfile} from "../services/data";
-import Clock from '../components/atoms/clock';
-import PopUp from '../components/molecules/popUp';
-import PopUpDetail from '../components/molecules/popUpDetail';
+import { getClock, getClockProfile } from "../services/data";
+import { locations } from "../services/museumData";
 
 import { isCreator, isParticipant, allParticipants } from '../services/dataFilters';
 
@@ -44,6 +52,24 @@ const DetailAbbymoments = ({ loaderData }) => {
         participants: participants,
         confirmation: false
     });
+
+    const allLocations = [
+        ...locations,
+        { name: 'Ik weet het nog niet', value: 'ik-weet-het-nog-niet', image: '' }
+    ];
+
+    const images = {
+        spaceLiving,
+        spaceTuin,
+        spaceCafe,
+        spaceAtelier,
+        spaceSalon,
+        'space-a': spaceA,
+        'space-b': spaceB
+    };
+
+    const location = allLocations.find(location => location.value === clock[0].location)
+    console.log(location);
 
     const creator = isCreator(clock[0].creator, userId);
     const participant = isParticipant(clock[0].creator, uiState.participants, userId);
@@ -92,9 +118,9 @@ const DetailAbbymoments = ({ loaderData }) => {
             }
 
             {
-                clock[0].location === 'Ik weet het nog niet'
+                clock[0].location === 'ik-weet-het-nog-niet'
                     ? ""
-                    : <p className='location'>{clock[0].location}</p>
+                    : <p className='location'>{location.name}</p>
             }
             <div className='collage'>
                 <Clock
@@ -103,7 +129,9 @@ const DetailAbbymoments = ({ loaderData }) => {
                     clock={clock[0]}
                     clockColors={{ color: "black", bgColor: "white" }}
                 />
-                <img className='collage__location' src={spaceAtelier} alt="deel icon" />
+                {
+                    (clock[0].location !== 'ik-weet-het-nog-niet') && <img className='collage__location' src={images[location.image]} alt={`foto van ${location.name}`} />
+                }
                 <div className='collage__made'>
                     <p className='made__by'>Made By</p>
                     <svg className="made__logo" xmlns="http://www.w3.org/2000/svg" width="624" height="213" viewBox="0 0 624 213" fill="none">
