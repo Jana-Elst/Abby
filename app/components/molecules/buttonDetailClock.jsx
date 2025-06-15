@@ -1,101 +1,88 @@
-import { Link } from "react-router";
-import { useContext, useState } from "react";
+import { useContext } from "react";
+import { useNavigate } from "react-router"
 
 //components
-import Clock from "../atoms/clock";
-import { clockLinkedWithUser, joinClock, leaveClock, stopClock } from "../../services/data";
+import Button from "./button";
 
 //root variables
 import { UserContext } from '../../context/UserContext';
+import { FormFlowContext } from '../../context/FormFlowContext';
 
 //functions
 import { getTime } from "../../services/clock";
 import { getDateNow } from "../../services/data";
+import { joinClock, leaveClock, stopClock } from "../../services/data";
 
-const ButtonDetailClock = ({ clock, clockProfile, participants }) => {
-    const { userId, setUserId } = useContext(UserContext);
+const ButtonDetailClock = ({ clock, isParticipant, setUiState, uiState }) => {
+    const { userId } = useContext(UserContext);
+    const { flowForm, setFlowForm } = useContext(FormFlowContext);
+    const navigate = useNavigate();
+
+
     let scheduledDate = clock[0].scheduledStartTime;
     scheduledDate = new Date(scheduledDate).toISOString("en-US", { timeZone: "Europe/Amsterdam" }).split('T')[0];
 
-    //change button without refresshing page
-    const initialState = clockLinkedWithUser(clock, participants, userId);
-    const [stateButton, setStateButton] = useState(initialState);
 
-    //eventhandlers
+    // Event Handlers
     const handleClockJoin = async () => {
-        setStateButton('leave');
-        await joinClock(userId, clock.id);
+        await joinClock(userId, clock[0].id);
+        setUiState({
+            ...uiState,
+            popUpOpen: true,
+            participants: [...uiState.participants, userId]
+        });
     }
 
-    const handleClockRemove = async () => {
-        setStateButton('join');
-        await leaveClock(userId, clock.id);
+    const handleClockLeave = async () => {
+        setUiState({
+            ...uiState,
+            popUpOpen: true
+        });
+        await leaveClock(userId, clock[0].id);
     }
 
     const handleStop = async () => {
-        setStateButton('');
-        await stopClock(clock.id);
+        setUiState({
+            ...uiState,
+            popUpOpen: true
+        });
     }
 
     const handleStart = () => {
-        setStateButton('stop');
+        setFlowForm('startScheduled');
     }
 
-    //if clock is made my user
-    // if (clock.creator === userId) {
-    //     if (clock.stopTime) {
-    //         return <button>Herhaal Abbymoment</button>
-    //     }
-
-    //     if (clock.startTime && !clock.stopTime) {
-    //         return <button onClick={handleStop}>Stop Abbymoment</button>;
-    //     }
-
-    //     return <button onClick={handleStart}>Start je Abbymoment</button>;
-    // } else {
-    //     if (clock.private) {
-    //         return <Link to={`${import.meta.env.BASE_URL}abbymomenten/${clock.id}`}>Bekijk Abbymoment</Link>
-    //     }
-
-    //     if (stateButton === 'leave') {
-    //         return <button onClick={handleClockRemove}>Verlaat</button>
-    //     }
-
-    //     if (!stateButton === 'join') {
-    //         return <button onClick={handleClockJoin}>Doe mee</button>
-    //     }
-    // }
+    const handleRestart = () => {
+        setFlowForm('restartMoment');
+        navigate(`${import.meta.env.BASE_URL}maak-een-abbymoment/formulier`, {
+            state: { clock: clock}
+        });
+    }
 
     //--- toevoegen disabled als er aan klok lopende is + pop-up
     //if clock is made my user
     if (clock[0].creator === userId) {
-        console.log('Hey maker');
         //herhaal: herhaal Abbymoment
         if (clock[0].stopTime) {
-            console.log('Ik ben gestop');
             return (
                 <div>
-                    <button>Pas aan</button>
-                    <button>Start je moment vanaf {getTime(clock[0].scheduledStartTime).date}</button>
+                    <button>Herhaal je moment</button>
                 </div>
             )
         }
 
         //nu: pas aan & start
         if (clock[0].startTime) {
-            console.log('Ik ben gestart');
             return (
                 <div>
                     <button>Pas aan</button>
-                    <button>Stop moment</button>
+                    <Button onClick={handleStop}>Stop moment</Button>
                 </div>
             )
         }
 
         // later-today: pas aan & stop
         if (scheduledDate === getDateNow()) {
-            console.log(scheduledDate);
-            console.log(getDateNow());
             return (
                 <div>
                     <button>Pas aan</button>
@@ -106,11 +93,9 @@ const ButtonDetailClock = ({ clock, clockProfile, participants }) => {
 
         //never started
         if (scheduledDate < getDateNow()) {
-            console.log('Ik ben nooit opgestart');
-            console.log(getDateNow());
             return (
                 <div>
-                    <button>Herhaal Abbymoment</button>
+                    <Button onClick={handleRestart}>Herhaal Abbymoment</Button>
                 </div>
             )
         }
@@ -137,10 +122,14 @@ const ButtonDetailClock = ({ clock, clockProfile, participants }) => {
         //Scheduled & now
         else {
             //if user is joined
-            if (participants.includes(userId)) {
-                return <button>Verlaat</button>
+            if (isParticipant) {
+                return <Button onClick={handleClockLeave}>Verlaat</Button>
             } else {
-                return <button>Doe mee</button>
+                if (userId) {
+                    return <Button onClick={handleClockJoin}>Doe mee</Button>
+                } else {
+                    return <Button link={'log-in'} onClick={handleClockJoin}>Log in om deel te nemen aan dit moment</Button>
+                }
             }
         }
     }

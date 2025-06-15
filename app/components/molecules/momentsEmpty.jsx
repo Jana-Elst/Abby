@@ -2,6 +2,7 @@ import Button from "./button";
 import './clockList.css';
 
 const MomentsEmpty = ({ state }) => {
+    console.log(state);
     //--- All moments
     if (state.page === 'allMoments') {
         // Now

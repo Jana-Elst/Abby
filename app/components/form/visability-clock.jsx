@@ -5,7 +5,7 @@ import InfoButton from '../../components/molecules/infobutton';
 import ButtonBack from './buttonBack';
 import ButtonNext from './buttonNext';
 
-import { addPhysicalClock, updateDigitalToPhysical, updatePhysicalToDigital } from "../../services/data";
+import { addPhysicalClock, removePhysical } from "../../services/data";
 
 const VisabilityClock = ({ setFormData, formData }) => {
     const handleChange = async (e) => {
@@ -13,36 +13,36 @@ const VisabilityClock = ({ setFormData, formData }) => {
         let clockId = formData.clockId;
 
         if (value === 'wall') {
-            console.log('wall');
-            if (clockId) {
-                clockId = await updateDigitalToPhysical(formData.clockId);
-                setFormData({
-                    ...formData,
-                    clockId: clockId,
-                    clockWallPos: "wall"
-                });
-            } else {
-                clockId = await addPhysicalClock(formData.creator);
-                setFormData({
-                    ...formData,
-                    clockId: clockId,
-                    clockWallPos: "wall"
-                });
-            }
+            clockId = await addPhysicalClock(formData.creator);
+            setFormData({
+                ...formData,
+                clockId: clockId,
+                clockWallPos: "wall"
+            });
         } else {
             console.log('online');
             if (clockId) {
-                console.log('ClockId', clockId);
-                await updatePhysicalToDigital(formData.clockId);
+                removePhysical(clockId);
             }
 
             setFormData({
                 ...formData,
+                clockId: '',
                 clockWallPos: 'online'
             });
         }
+    }
 
-        console.log('ClockId', clockId);
+    const handleBack = (clockId) => {
+        if (clockId) {
+            removePhysical(clockId);
+        }
+
+        setFormData({
+            ...formData,
+            clockId: '',
+            clockWallPos: '',
+        });
     }
 
     return (
@@ -52,9 +52,18 @@ const VisabilityClock = ({ setFormData, formData }) => {
                     {
                         formData.flow === 'planNow'
                             // flow planNow
-                            ? <ButtonBack formData={formData} setFormData={setFormData}>Terug</ButtonBack>
+                            ? <ButtonBack
+                                formData={formData}
+                                setFormData={setFormData}
+                                onClick={() => handleBack(formData.clockId)}>Terug
+                            </ButtonBack>
                             // flow now
-                            : <ButtonBack formData={formData} setFormData={setFormData} link={"qrCode"}>Terug</ButtonBack>
+                            : <ButtonBack
+                                formData={formData}
+                                setFormData={setFormData}
+                                link={"qrCode"}
+                                onClick={() => handleBack(formData.clockId)}>Terug
+                            </ButtonBack>
                     }
                     <div className="progress">
                         <div className="progress__circle progress__circle--active--planned"></div>

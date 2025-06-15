@@ -1,9 +1,9 @@
 //react
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import Title from "../components/molecules/title";
-import Button from "../components/molecules/button"
 import ButtonBack from "../components/atoms/buttonBack"
 import ButtonDetailClock from "../components/molecules/buttonDetailClock"
+import Button from '../components/molecules/button';
 
 import './detailAbbymoments.css';
 import share from "../src/assets/share.svg";
@@ -14,30 +14,43 @@ import { UserContext } from '../context/UserContext';
 
 //functions
 import { getTime } from "../services/clock";
-import { getClock, getClockProfile, getParticipants } from "../services/data";
+import { getClock, getClockProfile, getParticipants, clockLinkedWithUser } from "../services/data";
+import Clock from '../components/atoms/clock';
+import PopUp from '../components/molecules/popUp';
+import PopUpDetail from '../components/molecules/popUpDetail';
 
 export async function clientLoader({ params }) {
     const id = params.abbymomentId;
+
     //get data clock
     const clock = await getClock(id);
     const clockProfile = await getClockProfile();
-    return { clock, clockProfile };
+    const participants = getParticipants(clock, clockProfile) || [];
+    console.log(clockProfile);
+    return { clock, clockProfile, participants };
+
 }
-
-
 const DetailClock = ({ loaderData }) => {
     const { userId } = useContext(UserContext);
-    const { clock, clockProfile } = loaderData;
+    const { clock, clockProfile, participants } = loaderData;
+    const [uiState, setUiState] = useState({
+        popUpOpen: false,
+        buttonState: participants.length > 0 ?
+            participants.includes(userId) ? 'leave ' : 'join' : 'join',
+        participants: participants
+    });
 
-    const participants = clockProfile.filter(cp => cp.clock_id === clock.id).map(cp => cp.profile_id);
-    console.log(clockProfile);
-
+    const isCreator = userId === clock[0].creator;
+    console.log(participants);
+    const isParticipant = uiState.participants.length > 0 ? uiState.participants.includes(userId) : false
 
     return (
         <>
-            {/* @henri als je een kleur toevoegd aan deze terugbalk roep mij even */}
-            <div className='top__bar'>
+            <div>
                 <ButtonBack>Terug</ButtonBack>
+                {/* show 'maker' or 'participant' */}
+                {isCreator && <p className='purple__fg h4'>Maker</p>}
+                {!isCreator && isParticipant && <p 'green__fg h4'>Deelnemer</p>}
 
                 { //show 'maker' or 'participant'
                     userId === clock[0].creator
@@ -106,15 +119,42 @@ const DetailClock = ({ loaderData }) => {
             </div>
         </div >
 
-            <ButtonDetailClock clock={clock} clockProfile={clockProfile} userId={userId} participants={participants} />
+                <Clock
+                    className={"card__clock"}
+                    canvasSize={"120"}
+                    clock={clock[0]}
+                    clockColors={{ color: "black", bgColor: "white" }}
+                />
 
-    {/* {
-                clock.private
-                    ? (<button>Je kan niet meedoen aan dit Abbymoment</button>)
-                    : !clock[0].private && userId
-                        ? (<button>Doe mee met dit Abbymoment</button>)
-                        : <Button link={'log-in'}>Log-in</Button>
-            } */}
+                <p>IMG</p>
+
+                <ButtonDetailClock
+                    clock={clock}
+                    clockProfile={clockProfile}
+                    userId={userId}
+                    isParticipant={isParticipant}
+                    setUiState={setUiState}
+                    uiState={uiState}
+                />
+            </div>
+
+            {
+                //POP-UP
+                uiState.popUpOpen && (
+                    <PopUp
+                        setUiState={setUiState}
+                        uiState={uiState}
+                        className={`${uiState.popUpOpen ? 'open' : 'close'}`}>
+
+                        <PopUpDetail
+                            clock={clock}
+                            setUiState={setUiState}
+                            uiState={uiState}
+                            isParticipant={isParticipant}
+                        />
+                    </PopUp>
+                )
+            }
         </>
     )
 };
