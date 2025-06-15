@@ -9,28 +9,41 @@ const Location = ({ formData, setFormData }) => {
 
     return (
         <>
-            <ButtonBack formData={formData} setFormData={setFormData}>Terug</ButtonBack>
-            <Title>Wat is de locatie van jouw moment?</Title>
-            {
-                locationsRadio.map(location =>
-                    <div key={location}>
-                        <input type="radio"
-                            id={location}
-                            name="location"
-                            value={location}
-                            checked={location === formData.location}
-                            onChange={(e) => {
-                                setFormData({
-                                    ...formData,
-                                    location: e.target.value
-                                })
-                            }}
-                        />
-                        <label htmlFor={location}>{location}</label>
+            <div className="container--form">
+                <div className="progress__container">
+                    <ButtonBack formData={formData} setFormData={setFormData}>Terug</ButtonBack>
+                    <div className="progress">
+                        <div className="progress__circle progress__circle--active--planned"></div>
+                        <div className="progress__circle progress__circle--active--planned"></div>
+                        <div className="progress__circle progress__circle--active--planned"></div>
+                        <div className="progress__circle progress__circle--future"></div>
                     </div>
-                )
-            }
-            <ButtonNext formData={formData} setFormData={setFormData}> Volgende stap </ButtonNext>
+                </div>
+                <Title extraClass="form__title">Wat is de locatie van jouw moment?</Title>
+                <div className="location">
+                    {
+                        locationsRadio.map(location =>
+                            <label key={location} className="location__btn" htmlFor={location}>
+                                <input type="radio"
+                                    id={location}
+                                    name="location"
+                                    value={location}
+                                    checked={location === formData.location}
+                                    onChange={(e) => {
+                                        setFormData({
+                                            ...formData,
+                                            location: e.target.value
+                                        })
+                                    }}
+                                />
+                                {location}
+                                {/* <label htmlFor={location}>{location}</label> */}
+                            </label>
+                        )
+                    }
+                </div>
+            <ButtonNext extraClass="next__btn btn__text purple__bg" formData={formData} setFormData={setFormData}> Volgende stap </ButtonNext>
+            </div>
         </>
 
     )
