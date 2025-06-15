@@ -48,6 +48,7 @@ export async function clientAction({ request }) {
         if (clockId) {
             data = await startWallClock(clockId, name, description, prive, location)
         } else {
+            console.log('stuurt de juiste data door');
             //if the clock is now, but online, a new row in the database should be made
             data = await startOnlineClock(userId, name, description, prive, location);
         }
@@ -163,7 +164,7 @@ const CreateAbbymoment = () => {
                     <input type="hidden" name="time" value={formData.scheduledStartTime} />
                     <input type="hidden" name="location" value={formData.location} />
                     <input type="hidden" name="flowForm" value={flowForm} />
-                    <input type="hidden" name="clockId" value={formData.clockId} />
+                    <input type="hidden" name="clockId" value={formData.clockId || ''}/>
 
                     {conditionalComponent()}
                 </Form>

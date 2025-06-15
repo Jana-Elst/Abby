@@ -81,7 +81,7 @@ export const getMuseumClocks = async () => {
         supabase
             .from('clocks')
             .select('*')
-            .neq('clockWallPos', null)
+            .not('clockWallPos', 'is', null)
             .order('startTime', { ascending: false })
     );
     return data
@@ -268,13 +268,18 @@ export const getClocksUser = async () => {
 //------------ UPDATE ------------//
 //--- CLOCKS ---//
 //update clock from physical to digital
-export const updatePhysicalToDigital = async (id) => {
+export const removePhysical = async (id) => {
+    const clockProfile = await getOrUpdateClocks(
+        supabase
+            .from('clockprofile')
+            .delete()
+            .eq('clock_id', id)
+    );
+
     const data = await getOrUpdateClocks(
         supabase
             .from('clocks')
-            .update({
-                clockWallPos: null,
-            })
+            .delete()
             .eq('id', id)
     );
     return data
@@ -400,6 +405,8 @@ export const addPhysicalClock = async (userId) => {
     const time = getTimeNow();
     const clockNumber = await getRandomClockNumber();
 
+    console.log('clock', clockNumber);
+
     const data = await addRow(
         supabase
             .from('clocks')
@@ -484,7 +491,9 @@ const addFreeClocks = async () => {
     let freeClocks = [];
     let occupiedClocks = [];
 
-    const clocks = await getMuseumClocks();
+    const clocks = await getMuseumClocks() || [];
+    console.log(clocks);
+
 
     clocks.forEach(clock => {
         if (
@@ -500,6 +509,8 @@ const addFreeClocks = async () => {
             freeClocks.push(i);
         }
     }
+
+    console.log(freeClocks);
     return freeClocks;
 }
 
@@ -509,6 +520,7 @@ const getRandomClockNumber = async () => {
 
     const clockId = Math.floor(Math.random() * freeClocks.length);
     const clock = freeClocks[clockId];
+    console.log(clock);
     return clock;
 }
 
