@@ -1,4 +1,5 @@
 import Button from "./button";
+import './clockList.css';
 
 const MomentsEmpty = ({ state }) => {
     console.log(state);
@@ -7,20 +8,20 @@ const MomentsEmpty = ({ state }) => {
         // Now
         if (state.toggle === 'Nu bezig') {
             return (
-                <>
-                    <p>Er zijn geen Abbymomenten bezig op dit moment.</p>
-                    <Button>Plan of begin een Abbymoment</Button>
-                </>
+                <div className="empty">
+                    <p className="empty__text">Er zijn geen Abbymomenten bezig op dit moment.</p>
+                    <Button link={"maak-een-abbymoment"} extraClass="empty__btn btn__text yellow__bg">Creëer een moment</Button>
+                </div>
             )
         }
 
         // Future
-        if (state.toggle === 'gepland') {
+        if (state.toggle === 'Gepland') {
             return (
-                <>
-                    <p>Er zijn geen geplande Abbymomenten</p>
-                    <Button>Plan een Abbymoment</Button>
-                </>
+                <div className="empty">
+                    <p className="empty__text">Er zijn geen geplande Abbymomenten</p>
+                    <Button link={"maak-een-abbymoment"} extraClass="empty__btn btn__text yellow__bg">Creëer een moment</Button>
+                </div>
             )
         }
     }
@@ -30,27 +31,27 @@ const MomentsEmpty = ({ state }) => {
     if (state.page === 'yourMoments') {
         if (state.toggle === 'Nu') {
             return (
-                <>
-                    <p>Je bent nu niet bezig met een Abbymoment.</p>
-                    <Button>Plan of begin een Abbymoment</Button>
-                </>
+                <div className="empty">
+                    <p className="empty__text">Je bent nu niet bezig met een Abbymoment.</p>
+                    <Button link={"maak-een-abbymoment"} extraClass="empty__btn btn__text yellow__bg">Plan een moment</Button>
+                </div>
             )
         }
         // Future
         if (state.toggle === 'Gepland') {
             return (
-                <>
-                    <p>Je hebt geen Abbymomenten gepland</p>
-                    <Button>Plan een Abbymoment</Button>
-                </>
+                <div className="empty">
+                    <p className="empty__text">Je hebt geen Abbymomenten gepland</p>
+                    <Button link={"maak-een-abbymoment"} extraClass="empty__btn btn__text yellow__bg">Plan een moment</Button>
+                </div>
             )
         }
         // Past
         if (state.toggle === 'Afgelopen') {
             return (
-                <>
-                    <p>Je hebt geen afgelopen Abbymomenten</p>
-                </>
+                <div className="empty">
+                    <p className="empty__text">Je hebt geen afgelopen Abbymomenten</p>
+                </div>
             )
         }
     }

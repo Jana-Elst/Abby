@@ -3,3 +3,17 @@
     flex-flow: column nowrap;
     gap: 1.5rem;
 }
+.empty{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 auto;
+    text-align: center;
+    max-width: 17rem;
+    margin: var(--space-xxl) auto;
+    gap: var(--space-xl);
+}
+.empty__btn{
+    padding: var(--space-s) var(--space-xl);
+    border: var(--border-thin);
+}
