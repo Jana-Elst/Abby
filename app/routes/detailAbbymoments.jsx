@@ -1,4 +1,3 @@
-
 //react
 import { useContext } from 'react'
 import Title from "../components/molecules/title";
@@ -18,7 +17,6 @@ export async function clientLoader({ params }) {
     //get data clock
     const clock = await getClock(id);
     const clockProfile = await getClockProfile();
-
     return { clock, clockProfile };
 }
 
@@ -27,7 +25,9 @@ const DetailClock = ({ loaderData }) => {
     const { userId } = useContext(UserContext);
     const { clock, clockProfile } = loaderData;
 
-    const participants = getParticipants(clock, clockProfile);
+    const participants = clockProfile.filter(cp => cp.clock_id === clock.id).map(cp => cp.profile_id);
+    console.log(clockProfile);
+    
 
     return (
         <>
@@ -79,7 +79,7 @@ const DetailClock = ({ loaderData }) => {
             <p>KLOK</p>
             <p>IMG</p>
 
-            <ButtonDetailClock clock={clock} clockProfile={clockProfile} userId={userId} />
+            <ButtonDetailClock clock={clock} clockProfile={clockProfile} userId={userId} participants={participants} />
 
             {/* {
                 clock.private

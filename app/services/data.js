@@ -1,6 +1,6 @@
 import Participants from "../components/form/participants";
 import { supabase } from "../supabaseClient";
-import { totalClocks, clocksPerArduino } from "./museumData";
+import { totalClocks} from "./museumData";
 
 /*
 Handful of helper functions to be called from route loaders and actions
@@ -242,7 +242,7 @@ export const joinClock = async (userId, clockId) => {
 }
 
 export const leaveClock = async (userId, clockId) => {
-    const data = await getOrUpdateClocks(
+    await getOrUpdateClocks(
         supabase
             .from('clockprofile')
             .delete()
@@ -253,7 +253,7 @@ export const leaveClock = async (userId, clockId) => {
 
 //------------------- filters -------------------//
 export const getParticipants = (clock, clockProfile) => {
-    const participants = clockProfile.filter(cp => cp.clock_id === clock.id);
+    const participants = clockProfile.filter(cp => cp.clock_id === clock.id).map(cp => cp.profile_id);
     return participants;
 }
 
