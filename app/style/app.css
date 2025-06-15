@@ -12,6 +12,8 @@
   --green: #00A468;
   --orange: #FF5F00;
   --purple: #BB7CD2;
+  --error: #ff0000;
+  --grey: #EAEBEF;
 
 
   /* Font sizes */
@@ -124,7 +126,7 @@ h2 {
   color: var(--black);
   font-size: var(--font-h1);
   font-weight: 500;
-  max-width: 17rem;
+  max-width: 18rem;
   margin-bottom: var(--space-xl);
 }
 
@@ -198,4 +200,9 @@ h2 {
 
  .container{
   padding: var(--space-s);
+ }
+
+ .center--flex {
+  display: flex;
+  justify-content: center;
  }

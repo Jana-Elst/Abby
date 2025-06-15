@@ -22,10 +22,12 @@
     margin-top: var(--space-3xl);
     padding: var(--space-s);
     width: 100%;
+    border: none;
     border-top: var(--border-thin);
 }
 
 .intro {
+    border-top: 2px solid var(--blue);
     display: flex;
     flex-direction: column;
 }
@@ -46,11 +48,11 @@
 
 .intro__scroll {
     margin: var(--space-3xl) 0;
+    /* height: 400vh; */
     padding: var(--space-4xl) var(--space-3xl);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
     text-align: right;
+    overflow: hidden;
+    /* padding-top: 40vh; */
 }
 
 .scroll__header {
@@ -58,6 +60,7 @@
     font-weight: 500;
     text-wrap: nowrap;
     line-height: 6.5rem;
+    will-change: transform;
 }
 
 .scroll__span {
@@ -66,6 +69,7 @@
     font-weight: 400;
     text-wrap: nowrap;
     line-height: 2.125rem;
+    will-change: transform;
 }
 
 .moment {
@@ -110,9 +114,7 @@
 }
 
 .moment__btn {
-    padding: var(--space-s);
-    margin: var(--space-xxl) auto 0 auto;
-    border: var(--border-thin);
+    margin: var(--space-xxl) var(--space-s);
 }
 
 .living {
@@ -196,7 +198,7 @@
 }
 
 .join {
-    margin: 0 var(--space-s) var(--space-4xl) 0;
+    margin: 0 var(--space-s) var(--space-4xl) var(--space-s);
 }
 
 .join__header {
@@ -213,7 +215,7 @@
     padding-left: var(--space-s);
 }
 
-.andYou__carousel{
+.andYou__carousel {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
@@ -232,24 +234,29 @@
     overflow: hidden;
     gap: var(--space-xxs);
 }
-.statistics{
+
+.statistics {
     margin-top: var(--space-4xl);
     margin-bottom: var(--space-xl);
     display: flex;
     flex-direction: column;
 }
-.statistics__title{
+
+.statistics__title {
     padding-left: var(--space-s);
 }
-.statistics__swipe{
+
+.statistics__swipe {
     display: flex;
     flex-direction: column;
 }
-.statistic{
+
+.statistic {
     display: flex;
     flex-direction: column;
 }
-.statistic__visual{
+
+.statistic__visual {
     height: 25rem;
     width: 100%;
     overflow: hidden;
@@ -259,30 +266,55 @@
     align-items: center;
     justify-content: center;
 }
-.statistic__data{
+
+.statistic__data {
     font-size: 6rem;
     font-weight: 400;
     line-height: 6.5rem;
+    z-index: 1;
 }
-.statistic__img{
+.statistic__value{
+    z-index: 1;
+}
+
+.statistic__background {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 16rem;
+    height: 16rem;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.statistic__img {
     position: absolute;
     top: 50%;
     left: 50%;
     width: 150%;
     transform: translate(-50%, -50%);
 }
-.statistics__description{
+
+.statistics__description {
     align-self: flex-end;
     max-width: none;
     padding: 1.5rem var(--space-s) 1.5rem 5rem;
 }
-.statistics__img{
+
+.statistics__img {
     max-width: 5.5rem;
     margin: 0 auto;
     padding: var(--space-m) var(--space-s);
 }
-.statistics__btn {
-    padding: var(--space-s);
-    margin: var(--space-xxl) auto 0 auto;
-    border: var(--border-thin);
+
+.statistics__btn{
+    margin-top: 2rem;
+}
+
+.statistics__btn___title{
+    margin-bottom: var(--space-m);
+}
+
+.statistics__btn__container{
+    margin: var(--space-3xl) 0;
 }

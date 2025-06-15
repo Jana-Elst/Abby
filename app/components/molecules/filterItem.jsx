@@ -1,4 +1,6 @@
-const FilterItem = ({ title, filterState, setFilterState, children, checkbox = null, name = null }) => {
+import './filter.css'
+
+const FilterItem = ({ title, filterState, setFilterState, children, checkbox = null, name = null, extraClass }) => {
     const selectionName = `${title}Selection`
 
     const handleClick = () => {
@@ -46,7 +48,7 @@ const FilterItem = ({ title, filterState, setFilterState, children, checkbox = n
     } else {
         return (
             <li>
-                <div>
+                <div className={extraClass}>
                     <p>{title}</p>
                     <input
                         type="checkbox"

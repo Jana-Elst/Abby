@@ -1,25 +1,44 @@
+//react
 import { useState } from 'react';
+import { useContext } from "react";
 
+//root variables
+import { UserContext } from '../context/UserContext';
+
+//components
 import ClockList from "../components/molecules/clockList";
 import Filter from "../components/molecules/filter";
 import ToggleButton from "../components/molecules/toggleButton";
 import Title from "../components/molecules/title"
-import InfoButton from '../components/molecules/infobutton';
+import Button from '../components/molecules/button';
 
-//load the museum clocks
-import { getAllClocks, getClockProfile } from "../services/data";
+//functions
+import { getActiveClocksUser, getOtherActiveClocks, getScheduledClocks, getClockProfile } from "../services/data";
+
+//style
+import './abbymoments.css'
+import MomentsEmpty from '../components/molecules/momentsEmpty';
 
 export async function clientLoader() {
-    const clocks = await getAllClocks();
-    const clockProfile = await getClockProfile();
-    return { clocks, clockProfile };
+    const activeClocksUser = await getActiveClocksUser() || [];
+    const activeClocksOthers = await getOtherActiveClocks() || [];
+    const scheduledClocks = await getScheduledClocks() || [];
+    const clockProfile = await getClockProfile() || [];
+
+    return { clockProfile, activeClocksOthers, scheduledClocks, activeClocksUser };
 }
 
 const Abbymoments = ({ loaderData }) => {
-    const { clocks, clockProfile } = loaderData;
+    const { clockProfile, activeClocksOthers, scheduledClocks, activeClocksUser } = loaderData;
+
+    console.log(scheduledClocks);
 
     //set the states
-    const [state, setState] = useState("Alle Abbymomenten");
+    const [state, setState] = useState({
+        toggle: "Nu bezig",
+        page: "allMoments"
+    });
+
     const [filter, setFilter] = useState(
         {
             location: [],
@@ -29,24 +48,93 @@ const Abbymoments = ({ loaderData }) => {
         }
     )
 
+    const contents = {
+        name: 'toggleAllMoments',
+        values: ["Nu bezig", "Gepland"]
+    }
+
     return (
         <>
-            <Title>{state}</Title>
-            <InfoButton>
-                <p>Hier zie je alle lopende en geplande klokjes in Abby. Zo krijg je overzicht van wat er nu gebeurt en wat eraan komt.</p>
-                <p>Wie een klokje aanmaakt, kiest of anderen kunnen meedoen. Als dat mag, zie je bij dat Abbymoment een “Deelnemen” knop. Zo kun jij eenvoudig aansluiten.</p>
-                <p>Gebruik deze pagina om inspiratie op te doen en samen waardevolle momenten te beleven.</p>
-            </InfoButton>
+            <div className='container'>
+                <Title> <span className="orange__fg">Alle</span> Abby- momenten</Title>
 
-            <ToggleButton
-                content1={'Alle Abbymomenten'}
-                content2={'Mijn Abbymomenten'}
-                setState={setState}
-                state={state}
-            />
+                <ToggleButton
+                    contents={contents}
+                    setState={setState}
+                    state={state}
+                    colourClass={"toggleButton__item--orange"}
+                />
+            </div>
 
-            <Filter setfilter={setFilter} filter={filter} />
-            <ClockList clocks={clocks} clockProfile={clockProfile} filter={filter} state={state} />
+            {/* <Filter setfilter={setFilter} filter={filter} /> */}
+
+            {
+                // Show NOW
+                state.toggle === 'Nu bezig'
+                    ? (
+                        <>
+                            {/* Active moment */}
+                            {
+                                activeClocksOthers.length > 0 || activeClocksUser.length > 0
+                                    ? (
+                                        <>
+                                            {/* check if their is a clock of the user active */}
+                                            {activeClocksUser.length > 0
+                                                && <>
+                                                    <h3 className='moments__subtitle h4'>Jouw moment nu bezig</h3>
+                                                    <div className='container container__moments'>
+                                                    <ClockList clocks={activeClocksUser} clockProfile={clockProfile} state={state} />
+                                                    </div>
+                                                </>
+                                            }
+
+                                            {/* check if their are other active clocks */}
+                                            {
+                                                activeClocksOthers.length > 0
+                                                && <>
+                                                    <h3 className='moments__subtitle h4'>Andere momenten die nu bezig zijn</h3>
+                                                    <div className='container container__moments'>
+                                                        <ClockList clocks={activeClocksOthers} clockProfile={clockProfile} state={state} />
+                                                    </div>
+                                                    {   //show if there are clocks at the moment
+                                                        activeClocksOthers
+                                                        && <div className='center--flex'>
+                                                            <Button extraClass={"btn__text moments_more"} >Ontdek nog meer lopende momenten</Button>
+                                                        </div>
+                                                    }
+                                                </>
+                                            }
+                                        </>
+                                    ) : (
+                                        //show empty state if there are no active clocks
+                                        <MomentsEmpty state={state} />
+                                    )
+                            }
+                        </>
+                    ) : (
+                        <>
+                            {
+                                //show scheduled clocks
+                                scheduledClocks.length > 0
+                                    ? (
+                                        <>
+                                            <div className='container container__moments'>
+                                                <ClockList clocks={scheduledClocks} clockProfile={clockProfile} state={state} />
+                                            </div>
+
+                                            <div className='center--flex'>
+                                                <Button extraClass={"btn__text  moments_more"} >Ontdek nog meer geplande momenten</Button>
+                                            </div>
+                                        </>
+                                    ) : (
+                                        //show empty state if there are no scheduled clocks
+                                        <MomentsEmpty state={state} />
+                                    )
+                            }
+                        </>
+                    )
+            }
+
         </>
 
     )

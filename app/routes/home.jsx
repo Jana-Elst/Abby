@@ -7,41 +7,72 @@ import Living from "../components/frames/living";
 import Join from "../components/frames/join";
 import AndYou from "../components/frames/andYou";
 import Statistics from "../components/frames/statistics";
-import Moments from "../components/frames/moments";
+// import Moments from "../components/frames/moments";
 import "./home.css"
 
 //style
 import '../components/frames/Frames.css';
 
 //load the museum clocks
-import { getMuseumClocks, getClockProfile } from "../services/data";
+import { getClockProfile } from "../services/data";
+
+//gsap
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from '@gsap/react';
+gsap.registerPlugin(ScrollTrigger);
 
 export async function clientLoader() {
-    const museumClocks = await getMuseumClocks();
     const clockProfile = await getClockProfile();
 
-    console.log(museumClocks);
-
-    return { museumClocks, clockProfile };
+    return { clockProfile };
 }
 
 
 const Home = ({ loaderData }) => {
-    const { museumClocks, clockProfile } = loaderData;
+    const { clockProfile } = loaderData;
+
+    useGSAP(() => {
+        //     const introTl = gsap.timeline({
+        //         scrollTrigger: {
+        //             trigger: ".intro__scroll",
+        //             pin: ".intro__pin",
+        //             start: "top top",
+        //             end: "bottom bottom",
+        //             scrub: true,
+        //             markers: true,
+        //             toggleActions: "resume pause reverse pause"
+        //         }
+        //       });
+
+
+
+        const introTl = gsap.timeline({
+            scrollTrigger: {
+                trigger: ".intro__scroll",
+                start: "top 70%",
+                end: "bottom center",
+                scrub: true,
+                markers: false,
+                toggleActions: "resume pause reverse pause"
+            }
+        });
+
+        introTl.fromTo(".scroll__header", { x: 350 }, { x: -400, duration: 3 })
+            .fromTo(".scroll__span", { x: 360 }, { x: -50, duration: 3}, ">-3");
+    });
 
     return (
         <div className="home__container">
-            {/* all the clocks in the database */}
-            {/* <ClockList clocks={museumClocks}/> */}
             <Hero />
             <Intro />
             <Abbymoment />
             <Living />
             <Join />
-            {/* <ToDoInAbby /> */}
             <AndYou />
             <Statistics />
-            <Moments museumClocks={museumClocks} clockProfile={clockProfile} />
+            {/* <Moments museumClocks={museumClocks} clockProfile={clockProfile} /> */}
         </div>
 
     )
