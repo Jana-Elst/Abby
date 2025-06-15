@@ -88,6 +88,7 @@
 .links__li__p {
     align-self: end;
     font-size: var(--font-h2);
+    line-height: 1.7rem;
 }
 
 .links__li__img {
