@@ -227,7 +227,7 @@ export const getPastParticipant = async () => {
             supabase
                 .from('clocks')
                 .select(`*, clockprofile!inner (profile_id)`)
-                .eq('clockprofile.profile_id', userId)
+                .neq('clockprofile.profile_id', userId)
                 .or(
                     'stopTime.not.is.null',
                     `scheduledStartTime.lt.${todayISO}`

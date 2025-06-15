@@ -118,7 +118,7 @@ const YourAbbyMoments = ({ loaderData }) => {
                                 {pastClocksCreator.length > 0 || pastClocksParticipant.length > 0
                                     ? (
                                         <>
-                                            {pastClocksCreator
+                                            {pastClocksCreator.length > 0
                                                 && <>
                                                     <h3 className='moments__subtitle h4'>Jouw afgelopen momenten</h3>
                                                     <div className='container container__moments'>
@@ -128,7 +128,7 @@ const YourAbbyMoments = ({ loaderData }) => {
                                             }
 
                                             {
-                                                pastClocksParticipant
+                                                pastClocksParticipant.length > 0
                                                 && <>
                                                     <h3 className='moments__subtitle h4'>Afgelopen momenten waar je bij was</h3>
                                                     <div className='container container__moments'>
