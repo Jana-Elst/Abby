@@ -91,16 +91,19 @@ export const getMuseumClocks = async () => {
 export const getOtherActiveClocks = async () => {
     const userId = await getUserId();
 
+    const userClocks = await (getActiveClocksUser(userId));
+
     if (userId) {
         const data = await getOrUpdateClocks(
             supabase
                 .from('clocks')
-                .select(`*, clockprofile!inner (profile_id)`)
-                .neq('clockprofile.profile_id', userId)
+                .select('*')
+                .not('id', 'in', `(${userClocks.join(',')})`)
                 .not('startTime', 'is', null)
                 .is('stopTime', null)
-                .order('startTime', { ascending: false }));
-        return data
+                .order('startTime', { ascending: false })
+        );
+        return data;
     }
 
     return null;
@@ -126,10 +129,7 @@ export const getActiveClocksUser = async () => {
 //--- scheduled clocks
 //all scheduled clocks
 export const getScheduledClocks = async () => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const todayISO = today.toISOString();
-
+    const today = todayIso();
     const userId = await getUserId();
 
     const data = await getOrUpdateClocks(
@@ -140,7 +140,7 @@ export const getScheduledClocks = async () => {
             .or(
                 'private.eq.false', 'and(private.eq.true,creator.eq.' + userId + ')'
             )
-            .gte('scheduledStartTime', todayISO)
+            .gte('scheduledStartTime', today)
             .order('scheduledStartTime', { ascending: false })
     );
     return data
@@ -149,18 +149,15 @@ export const getScheduledClocks = async () => {
 //scheduled clocks user --> user = creator
 export const getScheduledCreator = async () => {
     const userId = await getUserId();
+    const today = todayIso();
     if (userId) {
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-        const todayISO = today.toISOString();
-
         const data = await getOrUpdateClocks(
             supabase
                 .from('clocks')
                 .select('*')
                 .eq('creator', userId)
                 .is('startTime', null)
-                .gte('scheduledStartTime', todayISO)
+                .gte('scheduledStartTime', today)
                 .order('scheduledStartTime', { ascending: false })
         );
         return data
@@ -172,11 +169,8 @@ export const getScheduledCreator = async () => {
 //scheduled clocks user --> user =! creator
 export const getScheduledParticipant = async () => {
     const userId = await getUserId();
+    const today = todayIso();
     if (userId) {
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-        const todayISO = today.toISOString();
-
         const data = await getOrUpdateClocks(
             supabase
                 .from('clocks')
@@ -184,7 +178,7 @@ export const getScheduledParticipant = async () => {
                 .eq('clockprofile.profile_id', userId)
                 .neq('creator', userId)
                 .is('startTime', null)
-                .gte('scheduledStartTime', todayISO)
+                .gte('scheduledStartTime', today)
                 .order('scheduledStartTime', { ascending: false })
         );
         return data
@@ -197,17 +191,14 @@ export const getScheduledParticipant = async () => {
 //past clocks user --> user = creator
 export const getPastCreator = async () => {
     const userId = await getUserId();
+    const today = todayIso();
     if (userId) {
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-        const todayISO = today.toISOString();
-
         const data = await getOrUpdateClocks(
             supabase
                 .from('clocks')
                 .select('*')
                 .eq('creator', userId)
-                .or(`stopTime.not.is.null,scheduledStartTime.lt.${todayISO}`)
+                .or(`stopTime.not.is.null,scheduledStartTime.lt.${today}`)
                 .order('scheduledStartTime', { ascending: false })
         );
         console.log(data);
@@ -216,14 +207,20 @@ export const getPastCreator = async () => {
     return null
 }
 
+const todayIso = () => {
+    const today = new Date();
+    today.setUTCHours(0, 0, 0, 0);
+    const todayISO = today.toISOString();
+
+    console.log(todayISO);
+    return todayISO;
+}
+
 //past clocks user --> user =! creator
 export const getPastParticipant = async () => {
     const userId = await getUserId();
+    const today = todayIso();
     if (userId) {
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-        const todayISO = today.toISOString();
-
         const data = await getOrUpdateClocks(
             supabase
                 .from('clocks')
@@ -231,7 +228,7 @@ export const getPastParticipant = async () => {
                 .neq('clockprofile.profile_id', userId)
                 .or(
                     'stopTime.not.is.null',
-                    `scheduledStartTime.lt.${todayISO}`
+                    `scheduledStartTime.lt.${today}`
                 )
                 .order('scheduledStartTime', { ascending: false })
         );

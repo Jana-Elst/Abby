@@ -81,7 +81,7 @@ const Abbymoments = ({ loaderData }) => {
                                                 && <>
                                                     <h3 className='moments__subtitle h4'>Jouw moment nu bezig</h3>
                                                     <div className='container container__moments'>
-                                                        <p>hier komt clockCard = lopend</p>
+                                                    <ClockList clocks={activeClocksUser} clockProfile={clockProfile} state={state} />
                                                     </div>
                                                 </>
                                             }

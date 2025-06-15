@@ -65,7 +65,7 @@ const YourAbbyMoments = ({ loaderData }) => {
                                             {/* <h3 className='moments__subtitle h4'>{activeClocks[0].includes(userId) ? "Jouw moment is nu bezig" : "Je neemt deel aan een lopend moment"}</h3> */}
 
                                             <div className='container container__moments'>
-                                                <p>hier komt clockCard = lopend</p>
+                                                <ClockList clocks={activeClocks} clockProfile={clockProfile} state={state} />
                                             </div>
                                         </>
                                     ) : (
