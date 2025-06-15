@@ -123,7 +123,7 @@ const CreateAbbymoment = () => {
         plan: ['description', 'time', 'location', 'participants', 'confirmation'],
         planNow: ['description', 'time', 'qrCode', 'visabilityClock', 'location', 'participants', 'confirmation'],
         now: ['visabilityClock', 'description', 'location', 'participants', 'confirmation'],
-        startScheduled: ['visabilityClock', 'startButton', 'confirmation'],
+        startScheduled: ['qr-code', 'visabilityClock', 'startButton', 'confirmation'],
         restartMoment: ['time', 'confirmation'],
         restartMomentNow: ['time', 'qrCode', 'visabilityClock', 'startButton', 'confirmation']
     }
