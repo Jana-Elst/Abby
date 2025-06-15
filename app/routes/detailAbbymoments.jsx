@@ -25,7 +25,7 @@ export async function clientLoader({ params }) {
     console.log(clockProfile);
     return { clock, clockProfile, participants };
 
-
+}
 const DetailClock = ({ loaderData }) => {
     const { userId } = useContext(UserContext);
     const { clock, clockProfile, participants } = loaderData;
@@ -67,7 +67,7 @@ const DetailClock = ({ loaderData }) => {
 
                 { //show total participants
                     !clock[0].private
-                    && <p className={isParticipant ? "//voeg hier de juiste kleur toe" : ""}>{participants.length}</p>
+                    && <p className={isParticipant ? "green__bg" : ""}>{participants.length}</p>
                 }
 
                 <Button>Deel</Button>
