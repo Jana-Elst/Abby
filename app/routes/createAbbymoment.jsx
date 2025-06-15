@@ -14,17 +14,16 @@ import Time from "../components/form/time";
 import VisabilityClock from "../components/form/visability-clock";
 import ScheduledClocks from "../components/form/scheduledClocks";
 import StartClock from "../components/form/startClock";
+import Overview from "../components/form/overview";
 
 
 //services
-import { addScheduledClock, startOnlineClock, startWallClock } from "../services/data";
+import { addScheduledClock, startOnlineClock, startWallClock, addFreeClocks, getActiveClocksUser } from "../services/data";
 
 //root variables
 import { UserContext } from '../context/UserContext';
 import { FormFlowContext } from '../context/FormFlowContext';
 
-//add abbymoment
-/* mag deze dan weg? */
 export async function clientAction({ request }) {
     console.log('submitttt');
     const formData = await request.formData();
@@ -41,21 +40,41 @@ export async function clientAction({ request }) {
 
     let data;
 
-    if (flowForm === 'plan' || flowForm === 'restartMoment') {
-        data = await addScheduledClock(userId, name, description, scheduledStartTime, prive, location);
-    } else if (flowForm === 'planNow' || flowForm === 'now' || flowForm === 'restartMomentNow' || flowForm === 'startScheduled') {
-        console.log('startNow');
-        //if clock is in on the wall, the row of the clock needs an update
-        if (clockId) {
-            data = await startWallClock(clockId, name, description, prive, location)
-        } else {
-            console.log('stuurt de juiste data door');
-            //if the clock is now, but online, a new row in the database should be made
-            data = await startOnlineClock(userId, name, description, prive, location);
+    try {
+        // ... your logic
+        if (flowForm === 'plan' || flowForm === 'restartMoment') {
+            data = await addScheduledClock(userId, name, description, scheduledStartTime, prive, location);
+        } else if (flowForm === 'planNow' || flowForm === 'now' || flowForm === 'restartMomentNow' || flowForm === 'startScheduled') {
+            console.log('startNow');
+            //if clock is in on the wall, the row of the clock needs an update
+            if (clockId) {
+                console.log('stuurt de juiste data door');
+                data = await startWallClock(clockId, name, description, prive, location)
+            } else {
+                console.log('stuurt de juiste data door');
+                //if the clock is now, but online, a new row in the database should be made
+                data = await startOnlineClock(userId, name, description, prive, location);
+            }
         }
+        console.log(data);
+        return redirect(`${import.meta.env.BASE_URL}maak-een-abbymoment/formulier?clockId=${data.id}`);
+    } catch (error) {
+        console.error('clientAction error:', error);
+        throw error;
     }
-    console.log(data);
-    return redirect(`${import.meta.env.BASE_URL}maak-een-abbymoment/formulier?clockId=${data.id}`);
+}
+
+export async function clientLoader() {
+    const freeClocks = await addFreeClocks();
+    const isClockFree = freeClocks.length > 0;
+
+    const activeClocks = await getActiveClocksUser();
+    console.log(activeClocks.length);
+    const userHasActiveClock = activeClocks.length > 0;
+
+    console.log('userHasActive', userHasActiveClock, activeClocks);
+
+    return { isClockFree, userHasActiveClock };
 }
 
 const handleSubmit = async (formData, setFormData) => {
@@ -65,7 +84,8 @@ const handleSubmit = async (formData, setFormData) => {
     });
 }
 
-const CreateAbbymoment = () => {
+const CreateAbbymoment = ({ loaderData }) => {
+    const { isClockFree, userHasActiveClock } = loaderData
     const { userId } = useContext(UserContext);
     const { flowForm, setFlowForm } = useContext(FormFlowContext);
 
@@ -97,7 +117,9 @@ const CreateAbbymoment = () => {
                 creator: userId,
                 location: clock.location,
                 state: 0,
-                flow: flowForm
+                flow: flowForm,
+                isClockFree: isClockFree,
+                userHasActiveClock: userHasActiveClock
             }
         } else {
             return {
@@ -113,18 +135,20 @@ const CreateAbbymoment = () => {
                 creator: userId,
                 location: '',
                 state: 0,
-                flow: flowForm
+                flow: flowForm,
+                isClockFree: isClockFree,
+                userHasActiveClock: userHasActiveClock
             }
         }
     });
 
     //different flows
     const flows = {
-        plan: ['description', 'time', 'location', 'participants', 'confirmation'],
-        planNow: ['description', 'time', 'qrCode', 'visabilityClock', 'location', 'participants', 'confirmation'],
-        now: ['visabilityClock', 'description', 'location', 'participants', 'confirmation'],
+        plan: ['description', 'time', 'location', 'participants', 'overview', 'confirmation'],
+        planNow: ['description', 'time', 'qrCode', 'visabilityClock', 'location', 'participants', 'overview', 'confirmation'],
+        now: ['visabilityClock', 'description', 'location', 'participants', 'overview', 'confirmation'],
         startScheduled: ['qr-code', 'visabilityClock', 'startButton', 'confirmation'],
-        restartMoment: ['time', 'confirmation'],
+        restartMoment: ['time', 'overview', 'confirmation'],
         restartMomentNow: ['time', 'qrCode', 'visabilityClock', 'startButton', 'confirmation']
     }
 
@@ -148,9 +172,11 @@ const CreateAbbymoment = () => {
             case 'participants':
                 return <Participants formData={formData} setFormData={setFormData} />
 
+            case 'overview':
+                return <Overview formData={formData} setFormData={setFormData} />
+
             case 'qrCode':
                 return <QrCode flowForm={flowForm} setFlowForm={setFlowForm} formData={formData} setFormData={setFormData} />
-
 
             case 'time':
                 return <Time setFlowForm={setFlowForm} flowForm={flowForm} flows={flows} formData={formData} setFormData={setFormData} />

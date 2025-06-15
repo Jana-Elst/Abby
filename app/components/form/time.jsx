@@ -98,6 +98,9 @@ const Time = ({ setFlowForm, flows, formData, setFormData }) => {
                                     handleChangeFlow(e);
                                 }}
                                 required
+                                disabled = {
+                                    (option.value === 'now' && formData.userHasActiveClock) ? true : false
+                                }
                             />
                             {option.label}
                             {<span className="showIfChecked">

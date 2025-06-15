@@ -493,7 +493,7 @@ export const timeDifference = (time) => {
 }
 
 //create an array of all the free clocks
-const addFreeClocks = async () => {
+export const addFreeClocks = async () => {
     let freeClocks = [];
     let occupiedClocks = [];
 

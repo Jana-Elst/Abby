@@ -12,9 +12,11 @@ import spaceA from '../../src/assets/space-a.jpg';
 import spaceB from '../../src/assets/space-b.jpg';
 
 import { useState } from "react";
-
+import PopUp from "../molecules/popUp";
 
 const Location = ({ formData, setFormData }) => {
+    const [uiState, setUiState] = useState({ popUpOpen: false })
+
     const locationsRadio = [
         ...locations,
         { name: 'Ik weet het nog niet', value: 'ik-weet-het-nog-niet', image: '' }
@@ -31,6 +33,21 @@ const Location = ({ formData, setFormData }) => {
     };
 
     const [location, setLocation] = useState(formData.location ? locations.find(location => location.value === formData.location) : {});
+
+    const checkDisabled = (value) => {
+        return (formData.flow === 'planNow' || formData.flow === 'now') && (value === 'salon' || value === 'atelier' || uiState.popUpOpen);
+    }
+
+    const handleClick = (e) => {
+        console.log(e);
+        if (e.target.value === 'salon' || e.target.value === 'atelier') {
+            console.log('click click')
+            setUiState({
+                ...uiState,
+                popUpOpen: true
+            })
+        }
+    }
 
     return (
         <>
@@ -67,10 +84,10 @@ const Location = ({ formData, setFormData }) => {
                                         console.log(location)
                                         setLocation(location);
                                     }}
-                                    disabled={
-                                        location.value === 'salon'
-                                        || location.value === 'atelier'
-                                    }
+                                    disabled={checkDisabled(location.value)}
+
+                                    onClick={(e) => handleClick(e)}
+
                                     required
 
                                 />
@@ -80,12 +97,20 @@ const Location = ({ formData, setFormData }) => {
                         )
                     }
                 </div>
+
                 <ButtonNext
                     extraClass="next__btn btn__text purple__bg"
                     formData={formData}
                     setFormData={setFormData}
-                    disabled={!formData.location}> Volgende stap </ButtonNext>
+                    disabled={
+                        !formData.location || uiState.popUpOpen
+                        }> Volgende stap </ButtonNext>
             </div>
+
+            <PopUp setUiState={setUiState} uiState={uiState}>
+                <p>Meer dan welkom in deze ruimte</p>
+                <p>Dit is een ruimte waar ook andere activiteiten georganiseerd kunnen worden. Abby moet nog even controleren of deze ruimte beschikbaar is. In de tussentijd kun je gewoon verder plannen. We laten je zo snel mogelijk weten of de ruimte beschikbaar is. Als dat zo is, bevestigen we je reservering. Tot die tijd staat je klokje even ‘in de wacht’.</p>
+            </PopUp>
         </>
 
     )

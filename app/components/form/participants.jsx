@@ -5,7 +5,7 @@ import ButtonNext from "./buttonNext";
 import { useState } from "react";
 
 const Participants = ({ formData, setFormData }) => {
-    const [touched, setTouched] = useState(false);
+    const [touched, setTouched] = useState(formData.particpant);
 
     return (
         <>
@@ -36,7 +36,6 @@ const Participants = ({ formData, setFormData }) => {
                             onFocus={() => {
                                 setTouched(true);
                             }}
-                            required
                         />
                         Nee, Ik heb liever een Abbymoment alleen.
                         {/* <label htmlFor="true">Nee, Ik heb liever een Abbymoment alleen.</label> */}
@@ -56,7 +55,6 @@ const Participants = ({ formData, setFormData }) => {
                             onFocus={() => {
                                 setTouched(true);
                             }}
-                            required
                         />
                         ja, hoe meer zielen hoe meer vreugd.
                         {/* <label htmlFor="false">Ja, hoe meer zielen hoe meer vreugd.</label> */}
@@ -67,13 +65,13 @@ const Participants = ({ formData, setFormData }) => {
             {
                 formData.flow === "now" || formData.flow === 'planNow'
                     ? <ButtonNext extraClass="next__btn btn__text purple__bg"
-                        buttonType='submit'
+                        buttonType='button'
                         formData={formData}
                         setFormData={setFormData}
-                        disabled={!formData.private}
+                        disabled={!touched}
                     > Start je moment </ButtonNext>
                     : <ButtonNext extraClass="next__btn btn__text purple__bg"
-                        buttonType='submit'
+                        buttonType='button'
                         formData={formData}
                         setFormData={setFormData}
                         disabled={!touched}

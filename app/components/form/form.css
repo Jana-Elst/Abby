@@ -141,6 +141,11 @@ textarea::placeholder {
     border-right: var(--border-thin);
 }
 
+.date__now:has(input[type="radio"]:disabled),
+.date__later:has(input[type="radio"]:disabled) {
+    opacity: 50%;
+}
+
 .date__later:has(input[type="radio"]:checked) {
     border: none;
 }
@@ -241,6 +246,10 @@ textarea::placeholder {
 .share__btn:last-child:has(input[type="radio"]:checked),
 .visual__btn:last-child:has(input[type="radio"]:checked) {
     border: none;
+}
+
+.visual__btn:has(input[type="radio"]:disabled) {
+    opacity: 50%;
 }
 
 /* confirmation.jsx */
