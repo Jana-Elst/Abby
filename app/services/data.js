@@ -2,6 +2,7 @@
 import { supabase } from "../supabaseClient";
 import { totalClocks } from "./museumData";
 
+
 /*
 Handful of helper functions to be called from route loaders and actions
 and insert or delete things from the database
@@ -458,6 +459,7 @@ export const leaveClock = async (userId, clockId) => {
             .eq('clock_id', clockId)
     );
 }
+
 
 //------------------- FILTERS JS -------------------//
 export const getParticipants = (clock, clockprofile) => {

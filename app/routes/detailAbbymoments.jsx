@@ -24,13 +24,11 @@ export async function clientLoader({ params }) {
     const participants = getParticipants(clock, clockProfile) || [];
     console.log(clockProfile);
     return { clock, clockProfile, participants };
-}
 
 
 const DetailClock = ({ loaderData }) => {
     const { userId } = useContext(UserContext);
     const { clock, clockProfile, participants } = loaderData;
-
     const [uiState, setUiState] = useState({
         popUpOpen: false,
         buttonState: participants.length > 0 ?
@@ -97,7 +95,6 @@ const DetailClock = ({ loaderData }) => {
                     uiState={uiState}
                 />
             </div>
-
 
             {
                 //POP-UP
