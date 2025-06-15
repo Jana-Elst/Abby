@@ -1,10 +1,10 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 
 const ButtonBack = () => {
     let navigate = useNavigate();
 
     return (
-        <button type='button' onClick={() => navigate(-1)}>Terug</button> 
+        <button type='button' onClick={() => navigate(-1)}>Terug</button>
     )
 };
 

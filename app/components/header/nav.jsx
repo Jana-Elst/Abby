@@ -6,7 +6,10 @@ import iconAccount from "../../src/assets/icon-person.svg";
 import iconJouw from "../../src/assets/icon-y.svg";
 
 //root variables
-import { FormFlowContext } from '../../context/FormFlowContext';
+import { useContext } from "react";
+
+//root variables
+import { UserContext } from '../../context/UserContext';
 
 import pictureHome from "../../src/assets/nav-blue.jpg";
 import pictureMaak from "../../src/assets/nav-yellow.jpg";
@@ -15,6 +18,8 @@ import pictureJouw from "../../src/assets/nav-purple.jpg";
 import pictureAccount from "../../src/assets/nav-green.jpg";
 
 export default function Nav({ hamburgerOpen, toggleHamburger }) {
+    const { userId } = useContext(UserContext);
+
     return (
         <>
             {!hamburgerOpen &&
@@ -51,7 +56,11 @@ export default function Nav({ hamburgerOpen, toggleHamburger }) {
                         <NavLink onClick={() => (setTimeout(toggleHamburger, 500))} className={"navigation__links__li navigation__green"} to={`${import.meta.env.BASE_URL}log-in`}>
                             <div className="links__li__container">
                                 <img className="links__li__svg" src={iconAccount} alt="account icoontje" />
-                                <p className="links__li__p" >Log in</p>
+                                {
+                                    userId
+                                        ? <p className="links__li__p" >Mijn account</p>
+                                        : <p className="links__li__p" >Log in</p>
+                                }
                             </div>
                             <img className="links__li__img" src={pictureAccount} alt="De Living van Abby" />
                         </NavLink>

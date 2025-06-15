@@ -1,9 +1,15 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import "./buttonBack.css";
 import arrow from "../../src/assets/arrow-right.svg";
 
 const ButtonBack = ({ children, setFormData, formData, link = null }) => {
+    const navigate = useNavigate();
+
     const handleBack = () => {
+        if (formData.state === 0) {
+            navigate(-1);
+        }
+
         setFormData(
             {
                 ...formData,

@@ -1,6 +1,7 @@
 import Button from "./button";
 
 const MomentsEmpty = ({ state }) => {
+    console.log(state);
     //--- All moments
     if (state.page === 'allMoments') {
         // Now
