@@ -133,6 +133,13 @@ textarea::placeholder {
 
 .time {
     height: 25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.time label{
+    align-self: flex-end;
+    padding: var(--space-s);
 }
 
 /* location.jsx */

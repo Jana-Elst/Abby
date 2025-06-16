@@ -1,7 +1,8 @@
 //https://daypicker.dev/guides/timepicker
 
 //style sheet
-import "react-day-picker/style.css";
+import "./form.css"
+import "./picker.css"
 
 //react
 import React, { ChangeEventHandler, useState } from "react";
@@ -67,7 +68,6 @@ const TimeInput = ({ formData, setFormData, extraClass }) => {
 
                 //extra settings
                 navLayout="around"
-                captionLayout="dropdown"
                 disabled={[
                     {before: new Date()},
                     {dayOfWeek: [1]}
