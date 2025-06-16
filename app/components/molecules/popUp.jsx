@@ -12,7 +12,7 @@ const PopUp = ({ children, setUiState, uiState }) => {
     }
 
     return (
-        <div>
+        <div className={uiState.popUpOpen ? 'open' : 'close'}>
             <Button onClick={handleClickClose}>CLOSE X</Button>
             {children}
         </div>

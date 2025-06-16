@@ -30,10 +30,9 @@ export const getTime = (dateTime) => {
     )
 }
 
-export const getDate = (date) => {
-    const monthNames = ["januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus", "september", "oktober", "november", "december"];
-    const [year, month, day] = date.split("-");
-    return (`${day} ${monthNames[month - 1]}`)
+export const getDateNames = (date) => {
+    const monthNames = ["jan.", "feb.", "ma.", "apr.", "mei.", "jun.", "jul.", "aug.", "sep.", "okt.", "nov.", "dec."];
+    return (monthNames[date - 1])
 }
 
 export const getISOLocalString = () => {
@@ -53,6 +52,57 @@ export const getISOLocalString = () => {
             ':' + pad(date.getMinutes()) +
             ':' + pad(date.getSeconds());
     }
+}
+
+export const getDate = (isoTime) => {
+    const [date, time] = isoTime.split("T");
+    const [hour, minutes, seconds] = time.split(":");
+    const [year, month, day] = date.split("-");
+
+    return ({
+        date: date,
+        year:year,
+        month:month,
+        monthName: getDateNames(month),
+        day: day,
+        time: time,
+        hour: hour,
+        minutes: minutes,
+        seconds: seconds
+    })
+}
+
+export const nextDay = (days) => {
+    const date = new Date();
+    date.setDate(date.getDate() + days); // Add 1 day
+
+    const tzo = -date.getTimezoneOffset();
+    if (tzo === 0) {
+        return date.toISOString();
+    }
+
+    const pad = (num, digits = 2) => String(num).padStart(digits, "0");
+    return date.getFullYear() +
+        '-' + pad(date.getMonth() + 1) +
+        '-' + pad(date.getDate()) +
+        'T' + pad(date.getHours()) +
+        ':' + pad(date.getMinutes()) +
+        ':' + pad(date.getSeconds());
+};
+
+export const isMonday = (date) => {
+    console.log('isMonday', date);
+    const [year, month, day] = date.split('-');
+    const dateNew = new Date(year, month - 1, day);
+
+    console.log('isMonday', dateNew.getDay());
+
+    
+    if (dateNew.getDay() === 1) {
+        return true;
+    }
+
+    return false;
 }
 
 export const timeDiff = (startTime, stopTime) => {

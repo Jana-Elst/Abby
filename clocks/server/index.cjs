@@ -35,7 +35,7 @@ server.listen(port, () => {
     console.log(`App listening on port ${port}`)
 })
 
-// ------------------------ server setup ------------------------ //
+// ------------------------ check for db changes and send it to the server ------------------------ //
 const channelA = supabase
     .channel('schema-db-changes')
     .on(
@@ -45,7 +45,12 @@ const channelA = supabase
             schema: 'public',
             table: 'clocks',
         },
-        (payload) => console.log(payload)
+        (payload) => {
+            // console.log('update from db:', payload);
+
+            //send the update to the arduinos
+            sendMessageToArduino(payload);
+        }
     )
     .subscribe()
 
@@ -68,10 +73,11 @@ wss.on('connection', (socket, request) => {
             }
         }
 
-        if (data.type === 'messageToArduino') {
-            const message = data.target.split('.');
-            sendMessageToOneArduino(message[0], message[1], data.value);
-        }
+        //sending message to arduino
+        // if (data.type === 'messageToArduino') {
+        //     const message = data.target.split('.');
+        //     sendMessageToOneArduino();
+        // }
     });
 
     socket.on(`close`, () => {
@@ -83,21 +89,6 @@ wss.on('connection', (socket, request) => {
         }
     });
 })
-
-// ------------------------ extra functions ------------------------ //
-const sendMessageToOneArduino = (id, clockNumber, values) => {
-    if (arduinos.length >= id) {
-        const arduino = arduinos[id - 1];
-        const message = JSON.stringify({
-            number: clockNumber,
-            message: values
-        })
-
-        console.log(values);
-        console.log("send message to", arduino.address, message);
-        arduino.socket.send(message);
-    }
-}
 
 // ------------------------ get info from server ------------------------ //
 //getData (1 time)
@@ -114,4 +105,27 @@ const getDataFromServer = async () => {
     }
 }
 
-// getDataFromServer();
+getDataFromServer();
+
+// ------------------------ send right message to the arduino ------------------------ //
+const sendMessageToArduino = (payload) => {
+    console.log('db change!');
+    const clocksPerArduino = 3;
+    const clockWallPos = payload.new.clockWallPos;
+
+    const arduinoNumber = Math.ceil(clockWallPos / clocksPerArduino);
+    const clockNumber = clockWallPos % clocksPerArduino
+
+    const arduino = arduinos[arduinoNumber - 1];
+    const message = JSON.stringify({
+        clockNumber: clockNumber,
+        startTime: payload.new.startTime,
+        stopTime: payload.new.stopTime,
+        name: payload.new.name
+    })
+
+    console.log(arduinos);
+    console.log(arduino);
+    console.log("send message to", arduino.address, message);
+    arduino.socket.send(message);
+}

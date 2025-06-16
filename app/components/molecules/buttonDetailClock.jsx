@@ -9,14 +9,16 @@ import { UserContext } from '../../context/UserContext';
 import { FormFlowContext } from '../../context/FormFlowContext';
 
 //functions
-import { getTime } from "../../services/clock";
-import { getDateNow } from "../../services/data";
-import { joinClock, leaveClock, stopClock } from "../../services/data";
+import { getDate, getISOLocalString } from "../../services/clock";
+import { joinClock } from "../../services/data";
 
 const ButtonDetailClock = ({ clock, isParticipant, setUiState, uiState }) => {
     const { userId } = useContext(UserContext);
     const { setFlowForm } = useContext(FormFlowContext);
     const navigate = useNavigate();
+
+    const time = getDate(clock[0].scheduledStartTime);
+    console.log(time);
 
     let scheduledDate = clock[0].scheduledStartTime;
     scheduledDate = new Date(scheduledDate).toISOString("en-US", { timeZone: "Europe/Amsterdam" }).split('T')[0];
@@ -57,7 +59,7 @@ const ButtonDetailClock = ({ clock, isParticipant, setUiState, uiState }) => {
     const handleRestart = () => {
         setFlowForm('restartMoment');
         navigate(`${import.meta.env.BASE_URL}maak-een-abbymoment/formulier`, {
-            state: { clock: clock}
+            state: { clock: clock }
         });
     }
 
@@ -84,7 +86,7 @@ const ButtonDetailClock = ({ clock, isParticipant, setUiState, uiState }) => {
         }
 
         // later-today: pas aan & stop
-        if (scheduledDate === getDateNow()) {
+        if (scheduledDate === getISOLocalString()) {
             return (
                 <div>
                     <button>Pas aan</button>
@@ -94,7 +96,7 @@ const ButtonDetailClock = ({ clock, isParticipant, setUiState, uiState }) => {
         }
 
         //never started
-        if (scheduledDate < getDateNow()) {
+        if (scheduledDate < getISOLocalString()) {
             return (
                 <div>
                     <Button onClick={handleRestart}>Herhaal Abbymoment</Button>
@@ -108,7 +110,7 @@ const ButtonDetailClock = ({ clock, isParticipant, setUiState, uiState }) => {
             return (
                 <div>
                     <button>Pas aan</button>
-                    <p>Start je moment vanaf {getTime(clock[0].scheduledStartTime).date}</p>
+                    <p>Start je moment vanaf {getDate(clock[0].scheduledStartTime).date}</p>
                 </div>
             )
         }
@@ -117,7 +119,7 @@ const ButtonDetailClock = ({ clock, isParticipant, setUiState, uiState }) => {
     //if user joined moment
     else {
         //past
-        if (scheduledDate < getDateNow() || clock[0].stopTime) {
+        if (scheduledDate < getISOLocalString() || clock[0].stopTime) {
             return <button>Dit moment kan je niet herhalen, want je was een deelnemer.</button>
         }
 
