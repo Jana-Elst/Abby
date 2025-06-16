@@ -37,6 +37,7 @@ const Clock = ({ props, clock, className, canvasSize, clockColors }) => {
         ctx.rotate(angle);
         ctx.lineTo(0, -size * relativeSize);
         ctx.lineWidth = strokeWidth / 2;
+        ctx.strokeStyle = colors[colorName];
         ctx.stroke();
         ctx.restore();
     }
