@@ -69,7 +69,7 @@ const Time = ({ setFlowForm, flows, formData, setFormData }) => {
 
                 {/* toggle now later */}
                 {
-                    (formData.flow === baseFlow)
+                    (touched && formData.flow === baseFlow)
                     && <TimeInput
                         extraClass="time"
                         formData={formData}
@@ -88,18 +88,18 @@ const Time = ({ setFlowForm, flows, formData, setFormData }) => {
                                 id={option.value}
                                 name="time"
                                 value={option.value}
-                                checked={formData.flow === `${baseFlow}${option.value === 'now' ? 'Now' : ''}`}
+                                checked={touched && formData.flow === `${baseFlow}${option.value === 'now' ? 'Now' : ''}`}
                                 onChange={(e) => {
-        handleValidation(e);
-                                    handleChangeFlow(e);                                
+                                    handleValidation(e);
+                                    handleChangeFlow(e);
                                 }}
                                 onFocus={(e) => {
-    setTouched(true);
-                                    handleChangeFlow(e);                                
+                                    setTouched(true);
+                                    handleChangeFlow(e);
                                 }}
-                                disabled={
+                                required
+                                disabled = {
                                     (option.value === 'now' && formData.userHasActiveClock) ? true : false
-                                    required
                                 }
                             />
                             {option.label}
