@@ -72,7 +72,7 @@ const AccountPage = () => {
         setUserId(session.user.id);
         return (
             <div className='succes__login'>
-                <Button extraClass={"btn__back h4"} link={"/"}><img className='btn__icon btn__icon--back' src={arrow} alt="een pijl" /> Home</Button>
+                {/* <Button extraClass={"btn__back h4"} link={"/"}><img className='btn__icon btn__icon--back' src={arrow} alt="een pijl" /> Home</Button> */}
                 <Title>Je bent ingelogd!</Title>
                 <p className='h3'>Start nu je eigen Abbymoment of neem deel aan iemand anders zijn activiteit. </p>
                 <div className='succes__btn__container'>
