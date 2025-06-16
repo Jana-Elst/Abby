@@ -309,22 +309,24 @@ export const updateDigitalToPhysical = async (id) => {
 
 //update clock & start it
 export const startWallClock = async (id, name, description, prive, location) => {
+    console.log('LETS GO');
     const time = getTimeNow();
 
-    const data = await getOrUpdateClocks(
-        supabase
-            .from('clocks')
-            .update({
-                name: name,
-                description: description,
-                startTime: time,
-                scheduledStartTime: time,
-                private: prive,
-                location: location
-            })
-            .eq('id', id)
-    );
-    return data
+    const {error, data} = await supabase
+        .from('clocks')
+        .update({
+            name: name,
+            description: description,
+            startTime: time,
+            scheduledStartTime: time,
+            private: prive,
+            location: location
+        })
+        .eq('id', id)
+        .select('*');
+
+    console.log(data[0]);
+    return data[0]
 }
 
 //stop clock

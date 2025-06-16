@@ -1,8 +1,8 @@
 //https://blog.logrocket.com/build-multi-step-form-usestate-hook/
 
 //react imports
-import { Form, redirect, useNavigate, useLocation } from "react-router";
-import { useState, useContext, useEffect } from "react";
+import { Form, redirect, useLocation } from "react-router";
+import { useState, useContext } from "react";
 
 //components
 import Confirmation from "../components/form/confirmation";
@@ -47,7 +47,7 @@ export async function clientAction({ request }) {
             console.log('startNow');
             //if clock is in on the wall, the row of the clock needs an update
             if (clockId) {
-                console.log('stuurt de juiste data door');
+                console.log('stuurt de juiste data door FYSIEK');
                 data = await startWallClock(clockId, name, description, prive, location)
             } else {
                 console.log('stuurt de juiste data door');
@@ -56,6 +56,7 @@ export async function clientAction({ request }) {
             }
         }
 
+        console.log(data);
         sessionStorage.setItem('clockId', data.id);
         return redirect(`${import.meta.env.BASE_URL}maak-een-abbymoment/formulier`);
     } catch (error) {
