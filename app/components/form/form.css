@@ -126,10 +126,11 @@ textarea::placeholder {
     height: 6rem;
     text-align: center;
     display: flex;
-    align-items: center;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
     padding: 0 var(--space-s);
 }
-
 .date__now:has(input[type="radio"]:checked),
 .date__later:has(input[type="radio"]:checked) {
     background-color: var(--yellow);
@@ -160,7 +161,14 @@ textarea::placeholder {
 }
 
 .time {
-    height: 25rem;
+    height: 27rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.time label{
+    align-self: flex-end;
+    padding: var(--space-s);
 }
 
 /* location.jsx */
@@ -169,6 +177,15 @@ textarea::placeholder {
     flex-direction: column;
     border-top: none;
     display: flex;
+    position: relative;
+}
+
+.location img{
+    position: absolute;
+    width: 14rem;
+    height: 14rem;
+    right: 0;
+    border-top: var(--border-thin);
 }
 
 .location__btn {
@@ -276,4 +293,15 @@ textarea::placeholder {
 /* visability-clock.jsx */
 .foodnote {
     margin: 0 var(--space-s);
+}
+
+/* popup */
+.popup__container{
+    padding: var(--space-m);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+.popup__title{
+    max-width: 17rem;
 }
