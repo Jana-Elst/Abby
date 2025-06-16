@@ -20,8 +20,6 @@ const ButtonDetailClock = ({ clock, isParticipant, setUiState, uiState }) => {
     const navigate = useNavigate();
 
     const time = getDate(clock[0].scheduledStartTime);
-    console.log(time);
-
     let scheduledDate = clock[0].scheduledStartTime;
     scheduledDate = new Date(scheduledDate).toISOString("en-US", { timeZone: "Europe/Amsterdam" }).split('T')[0];
 
@@ -51,7 +49,6 @@ const ButtonDetailClock = ({ clock, isParticipant, setUiState, uiState }) => {
     }
 
     const handleStart = () => {
-        console.log('starttt')
         setFlowForm('startScheduled');
         navigate(`${import.meta.env.BASE_URL}maak-een-abbymoment/formulier`, {
             state: { clock: clock }
@@ -122,7 +119,6 @@ const ButtonDetailClock = ({ clock, isParticipant, setUiState, uiState }) => {
 
         //later: pas aan & Je kan je moment start op xxx
         if (clock[0].scheduledStartTime) {
-            console.log('Ik ben ingepland');
             return (
                 <div className="btn__detail btn__detail--split">
                     <button className="btn__square btn__square--left btn__edit yellow__bg"><svg xmlns="http://www.w3.org/2000/svg" width="21" height="19" viewBox="0 0 21 19" fill="none">

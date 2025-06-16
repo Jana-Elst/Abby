@@ -1,9 +1,10 @@
 //react
 import { useContext, useState } from 'react'
+import { useLocation } from "react-router";
+
 import Title from "../components/molecules/title";
 import ButtonBack from "../components/atoms/buttonBack"
 import ButtonDetailClock from "../components/molecules/buttonDetailClock"
-import Button from '../components/molecules/button';
 import Clock from '../components/atoms/clock';
 import PopUp from '../components/molecules/popUp';
 import PopUpDetail from '../components/molecules/popUpDetail';
@@ -24,7 +25,7 @@ import spaceB from '../src/assets/space-b.jpg';
 import { UserContext } from '../context/UserContext';
 
 //functions
-import { getDate, getISOLocalString } from "../services/clock";
+import { getDate } from "../services/clock";
 import { getClock, getClockProfile } from "../services/data";
 import { locations } from "../services/museumData";
 
@@ -43,6 +44,8 @@ export async function clientLoader({ params }) {
 const DetailAbbymoments = ({ loaderData }) => {
     const { userId } = useContext(UserContext);
     const { clock, clockProfile } = loaderData;
+    const loc = useLocation();
+    console.log(loc);
 
     const participants = allParticipants(clockProfile, clock[0].id)
 
@@ -70,15 +73,13 @@ const DetailAbbymoments = ({ loaderData }) => {
     };
 
     const location = allLocations.find(location => location.value === clock[0].location)
-    console.log(location);
-
     const creator = isCreator(clock[0].creator, userId);
     const participant = isParticipant(clock[0].creator, uiState.participants, userId);
 
     return (
         <>
             <div className='top__bar'>
-                <ButtonBack>Terug</ButtonBack>
+                <ButtonBack navigateSteps={loc.state === 'form' ? `${import.meta.env.BASE_URL}maak-een-abbymoment` : -1}>Terug</ButtonBack>
                 {creator && <p className='purple__fg h4'>Maker</p>}
                 {!creator && participant && <p className='green__fg h4'>Deelnemer</p>}
             </div>
@@ -134,7 +135,7 @@ const DetailAbbymoments = ({ loaderData }) => {
                         clock={clock[0]}
                         clockColors={{ color: `${creator ? "purple" : participants.includes(userId) ? 'green' : 'black'}`, bgColor: "white" }}
                     /></div>
-                      {
+                {
                     (clock[0].location !== 'ik-weet-het-nog-niet') && <img className={clock[0].abbyMade ? 'collage__location collage__location--abby' : 'collage__location'} src={images[location.image]} alt={`foto van ${location.name}`} />
                 }
                 {clock[0].abbyMade ? (
@@ -150,14 +151,14 @@ const DetailAbbymoments = ({ loaderData }) => {
                 }
             </div >
 
-                <ButtonDetailClock
-                    clock={clock}
-                    clockProfile={clockProfile}
-                    userId={userId}
-                    isParticipant={participant}
-                    setUiState={setUiState}
-                    uiState={uiState}
-                />
+            <ButtonDetailClock
+                clock={clock}
+                clockProfile={clockProfile}
+                userId={userId}
+                isParticipant={participant}
+                setUiState={setUiState}
+                uiState={uiState}
+            />
 
 
             {

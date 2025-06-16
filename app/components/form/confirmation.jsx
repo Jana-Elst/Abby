@@ -2,22 +2,25 @@ import Button from "../molecules/button";
 import Title from "../molecules/title";
 import arrow from "../../src/assets/arrow-right.svg";
 
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { useContext } from "react";
 
 
 //root variables
 import { UserContext } from '../../context/UserContext';
 
-const Confirmation = ({ formState, setFormState, setFlowForm }) => {
+const Confirmation = ({ formState, setFormData, setFlowForm }) => {
     const { userId } = useContext(UserContext);
+    const navigate = useNavigate();
 
-    const location = useLocation();
-    const params = new URLSearchParams(location.search);
-    const clockId = params.get("clockId");
+
+    // const location = useLocation();
+    // const params = new URLSearchParams(location.search);
+    const clockId = sessionStorage.getItem("clockId");
+    console.log(clockId);
 
     const removeStates = () => {
-        setFormState({
+        setFormData({
             clockId: '',
             name: '',
             startTime: undefined,
@@ -34,18 +37,21 @@ const Confirmation = ({ formState, setFormState, setFlowForm }) => {
         })
 
         setFlowForm('plan');
+
+        navigate(`${import.meta.env.BASE_URL}abbymomenten/${clockId}`, {
+            state: "form"
+        });
     }
 
     return (
         <div className="confirm">
             {
-                formState === 'now'
-                    ? <Title title={"Je moment is gestart!"} />
-                    : <Title title={"Je moment is gepland!"} />
+                formState === 'now' || formState === 'planNow'
+                    ? <p className="confirm__title"> Je moment is gestart!</p>
+                    : <p className="confirm__title"> Je moment is gepland!</p>
             }
-            <p className="confirm__title">Je moment is succesvol aangemaakt</p>
-            <Button onClick={removeStates} extraClass="btn__text confirm__btn purple__bg btn__arrow" link={`abbymomenten/${clockId}`}>Ga naar je moment<img className='btn__icon' src={arrow} alt="een pijl" /></Button>
-        </div>
+            <Button type='button' onClick={removeStates} extraClass="btn__text confirm__btn purple__bg btn__arrow">Ga naar je moment<img className='btn__icon' src={arrow} alt="een pijl" /></Button>
+        </div >
 
     )
 };

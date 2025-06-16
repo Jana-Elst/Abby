@@ -1,8 +1,8 @@
 //https://blog.logrocket.com/build-multi-step-form-usestate-hook/
 
 //react imports
-import { Form, redirect, Navigate, useLocation } from "react-router";
-import { useState, useContext } from "react";
+import { Form, redirect, useNavigate, useLocation } from "react-router";
+import { useState, useContext, useEffect } from "react";
 
 //components
 import Confirmation from "../components/form/confirmation";
@@ -25,7 +25,6 @@ import { UserContext } from '../context/UserContext';
 import { FormFlowContext } from '../context/FormFlowContext';
 
 export async function clientAction({ request }) {
-    console.log('submitttt');
     const formData = await request.formData();
 
     //different data
@@ -56,8 +55,9 @@ export async function clientAction({ request }) {
                 data = await startOnlineClock(userId, name, description, prive, location);
             }
         }
-        console.log(data);
-        return redirect(`${import.meta.env.BASE_URL}maak-een-abbymoment/formulier?clockId=${data.id}`);
+
+        sessionStorage.setItem('clockId', data.id);
+        return redirect(`${import.meta.env.BASE_URL}maak-een-abbymoment/formulier`);
     } catch (error) {
         console.error('clientAction error:', error);
         throw error;
@@ -93,7 +93,7 @@ const CreateAbbymoment = ({ loaderData }) => {
     const location = useLocation();
 
     const [formData, setFormData] = useState(() => {
-        if (location.state) {
+        if (location.state && location.state.clock) {
             const clock = location.state.clock[0]
             console.log('doorgestuurde klok', clock);
 
