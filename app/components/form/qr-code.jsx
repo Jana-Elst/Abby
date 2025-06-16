@@ -28,6 +28,14 @@ const QrCode = ({ formData, setFormData }) => {
         // ✅ Handle success.
         // 😎 You can do whatever you want with the scanned result.
         setScannedResult(result?.data);
+
+        if (result.data === `${import.meta.env.BASE_URL}qrCode`) {
+            console.log('NextPage');
+            setFormData({
+                ...formData,
+                state: formData.state + 1
+            });
+        }
     };
 
     // Fail

@@ -16,6 +16,13 @@ import '../components/frames/Frames.css';
 //load the museum clocks
 import { getClockProfile } from "../services/data";
 
+//gsap
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from '@gsap/react';
+gsap.registerPlugin(ScrollTrigger);
+
 export async function clientLoader() {
     const clockProfile = await getClockProfile();
 
@@ -25,6 +32,36 @@ export async function clientLoader() {
 
 const Home = ({ loaderData }) => {
     const { clockProfile } = loaderData;
+
+    useGSAP(() => {
+        //     const introTl = gsap.timeline({
+        //         scrollTrigger: {
+        //             trigger: ".intro__scroll",
+        //             pin: ".intro__pin",
+        //             start: "top top",
+        //             end: "bottom bottom",
+        //             scrub: true,
+        //             markers: true,
+        //             toggleActions: "resume pause reverse pause"
+        //         }
+        //       });
+
+
+
+        const introTl = gsap.timeline({
+            scrollTrigger: {
+                trigger: ".intro__scroll",
+                start: "top 70%",
+                end: "bottom center",
+                scrub: true,
+                markers: false,
+                toggleActions: "resume pause reverse pause"
+            }
+        });
+
+        introTl.fromTo(".scroll__header", { x: 350 }, { x: -400, duration: 3 })
+            .fromTo(".scroll__span", { x: 360 }, { x: -50, duration: 3}, ">-3");
+    });
 
     return (
         <div className="home__container">
