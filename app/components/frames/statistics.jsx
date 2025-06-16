@@ -16,8 +16,7 @@ const Statistics = () => {
             <Title extraClass="statistics__title">
                 Zo vult de <span className="yellow__fg">community</span> Abby.
             </Title>
-            <Swiper spaceBetween={0} slidesPerView={1} onSlideChange={() => console.log('slide change')}
-                onSwiper={(swiper) => console.log(swiper)}>
+            <Swiper spaceBetween={0} slidesPerView={1}>
                 <SwiperSlide >
                     <div className="statistic blue__bg">
                         <div className="statistic__visual">
