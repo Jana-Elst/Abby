@@ -131,6 +131,14 @@ h2 {
   margin-bottom: var(--space-xl);
 }
 
+.h2{
+  line-height: 118%;
+    color: var(--black);
+    font-size: var(--font-h1);
+    font-weight: 500;
+    max-width: 18rem;
+}
+
 .h3 {
   color: var(--black);
   font-size: var(--font-h2);
@@ -152,6 +160,22 @@ h2 {
   font-weight: 700;
   line-height: 1.4375rem;
   text-decoration-line: underline;
+}
+
+.btn__big__container{
+  height: 100vh;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.btn__big{
+  width: 31.25rem;
+  height: 31.25rem;
+  border-radius: 31.25rem;
+  display: grid;
+  place-items: center;
+  margin: 0  -3rem;
 }
 
 /* colour classes */

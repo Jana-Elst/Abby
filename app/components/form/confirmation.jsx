@@ -39,11 +39,10 @@ const Confirmation = ({ formState, setFormState, setFlowForm }) => {
     return (
         <div className="confirm">
             {
-                formState === 'now'
-                    ? <Title title={"Je moment is gestart!"} />
-                    : <Title title={"Je moment is gepland!"} />
+                formState === 'now' || formState === 'planNow'
+                    ? <p className="confirm__title">Je moment is succesvol gestart!</p>
+                    : <p className="confirm__title">Je moment is succesvol aangemaakt!</p> 
             }
-            <p className="confirm__title">Je moment is succesvol aangemaakt</p>
             <Button onClick={removeStates} extraClass="btn__text confirm__btn purple__bg btn__arrow" link={`abbymomenten/${clockId}`}>Ga naar je moment<img className='btn__icon' src={arrow} alt="een pijl" /></Button>
         </div>
 

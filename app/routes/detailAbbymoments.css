@@ -59,12 +59,12 @@
 .location {
     text-transform: capitalize;
     margin-top: var(--space-xxl);
-    border-bottom: var(--border-thin);
     padding: 0 var(--space-s) var(--space-xxs) 0;
     text-align: right;
 }
 
 .collage {
+    border-top: var(--border-thin);
     align-self: end;
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -79,6 +79,8 @@
     grid-row: 1 / span 1;
     display: grid;
     place-items: center;
+    padding: var(--space-xl);
+    border-right: var(--border-thin);
 }
 
 .collage__location{
