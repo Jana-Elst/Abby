@@ -215,4 +215,8 @@ h2 {
   justify-content: space-between;
  }
 
+ .container__stretch--header{
+  min-height: 95vh;
+ }
+
 
