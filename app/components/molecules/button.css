@@ -1,5 +1,6 @@
 .button {
     display: inline-block;
+    
 }
 
 .button.skip::before {

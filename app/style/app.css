@@ -51,6 +51,7 @@
   --border-thin: 1.2px solid var(--black);
 
   overscroll-behavior: none;
+  scroll-behavior: smooth;
 }
 
 @font-face {
