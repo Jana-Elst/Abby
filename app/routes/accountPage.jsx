@@ -39,9 +39,6 @@ const AccountPage = () => {
     if (!session) {
         return (
             <div className='account__wrapper'>
-                <h3 className='h3 account__h3'>
-                    Maak een account aan om een moment te maken
-                </h3>
                 <div className='account__container'>
                     <p className='account__title'>Login met jouw account</p>
                     <Auth providers={['facebook', 'google']} supabaseClient={supabase} localization={{
@@ -76,7 +73,7 @@ const AccountPage = () => {
         setUserId(session.user.id);
         return (
             <div className='succes__login'>
-                <Button extraClass={"btn__back h4"} link={"/"}><img className='btn__icon btn__icon--back' src={arrow} alt="een pijl" /> Homepage</Button>
+                <Button extraClass={"btn__back h4"} link={"/"}><img className='btn__icon btn__icon--back' src={arrow} alt="een pijl" /> Home</Button>
                 <Title>Je bent ingelogd!</Title>
                 <p className='h3'>Start nu je eigen Abbymoment of neem deel aan iemand anders zijn activiteit. </p>
                 <div className='succes__btn__container'>

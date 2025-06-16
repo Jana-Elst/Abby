@@ -11,7 +11,17 @@ import { getDate, getISOLocalString, isMonday, nextDay } from "../../services/cl
 
 const Time = ({ setFlowForm, flows, formData, setFormData }) => {
     //------------ VALLIDATION ------------//
+    const [correctInput, setCorrectInput] = useState(false);
     const [touched, setTouched] = useState(false);
+
+    const handleValidation = (e) => {
+        console.log(e.target.value);
+        if (e.target.value < 1) {
+            setCorrectInput(false);
+        } else {
+            setCorrectInput(true);
+        }
+    }
 
     //------------ specific for page ------------//
     const baseFlow = formData.state === 0 ? 'restartMoment' : 'plan';
@@ -20,8 +30,9 @@ const Time = ({ setFlowForm, flows, formData, setFormData }) => {
         console.log(e.target.value);
         let time = getDate(getISOLocalString());
 
-        if (isMonday(time.date)) {
-            time = nextDay(1)
+        if (isMonday(time.day)) {
+            time = getDate(nextDay(1));
+            console.log('nextday', time);
         }
 
         if (e.target.value !== 'now') {
@@ -58,7 +69,7 @@ const Time = ({ setFlowForm, flows, formData, setFormData }) => {
 
                 {/* toggle now later */}
                 {
-                    (formData.flow === baseFlow)
+                    (touched && formData.flow === baseFlow)
                     && <TimeInput
                         extraClass="time"
                         formData={formData}
@@ -77,14 +88,17 @@ const Time = ({ setFlowForm, flows, formData, setFormData }) => {
                                 id={option.value}
                                 name="time"
                                 value={option.value}
-                                checked={formData.flow === `${baseFlow}${option.value === 'now' ? 'Now' : ''}`}
+                                checked={touched && formData.flow === `${baseFlow}${option.value === 'now' ? 'Now' : ''}`}
                                 onChange={(e) => {
+                                    handleValidation(e);
                                     handleChangeFlow(e);
                                 }}
                                 onFocus={(e) => {
                                     setTouched(true);
+                                    handleChangeFlow(e);
                                 }}
-                                disabled={
+                                required
+                                disabled = {
                                     (option.value === 'now' && formData.userHasActiveClock) ? true : false
                                 }
                             />

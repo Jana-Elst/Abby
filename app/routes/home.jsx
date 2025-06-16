@@ -56,11 +56,7 @@ const Home = ({ loaderData }) => {
 
         introTl.fromTo(".scroll__header", { x: 350 }, { x: -400, duration: 3 })
             .fromTo(".scroll__span", { x: 360 }, { x: -50, duration: 3 }, ">-3");
-
-
-
-        console.log(widthMoveStart1, widthMoveStart2, widthMoveStart3);
-
+            
         const speed = 10;
         gsap.fromTo(".carousel__wrapper--1", { x: 8 }, {
             x: -widthMoveStart1 - 8, 
