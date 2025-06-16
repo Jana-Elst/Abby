@@ -12,41 +12,59 @@
   --green: #00A468;
   --orange: #FF5F00;
   --purple: #BB7CD2;
+  --error: #ff0000;
+  --grey: #EAEBEF;
 
 
   /* Font sizes */
   --font-h1: 2.75rem;
   --font-h2: 1.75rem;
+  --font-h3: 1.25rem;
   --font-body: 1rem;
   --font-btn: 1.125rem;
 
 
-  /* Spacing */ 
+
+  /* Spacing */
+  --space-3xs: 0.375rem;
+  /* 6px */
   --space-xxs: 0.5rem;
+  /* 8px */
   --space-xs: 0.75rem;
+  /* 12px */
   --space-s: 1rem;
+  /* 16px */
   --space-m: 1.25rem;
-  --space-xl: 2.75rem;
+  /* 20px */
+  --space-xl: 2.25rem;
+  /* 36px */
+  --space-xxl: 3.5rem;
+  /* 56px */
+  --space-3xl: 4.5rem;
+  /* 72px */
+  --space-4xl: 9rem;
+  /* 144px */
+
 
   /* border sizes */
   --border: 1.7px solid var(--black);
+  --border-thin: 1.2px solid var(--black);
 
   overscroll-behavior: none;
-  
 }
 
 @font-face {
   font-family: "GT Walsheim Regular";
   src: local("GT-Walsheim-Regular"),
     url("../src/fonts/GT-Walsheim-Regular.woff2") format("woff2");
-    font-weight: 100;
+  font-weight: 400;
 }
 
 @font-face {
   font-family: "GT Walsheim Regular";
   src: local("GT-Walsheim-Bold"),
     url("../src/fonts/GT-Walsheim-Bold.woff2") format("woff2");
-    font-weight: 700;
+  font-weight: 700;
 }
 
 @font-face {
@@ -64,14 +82,18 @@
 
 html {
   box-sizing: border-box;
+  background-color: var(--white);
 }
-*, *::before, *::after {
+
+*,
+*::before,
+*::after {
   box-sizing: inherit;
 }
 
 img {
   width: 100%;
-    height: auto;
+  height: auto;
 }
 
 a {
@@ -80,30 +102,107 @@ a {
 
 body {
   font-family: 'GT Walsheim Regular', 'arial', sans-serif;
-  font-weight: 100;
+  font-weight: 400;
   line-height: 130%;
   color: var(--black);
   font-size: var(--font-body);
 }
 
 /* title styles */
- h1{
+h1 {
   color: var(--black);
   position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    border: 0;
- }
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
 
- h2{
+h2 {
   line-height: 118%;
   color: var(--black);
   font-size: var(--font-h1);
   font-weight: 500;
-  max-width: 17rem;
+  max-width: 18rem;
+  margin-bottom: var(--space-xl);
+}
+
+.h3 {
+  color: var(--black);
+  font-size: var(--font-h2);
+  font-weight: 400;
+  line-height: 2.125rem;
+}
+
+.h4 {
+  color: var(--black);
+  font-size: var(--font-h3);
+  font-weight: 500;
+  line-height: 125%;
+}
+
+
+.btn__text {
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.4375rem;
+  text-decoration-line: underline;
+}
+
+/* colour classes */
+
+.yellow__bg {
+  background-color: var(--yellow);
+}
+
+.blue__bg {
+  background-color: var(--blue);
+}
+
+.green__bg {
+  background-color: var(--green);
+}
+
+.orange__bg {
+  background-color: var(--orange);
+}
+
+.purple__bg {
+  background-color: var(--purple);
+}
+
+.yellow__fg {
+  color: var(--yellow);
+}
+
+.blue__fg {
+  color: var(--blue);
+}
+
+.orange__fg {
+  color: var(--orange);
+}
+
+.green__fg {
+  color: var(--green);
+}
+
+
+.purple__fg {
+  color: var(--purple);
+}
+
+ /* for the container of the content */
+
+ .container{
+  padding: var(--space-s);
  }
 
+ .center--flex {
+  display: flex;
+  justify-content: center;
+ }

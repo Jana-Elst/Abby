@@ -2,57 +2,80 @@ import Title from "../molecules/title";
 import ButtonBack from './buttonBack';
 import ButtonNext from "./buttonNext";
 
-const Participants = ({ setFormState, formState, flowForm, flowKey, formData, setFormData }) => {
+import { useState } from "react";
+
+const Participants = ({ formData, setFormData }) => {
+    const [touched, setTouched] = useState(formData.particpant);
+
     return (
         <>
-            <ButtonBack formData={formData} setFormData={setFormData}>Terug</ButtonBack>
-            <Title>Wil je je moment delen met anderen?</Title>
-            <div>
-                <div>
-                    <input type="radio"
-                        id="false"
-                        name="participants"
-                        value="false"
-                        checked={formData.private === false}
-                        onChange={(e) => {
-                            setFormData({
-                                ...formData,
-                                private: e.target.value === "true" ? true : false
-                            })
-                        }}
-                    />
-                    <label htmlFor="false">Ja, hoe meer zielen hoe meer vreugd.</label>
+            <div className="container--form">
+                <div className="progress__container">
+                    <ButtonBack formData={formData} setFormData={setFormData}>Terug</ButtonBack>
+                    <div className="progress">
+                        <div className="progress__circle progress__circle--active--planned"></div>
+                        <div className="progress__circle progress__circle--active--planned"></div>
+                        <div className="progress__circle progress__circle--active--planned"></div>
+                        <div className="progress__circle progress__circle--active--planned"></div>
+                    </div>
                 </div>
-
-                <div>
-                    <input type="radio"
-                        id="true"
-                        name="participants"
-                        value="true"
-                        checked={formData.private === true}
-                        onChange={(e) => {
-                            setFormData({
-                                ...formData,
-                                private: e.target.value === "false" ? false : true
-                            })
-                        }}
-                    />
-                    <label htmlFor="true">Nee, Ik heb liever een Abbymoment alleen.</label>
+                <Title extraClass="form__title">Wil je je moment delen met anderen?</Title>
+                <div className="share">
+                    <label htmlFor="true" className="share__btn">
+                        <input type="radio"
+                            id="true"
+                            name="participants"
+                            value="true"
+                            checked={formData.private === true}
+                            onChange={(e) => {
+                                setFormData({
+                                    ...formData,
+                                    private: e.target.value === "false" ? false : true
+                                })
+                            }}
+                            onFocus={() => {
+                                setTouched(true);
+                            }}
+                        />
+                        Nee, Ik heb liever een Abbymoment alleen.
+                        {/* <label htmlFor="true">Nee, Ik heb liever een Abbymoment alleen.</label> */}
+                    </label>
+                    <label htmlFor="false" className="share__btn">
+                        <input type="radio"
+                            id="false"
+                            name="participants"
+                            value="false"
+                            checked={formData.private === false}
+                            onChange={(e) => {
+                                setFormData({
+                                    ...formData,
+                                    private: e.target.value === "true" ? true : false
+                                })
+                            }}
+                            onFocus={() => {
+                                setTouched(true);
+                            }}
+                        />
+                        ja, hoe meer zielen hoe meer vreugd.
+                        {/* <label htmlFor="false">Ja, hoe meer zielen hoe meer vreugd.</label> */}
+                    </label>
                 </div>
             </div>
 
             {
                 formData.flow === "now" || formData.flow === 'planNow'
-                    ? <ButtonNext
-                        buttonType='submit'
+                    ? <ButtonNext extraClass="next__btn btn__text purple__bg"
+                        buttonType='button'
                         formData={formData}
                         setFormData={setFormData}
-                    > Start je Abbymoment </ButtonNext>
-                    : <ButtonNext
-                        buttonType='submit'
+                        disabled={!touched}
+                    > Start je moment </ButtonNext>
+                    : <ButtonNext extraClass="next__btn btn__text purple__bg"
+                        buttonType='button'
                         formData={formData}
                         setFormData={setFormData}
-                    > Plan je Abbymoment </ButtonNext>
+                        disabled={!touched}
+                    > Maak moment aan </ButtonNext>
             }
         </>
     )

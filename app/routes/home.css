@@ -1,3 +1,336 @@
-.home__container{
-    margin: var(--space-s);
+.hero {
+    margin: 0 var(--space-s);
+    display: flex;
+    flex-direction: column;
+}
+
+.hero__title {
+    margin-top: var(--space-s);
+}
+
+.hero__header {
+    text-align: right;
+    padding-bottom: var(--space-xxs);
+    border-bottom: var(--border-thin);
+}
+
+.hero__img {
+    padding-top: var(--space-s);
+}
+
+.hero__btn {
+    margin-top: var(--space-3xl);
+    padding: var(--space-s);
+    width: 100%;
+    border: none;
+    border-top: var(--border-thin);
+}
+
+.intro {
+    border-top: 2px solid var(--blue);
+    display: flex;
+    flex-direction: column;
+}
+
+.intro__title {
+    padding: var(--space-xs) 0 var(--space-s) var(--space-m);
+    margin: var(--space-3xl) 0 var(--space-4xl) 0;
+    max-width: 17rem;
+}
+
+.intro__info {
+    margin: 0 var(--space-s);
+    padding-bottom: var(--space-3xs);
+    padding-left: var(--space-3xl);
+    border-bottom: var(--border-thin);
+    text-align: right;
+}
+
+.intro__scroll {
+    margin: var(--space-3xl) 0;
+    /* height: 400vh; */
+    padding: var(--space-4xl) var(--space-3xl);
+    text-align: right;
+    overflow: hidden;
+    /* padding-top: 40vh; */
+}
+
+.scroll__header {
+    font-size: 6rem;
+    font-weight: 500;
+    text-wrap: nowrap;
+    line-height: 6.5rem;
+    will-change: transform;
+}
+
+.scroll__span {
+    color: var(--black);
+    font-size: var(--font-h2);
+    font-weight: 400;
+    text-wrap: nowrap;
+    line-height: 2.125rem;
+    will-change: transform;
+}
+
+.moment {
+    margin-top: var(--space-4xl);
+    display: flex;
+    flex-direction: column;
+}
+
+.moment__title {
+    padding-left: var(--space-s)
+}
+
+.explain {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding-bottom: var(--space-m);
+    border-bottom: var(--border-thin);
+}
+
+.explain__title {
+    max-width: 20rem;
+    padding: var(--space-s) 0 var(--space-s) var(--space-s);
+}
+
+.explain__title-span {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.explain__info {
+    position: absolute;
+    bottom: 1.25rem;
+    padding: var(--space-3xs) var(--space-s);
+    max-width: 19rem;
+}
+
+.explain__img {
+    max-width: 19rem;
+    align-self: flex-end;
+    padding: 0 var(--space-s) 0 var(--space-s);
+}
+
+.moment__btn {
+    margin: var(--space-xxl) var(--space-s);
+}
+
+.living {
+    position: relative;
+    padding: var(--space-4xl) 0 17.5rem 0;
+    margin-bottom: var(--space-3xl);
+    overflow: hidden;
+}
+
+.living__title {
+    font-size: 3.5rem;
+    line-height: 3.75rem;
+    letter-spacing: -.015rem;
+    text-transform: uppercase;
+    padding: 0 var(--space-s);
+}
+
+.living__img {
+    position: absolute;
+    opacity: 0;
+}
+
+.living__img:nth-child(8) {
+    opacity: 100;
+    max-width: 62.5%;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.living__img:nth-child(7) {
+    opacity: 100;
+    max-width: 60%;
+    bottom: 17.5%;
+    right: 0;
+    transform: translate(50%, 0);
+}
+
+.living__img:nth-child(6) {
+    opacity: 100;
+    max-width: 60%;
+    bottom: 15%;
+    left: -5%;
+    transform: translate(-50%, 0);
+}
+
+.living__img:nth-child(4) {
+    opacity: 100;
+    max-width: 52.5%;
+    bottom: 25%;
+    left: -12.5%;
+    z-index: -1;
+    transform: translate(-50%, 0);
+}
+
+.living__img:nth-child(3) {
+    opacity: 100;
+    max-width: 55%;
+    bottom: 40%;
+    left: 25%;
+    z-index: -1;
+    transform: translate(-50%, 0);
+}
+
+.living__img:nth-child(2) {
+    opacity: 100;
+    max-width: 32.5%;
+    bottom: 45%;
+    right: 22.5%;
+    z-index: -1;
+    transform: translate(50%, 0);
+}
+
+.living__img:nth-child(1) {
+    opacity: 100;
+    max-width: 35%;
+    bottom: 50%;
+    right: 7.5%;
+    z-index: -1;
+    transform: translate(50%, 0);
+}
+
+.join {
+    margin: 0 var(--space-s) var(--space-4xl) var(--space-s);
+}
+
+.join__header {
+    padding-bottom: var(--space-3xs);
+    border-bottom: var(--border-thin);
+}
+
+.join__info {
+    padding: var(--space-xs) 0 var(--space-xs) 5.81rem;
+    border-bottom: var(--border-thin);
+}
+
+.andYou__title {
+    padding-left: var(--space-s);
+}
+
+.andYou__carousel {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.carousel__header {
+    padding: 0 0 0 var(--space-s);
+    border-bottom: var(--border-thin);
+}
+
+.carousel__images {
+    padding-top: 1rem;
+    width: 100%;
+    overflow: hidden;
+}
+
+.carousel__wrapper{
+    display: flex;
+        flex-wrap: nowrap;
+        gap: var(--space-xxs);
+}
+
+.carousel__wrapper--1{
+    min-width: 116rem;
+}
+
+.carousel__wrapper--2 {
+    min-width: 113rem;
+}
+
+.carousel__wrapper--3 {
+    min-width: 112rem;
+}
+
+
+.statistics {
+    margin-top: var(--space-4xl);
+    margin-bottom: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+}
+
+.statistics__title {
+    padding-left: var(--space-s);
+}
+
+.statistics__swipe {
+    display: flex;
+    flex-direction: column;
+}
+
+.statistic {
+    display: flex;
+    flex-direction: column;
+}
+
+.statistic__visual {
+    height: 25rem;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.statistic__data {
+    font-size: 6rem;
+    font-weight: 400;
+    line-height: 6.5rem;
+    z-index: 1;
+}
+.statistic__value{
+    z-index: 1;
+}
+
+.statistic__background {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 16rem;
+    height: 16rem;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.statistic__img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 150%;
+    transform: translate(-50%, -50%);
+}
+
+.statistics__description {
+    align-self: flex-end;
+    max-width: none;
+    padding: 1.5rem var(--space-s) 1.5rem 5rem;
+}
+
+.statistics__img {
+    max-width: 5.5rem;
+    margin: 0 auto;
+    padding: var(--space-m) var(--space-s);
+}
+
+.statistics__btn{
+    margin-top: 2rem;
+}
+
+.statistics__btn___title{
+    margin-bottom: var(--space-m);
+}
+
+.statistics__btn__container{
+    margin: var(--space-3xl) 0;
 }

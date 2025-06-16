@@ -31,7 +31,7 @@
     flex-flow: row nowrap;
     justify-content: space-between; 
     gap: 0;
-    border-bottom: var(--border);
+    border-bottom: var(--border-thin);
 }
 
 .navigation__blue{
@@ -40,6 +40,10 @@
 
 .navigation__orange {
     background: linear-gradient(to right, rgb(0, 0, 0, 0) 65%, var(--orange) 35%);
+}
+
+.navigation__purple {
+    background: linear-gradient(to right, rgb(0, 0, 0, 0) 65%, var(--purple) 35%);
 }
 
 .navigation__yellow {
@@ -61,6 +65,11 @@
 .navigation__yellow.active {
     background-color: var(--yellow);
 }
+
+.navigation__purple.active {
+    background-color: var(--purple);
+}
+
 .navigation__green.active {
     background-color: var(--green);
 }
@@ -79,6 +88,7 @@
 .links__li__p {
     align-self: end;
     font-size: var(--font-h2);
+    line-height: 1.7rem;
 }
 
 .links__li__img {
@@ -98,7 +108,8 @@
 }
 
 .navigation__ln_li{
-     border-right: var(--border);    
+     border-right: var(--border-thin);  
+     border-bottom: var(--border-thin);  
      padding: var(--space-s);
 }
 

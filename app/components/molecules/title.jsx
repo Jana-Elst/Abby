@@ -1,6 +1,6 @@
-const Title = ({children}) => {
+const Title = ({children, extraClass}) => {
     return (
-        <h2>{children}</h2>
+        <h2 className={extraClass}>{children}</h2>
     )
 };
 

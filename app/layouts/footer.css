@@ -1,0 +1,43 @@
+footer {
+    margin-top: var(--space-xl);
+    padding: var(--space-3xl) var(--space-s);
+    border-top: var(--border-thin);
+    display: flex;
+    flex-direction: column;
+}
+.footer__container{
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-s);
+    padding-bottom: var(--space-xl);
+}
+.footer__extra{
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xxs);
+}
+.footer__website{
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: var(--space-m);
+}
+.website__arrow{
+    max-width: 1.5rem;
+}
+
+.footer__foodnote{
+    padding-top: var(--space-s);
+    border-top: var(--border-thin);
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+.foodnote__img{
+    max-width: 4rem;
+    height: auto;
+}
+.foodnote__urls{
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xxs);
+}

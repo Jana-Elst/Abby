@@ -1,0 +1,101 @@
+.card__info,
+.card__time,
+.card__date, .card__people{
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.card__time,
+.card__date, .card__people{
+    gap: 0.25rem;
+}
+
+
+.card__top{
+    display: grid;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: var(--border-thin);
+    gap: 0rem;
+}
+
+.card__info{
+    grid-column: 2 / span 1 ;
+    grid-row: 1;
+    gap: 1rem;
+    padding: var(--space-xxs);
+}
+
+.card{
+    border: var(--border);
+    background-color: var(--white);
+}
+
+.card__type{
+    padding: var(--space-xxs) var(--space-xs);
+    border-right: var(--border-thin);
+}
+
+.card__middle{
+    display: flex;
+    justify-content: space-between;
+    padding: var(--space-s);
+}
+
+.card__name{
+    max-width: 12.5rem;
+}
+
+.btn__card {
+    display: grid;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-s);
+    border-top: var(--border-thin);
+}
+
+.btn__card__arrow{
+    grid-column: 2 / span 1;
+        grid-row: 1;
+}
+
+.btn__card__logo{
+    width: 2.92788rem;
+    height: 1rem;
+}
+
+.btn__card__abby{
+    display: flex;
+    flex-flow: row nowrap;
+   align-items: center;
+   gap: 0.30rem;
+   color: var(--white);
+}
+
+.bg-img__none{
+    background-image: url(../../src/assets/bg-abbymoment-white.jpg);
+}
+
+.bg-img__green {
+    background-image: url(../../src/assets/bg-abbymoment-green.jpg);
+}
+
+.card__active{
+    padding: var(--space-s);
+    display: grid;
+    grid-template-columns: .5fr 2fr .5fr;
+}
+
+.card__middle--active{
+    grid-column: 2 / span 1;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    gap: var(--space-xl);
+
+}
+
+.btn__card__arrow--active{
+    grid-column: 3 / span 1;
+    justify-self: end;
+}
