@@ -29,7 +29,8 @@ const QrCode = ({ formData, setFormData }) => {
         // 😎 You can do whatever you want with the scanned result.
         setScannedResult(result?.data);
 
-        if (scannedResult === `${import.meta.env.BASE_URL}qrCode`) {
+        if (result.data === `${import.meta.env.BASE_URL}qrCode`) {
+            console.log('NextPage');
             setFormData({
                 ...formData,
                 state: formData.state + 1
