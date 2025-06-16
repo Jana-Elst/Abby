@@ -9,7 +9,7 @@ import "./qr-code.css";
 
 // Qr Scanner
 import QrScanner from "qr-scanner";
-// import QrFrame from "../assets/qr-frame.svg";
+import Title from "../molecules/title";
 
 const QrCode = ({ formData, setFormData }) => {
     // QR States
@@ -30,7 +30,7 @@ const QrCode = ({ formData, setFormData }) => {
         setScannedResult(result?.data);
 
         console.log(`${import.meta.env.BASE_URL}qrCode`);
-        if (result.data === `${import.meta.env.BASE_URL}qrCode`) {
+        if (result.data === "https://jana-elst.github.io/Abby/qrCode") {
             console.log('NextPage');
             setFormData({
                 ...formData,
@@ -88,38 +88,21 @@ const QrCode = ({ formData, setFormData }) => {
 
     return (
         <>
-            <ButtonBack formData={formData} setFormData={setFormData}>Terug</ButtonBack>
-            <div className="qr-reader">
-                {/* QR */}
-                <video ref={videoEl}></video>
-                <div ref={qrBoxEl} className="qr-box">
-                    {/* <img
-                    src={QrFrame}
-                    alt="Qr Frame"
-                    width={256}
-                    height={256}
-                    className="qr-frame"
-                /> */}
+            <div className="container--form container--qrCode">
+                <div className="progress__container">
+                    <ButtonBack formData={formData} setFormData={setFormData}>Terug</ButtonBack>
                 </div>
+                <Title extraClass="form__title h3">Scan de QR-code naast de momentenmuur aan de ingang van Abby</Title>
 
-                {/* Show Data Result if scan is success */}
-                {scannedResult && (
-                    <p
-                        style={{
-                            position: "absolute",
-                            top: 0,
-                            left: 0,
-                            zIndex: 99999,
-                            color: "white",
-                        }}
-                    >
-                        Scanned Result: {scannedResult}
-                    </p>
-                )}
+                <div className="qr-reader">
+                    {/* QR */}
+                    <video ref={videoEl}></video>
+                    <div ref={qrBoxEl} className="qr-box">
+                    </div>
+                </div>
             </div>
 
             <ButtonNext formData={formData} setFormData={setFormData}> Volgende stap DIT MOET AANGEPAST WORDEN!!!</ButtonNext>
-
         </>
     );
 };
