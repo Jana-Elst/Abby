@@ -22,3 +22,4 @@ export const allParticipants = (clockProfile, clockId) => {
     const participants = clockProfile.filter(cp => cp.clock_id === clockId).map(cp => cp.profile_id);
     return participants
 }
+

@@ -19,7 +19,7 @@ const Confirmation = ({ formData, setFormData, setFlowForm }) => {
         { flow: 'restartMoment', navPath: 'jouw-abbymomenten' },
         { flow: 'restartMomentNow', navPath: 'jouw-abbymomenten' },
         { flow: 'now', navPath: 'maak-een-abbymoment' },
-        { flow: 'startScheduled', navPath: -2 }
+        { flow: 'startScheduled', navPath: -3 }
     ]
 
 
@@ -54,7 +54,7 @@ const Confirmation = ({ formData, setFormData, setFlowForm }) => {
     return (
         <div className="confirm">
             {
-                formData.flow === 'now' || formData.flow === 'planNow' || formData.flow === 'restartMomentNow'
+                formData.flow === 'now' || formData.flow === 'planNow' || formData.flow === 'restartMomentNow' || formData.flow === 'startScheduled'
                     ? <p className="confirm__title"> Je moment is gestart!</p>
                     : <p className="confirm__title"> Je moment is gepland!</p>
             }

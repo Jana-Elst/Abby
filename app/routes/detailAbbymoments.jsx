@@ -26,7 +26,7 @@ import { UserContext } from '../context/UserContext';
 
 //functions
 import { getDate } from "../services/clock";
-import { getClock, getClockProfile } from "../services/data";
+import { getClock, getClockProfile, getActiveClocksUser } from "../services/data";
 import { locations } from "../services/museumData";
 
 import { isCreator, isParticipant, allParticipants } from '../services/dataFilters';
@@ -37,23 +37,24 @@ export async function clientLoader({ params }) {
     //get data clock
     const clock = await getClock(id);
     const clockProfile = await getClockProfile();
-    // const participants = getParticipants(clock, clockProfile) || [];
-    return { clock, clockProfile };
+    const activeClocks = await getActiveClocksUser();
+    return { clock, clockProfile, activeClocks };
 }
 
 const DetailAbbymoments = ({ loaderData }) => {
     const { userId } = useContext(UserContext);
-    const { clock, clockProfile } = loaderData;
+    const { clock, clockProfile, activeClocks } = loaderData;
     const loc = useLocation();
-
     const participants = allParticipants(clockProfile, clock[0].id)
+    const userHasActiveClock = activeClocks.length > 0;
 
     const [uiState, setUiState] = useState({
         popUpOpen: false,
         buttonState: participants.length > 0 ?
             participants.includes(userId) ? 'leave ' : 'join' : 'join',
         participants: participants,
-        confirmxation: false
+        confirmxation: false,
+        activeClock: userHasActiveClock
     });
 
     const allLocations = [

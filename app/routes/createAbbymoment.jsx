@@ -139,7 +139,7 @@ const CreateAbbymoment = ({ loaderData }) => {
         plan: ['description', 'time', 'location', 'participants', 'overview', 'confirmation'],
         planNow: ['description', 'time', 'qrCode', 'visabilityClock', 'location', 'participants', 'overview', 'confirmation'],
         now: ['visabilityClock', 'description', 'location', 'participants', 'overview', 'confirmation'],
-        startScheduled: ['qr-code', 'visabilityClock', 'startButton', 'confirmation'],
+        startScheduled: ['qrCode', 'visabilityClock', 'startButton', 'confirmation'],
         restartMoment: ['time', 'overview', 'confirmation'],
         restartMomentNow: ['time', 'qrCode', 'visabilityClock', 'startButton', 'confirmation']
     }

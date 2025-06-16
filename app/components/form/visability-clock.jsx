@@ -93,11 +93,12 @@ const VisabilityClock = ({ setFormData, formData }) => {
                             name="visability"
                             value="wall"
                             checked={formData.clockWallPos === "wall"}
-                            onChange={handleChange}
-                            onFocus={() => {
+                            onChange={(e) => {
+                                handleChange(e);
                                 setTouched(true);
+
                             }}
-                            // disabled = {!formData.isFree}
+                            disabled = {!formData.isFree}
                             required
                         />
                         Op de klokjes muur
@@ -110,9 +111,10 @@ const VisabilityClock = ({ setFormData, formData }) => {
                             name="visability"
                             value="online"
                             checked={formData.clockWallPos === 'online'}
-                            onChange={handleChange}
-                            onFocus={() => {
+                            onChange={(e) => {
+                                handleChange(e);
                                 setTouched(true);
+
                             }}
                             required
                         />
@@ -126,7 +128,7 @@ const VisabilityClock = ({ setFormData, formData }) => {
                         extraClass="next__btn btn__text purple__bg"
                         formData={formData}
                         setFormData={setFormData}
-                        disabled={!touched}
+                        disabled={!formData.clockWallPos}
                     > Volgende stap </ButtonNext>
                 }
             </div>

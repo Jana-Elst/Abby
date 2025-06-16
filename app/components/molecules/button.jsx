@@ -9,7 +9,7 @@ import './button.css'
 - external vs internal link
 */
 
-const Button = ({ link, children, icon = '', onClick = null, type = 'button', extraClass = ''}) => {
+const Button = ({ link, children, icon = '', onClick = null, type = 'button', extraClass = '', disabled = false}) => {
 
     if (link) {
         return (
@@ -19,7 +19,7 @@ const Button = ({ link, children, icon = '', onClick = null, type = 'button', ex
         )
     } else {
         return (
-            <button type={type} className={`${extraClass} button ${icon}`} onClick={onClick}>{children}</button>
+            <button type={type} className={`${extraClass} button ${icon}`} onClick={onClick} disabled={disabled}>{children}</button>
         )
     }
 };
