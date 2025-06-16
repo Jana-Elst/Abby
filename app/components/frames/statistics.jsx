@@ -14,7 +14,7 @@ const Statistics = () => {
     return (
         <div className="statistics">
             <Title extraClass="statistics__title">
-                Zo vult de <span className="yellow__fg">community</span> Abby.
+                Zo vertraagden we <span className="yellow__fg">samen</span>
             </Title>
             <Swiper spaceBetween={0} slidesPerView={1}>
                 <SwiperSlide >
