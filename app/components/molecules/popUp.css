@@ -5,4 +5,35 @@
 .open {
     display: block;
     position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20rem;
+    border: var(--border-thin);
+    background-color: var(--white);
+}
+
+.popup__header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    border-bottom: var(--border-thin);
+}
+
+.popup__warning {
+    max-height: 1.875rem;
+    max-width: 1.875rem;
+    margin: var(--space-3xs) 0;
+}
+
+.popup__btn {
+    position: absolute;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 0 var(--space-xs);
+    border-left: var(--border-thin);
 }
