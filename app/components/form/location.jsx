@@ -104,12 +104,14 @@ const Location = ({ formData, setFormData }) => {
                     setFormData={setFormData}
                     disabled={
                         !formData.location || uiState.popUpOpen
-                        }> Volgende stap </ButtonNext>
+                    }> Volgende stap </ButtonNext>
             </div>
 
-            <PopUp setUiState={setUiState} uiState={uiState}>
-                <p>Meer dan welkom in deze ruimte</p>
-                <p>Dit is een ruimte waar ook andere activiteiten georganiseerd kunnen worden. Abby moet nog even controleren of deze ruimte beschikbaar is. In de tussentijd kun je gewoon verder plannen. We laten je zo snel mogelijk weten of de ruimte beschikbaar is. Als dat zo is, bevestigen we je reservering. Tot die tijd staat je klokje even ‘in de wacht’.</p>
+            <PopUp setUiState={setUiState} uiState={uiState} extraClass="popup">
+                <div className="popup__container">
+                    <p className="popup__title h4">Meer dan welkom in deze ruimte</p>
+                    <p className="popup__text">Dit is een ruimte waar ook andere activiteiten georganiseerd kunnen worden. Abby moet nog even controleren of deze ruimte beschikbaar is. In de tussentijd kun je gewoon verder plannen. We laten je zo snel mogelijk weten of de ruimte beschikbaar is. Als dat zo is, bevestigen we je reservering. Tot die tijd staat je klokje even ‘in de wacht’.</p>
+                </div>
             </PopUp>
         </>
 
