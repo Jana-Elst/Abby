@@ -129,7 +129,7 @@ const CreateAbbymoment = ({ loaderData }) => {
                 stopTime: undefined,
                 clockWallPos: '',
                 description: '',
-                private: '',
+                private: 'not-selected',
                 scheduledStartTime: '',
                 scheduledStopTime: undefined,
                 creator: userId,

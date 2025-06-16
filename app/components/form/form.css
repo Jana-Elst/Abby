@@ -144,7 +144,8 @@ textarea::placeholder {
 
 .date__now:has(input[type="radio"]:disabled),
 .date__later:has(input[type="radio"]:disabled) {
-    opacity: 50%;
+    background-color: #0000004D;
+    opacity: 30%;
 }
 
 .date__later:has(input[type="radio"]:checked) {
@@ -166,6 +167,7 @@ textarea::placeholder {
     flex-direction: column;
     align-items: center;
 }
+
 .time label{
     align-self: flex-end;
     padding: var(--space-s);

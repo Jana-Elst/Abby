@@ -47,13 +47,11 @@ const Participants = ({ formData, setFormData }) => {
                             value="false"
                             checked={formData.private === false}
                             onChange={(e) => {
+                                setTouched(true);
                                 setFormData({
                                     ...formData,
                                     private: e.target.value === "true" ? true : false
                                 })
-                            }}
-                            onFocus={() => {
-                                setTouched(true);
                             }}
                         />
                         ja, hoe meer zielen hoe meer vreugd.
@@ -74,7 +72,7 @@ const Participants = ({ formData, setFormData }) => {
                         buttonType='button'
                         formData={formData}
                         setFormData={setFormData}
-                        disabled={!touched}
+                        disabled={!touched && formData.private == ! 'not-selected'}
                     > Maak moment aan </ButtonNext>
             }
         </>

@@ -35,8 +35,15 @@ export const getDateNames = (date) => {
     return (monthNames[date - 1])
 }
 
-export const getISOLocalString = () => {
-    let date = new Date();
+export const getISOLocalString = (dateNotIso) => {
+    let date;
+
+    if (dateNotIso) {
+        date = new Date(dateNotIso);
+    } else {
+        date = new Date();
+    }
+
     let tzo = -date.getTimezoneOffset();
     if (tzo === 0) {
         return date.toISOString();

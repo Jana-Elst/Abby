@@ -128,7 +128,7 @@ const ButtonDetailClock = ({ clock, isParticipant, setUiState, uiState }) => {
                     <button className="btn__square btn__square--left btn__edit yellow__bg"><svg xmlns="http://www.w3.org/2000/svg" width="21" height="19" viewBox="0 0 21 19" fill="none">
                         <path d="M15.56 0.280029L5.75 9.26003V14.06H9.71L19.38 4.34003L15.56 0.280029ZM9.06 12.7H7.25V9.83003L7.33 9.75003L15.55 2.08003L17.41 4.36003L17.25 4.52003L9.06 12.7ZM18.75 9.90003V17.36H2.25V1.94003H10.25V0.580029H0.75V18.72H20.25V9.90003H18.75Z" fill="black" />
                     </svg>Pas aan</button>
-                    <p className="btn__right">Start je moment vanaf {getTime(clock[0].scheduledStartTime).date}</p>
+                    <p className="btn__right">Start je moment vanaf {time.day}-{time.month}-{time.year}</p>
                 </div>
             )
         }
