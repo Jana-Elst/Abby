@@ -23,11 +23,24 @@ export async function clientLoader() {
     const pastClocksParticipant = await getPastParticipant()|| [];
     const clockProfile = await getClockProfile()|| [];
 
-    return { activeClocks, scheduledClocksCreator, scheduledClocksParticipant, pastClocksCreator, pastClocksParticipant, clockProfile, userId };
+    return {
+        activeClocks,
+        scheduledClocksCreator,
+        scheduledClocksParticipant,
+        pastClocksCreator,
+        pastClocksParticipant,
+        clockProfile,
+        userId };
 }
 
 const YourAbbyMoments = ({ loaderData }) => {
-    const { activeClocks, scheduledClocksCreator, scheduledClocksParticipant, pastClocksCreator, pastClocksParticipant, clockProfile, userId } = loaderData;
+    const { activeClocks,
+        scheduledClocksCreator,
+        scheduledClocksParticipant,
+        pastClocksCreator,
+        pastClocksParticipant,
+        clockProfile,
+        userId } = loaderData;
 
     //set the states
     const [state, setState] = useState({

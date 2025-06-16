@@ -106,7 +106,16 @@ export const getOtherActiveClocks = async () => {
         return data;
     }
 
-    return null;
+    const data = await getOrUpdateClocks(
+        supabase
+            .from('clocks')
+            .select('*')
+            .not('startTime', 'is', null)
+            .is('stopTime', null)
+            .order('startTime', { ascending: false })
+    );
+
+    return data;
 }
 
 export const getActiveClocksUser = async () => {
@@ -122,8 +131,6 @@ export const getActiveClocksUser = async () => {
                 .order('startTime', { ascending: false }));
         return data
     }
-
-    return null;
 }
 
 //--- scheduled clocks
@@ -207,7 +214,7 @@ export const getPastCreator = async () => {
     return null
 }
 
-const todayIso = () => {
+export const todayIso = () => {
     const today = new Date();
     today.setUTCHours(0, 0, 0, 0);
     const todayISO = today.toISOString();
@@ -412,7 +419,6 @@ export const addPhysicalClock = async (userId) => {
                 clockWallPos: clockNumber,
                 creator: userId,
                 scheduledStartTime: time,
-                startTime: time
             }).select()
             .single(),
         userId
@@ -486,7 +492,7 @@ export const timeDifference = (time) => {
 }
 
 //create an array of all the free clocks
-const addFreeClocks = async () => {
+export const addFreeClocks = async () => {
     let freeClocks = [];
     let occupiedClocks = [];
 

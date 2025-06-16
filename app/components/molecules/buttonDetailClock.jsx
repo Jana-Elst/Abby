@@ -9,9 +9,8 @@ import { UserContext } from '../../context/UserContext';
 import { FormFlowContext } from '../../context/FormFlowContext';
 
 //functions
-import { getTime } from "../../services/clock";
-import { getDateNow } from "../../services/data";
-import { joinClock, leaveClock, stopClock } from "../../services/data";
+import { getDate, getISOLocalString } from "../../services/clock";
+import { joinClock } from "../../services/data";
 
 import "./buttonDetailClock.css"
 
@@ -19,6 +18,9 @@ const ButtonDetailClock = ({ clock, isParticipant, setUiState, uiState }) => {
     const { userId } = useContext(UserContext);
     const { setFlowForm } = useContext(FormFlowContext);
     const navigate = useNavigate();
+
+    const time = getDate(clock[0].scheduledStartTime);
+    console.log(time);
 
     let scheduledDate = clock[0].scheduledStartTime;
     scheduledDate = new Date(scheduledDate).toISOString("en-US", { timeZone: "Europe/Amsterdam" }).split('T')[0];
@@ -94,7 +96,7 @@ const ButtonDetailClock = ({ clock, isParticipant, setUiState, uiState }) => {
         }
 
         // later-today: pas aan & stop
-        if (scheduledDate === getDateNow()) {
+        if (scheduledDate === getISOLocalString()) {
             return (
                 <div className="btn__detail btn__detail--split">
                     <button className="btn__square btn__square--left btn__edit yellow__bg btn__text"> <svg xmlns="http://www.w3.org/2000/svg" width="21" height="19" viewBox="0 0 21 19" fill="none">
@@ -109,7 +111,7 @@ const ButtonDetailClock = ({ clock, isParticipant, setUiState, uiState }) => {
         }
 
         //never started
-        if (scheduledDate < getDateNow()) {
+        if (scheduledDate < getISOLocalString()) {
             return (
                 <Button extraClass="btn__detail btn__text btn__square--left purple__bg" onClick={handleRestart}><svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">
                     <path d="M16.9856 14.8436H2.925L5.7325 12.0348L5.26125 11.5636L1.67188 15.1536L5.26125 18.743L5.7325 18.2717L2.97063 15.5092H17.6525V9.51172H16.9862L16.9856 14.8436Z" fill="black" stroke="black" stroke-width="0.5" />
@@ -135,8 +137,9 @@ const ButtonDetailClock = ({ clock, isParticipant, setUiState, uiState }) => {
     //if user joined moment
     else {
         //past
-        if (scheduledDate < getDateNow() || clock[0].stopTime) {
-            return <button className="btn__detail" >Dit moment kan je niet herhalen, want je was een deelnemer.</button>
+        if (scheduledDate < getISOLocalString() || clock[0].stopTime) {
+           return <button className="btn__detail" >Dit moment kan je niet herhalen, want je was een deelnemer.</button>
+
         }
 
         //Scheduled & now

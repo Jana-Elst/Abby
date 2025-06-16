@@ -4,21 +4,29 @@ import Title from "../components/molecules/title";
 import ButtonBack from "../components/atoms/buttonBack"
 import ButtonDetailClock from "../components/molecules/buttonDetailClock"
 import Button from '../components/molecules/button';
+import Clock from '../components/atoms/clock';
+import PopUp from '../components/molecules/popUp';
+import PopUpDetail from '../components/molecules/popUpDetail';
 
 import './detailAbbymoments.css';
+
 import share from "../src/assets/share.svg";
-import spaceAtelier from "../src/assets/space-atelier.jpg";
+import spaceLiving from '../src/assets/space-living.jpg';
+import spaceTuin from '../src/assets/space-tuin.jpg';
+import spaceCafe from '../src/assets/space-cafe.jpg';
+import spaceAtelier from '../src/assets/space-atelier.jpg';
+import spaceSalon from '../src/assets/space-salon.jpg';
+import spaceA from '../src/assets/space-a.jpg';
+import spaceB from '../src/assets/space-b.jpg';
 
 
 //root variables
 import { UserContext } from '../context/UserContext';
 
 //functions
-import { getTime } from "../services/clock";
-import { getClock, getClockProfile, getParticipants, clockLinkedWithUser } from "../services/data";
-import Clock from '../components/atoms/clock';
-import PopUp from '../components/molecules/popUp';
-import PopUpDetail from '../components/molecules/popUpDetail';
+import { getDate, getISOLocalString } from "../services/clock";
+import { getClock, getClockProfile } from "../services/data";
+import { locations } from "../services/museumData";
 
 import { isCreator, isParticipant, allParticipants } from '../services/dataFilters';
 
@@ -46,6 +54,24 @@ const DetailAbbymoments = ({ loaderData }) => {
         confirmation: false
     });
 
+    const allLocations = [
+        ...locations,
+        { name: 'Ik weet het nog niet', value: 'ik-weet-het-nog-niet', image: '' }
+    ];
+
+    const images = {
+        spaceLiving,
+        spaceTuin,
+        spaceCafe,
+        spaceAtelier,
+        spaceSalon,
+        'space-a': spaceA,
+        'space-b': spaceB
+    };
+
+    const location = allLocations.find(location => location.value === clock[0].location)
+    console.log(location);
+
     const creator = isCreator(clock[0].creator, userId);
     const participant = isParticipant(clock[0].creator, uiState.participants, userId);
 
@@ -67,11 +93,11 @@ const DetailAbbymoments = ({ loaderData }) => {
                             : <>
                                 <p className='container__date'>                                                <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
                                     <path fillRule="evenodd" clipRule="evenodd" d="M7.09093 2.5H5.7273V3.86364H3.68184H3L3.00002 17.5H3.68184H17.3182H18V3.86364H17.3182H15.2728V2.5H13.9091V3.86364H7.09093V2.5ZM4.36366 7.95455V5.22727H16.6364V7.95455H4.36366ZM4.36366 9.31818V16.1364H16.6364V9.31818H4.36366Z" fill="black" />
-                                </svg>{getTime(clock[0].scheduledStartTime).date}</p>
+                                </svg>{`${getDate(clock[0].scheduledStartTime).day} ${getDate(clock[0].scheduledStartTime).monthName}`}</p>
                                 <p className='container__time'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                                     <circle cx="8" cy="8" r="6.75" stroke="black" strokeWidth="1.5" />
                                     <path d="M8 7.99986L8 1.57129" stroke="black" strokeWidth="1.5" />
-                                </svg>{getTime(clock[0].scheduledStartTime).time}</p>
+                                </svg>{`${getDate(clock[0].scheduledStartTime).hour}:${getDate(clock[0].scheduledStartTime).minutes}`}</p>
                             </>
                     }
 
@@ -96,9 +122,9 @@ const DetailAbbymoments = ({ loaderData }) => {
             }
 
             {
-                clock[0].location === 'Ik weet het nog niet'
+                clock[0].location === 'ik-weet-het-nog-niet'
                     ? ""
-                    : <p className='location'>{clock[0].location}</p>
+                    : <p className='location'>{location.name}</p>
             }
             <div className='collage'>
                 <div className='collage__clock'>
@@ -108,7 +134,9 @@ const DetailAbbymoments = ({ loaderData }) => {
                         clock={clock[0]}
                         clockColors={{ color: `${creator ? "purple" : participants.includes(userId) ? 'green' : 'black'}`, bgColor: "white" }}
                     /></div>
-                <img className={clock[0].abbyMade ? 'collage__location collage__location--abby' : 'collage__location'} src={spaceAtelier} alt="deel icon" />
+                      {
+                    (clock[0].location !== 'ik-weet-het-nog-niet') && <img className={clock[0].abbyMade ? 'collage__location collage__location--abby' : 'collage__location'} src={images[location.image]} alt={`foto van ${location.name}`} />
+                }
                 {clock[0].abbyMade ? (
                     <div className={participants.includes(userId) ? 'collage__made collage__made--green' : 'collage__made collage__made--grey'}>
                         <p className='made__by'>Made By</p>
@@ -120,7 +148,6 @@ const DetailAbbymoments = ({ loaderData }) => {
                     :
                     ""
                 }
-
             </div >
 
                 <ButtonDetailClock
