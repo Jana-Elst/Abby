@@ -98,7 +98,7 @@ const VisabilityClock = ({ setFormData, formData }) => {
                             onFocus={() => {
                                 setTouched(true);
                             }}
-                            disabled = {!formData.isFree}
+                            // disabled = {!formData.isFree}
                             required
                         />
                         Op de klokjes muur
