@@ -8,7 +8,7 @@ const Participants = ({ formData, setFormData }) => {
     const [touched, setTouched] = useState(formData.particpant);
 
     return (
-        <>
+        <div className="container__stretch">
             <div className="container--form">
                 <div className="progress__container">
                     <ButtonBack formData={formData} setFormData={setFormData}>Terug</ButtonBack>
@@ -20,6 +20,8 @@ const Participants = ({ formData, setFormData }) => {
                     </div>
                 </div>
                 <Title extraClass="form__title">Wil je je moment delen met anderen?</Title>
+            </div>
+            <div>
                 <div className="share">
                     <label htmlFor="true" className="share__btn">
                         <input type="radio"
@@ -60,24 +62,25 @@ const Participants = ({ formData, setFormData }) => {
                         {/* <label htmlFor="false">Ja, hoe meer zielen hoe meer vreugd.</label> */}
                     </label>
                 </div>
-            </div>
 
-            {
-                formData.flow === "now" || formData.flow === 'planNow'
-                    ? <ButtonNext extraClass="next__btn btn__text purple__bg"
-                        buttonType='button'
-                        formData={formData}
-                        setFormData={setFormData}
-                        disabled={!touched}
-                    > Start je moment </ButtonNext>
-                    : <ButtonNext extraClass="next__btn btn__text purple__bg"
-                        buttonType='button'
-                        formData={formData}
-                        setFormData={setFormData}
-                        disabled={!touched}
-                    > Maak moment aan </ButtonNext>
-            }
-        </>
+
+                {
+                    formData.flow === "now" || formData.flow === 'planNow'
+                        ? <ButtonNext extraClass="next__btn btn__text purple__bg"
+                            buttonType='button'
+                            formData={formData}
+                            setFormData={setFormData}
+                            disabled={!touched}
+                        > Start je moment </ButtonNext>
+                        : <ButtonNext extraClass="next__btn btn__text purple__bg"
+                            buttonType='button'
+                            formData={formData}
+                            setFormData={setFormData}
+                            disabled={!touched}
+                        > Maak moment aan </ButtonNext>
+                }
+            </div>
+        </div >
     )
 };
 
