@@ -228,12 +228,28 @@
 
 .carousel__images {
     padding-top: 1rem;
-    display: flex;
-    flex-wrap: nowrap;
     width: 100%;
     overflow: hidden;
-    gap: var(--space-xxs);
 }
+
+.carousel__wrapper{
+    display: flex;
+        flex-wrap: nowrap;
+        gap: var(--space-xxs);
+}
+
+.carousel__wrapper--1{
+    min-width: 116rem;
+}
+
+.carousel__wrapper--2 {
+    min-width: 113rem;
+}
+
+.carousel__wrapper--3 {
+    min-width: 112rem;
+}
+
 
 .statistics {
     margin-top: var(--space-4xl);
