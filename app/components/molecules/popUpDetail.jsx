@@ -70,7 +70,7 @@ const PopUpDetail = ({ clock, isParticipant, setUiState, uiState }) => {
         return (
             <>
                 <p>Wil je dit Abbymoment verlaten?</p>
-                <p>tekst tekst tekst</p>
+                <p>Als je dit Abbymoment verlaat komt het gewoon terug bij alle momenten te staan.</p>
                 <div>
                     <Button onClick={handleClickClose}>Annuleer</Button>
                     <Button onClick={handleClockLeave}>Verlaat Abbymoment</Button>

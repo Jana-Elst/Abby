@@ -50,7 +50,7 @@ const Location = ({ formData, setFormData }) => {
     }
 
     return (
-        <>
+        <div className="container__stretch">
             <div className="container--form">
                 <div className="progress__container">
                     <ButtonBack formData={formData} setFormData={setFormData}>Terug</ButtonBack>
@@ -61,7 +61,9 @@ const Location = ({ formData, setFormData }) => {
                         <div className="progress__circle progress__circle--future"></div>
                     </div>
                 </div>
-                <Title extraClass="form__title">Wat is de locatie van jouw moment?</Title>
+                <Title extraClass="form__title">Waar in Abby gaat het door?</Title>
+            </div>
+            <div>
                 <div className="location">
                     {
                         (formData.location !== 'ik-weet-het-nog-niet' && formData.location !== '') && <img className="" src={images[location.image]} alt={`foto van ${location.name}`} />
@@ -105,15 +107,16 @@ const Location = ({ formData, setFormData }) => {
                     disabled={
                         !formData.location || uiState.popUpOpen
                     }> Volgende stap </ButtonNext>
-            </div>
 
-            <PopUp setUiState={setUiState} uiState={uiState} extraClass="popup">
-                <div className="popup__container">
-                    <p className="popup__title h4">Meer dan welkom in deze ruimte</p>
-                    <p className="popup__text">Dit is een ruimte waar ook andere activiteiten georganiseerd kunnen worden. Abby moet nog even controleren of deze ruimte beschikbaar is. In de tussentijd kun je gewoon verder plannen. We laten je zo snel mogelijk weten of de ruimte beschikbaar is. Als dat zo is, bevestigen we je reservering. Tot die tijd staat je klokje even ‘in de wacht’.</p>
-                </div>
-            </PopUp>
-        </>
+
+                <PopUp setUiState={setUiState} uiState={uiState} extraClass="popup">
+                    <div className="popup__container">
+                        <p className="popup__title h4">Meer dan welkom in deze ruimte</p>
+                        <p className="popup__text">Dit is een ruimte waar ook andere activiteiten georganiseerd kunnen worden. Abby moet nog even controleren of deze ruimte beschikbaar is. In de tussentijd kun je gewoon verder plannen. We laten je zo snel mogelijk weten of de ruimte beschikbaar is. Als dat zo is, bevestigen we je reservering. Tot die tijd staat je klokje even ‘in de wacht’.</p>
+                    </div>
+                </PopUp>
+            </div>
+        </div>
 
     )
 };

@@ -54,6 +54,10 @@
     border-top: var(--border-thin);
 }
 
+.card__name--active{
+    text-align: center;
+}
+
 .btn__card__arrow{
     grid-column: 2 / span 1;
         grid-row: 1;

@@ -15,6 +15,11 @@
     margin: var(--space-s);
 }
 
+.moments__subtitle--nu{
+    text-align: center;
+    padding: var(--space-xs);
+}
+
 .moments__more{
 
             padding: var(--space-s);

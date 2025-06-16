@@ -126,7 +126,7 @@ const DetailAbbymoments = ({ loaderData }) => {
                 {
                     clock[0].location === 'ik-weet-het-nog-niet'
                         ? ""
-                        : <p className='location'>{location.name}</p>
+                        : <p className='location__detail'>{location.name}</p>
                 }
                 <div className='collage'>
                     <div className='collage__clock'>

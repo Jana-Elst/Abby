@@ -56,7 +56,7 @@
     max-width: 17rem;
 }
 
-.location {
+.location__detail {
     text-transform: capitalize;
     margin-top: var(--space-xxl);
     padding: 0 var(--space-s) var(--space-xxs) 0;
