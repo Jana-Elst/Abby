@@ -15,9 +15,13 @@
     margin: var(--space-s);
 }
 
-.moments_more{
+.moments__more{
+
+            padding: var(--space-s);
+            width: 100%;
+    display: flex;
+    justify-content: space-between;
     text-align: center;
-    margin: var(--space-s);
     margin-bottom: var(--space-xl);
 }
 
