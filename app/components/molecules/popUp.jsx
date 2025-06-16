@@ -6,7 +6,8 @@ const PopUp = ({ children, setUiState, uiState }) => {
     const handleClickClose = () => {
         setUiState({
             ...uiState,
-            popUpOpen: false
+            popUpOpen: false,
+            confirmation: false
         })
     }
 

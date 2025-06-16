@@ -88,18 +88,24 @@ const Clock = ({ props, clock, className, canvasSize, clockColors }) => {
             const timeDifference = timeDiff(clock.startTime, timeNow);
             const { angleMinutes, angleHours } = getAngle(timeDifference);
 
-            if (angleMinutes > Math.PI) {
-                const remainingTime = 2 * Math.PI - angleMinutes;
-                activeClockArc(ctx, remainingTime, true, colors[bgColorName]);
-            }
+            if (angleMinutes <= Math.PI) {
+                console.log(angleMinutes);
+                activeClockArc(ctx, angleMinutes, false, colors[colorName]);
+                activeClockTriangle(ctx, angleMinutes, colors[colorName]);
+            } else {
+                ctx.beginPath();
+                activeClockArc(ctx, Math.PI, false, colors[colorName]);
+                ctx.fillStyle = colors[colorName];
+                ctx.fill();
 
-            console.log(angleMinutes);
-            activeClockArc(ctx, angleMinutes, false, colors[colorName]);
-            activeClockTriangle(ctx, angleMinutes, colors[colorName]);
+                ctx.save()
+                ctx.translate(ctx.canvas.width - 2 * size, 2 * size);
+                ctx.scale(1, -1);
+                const remainingTime = Math.PI - angleMinutes;
+                activeClockArc(ctx, remainingTime, true, colors[colorName]);
+                activeClockTriangle(ctx, remainingTime, colors[colorName]);
+                ctx.restore()
 
-            if (angleMinutes > Math.PI) {
-                const remainingTime = - 2 * Math.PI - angleMinutes;
-                activeClockTriangle(ctx, remainingTime, colors[bgColorName]);
             }
 
             if (angleHours > 2 * Math.PI / 12) {
