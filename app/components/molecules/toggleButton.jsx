@@ -4,7 +4,6 @@ import './toggleButton.css'
 const ToggleButton = ({ contents, state, setState, colourClass }) => {
     const onChange = (e) => {
         const value = e.target.value
-        console.log(value)
         setState({
             ...state,
             toggle: value

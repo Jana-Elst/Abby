@@ -45,7 +45,6 @@ const DetailAbbymoments = ({ loaderData }) => {
     const { userId } = useContext(UserContext);
     const { clock, clockProfile } = loaderData;
     const loc = useLocation();
-    console.log(loc);
 
     const participants = allParticipants(clockProfile, clock[0].id)
 

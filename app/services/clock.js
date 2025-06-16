@@ -98,12 +98,8 @@ export const nextDay = (days) => {
 };
 
 export const isMonday = (date) => {
-    console.log('isMonday', date);
     const [year, month, day] = date.split('-');
     const dateNew = new Date(year, month - 1, day);
-
-    console.log('isMonday', dateNew.getDay());
-
     
     if (dateNew.getDay() === 1) {
         return true;

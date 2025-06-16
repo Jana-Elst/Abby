@@ -65,7 +65,6 @@ const PopUpDetail = ({ clock, isParticipant, setUiState, uiState }) => {
     //Scheduled & now
     //if user is joined
     if (isParticipant && uiState.popUpOpen) {
-        console.log(uiState.buttonState);
         return (
             <>
                 <p>Wil je dit Abbymoment verlaten?</p>

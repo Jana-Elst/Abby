@@ -141,7 +141,6 @@ const ButtonDetailClock = ({ clock, isParticipant, setUiState, uiState }) => {
         //Scheduled & now
         else {
             //if user is joined
-            console.log('isPart', isParticipant);
             if (isParticipant) {
                 return <Button extraClass="btn__detail btn__square btn__text green__bg" onClick={handleClockLeave}>Verlaat
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">

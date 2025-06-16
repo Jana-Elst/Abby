@@ -2,8 +2,6 @@ import arrow from "../../src/assets/arrow-right.svg";
 
 const ButtonNext = ({ children, setFormData, formData, buttonType = 'button', extraClass, disabled = false }) => {
     const handleClickNext = () => {
-        console.log(formData);
-
         setFormData({
             ...formData,
             state: formData.state + 1

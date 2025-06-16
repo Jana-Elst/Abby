@@ -26,10 +26,7 @@ const Confirmation = ({ formData, setFormData, setFlowForm }) => {
     // const location = useLocation();
     // const params = new URLSearchParams(location.search);
     const clockId = sessionStorage.getItem("clockId");
-    console.log(clockId);
-    console.log(formData.flow);
     const nav = navPath.find(item => item.flow === formData.flow);
-    console.log(nav);
 
     const removeStates = () => {
         setFormData({
@@ -57,7 +54,7 @@ const Confirmation = ({ formData, setFormData, setFlowForm }) => {
     return (
         <div className="confirm">
             {
-                formData.flow === 'now' || formData.flow === 'planNow' || formData.flow === 'restartNow'
+                formData.flow === 'now' || formData.flow === 'planNow' || formData.flow === 'restartMomentNow'
                     ? <p className="confirm__title"> Je moment is gestart!</p>
                     : <p className="confirm__title"> Je moment is gepland!</p>
             }

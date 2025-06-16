@@ -31,8 +31,6 @@ export async function clientLoader() {
 const Abbymoments = ({ loaderData }) => {
     const { clockProfile, activeClocksOthers, scheduledClocks, activeClocksUser } = loaderData;
     
-    console.log(activeClocksOthers);
-
     //set the states
     const [state, setState] = useState({
         toggle: "Nu bezig",

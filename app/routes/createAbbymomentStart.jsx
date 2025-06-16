@@ -15,11 +15,8 @@ import "./createAbbymomentStart.css";
 const Info = () => {
     const { userId } = useContext(UserContext);
     const { formFlow, setFlowForm } = useContext(FormFlowContext);
-    console.log(userId);
-
 
     const handleChange = (e) => {
-        console.log(e.target.value);
         if (e.target.value === 'scheduled') {
             setFlowForm('startScheduled');
         }

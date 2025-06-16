@@ -21,7 +21,6 @@ const VisabilityClock = ({ setFormData, formData }) => {
                 clockWallPos: "wall"
             });
         } else {
-            console.log('online');
             if (clockId) {
                 removePhysical(clockId);
             }
@@ -75,7 +74,7 @@ const VisabilityClock = ({ setFormData, formData }) => {
                     </div>
                 </div>
 
-                <Title extraClass="form__title">Wil je je moment delen met anderen?</Title>
+                <Title extraClass="form__title">Kies waar jouw moment zichtbaar wordt</Title>
                 {
                     formData.clockWallPos === 'wall'
                         ? <p className='foodnote'>Je klokje begint meteen te lopen en verschijnt op de klokjesmuur in Abby.</p>

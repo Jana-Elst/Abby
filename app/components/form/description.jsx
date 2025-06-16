@@ -10,15 +10,12 @@ const Description = ({ formData, setFormData }) => {
     const [touched, setTouched] = useState(false);
 
     const handleValidation = (e) => {
-        console.log(e.target.value);
         if (e.target.value < 1) {
             setCorrectInput(false);
         } else {
             setCorrectInput(true);
         }
     }
-
-    console.log(correctInput);
 
     return (
         <div className="container--form">

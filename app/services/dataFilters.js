@@ -1,17 +1,11 @@
 export const isParticipant = (creator, participants, userId) => {
     if (isCreator(creator, userId)) {
-        console.log('creator')
         return false
     }
 
     if (participants.length > 0) {
-        console.log('part', participants)
-        console.log(userId);
-        console.log((participants.includes(userId)));
         return (participants.includes(userId))
     }
-
-    console.log('nothing')
 
     return false
 }

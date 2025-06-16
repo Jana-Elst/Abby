@@ -33,7 +33,6 @@ const AccountPage = () => {
 
     async function signOut() {
         const { error } = await supabase.auth.signOut();
-        console.log(error);
     }
 
     if (!session) {

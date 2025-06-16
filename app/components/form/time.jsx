@@ -15,7 +15,6 @@ const Time = ({ setFlowForm, flows, formData, setFormData }) => {
     const [touched, setTouched] = useState(false);
 
     const handleValidation = (e) => {
-        console.log(e.target.value);
         if (e.target.value < 1) {
             setCorrectInput(false);
         } else {
@@ -29,12 +28,10 @@ const Time = ({ setFlowForm, flows, formData, setFormData }) => {
     const date = formData.scheduledStartTime ? getDate(formData.scheduledStartTime) : {};
 
     const handleChangeFlow = (e) => {
-        console.log(e.target.value);
         let time = getDate(getISOLocalString());
 
         if (isMonday(time.date)) {
             time = getDate(nextDay(1));
-            console.log('nextday', time);
         }
 
         if (e.target.value !== 'now') {

@@ -39,9 +39,7 @@ const Location = ({ formData, setFormData }) => {
     }
 
     const handleClick = (e) => {
-        console.log(e);
         if (e.target.value === 'salon' || e.target.value === 'atelier') {
-            console.log('click click')
             setUiState({
                 ...uiState,
                 popUpOpen: true
@@ -81,7 +79,6 @@ const Location = ({ formData, setFormData }) => {
                                             location: e.target.value
                                         })
                                         const location = (locations.find(location => location.value === e.target.value));
-                                        console.log(location)
                                         setLocation(location);
                                     }}
                                     disabled={checkDisabled(location.value)}

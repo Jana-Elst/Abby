@@ -4,6 +4,7 @@
 import { Form, redirect, useLocation } from "react-router";
 import { useState, useContext } from "react";
 
+
 //components
 import Confirmation from "../components/form/confirmation";
 import Description from "../components/form/description";
@@ -44,19 +45,15 @@ export async function clientAction({ request }) {
         if (flowForm === 'plan' || flowForm === 'restartMoment') {
             data = await addScheduledClock(userId, name, description, scheduledStartTime, prive, location);
         } else if (flowForm === 'planNow' || flowForm === 'now' || flowForm === 'restartMomentNow' || flowForm === 'startScheduled') {
-            console.log('startNow');
             //if clock is in on the wall, the row of the clock needs an update
             if (clockId) {
-                console.log('stuurt de juiste data door FYSIEK');
                 data = await startWallClock(clockId, name, description, prive, location)
             } else {
-                console.log('stuurt de juiste data door');
                 //if the clock is now, but online, a new row in the database should be made
                 data = await startOnlineClock(userId, name, description, prive, location);
             }
         }
 
-        console.log(data);
         sessionStorage.setItem('clockId', data.id);
         return redirect(`${import.meta.env.BASE_URL}maak-een-abbymoment/formulier`);
     } catch (error) {
@@ -70,10 +67,7 @@ export async function clientLoader() {
     const isClockFree = freeClocks.length > 0;
 
     const activeClocks = await getActiveClocksUser();
-    console.log(activeClocks.length);
     const userHasActiveClock = activeClocks.length > 0;
-
-    console.log('userHasActive', userHasActiveClock, activeClocks);
 
     return { isClockFree, userHasActiveClock };
 }
@@ -96,15 +90,12 @@ const CreateAbbymoment = ({ loaderData }) => {
     const [formData, setFormData] = useState(() => {
         if (location.state && location.state.clock) {
             const clock = location.state.clock[0]
-            console.log('doorgestuurde klok', clock);
 
             let clockId = '';
             if (flowForm === 'startScheduled') {
                 clockId = clock.id;
             }
 
-            console.log(clockId);
-            console.log(flowForm);
             return {
                 clockId: clockId,
                 name: clock.name,

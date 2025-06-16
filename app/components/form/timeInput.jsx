@@ -10,6 +10,7 @@ import React, { ChangeEventHandler, useState } from "react";
 //external imports
 import { min, setHours, setMinutes } from "date-fns";
 import { DayPicker } from "react-day-picker";
+import { nl } from 'date-fns/locale';
 
 //functions
 import { getISOLocalString, getDate, nextDay, isMonday } from "../../services/clock";
@@ -23,7 +24,6 @@ const TimeInput = ({ formData, setFormData, extraClass }) => {
 
     const handleTimeChange = (e) => {
         const time = e.target.value;
-        console.log(time);
         if (!selected) {
             setTimeValue(time);
             return;
@@ -60,7 +60,6 @@ const TimeInput = ({ formData, setFormData, extraClass }) => {
         );
 
         setSelected(newDate);
-        console.log(newDate);
         const newDateIso = getISOLocalString(newDate);
         setFormData({
             ...formData,
@@ -82,6 +81,7 @@ const TimeInput = ({ formData, setFormData, extraClass }) => {
                     {dayOfWeek: [1]}
                 ]}
                 weekStartsOn={1}
+                locale={nl}
             />
             <label>
                 <input type="time" value={timeValue} onChange={handleTimeChange} />
