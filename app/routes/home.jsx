@@ -31,7 +31,6 @@ export async function clientLoader() {
 
 
 const Home = ({ loaderData }) => {
-    const { clockProfile } = loaderData;
     const carrouselRef1 = useRef(null);
     const carrouselRef2 = useRef(null);
     const carrouselRef3 = useRef(null);
@@ -62,28 +61,44 @@ const Home = ({ loaderData }) => {
 
         console.log(widthMoveStart1, widthMoveStart2, widthMoveStart3);
 
-
+        const speed = 10;
         gsap.fromTo(".carousel__wrapper--1", { x: 8 }, {
             x: -widthMoveStart1 - 8, 
-            duration: 8, 
+            duration: speed, 
             ease: "none", 
             repeat: -1,
             repeatDelay: .1,
             yoyo: true, });
         gsap.fromTo(".carousel__wrapper--2", { x: -widthMoveStart2 - 8 }, {
             x: 8, 
-            duration: 8, 
+            duration: speed, 
             ease: "none", 
             repeat: -1,
             repeatDelay: .1,
             yoyo: true, });
         gsap.fromTo(".carousel__wrapper--3", { x: 8 }, {
             x: -widthMoveStart3 - 8, 
-            duration: 8, 
+            duration: speed, 
             ease: "none", 
             repeat: -1,
             repeatDelay: .1,
             yoyo: true, });
+        
+        const livingTL = gsap.timeline({
+            scrollTrigger: {
+                trigger: ".living",
+                start: "top center",
+                end: "bottom bottom",
+                scrub: true,
+                markers: false,
+                toggleActions: "reverse pause resume pause"
+            }
+        });
+        livingTL.from(".living__img--front", {y: -70}, "<");
+        livingTL.from(".living__img--middle", { y: -100 }, "<");
+        livingTL.from(".living__img--middle-front", { y: -100 }, "<");
+        livingTL.from(".living__img--middle-back", { y: -170 }, "<");
+        livingTL.from(".living__img--back", { y: -200 }, "<");
 
     });
 
@@ -96,7 +111,6 @@ const Home = ({ loaderData }) => {
             <Join />
             <AndYou propref={carrouselRef1} propref2={carrouselRef2} propref3={carrouselRef3} />
             <Statistics />
-            {/* <Moments museumClocks={museumClocks} clockProfile={clockProfile} /> */}
         </div>
 
     )
