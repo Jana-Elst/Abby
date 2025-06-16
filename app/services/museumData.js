@@ -8,7 +8,7 @@ export const locations = [
     { name: 'Tentoonstellingsruimte B', value: 'tentoonstellingsruimteB', image: 'space-b' }
 ];
 
-export const totalClocks = 3;
+export const totalClocks = 2;
 export const clocksPerArduino = 2;
 export const colors = {
     white: "#fbfbfb",
