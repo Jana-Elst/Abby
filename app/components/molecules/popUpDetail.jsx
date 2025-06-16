@@ -25,7 +25,6 @@ const PopUpDetail = ({ clock, isParticipant, setUiState, uiState }) => {
 
     const handleClockLeave = async () => {
         const newParticipants = uiState.participants.filter(id => id !== userId);
-        console.log(newParticipants);
 
         await leaveClock(userId, clock[0].id);
 
@@ -38,14 +37,14 @@ const PopUpDetail = ({ clock, isParticipant, setUiState, uiState }) => {
     }
 
     const handleStop = async () => {
+        navigate(`${import.meta.env.BASE_URL}jouw-abbymomenten`);
+
         await stopClock(clock[0].id);
 
         setUiState({
             ...uiState,
             popUpOpen: false,
         });
-
-        navigate(`${import.meta.env.BASE_URL}jouw-abbymomenten`);
     }
 
     //if clock is made my user

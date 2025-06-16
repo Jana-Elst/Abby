@@ -9,15 +9,27 @@ import { useContext } from "react";
 //root variables
 import { UserContext } from '../../context/UserContext';
 
-const Confirmation = ({ formState, setFormData, setFlowForm }) => {
+const Confirmation = ({ formData, setFormData, setFlowForm }) => {
     const { userId } = useContext(UserContext);
     const navigate = useNavigate();
+
+    const navPath = [
+        { flow: 'plan', navPath: 'maak-een-abbymoment' },
+        { flow: 'planNow', navPath: 'maak-een-abbymoment' },
+        { flow: 'restartMoment', navPath: 'jouw-abbymomenten' },
+        { flow: 'restartMomentNow', navPath: 'jouw-abbymomenten' },
+        { flow: 'now', navPath: 'maak-een-abbymoment' },
+        { flow: 'startScheduled', navPath: -2 }
+    ]
 
 
     // const location = useLocation();
     // const params = new URLSearchParams(location.search);
     const clockId = sessionStorage.getItem("clockId");
     console.log(clockId);
+    console.log(formData.flow);
+    const nav = navPath.find(item => item.flow === formData.flow);
+    console.log(nav);
 
     const removeStates = () => {
         setFormData({
@@ -37,16 +49,15 @@ const Confirmation = ({ formState, setFormData, setFlowForm }) => {
         })
 
         setFlowForm('plan');
-
         navigate(`${import.meta.env.BASE_URL}abbymomenten/${clockId}`, {
-            state: "form"
+            state: { nav: nav.navPath }
         });
     }
 
     return (
         <div className="confirm">
             {
-                formState === 'now' || formState === 'planNow'
+                formData.flow === 'now' || formData.flow === 'planNow' || formData.flow === 'restartNow'
                     ? <p className="confirm__title"> Je moment is gestart!</p>
                     : <p className="confirm__title"> Je moment is gepland!</p>
             }

@@ -79,7 +79,7 @@ const DetailAbbymoments = ({ loaderData }) => {
     return (
         <>
             <div className='top__bar'>
-                <ButtonBack navigateSteps={loc.state === 'form' ? `${import.meta.env.BASE_URL}maak-een-abbymoment` : -1}>Terug</ButtonBack>
+                <ButtonBack navigateSteps={loc.state ? `${import.meta.env.BASE_URL}${loc.state.nav}` : -1}>Terug</ButtonBack>
                 {creator && <p className='purple__fg h4'>Maker</p>}
                 {!creator && participant && <p className='green__fg h4'>Deelnemer</p>}
             </div>

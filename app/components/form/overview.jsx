@@ -42,7 +42,7 @@ const Overview = ({ setFormData, formData }) => {
             </div>
 
             {
-                now
+                formData.state === 'now' || formData.state === 'planNow' || formData.state === 'restartNow'
                     ? <ButtonNext
                         buttonType="submit"
                         extraClass="next__btn btn__text purple__bg"
