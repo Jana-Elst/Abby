@@ -52,7 +52,7 @@ const Overview = ({ setFormData, formData }) => {
                     </div>
                     <div className="overview__info">
                         <dt className="h4">Moment open voor anderen:</dt>
-                        <dd>{formData.private ? 'Ja' : 'Nee'}</dd>
+                        <dd>{formData.private ? 'Nee' : 'Ja'}</dd>
                     </div>
                 </dl>
                 {
