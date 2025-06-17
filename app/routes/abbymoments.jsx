@@ -11,6 +11,7 @@ import Filter from "../components/molecules/filter";
 import ToggleButton from "../components/molecules/toggleButton";
 import Title from "../components/molecules/title"
 import Button from '../components/molecules/button';
+import arrowDown from "../src/assets/arrow-down.svg";
 
 //functions
 import { getActiveClocksUser, getOtherActiveClocks, getScheduledClocks, getClockProfile } from "../services/data";
@@ -97,7 +98,9 @@ const Abbymoments = ({ loaderData }) => {
                                                     {   //show if there are clocks at the moment
                                                         activeClocksOthers
                                                         && <div className='center--flex'>
-                                                            <Button extraClass={"btn__text moments_more"} >Ontdek nog meer lopende momenten</Button>
+                                                                <Button extraClass={"btn__text  moments__more"} >Ontdek nog meer geplande momenten
+                                                                    <img className='btn__icon' src={arrowDown} alt="een pijl ide naar beneden wijst" />
+                                                                </Button>
                                                         </div>
                                                     }
                                                 </>
@@ -121,7 +124,9 @@ const Abbymoments = ({ loaderData }) => {
                                             </div>
 
                                             <div className='center--flex'>
-                                                <Button extraClass={"btn__text  moments_more"} >Ontdek nog meer geplande momenten</Button>
+                                                <Button extraClass={"btn__text  moments__more"} >Ontdek nog meer geplande momenten 
+                                                    <img className='btn__icon' src={arrowDown} alt="een pijl ide naar beneden wijst" />
+                                                </Button>
                                             </div>
                                         </>
                                     ) : (

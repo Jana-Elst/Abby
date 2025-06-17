@@ -69,8 +69,8 @@ const Info = () => {
                         ? (
                             <>
 
-                                <p className="info__p">Een Abbymoment is een moment voor iets waar jij behoefte aan hebt of zin in hebt, van een gezellige koffiepauze tot een ontspannende yogasessie in de tuin.</p>
-                                <p className="info__p">Maak een momentje voor jezelf of laat andere aansluiten bij jouw moment!</p>
+                                <p className="info__p">Kies jouw moment en vertel wat je doet, van workshop tot koffie, of gewoon even ontspannen. Het kan allemaal.</p>
+                                <p className="info__p">Plan zelf, doe mee aan een Abbymoment, of geniet op jouw eigen tempo.</p>
 
                                 <div className="info__btn__container">
                                     <Button extraClass="info__btn yellow__bg btn__text" link={'maak-een-abbymoment/formulier'}>Start</Button>
@@ -81,7 +81,7 @@ const Info = () => {
                             <>
                                 <p className="info__p">Log in om jouw eigen Abbymoment te creëren of mee te doen aan een moment van iemand anders. Geniet zo van meer rust en verbinding in je dag.</p>
                                 <div className="info__btn__container">
-                                    <p className="info__note">Om een Abby moment te starten moet je ingelogd zijn.</p>
+                                    <p className="info__note">Om een Abby moment te starten <br /> moet je ingelogd zijn.</p>
                                     <Button extraClass="info__btn yellow__bg btn__text" link={'log-in'}>Log in</Button>
                                 </div>
                             </>

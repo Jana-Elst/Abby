@@ -53,7 +53,7 @@ const Time = ({ setFlowForm, flows, formData, setFormData }) => {
     ]
 
     return (
-        <>
+        <div className="container__stretch">
             <div className="container--form">
                 <div className="progress__container">
                     <ButtonBack formData={formData} setFormData={setFormData}>Terug</ButtonBack>
@@ -76,6 +76,8 @@ const Time = ({ setFlowForm, flows, formData, setFormData }) => {
 
                     />
                 }
+            </div>
+            <div>
                 <div className="date">
                     {timeOptions.map((option) => (
                         <label
@@ -98,18 +100,17 @@ const Time = ({ setFlowForm, flows, formData, setFormData }) => {
                                 required
                                 disabled = {
                                     ((option.value === 'now' && formData.userHasActiveClock) || option.value === 'now' && isMonday) ? true : false
-                                }
                             />
                             {option.label}
                             {<span className="showIfChecked">
                                 {formData.scheduledStartTime && <>{date.day} {date.monthName} {date.hour}:{date.minutes}</>}
+
                             </span>
 
                             }
                         </label>
                     ))}
                 </div>
-
                 {/* check if form should be submit */}
                 {
                     flows[formData.flow].length > 2 ?
@@ -124,10 +125,9 @@ const Time = ({ setFlowForm, flows, formData, setFormData }) => {
                             formData={formData}
                             setFormData={setFormData}
                             disabled={!formData.scheduledStartTime}> Maak moment aan</ButtonNext>
-
                 }
             </div>
-        </>
+        </div>
     );
 };
 

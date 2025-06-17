@@ -4,7 +4,7 @@ const ButtonClockCard = ({ userId, clock, participants }) => {
     //--- different buttons
     //creator
     if (userId === clock.creator) {
-        return <p className="btn__card purple__bg btn__text"> Jouw Abbymoment  <img className='btn__icon btn__card__arrow' src={arrow} alt="een pijl" /> </p>
+        return <p className="btn__card purple__bg btn__text"> <img className='btn__icon btn__card__arrow' src={arrow} alt="een pijl" /> </p>
     }
 
     //made by Abby

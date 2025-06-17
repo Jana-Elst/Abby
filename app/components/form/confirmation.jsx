@@ -60,7 +60,6 @@ const Confirmation = ({ formData, setFormData, setFlowForm }) => {
             }
             <Button type='button' onClick={removeStates} extraClass="btn__text confirm__btn purple__bg btn__arrow">Ga naar je moment<img className='btn__icon' src={arrow} alt="een pijl" /></Button>
         </div >
-
     )
 };
 

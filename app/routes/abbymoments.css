@@ -15,9 +15,18 @@
     margin: var(--space-s);
 }
 
-.moments_more{
+.moments__subtitle--nu{
     text-align: center;
-    margin: var(--space-s);
+    padding: var(--space-xs);
+}
+
+.moments__more{
+
+            padding: var(--space-s);
+            width: 100%;
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
     margin-bottom: var(--space-xl);
 }
 

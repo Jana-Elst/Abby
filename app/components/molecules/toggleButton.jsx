@@ -17,7 +17,7 @@ const ToggleButton = ({ contents, state, setState, colourClass }) => {
                     return (
                         <div key={value} className={`toggleButton__item ${colourClass ? colourClass : ""}`} >
                             <input className="input" type="radio" id={value} name={contents.name} value={value} onChange={onChange} checked={state.toggle === value} />
-                            <label className='btn__text' htmlFor={value}>{value}</label>
+                            <label  htmlFor={value}>{value}</label>
                         </div>
                     )
                 })

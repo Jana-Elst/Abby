@@ -176,12 +176,7 @@ textarea::placeholder {
 
 /* location.jsx */
 
-.location {
-    flex-direction: column;
-    border-top: none;
-    display: flex;
-    position: relative;
-}
+
 
 .location img {
     position: absolute;

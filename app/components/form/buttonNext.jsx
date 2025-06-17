@@ -11,10 +11,10 @@ const ButtonNext = ({ children, setFormData, formData, buttonType = 'button', ex
     return (
         buttonType === 'button'
             ? <button type='button' onClick={handleClickNext} className={extraClass} disabled={disabled}>
-                {children} <img className='btn__icon' src={arrow} alt="een pijl" />
+                {children}  <img className='btn__icon' src={arrow} alt="een pijl" />
             </button>
             : <button type='submit' className={extraClass} disabled={disabled}>
-                {children} <img className='btn__icon' src={arrow} alt="een pijl" />
+                {children} {extraClass == 'h2 purple__bg btn__big__text' ? "" : <img className='btn__icon' src={arrow} alt="een pijl" />}
             </button>
     )
 };
