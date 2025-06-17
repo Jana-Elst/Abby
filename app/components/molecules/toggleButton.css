@@ -1,5 +1,6 @@
 .toggleButton {
     display: flex;
+    justify-content: center;
 }
 
 .toggleButton__item {
@@ -34,6 +35,6 @@
         text-decoration-line: underline;
 }
 
-/* input {
+.toggleButton__item input{
     display: none;
-} */
+}
