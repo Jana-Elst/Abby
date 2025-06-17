@@ -115,13 +115,13 @@ const Clock = ({ props, clock, className, canvasSize, clockColors }) => {
                 ctx.fill();
             }
         } else {
-            const { angleMinutes, angleHours } = getAngle(clock.scheduledStartTime);
+            const { angleMinutes, angleHoursClock } = getAngle(clock.scheduledStartTime);
 
             //minute hand
-            handClock(ctx, angleHours, 0.65);;
+            handClock(ctx, angleHoursClock, 0.8);
 
             //hour hand
-            handClock(ctx, angleMinutes, 0.8);
+            handClock(ctx, angleMinutes, 0.65);
 
             //small circle in the middel to connect the lines
             ctx.beginPath();

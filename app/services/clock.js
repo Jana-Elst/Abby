@@ -14,8 +14,12 @@ export const getAngle = (dateTime) => {
     // Hour hand: 30° per hour + 0.5° per minute
     const totalDegreesHours = (hours * 30) + (minutes * 0.5);
     const angleHours = (Math.PI / 180) * totalDegreesHours;
+
+    // Hour hand: 360 / 60*12
+    const totalDegreesHoursClock = (hours * 60 * 12);
+    const angleHoursClock = (Math.PI / 180) * totalDegreesHoursClock;
     
-    return ({ angleMinutes, angleHours });
+    return ({ angleMinutes, angleHours, angleHoursClock });
 }
 
 //rewrite the time
