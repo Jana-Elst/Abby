@@ -44,7 +44,6 @@ export const getClocks = async ({ select = '*', joins = [], filters = [], or = n
         query = query.order(order.column, { ascending: order.ascending });
     }
 
-    console.log(query);
     return await getOrUpdateClocks(query);
 };
 
@@ -240,7 +239,6 @@ export const startWallClock = async (id, name, description, prive, location) => 
 //stop clock
 export const stopClock = async (id) => {
     const time = getTimeNow();
-    console.log(id, time);
 
     const data = await getOrUpdateClocks(
         supabase

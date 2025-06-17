@@ -16,15 +16,6 @@ const Overview = ({ setFormData, formData }) => {
 
     const location = allLocations.find(location => location.value === formData.location);
 
-    const now = () => {
-        console.log(date);
-        
-        if (formData.flow === 'planNow' || formData.flow === 'now') {
-            return true;
-        }
-        return false;
-    }
-
     return (
         <div className="container__stretch">
             <div className="container--form">
@@ -56,28 +47,25 @@ const Overview = ({ setFormData, formData }) => {
                         <dd>{formData.private ? 'Ja' : 'Nee'}</dd>
                     </div>
                 </dl>
+            {
+                formData.state === 'now' || formData.state === 'planNow' || formData.state === 'restartNow'
+                    ? <ButtonNext
+                        buttonType="submit"
+                        extraClass="next__btn btn__text purple__bg"
+                        formData={formData}
+                        setFormData={setFormData}
+                        disabled={!formData.scheduledStartTime}> Start moment
+                    </ButtonNext>
+                    : <ButtonNext
+                        buttonType="submit"
+                        extraClass="next__btn btn__text purple__bg"
+                        formData={formData}
+                        setFormData={setFormData}
+                        disabled={!formData.scheduledStartTime}> Maak moment aan
+                    </ButtonNext>
+            }
+        </>
 
-
-
-                {
-                    now
-                        ? <ButtonNext
-                            buttonType="submit"
-                            extraClass="next__btn btn__text purple__bg"
-                            formData={formData}
-                            setFormData={setFormData}
-                            disabled={!formData.scheduledStartTime}> Start moment
-                        </ButtonNext>
-                        : <ButtonNext
-                            buttonType="submit"
-                            extraClass="next__btn btn__text purple__bg"
-                            formData={formData}
-                            setFormData={setFormData}
-                            disabled={!formData.scheduledStartTime}> Maak moment aan
-                        </ButtonNext>
-                }
-            </div>
-        </div>
     )
 };
 

@@ -1,8 +1,9 @@
 //https://blog.logrocket.com/build-multi-step-form-usestate-hook/
 
 //react imports
-import { Form, redirect, Navigate, useLocation } from "react-router";
+import { Form, redirect, useLocation } from "react-router";
 import { useState, useContext } from "react";
+
 
 //components
 import Confirmation from "../components/form/confirmation";
@@ -25,7 +26,6 @@ import { UserContext } from '../context/UserContext';
 import { FormFlowContext } from '../context/FormFlowContext';
 
 export async function clientAction({ request }) {
-    console.log('submitttt');
     const formData = await request.formData();
 
     //different data
@@ -45,19 +45,17 @@ export async function clientAction({ request }) {
         if (flowForm === 'plan' || flowForm === 'restartMoment') {
             data = await addScheduledClock(userId, name, description, scheduledStartTime, prive, location);
         } else if (flowForm === 'planNow' || flowForm === 'now' || flowForm === 'restartMomentNow' || flowForm === 'startScheduled') {
-            console.log('startNow');
             //if clock is in on the wall, the row of the clock needs an update
             if (clockId) {
-                console.log('stuurt de juiste data door');
                 data = await startWallClock(clockId, name, description, prive, location)
             } else {
-                console.log('stuurt de juiste data door');
                 //if the clock is now, but online, a new row in the database should be made
                 data = await startOnlineClock(userId, name, description, prive, location);
             }
         }
-        console.log(data);
-        return redirect(`${import.meta.env.BASE_URL}maak-een-abbymoment/formulier?clockId=${data.id}`);
+
+        sessionStorage.setItem('clockId', data.id);
+        return redirect(`${import.meta.env.BASE_URL}maak-een-abbymoment/formulier`);
     } catch (error) {
         console.error('clientAction error:', error);
         throw error;
@@ -69,10 +67,7 @@ export async function clientLoader() {
     const isClockFree = freeClocks.length > 0;
 
     const activeClocks = await getActiveClocksUser();
-    console.log(activeClocks.length);
     const userHasActiveClock = activeClocks.length > 0;
-
-    console.log('userHasActive', userHasActiveClock, activeClocks);
 
     return { isClockFree, userHasActiveClock };
 }
@@ -93,17 +88,14 @@ const CreateAbbymoment = ({ loaderData }) => {
     const location = useLocation();
 
     const [formData, setFormData] = useState(() => {
-        if (location.state) {
+        if (location.state && location.state.clock) {
             const clock = location.state.clock[0]
-            console.log('doorgestuurde klok', clock);
 
             let clockId = '';
             if (flowForm === 'startScheduled') {
                 clockId = clock.id;
             }
 
-            console.log(clockId);
-            console.log(flowForm);
             return {
                 clockId: clockId,
                 name: clock.name,
@@ -129,7 +121,7 @@ const CreateAbbymoment = ({ loaderData }) => {
                 stopTime: undefined,
                 clockWallPos: '',
                 description: '',
-                private: '',
+                private: 'not-selected',
                 scheduledStartTime: '',
                 scheduledStopTime: undefined,
                 creator: userId,
@@ -147,7 +139,7 @@ const CreateAbbymoment = ({ loaderData }) => {
         plan: ['description', 'time', 'location', 'participants', 'overview', 'confirmation'],
         planNow: ['description', 'time', 'qrCode', 'visabilityClock', 'location', 'participants', 'overview', 'confirmation'],
         now: ['visabilityClock', 'description', 'location', 'participants', 'overview', 'confirmation'],
-        startScheduled: ['qr-code', 'visabilityClock', 'startButton', 'confirmation'],
+        startScheduled: ['qrCode', 'visabilityClock', 'startButton', 'confirmation'],
         restartMoment: ['time', 'overview', 'confirmation'],
         restartMomentNow: ['time', 'qrCode', 'visabilityClock', 'startButton', 'confirmation']
     }

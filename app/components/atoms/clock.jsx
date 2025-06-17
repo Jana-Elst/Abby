@@ -90,7 +90,6 @@ const Clock = ({ props, clock, className, canvasSize, clockColors }) => {
             const { angleMinutes, angleHours } = getAngle(timeDifference);
 
             if (angleMinutes <= Math.PI) {
-                console.log(angleMinutes);
                 activeClockArc(ctx, angleMinutes, false, colors[colorName]);
                 activeClockTriangle(ctx, angleMinutes, colors[colorName]);
             } else {

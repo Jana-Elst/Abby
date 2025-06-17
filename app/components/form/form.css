@@ -131,6 +131,7 @@ textarea::placeholder {
     flex-direction: column;
     padding: 0 var(--space-s);
 }
+
 .date__now:has(input[type="radio"]:checked),
 .date__later:has(input[type="radio"]:checked) {
     background-color: var(--yellow);
@@ -144,7 +145,8 @@ textarea::placeholder {
 
 .date__now:has(input[type="radio"]:disabled),
 .date__later:has(input[type="radio"]:disabled) {
-    opacity: 50%;
+    background-color: #0000004D;
+    opacity: 30%;
 }
 
 .date__later:has(input[type="radio"]:checked) {
@@ -166,7 +168,8 @@ textarea::placeholder {
     flex-direction: column;
     align-items: center;
 }
-.time label{
+
+.time label {
     align-self: flex-end;
     padding: var(--space-s);
 }
@@ -175,7 +178,7 @@ textarea::placeholder {
 
 
 
-.location img{
+.location img {
     position: absolute;
     width: 14rem;
     height: 14rem;
@@ -261,7 +264,8 @@ textarea::placeholder {
 }
 
 .visual__btn:has(input[type="radio"]:disabled) {
-    opacity: 50%;
+    background-color: #0000004D;
+    opacity: 30%;
 }
 
 /* confirmation.jsx */
@@ -291,12 +295,13 @@ textarea::placeholder {
 }
 
 /* popup */
-.popup__container{
+.popup__container {
     padding: var(--space-m);
     display: flex;
     flex-direction: column;
     gap: var(--space-xs);
 }
-.popup__title{
+
+.popup__title {
     max-width: 17rem;
 }

@@ -32,7 +32,6 @@ const Filter = () => {
     );
 
     const handleClick = () => {
-        console.log(filterState);
         if (filterState.general === 'close') {
             setFilterState({
                 ...filterState,

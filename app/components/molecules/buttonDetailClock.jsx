@@ -20,8 +20,6 @@ const ButtonDetailClock = ({ clock, isParticipant, setUiState, uiState }) => {
     const navigate = useNavigate();
 
     const time = getDate(clock[0].scheduledStartTime);
-    console.log(time);
-
     let scheduledDate = clock[0].scheduledStartTime;
     scheduledDate = new Date(scheduledDate).toISOString("en-US", { timeZone: "Europe/Amsterdam" }).split('T')[0];
 
@@ -51,7 +49,6 @@ const ButtonDetailClock = ({ clock, isParticipant, setUiState, uiState }) => {
     }
 
     const handleStart = () => {
-        console.log('starttt')
         setFlowForm('startScheduled');
         navigate(`${import.meta.env.BASE_URL}maak-een-abbymoment/formulier`, {
             state: { clock: clock }
@@ -96,16 +93,17 @@ const ButtonDetailClock = ({ clock, isParticipant, setUiState, uiState }) => {
         }
 
         // later-today: pas aan & stop
-        if (scheduledDate === getISOLocalString()) {
+        console.log(scheduledDate)
+        if (scheduledDate === getDate(getISOLocalString()).date) {
             return (
                 <div className="btn__detail btn__detail--split">
                     <button className="btn__square btn__square--left btn__edit yellow__bg btn__text"> <svg xmlns="http://www.w3.org/2000/svg" width="21" height="19" viewBox="0 0 21 19" fill="none">
                         <path d="M15.56 0.280029L5.75 9.26003V14.06H9.71L19.38 4.34003L15.56 0.280029ZM9.06 12.7H7.25V9.83003L7.33 9.75003L15.55 2.08003L17.41 4.36003L17.25 4.52003L9.06 12.7ZM18.75 9.90003V17.36H2.25V1.94003H10.25V0.580029H0.75V18.72H20.25V9.90003H18.75Z" fill="black" />
                     </svg> Pas aan </button>
-                    <Button extraClass="btn__right btn__square--left btn__text purple__bg" onClick={handleStart}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="21" viewBox="0 0 16 21" fill="none">
+                    <Button extraClass="btn__right btn__square--left btn__text purple__bg" onClick={handleStart} disabled={uiState.activeClock}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="21" viewBox="0 0 16 21" fill="none">
                         <path d="M1.40947 2.11496L14.5859 10.5L1.40946 18.885L1.40947 2.11496Z" stroke="black" strokeWidth="1.41176" />
                     </svg>
-                    Start</Button>
+                        Start</Button>
                 </div>
             )
         }
@@ -122,13 +120,12 @@ const ButtonDetailClock = ({ clock, isParticipant, setUiState, uiState }) => {
 
         //later: pas aan & Je kan je moment start op xxx
         if (clock[0].scheduledStartTime) {
-            console.log('Ik ben ingepland');
             return (
                 <div className="btn__detail btn__detail--split">
                     <button className="btn__square btn__square--left btn__edit yellow__bg"><svg xmlns="http://www.w3.org/2000/svg" width="21" height="19" viewBox="0 0 21 19" fill="none">
                         <path d="M15.56 0.280029L5.75 9.26003V14.06H9.71L19.38 4.34003L15.56 0.280029ZM9.06 12.7H7.25V9.83003L7.33 9.75003L15.55 2.08003L17.41 4.36003L17.25 4.52003L9.06 12.7ZM18.75 9.90003V17.36H2.25V1.94003H10.25V0.580029H0.75V18.72H20.25V9.90003H18.75Z" fill="black" />
                     </svg>Pas aan</button>
-                    <p className="btn__right">Start je moment vanaf {getDate(clock[0].scheduledStartTime).date}</p>
+                    <p className="btn__right">Start je moment vanaf {time.day}-{time.month}-{time.year}</p>
                 </div>
             )
         }
@@ -138,14 +135,13 @@ const ButtonDetailClock = ({ clock, isParticipant, setUiState, uiState }) => {
     else {
         //past
         if (scheduledDate < getISOLocalString() || clock[0].stopTime) {
-           return <button className="btn__detail" >Dit moment kan je niet herhalen, want je was een deelnemer.</button>
+            return <button className="btn__detail" >Dit moment kan je niet herhalen, want je was een deelnemer.</button>
 
         }
 
         //Scheduled & now
         else {
             //if user is joined
-            console.log('isPart', isParticipant);
             if (isParticipant) {
                 return <Button extraClass="btn__detail btn__square btn__text green__bg" onClick={handleClockLeave}>Verlaat
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">

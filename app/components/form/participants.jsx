@@ -49,13 +49,11 @@ const Participants = ({ formData, setFormData }) => {
                             value="false"
                             checked={formData.private === false}
                             onChange={(e) => {
+                                setTouched(true);
                                 setFormData({
                                     ...formData,
                                     private: e.target.value === "true" ? true : false
                                 })
-                            }}
-                            onFocus={() => {
-                                setTouched(true);
                             }}
                         />
                         ja, hoe meer zielen hoe meer vreugd.
@@ -63,24 +61,22 @@ const Participants = ({ formData, setFormData }) => {
                     </label>
                 </div>
 
-
-                {
-                    formData.flow === "now" || formData.flow === 'planNow'
-                        ? <ButtonNext extraClass="next__btn btn__text purple__bg"
-                            buttonType='button'
-                            formData={formData}
-                            setFormData={setFormData}
-                            disabled={!touched}
-                        > Start je moment </ButtonNext>
-                        : <ButtonNext extraClass="next__btn btn__text purple__bg"
-                            buttonType='button'
-                            formData={formData}
-                            setFormData={setFormData}
-                            disabled={!touched}
-                        > Maak moment aan </ButtonNext>
-                }
-            </div>
-        </div >
+            {
+                formData.flow === "now" || formData.flow === 'planNow'
+                    ? <ButtonNext extraClass="next__btn btn__text purple__bg"
+                        buttonType='button'
+                        formData={formData}
+                        setFormData={setFormData}
+                        disabled={!touched}
+                    > Start je moment </ButtonNext>
+                    : <ButtonNext extraClass="next__btn btn__text purple__bg"
+                        buttonType='button'
+                        formData={formData}
+                        setFormData={setFormData}
+                        disabled={!touched && formData.private == ! 'not-selected'}
+                    > Maak moment aan </ButtonNext>
+            }
+        </>
     )
 };
 

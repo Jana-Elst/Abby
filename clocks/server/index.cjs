@@ -110,22 +110,25 @@ getDataFromServer();
 // ------------------------ send right message to the arduino ------------------------ //
 const sendMessageToArduino = (payload) => {
     console.log('db change!');
-    const clocksPerArduino = 3;
-    const clockWallPos = payload.new.clockWallPos;
+    const clocksPerArduino = 2;
 
-    const arduinoNumber = Math.ceil(clockWallPos / clocksPerArduino);
-    const clockNumber = clockWallPos % clocksPerArduino
+    if (payload.new.clockWallPos) {
+        const clockWallPos = payload.new.clockWallPos;
 
-    const arduino = arduinos[arduinoNumber - 1];
-    const message = JSON.stringify({
-        clockNumber: clockNumber,
-        startTime: payload.new.startTime,
-        stopTime: payload.new.stopTime,
-        name: payload.new.name
-    })
+        const arduinoNumber = Math.ceil(clockWallPos / clocksPerArduino);
+        const clockNumber = clockWallPos % clocksPerArduino
 
-    console.log(arduinos);
-    console.log(arduino);
-    console.log("send message to", arduino.address, message);
-    arduino.socket.send(message);
+        const arduino = arduinos[arduinoNumber - 1];
+        const message = JSON.stringify({
+            clockNumber: clockNumber,
+            startTime: payload.new.startTime,
+            stopTime: payload.new.stopTime,
+            name: payload.new.name
+        })
+
+        console.log(arduinos);
+        console.log(arduino);
+        console.log("send message to", arduino.address, message);
+        arduino.socket.send(message);
+    }
 }

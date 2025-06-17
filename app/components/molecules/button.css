@@ -7,6 +7,10 @@
     content: url('../../src/assets/skip.svg');
 }
 
+.button:disabled {
+    opacity: 30%;
+}
+
 .btn__arrow{
     display: flex;
     justify-content: space-between;

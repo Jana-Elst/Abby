@@ -10,7 +10,6 @@ export async function clientLoader() {
         const userId = user.id;
         userClocks = await getUserClocks(userId);
     }
-    console.log(userClocks);
     return { userClocks, user };
 }
 

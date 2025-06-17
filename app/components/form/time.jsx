@@ -15,7 +15,6 @@ const Time = ({ setFlowForm, flows, formData, setFormData }) => {
     const [touched, setTouched] = useState(false);
 
     const handleValidation = (e) => {
-        console.log(e.target.value);
         if (e.target.value < 1) {
             setCorrectInput(false);
         } else {
@@ -26,13 +25,13 @@ const Time = ({ setFlowForm, flows, formData, setFormData }) => {
     //------------ specific for page ------------//
     const baseFlow = formData.state === 0 ? 'restartMoment' : 'plan';
 
+    const date = formData.scheduledStartTime ? getDate(formData.scheduledStartTime) : {};
+
     const handleChangeFlow = (e) => {
-        console.log(e.target.value);
         let time = getDate(getISOLocalString());
 
-        if (isMonday(time.day)) {
+        if (isMonday(time.date)) {
             time = getDate(nextDay(1));
-            console.log('nextday', time);
         }
 
         if (e.target.value !== 'now') {
@@ -42,7 +41,7 @@ const Time = ({ setFlowForm, flows, formData, setFormData }) => {
         setFormData({
             ...formData,
             flow: `${baseFlow}${e.target.value === 'now' ? 'Now' : ""}`,
-            scheduledStartTime: `${time.day}T${time.time}`
+            scheduledStartTime: `${time.date}T${time.time}`
         });
 
         setFlowForm(`${baseFlow}${e.target.value === 'now' ? 'Now' : ""}`);
@@ -69,11 +68,12 @@ const Time = ({ setFlowForm, flows, formData, setFormData }) => {
 
                 {/* toggle now later */}
                 {
-                    (touched && formData.flow === baseFlow)
+                    (formData.scheduledStartTime && formData.flow === baseFlow)
                     && <TimeInput
                         extraClass="time"
                         formData={formData}
                         setFormData={setFormData}
+
                     />
                 }
             </div>
@@ -90,23 +90,21 @@ const Time = ({ setFlowForm, flows, formData, setFormData }) => {
                                 id={option.value}
                                 name="time"
                                 value={option.value}
-                                checked={touched && formData.flow === `${baseFlow}${option.value === 'now' ? 'Now' : ''}`}
+                                checked={formData.scheduledStartTime && formData.flow === `${baseFlow}${option.value === 'now' ? 'Now' : ''}`}
                                 onChange={(e) => {
                                     handleValidation(e);
                                     handleChangeFlow(e);
-                                }}
-                                onFocus={(e) => {
                                     setTouched(true);
-                                    handleChangeFlow(e);
                                 }}
+                  
                                 required
-                                disabled={
-                                    (option.value === 'now' && formData.userHasActiveClock) ? true : false
-                                }
+                                disabled = {
+                                    ((option.value === 'now' && formData.userHasActiveClock) || option.value === 'now' && isMonday) ? true : false
                             />
                             {option.label}
                             {<span className="showIfChecked">
-                                {formData.scheduledStartTime && <>{getDate(formData.scheduledStartTime).day} {getDate(formData.scheduledStartTime).monthName} {getDate(formData.scheduledStartTime).hour}:{getDate(formData.scheduledStartTime).minutes}</>}
+                                {formData.scheduledStartTime && <>{date.day} {date.monthName} {date.hour}:{date.minutes}</>}
+
                             </span>
 
                             }

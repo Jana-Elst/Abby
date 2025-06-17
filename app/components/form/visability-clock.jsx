@@ -21,7 +21,6 @@ const VisabilityClock = ({ setFormData, formData }) => {
                 clockWallPos: "wall"
             });
         } else {
-            console.log('online');
             if (clockId) {
                 removePhysical(clockId);
             }
@@ -75,7 +74,7 @@ const VisabilityClock = ({ setFormData, formData }) => {
                     </div>
                 </div>
 
-                <Title extraClass="form__title">Wil je je moment delen met anderen?</Title>
+                <Title extraClass="form__title">Kies waar jouw moment zichtbaar wordt</Title>
                 {
                     formData.clockWallPos === 'wall'
                         ? <p className='foodnote'>Je moment wordt op de site én op de momentenmuur in Abby getoond.</p>
@@ -93,11 +92,13 @@ const VisabilityClock = ({ setFormData, formData }) => {
                         <input type="radio"
                             id="online"
                             name="visability"
+
                             value="online"
                             checked={formData.clockWallPos === 'online'}
-                            onChange={handleChange}
-                            onFocus={() => {
+                                   onChange={(e) => {
+                                handleChange(e);
                                 setTouched(true);
+
                             }}
                             required
                         />
@@ -109,13 +110,14 @@ const VisabilityClock = ({ setFormData, formData }) => {
                         <input type="radio"
                             id="wall"
                             name="visability"
+
                             value="wall"
                             checked={formData.clockWallPos === "wall"}
-                            onChange={handleChange}
-                            onFocus={() => {
+                            onChange={(e) => {
+                                handleChange(e);
                                 setTouched(true);
                             }}
-                            // disabled = {!formData.isFree}
+                            disabled = {!formData.isFree}
                             required
                         />
                         Fysiek op de momenentenmuur
@@ -128,7 +130,7 @@ const VisabilityClock = ({ setFormData, formData }) => {
                         extraClass="next__btn btn__text purple__bg"
                         formData={formData}
                         setFormData={setFormData}
-                        disabled={!touched}
+                        disabled={!formData.clockWallPos}
                     > Volgende stap </ButtonNext>
                 }
             </div>

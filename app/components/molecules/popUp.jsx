@@ -15,13 +15,16 @@ const PopUp = ({ children, setUiState, uiState, extraClass }) => {
     }
 
     return (
-        <div className={`${uiState.popUpOpen ? 'open' : 'close'} ${extraClass}`}>
-            <div className='popup__header'>
-                <img className="popup__warning" src={iconWarning} alt="melding icon" />
-                <Button onClick={handleClickClose} extraClass="popup__btn"><img src={iconClose} alt="close icon" /></Button>
+        <>
+            <div className={`${(uiState.popUpOpen || uiState.confirmation) ? 'popup__overlay' : ''}`}></div>
+            <div className={`${(uiState.popUpOpen || uiState.confirmation) ? 'open' : 'close'} ${extraClass}`}>
+                <div className='popup__header'>
+                    <img className="popup__warning" src={iconWarning} alt="melding icon" />
+                    <Button onClick={handleClickClose} extraClass="popup__btn"><img src={iconClose} alt="close icon" /></Button>
+                </div>
+                {children}
             </div>
-            {children}
-        </div>
+        </>
     )
 };
 
