@@ -33,6 +33,17 @@ form {
     border-left: none;
 }
 
+.filter__state.button {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: var(--space-xxs);
+    padding: 0 var(--space-s);
+    height: 100%;
+    align-items: center;
+    border: var(--border-thin);
+    border-left: none;
+}
+
 .filter__btn {
     padding: 0 var(--space-xs);
     border: var(--border-thin);
