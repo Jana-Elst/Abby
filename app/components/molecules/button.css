@@ -1,8 +1,3 @@
-.button {
-    display: inline-block;
-    
-}
-
 .button.skip::before {
     content: url('../../src/assets/skip.svg');
 }

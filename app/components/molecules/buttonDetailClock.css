@@ -36,6 +36,7 @@
     justify-content: center;
     text-align: center;
     padding-bottom: var(--space-xxl);
+    align-items: center;
 }
 
 .btn__detail--split{
