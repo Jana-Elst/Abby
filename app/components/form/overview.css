@@ -1,0 +1,19 @@
+.empty__description{
+    color: rgba(0, 0, 0, 0.40);
+}
+
+.overview__desc{
+    margin: var(--space-s) 0;
+}
+
+.overview__info{
+    padding: var(--space-m);
+    border-top: var(--border-thin);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.overview__title{
+    margin-bottom: var(--space-xs);
+}

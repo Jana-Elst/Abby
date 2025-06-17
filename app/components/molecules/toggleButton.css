@@ -18,10 +18,20 @@
 
 .toggleButton__item--orange:has(input:checked~label) {
     background-color: var(--orange);
+    font-size: 1.125rem;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 1.4375rem;
+        text-decoration-line: underline;
 }
 
 .toggleButton__item--purple:has(input:checked~label) {
     background-color: var(--purple);
+    font-size: 1.125rem;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 1.4375rem;
+        text-decoration-line: underline;
 }
 
 /* input {

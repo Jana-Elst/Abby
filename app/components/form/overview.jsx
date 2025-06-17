@@ -4,6 +4,7 @@ import ButtonNext from './buttonNext';
 
 import { getDate } from "../../services/clock";
 import { locations } from "../../services/museumData";
+import './overview.css';
 
 const Overview = ({ setFormData, formData }) => {
     const date = getDate(formData.scheduledStartTime);
@@ -16,49 +17,67 @@ const Overview = ({ setFormData, formData }) => {
     const location = allLocations.find(location => location.value === formData.location);
 
     const now = () => {
+        console.log(date);
+        
         if (formData.flow === 'planNow' || formData.flow === 'now') {
-            return true
+            return true;
         }
-        return false
+        return false;
     }
 
     return (
-        <>
+        <div className="container__stretch">
             <div className="container--form">
-                <ButtonBack formData={formData} setFormData={setFormData}>Terug</ButtonBack>
-                <p>Overzicht</p>
-                <p>Jouw moment:</p>
-                <Title extraClass="form__title">{formData.title}</Title>
-                <p>Beschrijving:</p>
-                {formData.description ? <p>{formData.description}</p> : <p>geen beschrijving</p>}
-                <dl>
-                    <dt>Waneer:</dt>
-                    {now ? <dd>Nu</dd> : `${date.day} ${date.hour}:${date.minutes}`}
-                    <dt>Waar:</dt>
-                    <dd>{location.name}</dd>
-                    <dt>Moment open voor anderen:</dt>
-                    <dd>{formData.private ? 'Ja' : 'Nee'}</dd>
-                </dl>
-            </div>
+                <div className="progress__container">
+                    <ButtonBack formData={formData} setFormData={setFormData}>Terug</ButtonBack>
+                    <p className="h4 purple__fg">Overzicht</p>
+                </div>
 
-            {
-                now
-                    ? <ButtonNext
-                        buttonType="submit"
-                        extraClass="next__btn btn__text purple__bg"
-                        formData={formData}
-                        setFormData={setFormData}
-                        disabled={!formData.scheduledStartTime}> Start moment
-                    </ButtonNext>
-                    : <ButtonNext
-                        buttonType="submit"
-                        extraClass="next__btn btn__text purple__bg"
-                        formData={formData}
-                        setFormData={setFormData}
-                        disabled={!formData.scheduledStartTime}> Maak moment aan
-                    </ButtonNext>
-            }
-        </>
+                <div className="container">
+                    <p className="h4 overview__title">Jouw moment:</p>
+                    <Title extraClass="h2">{formData.name}</Title>
+                    <p className="h4 ">Beschrijving:</p>
+
+                    {formData.description ? <p className="overview__desc">{formData.description}</p> : <p className="empty__description overview__desc">geen beschrijving</p>}
+                </div>
+            </div>
+            <div className="container__stretch--bottom ">
+                <dl className="container">
+                    <div className="overview__info">
+                        <dt className="h4">Wanneer:</dt>
+                        <dd>{now() ? 'Nu' : `${date.day} ${date.monthName} ${date.hour}:${date.minutes}`}</dd> 
+                    </div>
+                    <div className="overview__info">
+                        <dt className="h4">Waar:</dt>
+                        <dd>{location.name}</dd>
+                    </div>
+                    <div className="overview__info">
+                        <dt className="h4">Moment open voor anderen:</dt>
+                        <dd>{formData.private ? 'Ja' : 'Nee'}</dd>
+                    </div>
+                </dl>
+
+
+
+                {
+                    now
+                        ? <ButtonNext
+                            buttonType="submit"
+                            extraClass="next__btn btn__text purple__bg"
+                            formData={formData}
+                            setFormData={setFormData}
+                            disabled={!formData.scheduledStartTime}> Start moment
+                        </ButtonNext>
+                        : <ButtonNext
+                            buttonType="submit"
+                            extraClass="next__btn btn__text purple__bg"
+                            formData={formData}
+                            setFormData={setFormData}
+                            disabled={!formData.scheduledStartTime}> Maak moment aan
+                        </ButtonNext>
+                }
+            </div>
+        </div>
     )
 };
 

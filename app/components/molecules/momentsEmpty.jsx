@@ -2,7 +2,6 @@ import Button from "./button";
 import './clockList.css';
 
 const MomentsEmpty = ({ state }) => {
-    console.log(state);
     //--- All moments
     if (state.page === 'allMoments') {
         // Now
@@ -32,8 +31,8 @@ const MomentsEmpty = ({ state }) => {
         if (state.toggle === 'Nu') {
             return (
                 <div className="empty">
-                    <p className="empty__text">Je bent nu niet bezig met een Abbymoment.</p>
-                    <Button link={"maak-een-abbymoment"} extraClass="empty__btn btn__text yellow__bg">Plan een moment</Button>
+                    <p className="empty__text">Momenteel heb je geen lopende momenten.</p>
+                    <Button link={"maak-een-abbymoment"} extraClass="empty__btn btn__text yellow__bg">Creëer een moment</Button>
                 </div>
             )
         }
@@ -41,7 +40,7 @@ const MomentsEmpty = ({ state }) => {
         if (state.toggle === 'Gepland') {
             return (
                 <div className="empty">
-                    <p className="empty__text">Je hebt geen Abbymomenten gepland</p>
+                    <p className="empty__text">Momenteel heb je geen geplande momenten</p>
                     <Button link={"maak-een-abbymoment"} extraClass="empty__btn btn__text yellow__bg">Plan een moment</Button>
                 </div>
             )
@@ -50,7 +49,7 @@ const MomentsEmpty = ({ state }) => {
         if (state.toggle === 'Afgelopen') {
             return (
                 <div className="empty">
-                    <p className="empty__text">Je hebt geen afgelopen Abbymomenten</p>
+                    <p className="empty__text">Je hebt nog geen afgelopen Abbymomenten</p>
                 </div>
             )
         }
