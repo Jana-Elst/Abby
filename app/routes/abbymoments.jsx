@@ -100,7 +100,9 @@ const Abbymoments = ({ loaderData }) => {
                                                     {   //show if there are clocks at the moment
                                                         activeClocksOthers
                                                         && <div className='center--flex'>
-                                                            <Button extraClass={"btn__text moments_more"} >Ontdek nog meer lopende momenten</Button>
+                                                                <Button extraClass={"btn__text  moments__more"} >Ontdek nog meer geplande momenten
+                                                                    <img className='btn__icon' src={arrowDown} alt="een pijl ide naar beneden wijst" />
+                                                                </Button>
                                                         </div>
                                                     }
                                                 </>
