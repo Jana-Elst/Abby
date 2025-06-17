@@ -7,6 +7,7 @@ import { locations } from "../../services/museumData";
 import './overview.css';
 
 const Overview = ({ setFormData, formData }) => {
+    console.log(formData);
     const date = getDate(formData.scheduledStartTime);
 
     const allLocations = [

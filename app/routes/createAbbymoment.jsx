@@ -20,6 +20,7 @@ import Overview from "../components/form/overview";
 
 //services
 import { addScheduledClock, startOnlineClock, startWallClock, addFreeClocks, getActiveClocksUser } from "../services/data";
+import { getISOLocalString } from "../services/clock";
 
 //root variables
 import { UserContext } from '../context/UserContext';
@@ -87,6 +88,9 @@ const CreateAbbymoment = ({ loaderData }) => {
     //if restart
     const location = useLocation();
 
+    console.log(flowForm);
+    console.log(getISOLocalString());
+
     const [formData, setFormData] = useState(() => {
         if (location.state && location.state.clock) {
             const clock = location.state.clock[0]
@@ -104,7 +108,7 @@ const CreateAbbymoment = ({ loaderData }) => {
                 clockWallPos: '',
                 descricription: clock.description,
                 private: clock.private,
-                scheduledStartTime: '',
+                scheduledStartTime: flowForm === 'now' ? getISOLocalString() : '',
                 scheduledStopTime: undefined,
                 creator: userId,
                 location: clock.location,
@@ -122,7 +126,7 @@ const CreateAbbymoment = ({ loaderData }) => {
                 clockWallPos: '',
                 description: '',
                 private: 'not-selected',
-                scheduledStartTime: '',
+                scheduledStartTime: flowForm === 'now' ? getISOLocalString() : '',
                 scheduledStopTime: undefined,
                 creator: userId,
                 location: '',
