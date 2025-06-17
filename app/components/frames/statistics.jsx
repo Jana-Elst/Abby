@@ -8,6 +8,7 @@ import status from "../../src/assets/status.svg";
 
 import arrow from "../../src/assets/arrow-right.svg";
 import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
 
 
 const Statistics = () => {
@@ -16,7 +17,8 @@ const Statistics = () => {
             <Title extraClass="statistics__title">
                 Zo vertraagden we <span className="yellow__fg">samen</span>
             </Title>
-            <Swiper spaceBetween={0} slidesPerView={1}>
+            <Swiper onSwiper={(swiper) => console.log(swiper)}
+                onSlideChange={() => console.log('slide change')} loop={true} spaceBetween={0} slidesPerView={1} className="swiper__statistics">
                 <SwiperSlide >
                     <div className="statistic blue__bg">
                         <div className="statistic__visual">

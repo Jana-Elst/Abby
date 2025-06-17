@@ -333,3 +333,7 @@
 .statistics__btn__container{
     margin: var(--space-3xl) 0;
 }
+
+.swiper__statistics{
+    width: 100%;
+}
