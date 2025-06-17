@@ -111,7 +111,7 @@ When something is changing in the database (table Clocks), the websocket server 
 ![alt text](<content/img/database connecion.png>)
 
 #### The arduino
-Make the arduino connection (see table & drawing)
+Make the arduino connection (see table)
 
 |Component|Arduino Pin|
 |-|-----------|
@@ -184,4 +184,4 @@ https://jana-elst.github.io/Abby/qrCode
 - The filter on the page 'abbymomenten' isn't working. In the future it should work.
 - The website is only for mobile and not responsive at the moment.
 - The edit page isn't designed and working yet.
-- The the files could be cleaned up.
+- The files could be cleaned up.
