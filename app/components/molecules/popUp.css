@@ -11,7 +11,6 @@
     width: 20rem;
     border: var(--border-thin);
     background-color: var(--white);
-
     z-index: 10;
 }
 
@@ -28,6 +27,7 @@
 .popup__header {
     display: flex;
     min-height: 3rem;
+
     justify-content: center;
     align-items: center;
     position: relative;
@@ -88,4 +88,3 @@
     display: grid;
     margin: var(--space-m) var(--space-xl);
     border: var(--border-thin);
-}

@@ -139,7 +139,6 @@ textarea::placeholder {
     flex-direction: column;
     padding: 0 var(--space-s);
 }
-
 .date__now:has(input[type="radio"]:checked),
 .date__later:has(input[type="radio"]:checked) {
     background-color: var(--yellow);
@@ -183,8 +182,6 @@ textarea::placeholder {
 }
 
 /* location.jsx */
-
-
 
 .location img {
     position: absolute;

@@ -105,7 +105,6 @@ const Location = ({ formData, setFormData }) => {
                         !formData.location || uiState.popUpOpen
                     }> Volgende stap </ButtonNext>
 
-
                 <PopUp setUiState={setUiState} uiState={uiState} extraClass="popup">
                     <div className="popup__container">
                         <p className="popup__title h4">Meer dan welkom in deze ruimte</p>
