@@ -99,7 +99,7 @@ const Time = ({ setFlowForm, flows, formData, setFormData }) => {
                   
                                 required
                                 disabled = {
-                                    ((option.value === 'now' && formData.userHasActiveClock) || option.value === 'now' && isMonday) ? true : false
+                                    ((option.value === 'now' && formData.userHasActiveClock) || option.value === 'now' && isMonday(getDate(getISOLocalString()).date)) ? true : false
                                 }
                             />
                             {option.label}

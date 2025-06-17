@@ -117,7 +117,7 @@ const VisabilityClock = ({ setFormData, formData }) => {
                                 handleChange(e);
                                 setTouched(true);
                             }}
-                            disabled = {!formData.isFree}
+                            disabled = {formData.isFree}
                             required
                         />
                         Fysiek op de momenentenmuur

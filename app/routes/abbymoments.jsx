@@ -65,7 +65,7 @@ const Abbymoments = ({ loaderData }) => {
                 />
             </div>
 
-            {/* <Filter setfilter={setFilter} filter={filter} /> */}
+            <Filter setfilter={setFilter} filter={filter} />
 
             {
                 // Show NOW
