@@ -189,6 +189,7 @@ textarea::placeholder {
     height: 14rem;
     right: 0;
     border-top: var(--border-thin);
+    z-index: 10;
 }
 
 .location__btn {

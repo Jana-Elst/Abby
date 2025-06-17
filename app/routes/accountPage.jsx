@@ -5,7 +5,6 @@ import { useContext, useState, useEffect } from 'react'
 import { supabase } from '../supabaseClient'
 import { Auth } from '@supabase/auth-ui-react'
 import { ThemeSupa } from "@supabase/auth-ui-shared";
-import { NavLink } from 'react-router';
 import { UserContext } from '../context/UserContext';
 import Title from "../components/molecules/title";
 import Button from "../components/molecules/button";
@@ -61,7 +60,7 @@ const AccountPage = () => {
                             divider: 'remove',
                             input: 'account__input',
                             label: 'account__label',
-                            button: 'btn__text account__btn account__btn:hover',
+                            button: 'btn__text account__btn--important account__btn:hover',
                             message: 'message',
                         },
                     }} />
