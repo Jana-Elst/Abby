@@ -8,8 +8,9 @@ import "./picker.css"
 import React, { ChangeEventHandler, useState } from "react";
 
 //external imports
-import { setHours, setMinutes } from "date-fns";
+import { min, setHours, setMinutes } from "date-fns";
 import { DayPicker } from "react-day-picker";
+import { nl } from 'date-fns/locale';
 
 //functions
 import { getISOLocalString, getDate, nextDay, isMonday } from "../../services/clock";
@@ -17,7 +18,7 @@ import { getISOLocalString, getDate, nextDay, isMonday } from "../../services/cl
 const TimeInput = ({ formData, setFormData, extraClass }) => {
     let time = getDate(formData.scheduledStartTime);
 
-    const [selected, setSelected] = useState(time.day);
+    const [selected, setSelected] = useState(time.date);
     const [timeValue, setTimeValue] = useState(`${time.hour}:${time.minutes}`);
     
 
@@ -27,13 +28,18 @@ const TimeInput = ({ formData, setFormData, extraClass }) => {
             setTimeValue(time);
             return;
         }
-        const [hours, minutes] = time.split(":").map((str) => parseInt(str, 10));
+
+        const [hours, minutes] = time.split(":");
         const newSelectedDate = setHours(setMinutes(selected, minutes), hours);
+
         setSelected(newSelectedDate);
         setTimeValue(time);
+
+        const newDate = getISOLocalString(newSelectedDate);
+
         setFormData({
             ...formData,
-            scheduledStartTime: new Date(newSelectedDate).toISOString()
+            scheduledStartTime: newDate
         });
     };
 
@@ -52,10 +58,12 @@ const TimeInput = ({ formData, setFormData, extraClass }) => {
             hours,
             minutes
         );
+
         setSelected(newDate);
+        const newDateIso = getISOLocalString(newDate);
         setFormData({
             ...formData,
-            scheduledStartTime: new Date(newDate).toISOString()
+            scheduledStartTime: newDateIso
         });
     };
 
@@ -73,6 +81,7 @@ const TimeInput = ({ formData, setFormData, extraClass }) => {
                     {dayOfWeek: [1]}
                 ]}
                 weekStartsOn={1}
+                locale={nl}
             />
             <label>
                 <input type="time" value={timeValue} onChange={handleTimeChange} />

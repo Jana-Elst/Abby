@@ -10,7 +10,6 @@ const addFreeClocks = () => {
             freeClocks.push(i);
         }
     }
-    console.log(freeClocks);
 }
 
 //get a random clock from the free clocks
@@ -24,14 +23,12 @@ export const clockNumber = () => {
 //create the code for the right arduino
 //Each arduino controls 3 clocks
 export const arduinoCode = (clockNumber) => {
-    console.log('clockNumber', clockNumber);
     const arduinoId = Math.ceil(clockNumber / clocksPerArduino);
     let clockId = clockNumber % 3;
     if (clockId === 0) {
         clockId = clocksPerArduino;
     }
 
-    console.log('code', arduinoId, clockId);
     return `${arduinoId}.${clockId}`;
 }
 

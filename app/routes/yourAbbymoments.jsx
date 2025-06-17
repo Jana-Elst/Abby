@@ -76,7 +76,7 @@ const YourAbbyMoments = ({ loaderData }) => {
                                     ? (
                                         <>
                                             {/* <h3 className='moments__subtitle h4'>{activeClocks[0].includes(userId) ? "Jouw moment is nu bezig" : "Je neemt deel aan een lopend moment"}</h3> */}
-
+                                            <p className='moments__subtitle--nu'>Dit moment is momenteel aan het lopen</p>
                                             <div className='container container__moments'>
                                                 <ClockList clocks={activeClocks} clockProfile={clockProfile} state={state} />
                                             </div>
@@ -97,7 +97,7 @@ const YourAbbyMoments = ({ loaderData }) => {
                                         <>
                                             {scheduledClocksCreator.length > 0
                                                 && <>
-                                                    <h3 className='moments__subtitle h4'>Jouw geplande momenten</h3>
+                                                <h3 className='moments__subtitle h4'>Jouw eigen momenten</h3>
                                                     <div className='container container__moments'>
                                                         <ClockList clocks={scheduledClocksCreator} state={state} clockProfile={clockProfile} />
                                                     </div>
@@ -143,7 +143,7 @@ const YourAbbyMoments = ({ loaderData }) => {
                                             {
                                                 pastClocksParticipant.length > 0
                                                 && <>
-                                                    <h3 className='moments__subtitle h4'>Afgelopen momenten waar je bij was</h3>
+                                                    <h3 className='moments__subtitle h4'>Afgelopen momenten waar je aan deelnam</h3>
                                                     <div className='container container__moments'>
                                                         <ClockList clocks={pastClocksParticipant} state={state} clockProfile={clockProfile} />
                                                     </div>

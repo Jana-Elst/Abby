@@ -21,7 +21,6 @@ const VisabilityClock = ({ setFormData, formData }) => {
                 clockWallPos: "wall"
             });
         } else {
-            console.log('online');
             if (clockId) {
                 removePhysical(clockId);
             }
@@ -47,7 +46,7 @@ const VisabilityClock = ({ setFormData, formData }) => {
     }
 
     return (
-        <>
+        <div className='container__stretch'>
             <div className="container--form">
                 <div className="progress__container">
                     {
@@ -75,50 +74,54 @@ const VisabilityClock = ({ setFormData, formData }) => {
                     </div>
                 </div>
 
-                <Title extraClass="form__title">Wil je je moment delen met anderen?</Title>
+                <Title extraClass="form__title">Kies waar jouw moment zichtbaar wordt</Title>
                 {
                     formData.clockWallPos === 'wall'
-                        ? <p className='foodnote'>Je klokje begint meteen te lopen en verschijnt op de klokjesmuur in Abby.</p>
+                        ? <p className='foodnote'>Je moment wordt op de site én op de momentenmuur in Abby getoond.</p>
                         : ""
                 }
                 {
                     formData.clockWallPos === 'online'
-                        ? <p className='foodnote'>Je moment wordt op de site én op de momentenmuur in Abby getoond.</p>
+                        ? <p className='foodnote'>Je moment wordt op onze site getoond, maar niet op de momentenmuur in Abby</p>
                         : ""
                 }
-
+            </div>
+            <div>
                 <div className='visuals'>
-                    <label className='visual__btn' htmlFor='wall' >
-                        <input type="radio"
-                            id="wall"
-                            name="visability"
-                            value="wall"
-                            checked={formData.clockWallPos === "wall"}
-                            onChange={handleChange}
-                            onFocus={() => {
-                                setTouched(true);
-                            }}
-                            // disabled = {!formData.isFree}
-                            required
-                        />
-                        Op de klokjes muur
-                        {/* <label htmlFor="wall">Op de klokjes muur</label> */}
-                    </label>
-
                     <label className='visual__btn' htmlFor='online'>
                         <input type="radio"
                             id="online"
                             name="visability"
+
                             value="online"
                             checked={formData.clockWallPos === 'online'}
-                            onChange={handleChange}
-                            onFocus={() => {
+                                   onChange={(e) => {
+                                handleChange(e);
                                 setTouched(true);
+
                             }}
                             required
                         />
                         Online op de website
                         {/* <label htmlFor="online">Online op de website</label> */}
+                    </label>
+
+                    <label className='visual__btn' htmlFor='wall' >
+                        <input type="radio"
+                            id="wall"
+                            name="visability"
+
+                            value="wall"
+                            checked={formData.clockWallPos === "wall"}
+                            onChange={(e) => {
+                                handleChange(e);
+                                setTouched(true);
+                            }}
+                            disabled = {formData.isFree}
+                            required
+                        />
+                        Fysiek op de momenentenmuur
+                        {/* <label htmlFor="wall">Op de klokjes muur</label> */}
                     </label>
                 </div>
 
@@ -127,11 +130,11 @@ const VisabilityClock = ({ setFormData, formData }) => {
                         extraClass="next__btn btn__text purple__bg"
                         formData={formData}
                         setFormData={setFormData}
-                        disabled={!touched}
+                        disabled={!formData.clockWallPos}
                     > Volgende stap </ButtonNext>
                 }
             </div>
-        </>
+        </div>
     )
 };
 

@@ -25,7 +25,6 @@ const PopUpDetail = ({ clock, isParticipant, setUiState, uiState }) => {
 
     const handleClockLeave = async () => {
         const newParticipants = uiState.participants.filter(id => id !== userId);
-        console.log(newParticipants);
 
         await leaveClock(userId, clock[0].id);
 
@@ -38,14 +37,14 @@ const PopUpDetail = ({ clock, isParticipant, setUiState, uiState }) => {
     }
 
     const handleStop = async () => {
+        navigate(`${import.meta.env.BASE_URL}jouw-abbymomenten`);
+
         await stopClock(clock[0].id);
 
         setUiState({
             ...uiState,
             popUpOpen: false,
         });
-
-        navigate(`${import.meta.env.BASE_URL}jouw-abbymomenten`);
     }
 
     //if clock is made my user
@@ -53,11 +52,13 @@ const PopUpDetail = ({ clock, isParticipant, setUiState, uiState }) => {
     if (clock[0].startTime && clock[0].creator === userId) {
         return (
             <>
-                <p>Wil je jouw abbymoment stoppen?</p>
-                <p>Als je jouw Abbymoment stopt zal dit bij de voorbije momenten opgeslagen worden.</p>
-                <div>
-                    <Button onClick={handleClickClose}>Annuleer</Button>
-                    <Button onClick={handleStop}>Stop Abbymoment</Button>
+                <div className="popup__text">
+                    <p className="h4">Wil je jouw abbymoment stoppen?</p>
+                    <p>Als je jouw Abbymoment stopt zal dit bij de voorbije momenten opgeslagen worden.</p>
+                </div>
+                <div className="popup__btns_container">
+                    <Button extraClass="btn__text purple__bg btn__popup" onClick={handleClickClose}>Annuleer</Button>
+                    <Button extraClass="btn__red btn__popup" onClick={handleStop}>Stop Abbymoment</Button>
                 </div>
             </>
         )
@@ -66,14 +67,15 @@ const PopUpDetail = ({ clock, isParticipant, setUiState, uiState }) => {
     //Scheduled & now
     //if user is joined
     if (isParticipant && uiState.popUpOpen) {
-        console.log(uiState.buttonState);
         return (
             <>
-                <p>Wil je dit Abbymoment verlaten?</p>
-                <p>tekst tekst tekst</p>
-                <div>
-                    <Button onClick={handleClickClose}>Annuleer</Button>
-                    <Button onClick={handleClockLeave}>Verlaat Abbymoment</Button>
+                <div className="popup__text">
+                    <p className="h4">Wil je dit Abbymoment verlaten?</p>
+                    <p>Als je jouw Abbymoment verlaat zal dit gewoon terug bij alle momenten komen.</p>
+                </div>
+                <div className="popup__btns_container">
+                    <Button extraClass="btn__text green__bg btn__popup" onClick={handleClickClose}>Annuleer</Button>
+                    <Button extraClass="btn__red btn__popup" onClick={handleClockLeave}>Verlaat Abbymoment</Button>
                 </div>
             </>
         )
@@ -82,10 +84,12 @@ const PopUpDetail = ({ clock, isParticipant, setUiState, uiState }) => {
     if (isParticipant && uiState.confirmation) {
         return (
             <>
-                <p>Joepie</p>
-                <p>Je neemt deel aan dit Abbymoment.</p>
-                <div>
-                    <Button onClick={handleClickClose}>Sluit</Button>
+                <div className="popup__text">
+                    <p className="h4">Joepie</p>
+                    <p>Je neemt deel aan dit Abbymoment.</p>
+                </div>
+                <div className="popup__btns_container--single">
+                    <Button extraClass="btn__text green__bg btn__popup--single" onClick={handleClickClose}>Sluit</Button>
                 </div>
             </>
         )

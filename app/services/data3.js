@@ -295,7 +295,6 @@ export const startWallClock = async (id, name, description, prive, location) => 
 //stop clock
 export const stopClock = async (id) => {
     const time = getTimeNow();
-    console.log(id, time);
 
     const data = await getOrUpdateClocks(
         supabase

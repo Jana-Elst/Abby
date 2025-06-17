@@ -67,7 +67,7 @@
 
 input::placeholder,
 textarea::placeholder {
-    color: var(--grey);
+    color: var(--black);
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.3125rem;
@@ -98,6 +98,14 @@ textarea::placeholder {
 
 .error {
     display: none;
+}
+
+.error.display {
+    display: block;
+    color: #F00;
+    font-size: .9rem;
+    font-style: normal;
+    font-weight: 400;
 }
 
 .display {
@@ -144,7 +152,8 @@ textarea::placeholder {
 
 .date__now:has(input[type="radio"]:disabled),
 .date__later:has(input[type="radio"]:disabled) {
-    opacity: 50%;
+    background-color: #0000004D;
+    opacity: 30%;
 }
 
 .date__later:has(input[type="radio"]:checked) {
@@ -166,21 +175,15 @@ textarea::placeholder {
     flex-direction: column;
     align-items: center;
 }
-.time label{
+
+.time label {
     align-self: flex-end;
     padding: var(--space-s);
 }
 
 /* location.jsx */
 
-.location {
-    flex-direction: column;
-    border-top: none;
-    display: flex;
-    position: relative;
-}
-
-.location img{
+.location img {
     position: absolute;
     width: 14rem;
     height: 14rem;
@@ -266,7 +269,8 @@ textarea::placeholder {
 }
 
 .visual__btn:has(input[type="radio"]:disabled) {
-    opacity: 50%;
+    background-color: #0000004D;
+    opacity: 30%;
 }
 
 /* confirmation.jsx */
@@ -285,9 +289,10 @@ textarea::placeholder {
 }
 
 .confirm {
-    position: absolute;
-    top: 50%;
-    transform: translate(0, -50%);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 /* visability-clock.jsx */
@@ -296,12 +301,13 @@ textarea::placeholder {
 }
 
 /* popup */
-.popup__container{
+.popup__container {
     padding: var(--space-m);
     display: flex;
     flex-direction: column;
     gap: var(--space-xs);
 }
-.popup__title{
+
+.popup__title {
     max-width: 17rem;
 }

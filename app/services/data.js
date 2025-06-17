@@ -208,7 +208,6 @@ export const getPastCreator = async () => {
                 .or(`stopTime.not.is.null,scheduledStartTime.lt.${today}`)
                 .order('scheduledStartTime', { ascending: false })
         );
-        console.log(data);
         return data
     }
     return null
@@ -219,7 +218,6 @@ export const todayIso = () => {
     today.setUTCHours(0, 0, 0, 0);
     const todayISO = today.toISOString();
 
-    console.log(todayISO);
     return todayISO;
 }
 
@@ -311,26 +309,25 @@ export const updateDigitalToPhysical = async (id) => {
 export const startWallClock = async (id, name, description, prive, location) => {
     const time = getTimeNow();
 
-    const data = await getOrUpdateClocks(
-        supabase
-            .from('clocks')
-            .update({
-                name: name,
-                description: description,
-                startTime: time,
-                scheduledStartTime: time,
-                private: prive,
-                location: location
-            })
-            .eq('id', id)
-    );
-    return data
+    const {error, data} = await supabase
+        .from('clocks')
+        .update({
+            name: name,
+            description: description,
+            startTime: time,
+            scheduledStartTime: time,
+            private: prive,
+            location: location
+        })
+        .eq('id', id)
+        .select('*');
+
+    return data[0]
 }
 
 //stop clock
 export const stopClock = async (id) => {
     const time = getTimeNow();
-    console.log(id, time);
 
     const data = await getOrUpdateClocks(
         supabase
@@ -370,7 +367,7 @@ export const addScheduledClock = async (userId, name, description, scheduledStar
             .insert({
                 name: name,
                 description: description,
-                scheduledStartTime: new Date(scheduledStartTime).toISOString(),
+                scheduledStartTime: scheduledStartTime,
                 private: prive,
                 location: location,
                 creator: userId
@@ -410,8 +407,6 @@ export const addPhysicalClock = async (userId) => {
     const time = getTimeNow();
     const clockNumber = await getRandomClockNumber();
 
-    console.log('clock', clockNumber);
-
     const data = await addRow(
         supabase
             .from('clocks')
@@ -429,7 +424,6 @@ export const addPhysicalClock = async (userId) => {
 
 //join activity
 export const joinClock = async (userId, clockId) => {
-    console.log(userId, clockId)
     try {
         const { data, error } = await supabase
             .from('clockprofile')
@@ -497,8 +491,6 @@ export const addFreeClocks = async () => {
     let occupiedClocks = [];
 
     const clocks = await getMuseumClocks() || [];
-    console.log(clocks);
-
 
     clocks.forEach(clock => {
         if (
@@ -515,7 +507,6 @@ export const addFreeClocks = async () => {
         }
     }
 
-    console.log(freeClocks);
     return freeClocks;
 }
 
@@ -525,7 +516,6 @@ const getRandomClockNumber = async () => {
 
     const clockId = Math.floor(Math.random() * freeClocks.length);
     const clock = freeClocks[clockId];
-    console.log(clock);
     return clock;
 }
 
