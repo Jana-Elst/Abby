@@ -28,8 +28,8 @@ Integration 4 - school project in collab with Abby (Kortrijk)
 
 ## 🔗 The results of our brave attemps a.k.a links
 - [FigJam](https://www.figma.com/board/rqLcQIAwztlIxRn99Nfgoo/Integration-4---Abby?node-id=0-1&t=eH0gQdASVswjV9uo-1)
-- [Microsite prototype]([https://www.figma.com/design/QP0qeSCZBHvE91DGuCpKpd/Integration-4---Abby---microsite?node-id=0-1&t=6qjMP6iY6mcM78YD-1](https://www.figma.com/proto/QP0qeSCZBHvE91DGuCpKpd/Integration-4---Abby---microsite?page-id=376%3A8729&node-id=939-22499&p=f&viewport=295%2C197%2C0.06&t=6qpsPGKwYHV5WVHT-1&scaling=min-zoom&content-scaling=fixed))
-- [Design prototype]([https://www.figma.com/design/OffShGGejDTdRazWGSZGpS/Integration-4---Abby---design?node-id=10-2&t=SKmK4pJqmYBHhgyj-1](https://www.figma.com/proto/OffShGGejDTdRazWGSZGpS/Integration-4---Abby---design?page-id=7%3A2&node-id=1692-10637&viewport=-18040%2C-4701%2C0.51&t=0TdnRs6lVRrCNcYp-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=1761%3A34001))
+- [Microsite prototype](https://www.figma.com/design/QP0qeSCZBHvE91DGuCpKpd/Integration-4---Abby---microsite?node-id=0-1&t=6qjMP6iY6mcM78YD-1](https://www.figma.com/proto/QP0qeSCZBHvE91DGuCpKpd/Integration-4---Abby---microsite?page-id=376%3A8729&node-id=939-22499&p=f&viewport=295%2C197%2C0.06&t=6qpsPGKwYHV5WVHT-1&scaling=min-zoom&content-scaling=fixed))
+- [Design prototype](https://www.figma.com/design/OffShGGejDTdRazWGSZGpS/Integration-4---Abby---design?node-id=10-2&t=SKmK4pJqmYBHhgyj-1](https://www.figma.com/proto/OffShGGejDTdRazWGSZGpS/Integration-4---Abby---design?page-id=7%3A2&node-id=1692-10637&viewport=-18040%2C-4701%2C0.51&t=0TdnRs6lVRrCNcYp-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=1761%3A34001))
 - [The final website](https://jana-elst.github.io/Abby/)
 
 ## Everything you need to know about the dev part of the project
