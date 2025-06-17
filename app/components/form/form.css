@@ -67,7 +67,7 @@
 
 input::placeholder,
 textarea::placeholder {
-    color: var(--grey);
+    color: var(--black);
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.3125rem;
@@ -98,6 +98,14 @@ textarea::placeholder {
 
 .error {
     display: none;
+}
+
+.error.display {
+    display: block;
+    color: #F00;
+    font-size: .9rem;
+    font-style: normal;
+    font-weight: 400;
 }
 
 .display {
@@ -284,9 +292,10 @@ textarea::placeholder {
 }
 
 .confirm {
-    position: absolute;
-    top: 50%;
-    transform: translate(0, -50%);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 /* visability-clock.jsx */

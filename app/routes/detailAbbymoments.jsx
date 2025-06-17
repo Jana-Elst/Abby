@@ -45,6 +45,8 @@ const DetailAbbymoments = ({ loaderData }) => {
     const { userId } = useContext(UserContext);
     const { clock, clockProfile, activeClocks } = loaderData;
     const loc = useLocation();
+    console.log(loc);
+    
     const participants = allParticipants(clockProfile, clock[0].id)
     const userHasActiveClock = activeClocks.length > 0;
 
@@ -53,7 +55,7 @@ const DetailAbbymoments = ({ loaderData }) => {
         buttonState: participants.length > 0 ?
             participants.includes(userId) ? 'leave ' : 'join' : 'join',
         participants: participants,
-        confirmxation: false,
+        confirmation: false,
         activeClock: userHasActiveClock
     });
 
@@ -78,40 +80,14 @@ const DetailAbbymoments = ({ loaderData }) => {
 
     return (
         <div className='container__stretch container__stretch--header'>
-        <div>
-            <div className='top__bar'>
-                <ButtonBack navigateSteps={loc.state ? `${import.meta.env.BASE_URL}${loc.state.nav}` : -1}>Terug</ButtonBack>
-                {creator && <p className='purple__fg h4'>Maker</p>}
-                {!creator && participant && <p className='green__fg h4'>Deelnemer</p>}
-            </div>
+            <div>
+                <div className='top__bar'>
+                    {/* <ButtonBack navigateSteps={-2}>Terug</ButtonBack> */}
+                    <ButtonBack navigateSteps={loc.state && `${loc.state.nav}`}>Terug</ButtonBack>
+                    {creator && <p className='purple__fg h4'>Maker</p>}
+                    {!creator && participant && <p className='green__fg h4'>Deelnemer</p>}
+                </div>
 
-            <div className='info'>
-                <Title extraClass="info__title">{clock[0].name}</Title>
-
-                <div className='info__container-detail'>
-                    {
-                        clock[0].startTime
-                            ? ""
-                            : <>
-                                <p className='container__date'>                                                <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
-                                    <path fillRule="evenodd" clipRule="evenodd" d="M7.09093 2.5H5.7273V3.86364H3.68184H3L3.00002 17.5H3.68184H17.3182H18V3.86364H17.3182H15.2728V2.5H13.9091V3.86364H7.09093V2.5ZM4.36366 7.95455V5.22727H16.6364V7.95455H4.36366ZM4.36366 9.31818V16.1364H16.6364V9.31818H4.36366Z" fill="black" />
-                                </svg>{`${getDate(clock[0].scheduledStartTime).day} ${getDate(clock[0].scheduledStartTime).monthName}`}</p>
-                                <p className='container__time'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                    <circle cx="8" cy="8" r="6.75" stroke="black" strokeWidth="1.5" />
-                                    <path d="M8 7.99986L8 1.57129" stroke="black" strokeWidth="1.5" />
-                                </svg>{`${getDate(clock[0].scheduledStartTime).hour}:${getDate(clock[0].scheduledStartTime).minutes}`}</p>
-                            </>
-                    }
-
-                    { //show participant (only of you can participate)
-                        clock[0].private
-                            ? ""
-                            : <p className={creator ? 'purple__bg container__count' : !creator && participant ? "green__bg container__count" : "container__count"}>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                    <path d="M8.77078 2.37598C7.04078 2.37598 5.63078 3.78598 5.63078 5.50598C5.63078 6.39598 6.02078 7.25598 6.69078 7.84598L6.94078 8.07598L6.63078 8.18598C5.45078 8.62598 4.34078 9.65598 3.53078 11.076C2.79078 12.376 2.34078 13.906 2.30078 15.306H7.12078C7.26078 14.826 7.46078 14.356 7.72078 13.936H3.71078L3.79078 13.466C4.29078 10.976 6.38078 9.17598 8.77078 9.17598C9.03078 9.17598 9.30078 9.20598 9.57078 9.24598C9.76078 8.22598 10.5008 7.35598 11.5008 7.02598C11.7608 6.56598 11.9008 6.03598 11.9008 5.50598C11.9008 3.78598 10.4908 2.37598 8.77078 2.37598ZM8.77078 7.26598C7.78078 7.26598 7.01078 6.49598 7.01078 5.50598C7.01078 4.51598 7.78078 3.75598 8.77078 3.75598C9.76078 3.75598 10.5208 4.52598 10.5208 5.50598C10.5208 6.48598 9.75078 7.26598 8.77078 7.26598Z" fill="black" />
-                                    <path d="M12.7697 7.50586C11.3097 7.50586 10.0997 8.70586 10.0997 10.1759C10.0997 10.9659 10.4497 11.6759 10.9997 12.1659C8.91969 12.9359 7.42969 15.7459 7.42969 18.1759C7.60969 18.1759 7.67969 18.1759 7.63969 18.1759C7.69969 18.1759 7.94969 18.1759 8.13969 18.1759H17.3797C17.5697 18.1759 17.6897 18.1759 17.8797 18.1759C18.0197 18.1759 18.0897 18.1759 18.0897 18.1759C18.0897 15.7459 16.6097 12.9359 14.5197 12.1659C15.0697 11.6759 15.4197 10.9659 15.4197 10.1759C15.4197 8.71586 14.2197 7.50586 12.7497 7.50586H12.7697ZM12.7697 8.93586C13.4697 8.93586 14.0097 9.48586 14.0097 10.1759C14.0097 10.8659 13.4597 11.4159 12.7697 11.4159C12.0797 11.4159 11.5297 10.8659 11.5297 10.1759C11.5297 9.48586 12.0797 8.93586 12.7697 8.93586ZM12.7697 13.2759C14.6897 13.2759 16.3097 14.7559 16.6197 16.7559H8.90969C9.21969 14.7559 10.8397 13.2759 12.7597 13.2759H12.7697Z" fill="black" />
-                                </svg>
-                                {uiState.participants.length}</p>
                 <div className='info'>
                     <Title extraClass="info__title">{clock[0].name}</Title>
 
@@ -133,12 +109,12 @@ const DetailAbbymoments = ({ loaderData }) => {
                         { //show participant (only of you can participate)
                             clock[0].private
                                 ? ""
-                                : <p className={creator ? 'purple__bg container__count' : participants.includes(userId) ? "green__bg container__count" : "container__count"}>
+                                : <p className={creator ? 'purple__bg container__count' : !creator && participant ? "green__bg container__count" : "container__count"}>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                                         <path d="M8.77078 2.37598C7.04078 2.37598 5.63078 3.78598 5.63078 5.50598C5.63078 6.39598 6.02078 7.25598 6.69078 7.84598L6.94078 8.07598L6.63078 8.18598C5.45078 8.62598 4.34078 9.65598 3.53078 11.076C2.79078 12.376 2.34078 13.906 2.30078 15.306H7.12078C7.26078 14.826 7.46078 14.356 7.72078 13.936H3.71078L3.79078 13.466C4.29078 10.976 6.38078 9.17598 8.77078 9.17598C9.03078 9.17598 9.30078 9.20598 9.57078 9.24598C9.76078 8.22598 10.5008 7.35598 11.5008 7.02598C11.7608 6.56598 11.9008 6.03598 11.9008 5.50598C11.9008 3.78598 10.4908 2.37598 8.77078 2.37598ZM8.77078 7.26598C7.78078 7.26598 7.01078 6.49598 7.01078 5.50598C7.01078 4.51598 7.78078 3.75598 8.77078 3.75598C9.76078 3.75598 10.5208 4.52598 10.5208 5.50598C10.5208 6.48598 9.75078 7.26598 8.77078 7.26598Z" fill="black" />
                                         <path d="M12.7697 7.50586C11.3097 7.50586 10.0997 8.70586 10.0997 10.1759C10.0997 10.9659 10.4497 11.6759 10.9997 12.1659C8.91969 12.9359 7.42969 15.7459 7.42969 18.1759C7.60969 18.1759 7.67969 18.1759 7.63969 18.1759C7.69969 18.1759 7.94969 18.1759 8.13969 18.1759H17.3797C17.5697 18.1759 17.6897 18.1759 17.8797 18.1759C18.0197 18.1759 18.0897 18.1759 18.0897 18.1759C18.0897 15.7459 16.6097 12.9359 14.5197 12.1659C15.0697 11.6759 15.4197 10.9659 15.4197 10.1759C15.4197 8.71586 14.2197 7.50586 12.7497 7.50586H12.7697ZM12.7697 8.93586C13.4697 8.93586 14.0097 9.48586 14.0097 10.1759C14.0097 10.8659 13.4597 11.4159 12.7697 11.4159C12.0797 11.4159 11.5297 10.8659 11.5297 10.1759C11.5297 9.48586 12.0797 8.93586 12.7697 8.93586ZM12.7697 13.2759C14.6897 13.2759 16.3097 14.7559 16.6197 16.7559H8.90969C9.21969 14.7559 10.8397 13.2759 12.7597 13.2759H12.7697Z" fill="black" />
                                     </svg>
-                                    {participants.length}</p>
+                                    {uiState.participants.length}</p>
                         }
 
                         <button className='container__share'><img src={share} alt="deel icon" />Deel</button>
@@ -163,7 +139,8 @@ const DetailAbbymoments = ({ loaderData }) => {
                             canvasSize={"120"}
                             clock={clock[0]}
                             clockColors={{ color: `${creator ? "purple" : participants.includes(userId) ? 'green' : 'black'}`, bgColor: "white" }}
-                        /></div>
+                        />
+                    </div>
                     {
                         (clock[0].location !== 'ik-weet-het-nog-niet') && <img className={clock[0].abbyMade ? 'collage__location collage__location--abby' : 'collage__location'} src={images[location.image]} alt={`foto van ${location.name}`} />
                     }
@@ -180,14 +157,14 @@ const DetailAbbymoments = ({ loaderData }) => {
                     }
                 </div >
 
-            <ButtonDetailClock
-                clock={clock}
-                clockProfile={clockProfile}
-                userId={userId}
-                isParticipant={participant}
-                setUiState={setUiState}
-                uiState={uiState}
-            />
+                <ButtonDetailClock
+                    clock={clock}
+                    clockProfile={clockProfile}
+                    userId={userId}
+                    isParticipant={participant}
+                    setUiState={setUiState}
+                    uiState={uiState}
+                />
 
 
                 {

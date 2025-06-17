@@ -43,7 +43,7 @@ const Description = ({ formData, setFormData }) => {
                 <div className="form__questions">
                     <div className="form__question h4">
                         <label htmlFor="name">Titel <span>*</span></label>
-                        <p className={`${(!correctInput && touched) && 'display'} error`}>Vul een titel in</p>
+                        <p className={`error ${(!correctInput && touched) && 'display'}`}>Vul een titel in</p>
                         <input
                             type="text"
                             name="name"

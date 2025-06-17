@@ -61,22 +61,23 @@ const Participants = ({ formData, setFormData }) => {
                     </label>
                 </div>
 
-            {
-                formData.flow === "now" || formData.flow === 'planNow'
-                    ? <ButtonNext extraClass="next__btn btn__text purple__bg"
-                        buttonType='button'
-                        formData={formData}
-                        setFormData={setFormData}
-                        disabled={!touched}
-                    > Start je moment </ButtonNext>
-                    : <ButtonNext extraClass="next__btn btn__text purple__bg"
-                        buttonType='button'
-                        formData={formData}
-                        setFormData={setFormData}
-                        disabled={!touched && formData.private == ! 'not-selected'}
-                    > Maak moment aan </ButtonNext>
-            }
-        </>
+                {
+                    formData.flow === "now" || formData.flow === 'planNow'
+                        ? <ButtonNext extraClass="next__btn btn__text purple__bg"
+                            buttonType='button'
+                            formData={formData}
+                            setFormData={setFormData}
+                            disabled={!touched}
+                        > Start je moment </ButtonNext>
+                        : <ButtonNext extraClass="next__btn btn__text purple__bg"
+                            buttonType='button'
+                            formData={formData}
+                            setFormData={setFormData}
+                            disabled={!touched && formData.private == ! 'not-selected'}
+                        > Maak moment aan </ButtonNext>
+                }
+            </div>
+        </div>
     )
 };
 

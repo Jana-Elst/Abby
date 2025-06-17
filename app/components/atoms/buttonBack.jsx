@@ -9,10 +9,10 @@ const ButtonBack = ({ navigateSteps = null }) => {
     let navigate = useNavigate();
 
     if (navigateSteps) {
-        if (navigateSteps.navPath) {
-            navSteps = `${import.meta.env.BASE_URL}${navigateSteps.navPath}`
+        if (typeof navigateSteps === 'string') {
+            navSteps = `${import.meta.env.BASE_URL}${navigateSteps}`
         } else {
-            navSteps = navigateSteps.navPath
+            navSteps = navigateSteps
         }
     } else {
         navSteps = -1

@@ -1,8 +1,7 @@
 import Button from "../molecules/button";
-import Title from "../molecules/title";
 import arrow from "../../src/assets/arrow-right.svg";
 
-import { useLocation, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { useContext } from "react";
 
 
@@ -19,7 +18,7 @@ const Confirmation = ({ formData, setFormData, setFlowForm }) => {
         { flow: 'restartMoment', navPath: 'jouw-abbymomenten' },
         { flow: 'restartMomentNow', navPath: 'jouw-abbymomenten' },
         { flow: 'now', navPath: 'maak-een-abbymoment' },
-        { flow: 'startScheduled', navPath: -3 }
+        { flow: 'startScheduled', navPath: 'jouw-abbymomenten' }
     ]
 
 
@@ -45,6 +44,7 @@ const Confirmation = ({ formData, setFormData, setFlowForm }) => {
             flow: ''
         })
 
+        console.log(nav.navPath);
         setFlowForm('plan');
         navigate(`${import.meta.env.BASE_URL}abbymomenten/${clockId}`, {
             state: { nav: nav.navPath }
